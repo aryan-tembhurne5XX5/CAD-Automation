@@ -11,8 +11,7 @@
             "part_number": "1093144795-A",
             "description": "Th=1,25mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-B:1",
@@ -24,8 +23,7 @@
             "part_number": "1028925335-B",
             "description": "Th=1,25mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-B:2",
@@ -37,8 +35,7 @@
             "part_number": "1028925335-B",
             "description": "Th=1,25mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-C:1",
@@ -50,8 +47,7 @@
             "part_number": "1028925335-C",
             "description": "Th=2mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-C:2",
@@ -63,8 +59,7 @@
             "part_number": "1028925335-C",
             "description": "Th=2mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-D:1",
@@ -76,8 +71,7 @@
             "part_number": "1028925335-D",
             "description": "Th=1,25mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-E:1",
@@ -89,8 +83,7 @@
             "part_number": "1028925335-E",
             "description": "Th=1,5mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1028925335-F:1",
@@ -102,8 +95,7 @@
             "part_number": "1028925335-F",
             "description": "Th=1,5mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "1093144795-G:1",
@@ -115,8 +107,7 @@
             "part_number": "1093144795-G",
             "description": "Th=1,5mm",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100025:1",
@@ -128,8 +119,7 @@
             "part_number": "0298100025",
             "description": "NUT, RIVET, CORNER, M8",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100025:2",
@@ -141,8 +131,7 @@
             "part_number": "0298100025",
             "description": "NUT, RIVET, CORNER, M8",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0228100017-M1:1",
@@ -154,8 +143,7 @@
             "part_number": "0228100017-M1",
             "description": "",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0228100017-M1:3",
@@ -167,8 +155,7 @@
             "part_number": "0228100017-M1",
             "description": "",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0228100017-M1:4",
@@ -180,8 +167,7 @@
             "part_number": "0228100017-M1",
             "description": "",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0228100017-M1:5",
@@ -193,8 +179,7 @@
             "part_number": "0228100017-M1",
             "description": "",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:1",
@@ -206,8 +191,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:3",
@@ -219,8 +203,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:4",
@@ -232,8 +215,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:5",
@@ -245,8 +227,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:6",
@@ -258,8 +239,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:7",
@@ -271,8 +251,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:8",
@@ -284,8 +263,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:9",
@@ -297,8 +275,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:10",
@@ -310,8 +287,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:11",
@@ -323,8 +299,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:12",
@@ -336,8 +311,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:13",
@@ -349,8 +323,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:14",
@@ -362,8 +335,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:15",
@@ -375,8 +347,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:16",
@@ -388,8 +359,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:17",
@@ -401,8 +371,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:18",
@@ -414,8 +383,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:19",
@@ -427,8 +395,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:20",
@@ -440,8 +407,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:21",
@@ -453,8 +419,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:22",
@@ -466,8 +431,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:41",
@@ -479,8 +443,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:42",
@@ -492,8 +455,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:43",
@@ -505,8 +467,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:44",
@@ -518,8 +479,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:45",
@@ -531,8 +491,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:53",
@@ -544,8 +503,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:2",
@@ -557,8 +515,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:46",
@@ -570,8 +527,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:47",
@@ -583,8 +539,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:48",
@@ -596,8 +551,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:49",
@@ -609,8 +563,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:50",
@@ -622,8 +575,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:51",
@@ -635,8 +587,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:52",
@@ -648,8 +599,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:54",
@@ -661,8 +611,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:55",
@@ -674,8 +623,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:56",
@@ -687,8 +635,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:57",
@@ -700,8 +647,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:58",
@@ -713,8 +659,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:59",
@@ -726,8 +671,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:60",
@@ -739,8 +683,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:61",
@@ -752,8 +695,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:62",
@@ -765,8 +707,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:63",
@@ -778,8 +719,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:64",
@@ -791,8 +731,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:65",
@@ -804,8 +743,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:66",
@@ -817,8 +755,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:67",
@@ -830,8 +767,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:68",
@@ -843,8 +779,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:69",
@@ -856,8 +791,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:70",
@@ -869,8 +803,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:71",
@@ -882,8 +815,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:23",
@@ -895,8 +827,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:24",
@@ -908,8 +839,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:25",
@@ -921,8 +851,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:26",
@@ -934,8 +863,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:27",
@@ -947,8 +875,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:28",
@@ -960,8 +887,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:29",
@@ -973,8 +899,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:30",
@@ -986,8 +911,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:31",
@@ -999,8 +923,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:72",
@@ -1012,8 +935,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:73",
@@ -1025,8 +947,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:74",
@@ -1038,8 +959,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:75",
@@ -1051,8 +971,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:76",
@@ -1064,8 +983,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:77",
@@ -1077,8 +995,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:78",
@@ -1090,8 +1007,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:79",
@@ -1103,8 +1019,7 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         },
         {
             "name": "0298100030:80",
@@ -1116,402 +1031,401 @@
             "part_number": "0298100030",
             "description": "RIVET",
             "hole_count": 0,
-            "holes": [],
-            "inferred_part_type": "Unknown"
+            "holes": []
         }
     ],
     "constraints": [
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-B:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-B:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665088,
+            "constraint_type": "Flush",
             "health": 11778,
             "occurrence_1": "1028925335-B:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1093144795-A:1",
             "occurrence_2": "1028925335-B:2",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-B:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100666368,
+            "constraint_type": "Angle",
             "health": 11778,
             "occurrence_1": "1028925335-B:1",
             "occurrence_2": "1028925335-B:2",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-B:2",
             "occurrence_2": "1028925335-B:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100666368,
+            "constraint_type": "Angle",
             "health": 11778,
             "occurrence_1": "1028925335-C:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-C:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-C:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-C:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100666368,
+            "constraint_type": "Angle",
             "health": 11778,
             "occurrence_1": "1028925335-C:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-C:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100025:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100025:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-D:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-D:1",
             "occurrence_2": "1028925335-C:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100666368,
+            "constraint_type": "Angle",
             "health": 11778,
             "occurrence_1": "1028925335-D:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-E:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-E:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-F:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-F:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1093144795-A:1",
             "occurrence_2": "1028925335-F:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1093144795-G:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1093144795-G:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1093144795-G:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "1028925335-E:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "0228100017-M1:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67119520",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665856,
+            "constraint_type": "Mate",
             "health": 11778,
             "occurrence_1": "0228100017-M1:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "83887776",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Edge",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100666368,
+            "constraint_type": "Angle",
             "health": 11778,
             "occurrence_1": "0228100017-M1:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "83887776",
-            "entity_2_type": "67119520"
+            "entity_1_type": "Edge",
+            "entity_2_type": "Face"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:1",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:3",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:4",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:5",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:6",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:7",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:8",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:9",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:10",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:11",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:12",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:13",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:23",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:41",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:2",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:53",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:63",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:64",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         },
         {
-            "constraint_type": 100665344,
+            "constraint_type": "Insert",
             "health": 11778,
             "occurrence_1": "0298100030:71",
             "occurrence_2": "1093144795-A:1",
-            "entity_1_type": "67120288",
-            "entity_2_type": "67120288"
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
         }
     ]
 }
