@@ -1,170 +1,39 @@
 [
     {
-        "fastener": "0298100030:10",
-        "hole_stack": [
-            "1093144795-A:1"
+        "plate": "1093144795-A:1",
+        "fastener_type": "0298100030",
+        "hole_count": 19,
+        "instances": [
+            "0298100030:10",
+            "0298100030:1",
+            "0298100030:8",
+            "0298100030:41",
+            "0298100030:11",
+            "0298100030:53",
+            "0298100030:13",
+            "0298100030:12",
+            "0298100030:63",
+            "0298100030:5",
+            "0298100030:3",
+            "0298100030:7",
+            "0298100030:9",
+            "0298100030:6",
+            "0298100030:23",
+            "0298100030:2",
+            "0298100030:64",
+            "0298100030:71",
+            "0298100030:4"
         ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
+        "confidence": 0.99
     },
     {
-        "fastener": "0298100030:1",
-        "hole_stack": [
-            "1093144795-A:1"
+        "plate": "1093144795-A:1",
+        "fastener_type": "0298100025",
+        "hole_count": 2,
+        "instances": [
+            "0298100025:2",
+            "0298100025:1"
         ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:8",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:41",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:11",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100025:2",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:53",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:13",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:12",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:63",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:5",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100025:1",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:3",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:7",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:9",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:6",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:23",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:2",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:64",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:71",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
-    },
-    {
-        "fastener": "0298100030:4",
-        "hole_stack": [
-            "1093144795-A:1"
-        ],
-        "hole_type": "single_plate",
-        "confidence": 0.8
+        "confidence": 0.82
     }
 ]
