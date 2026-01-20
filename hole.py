@@ -1,70 +1,70 @@
 import json
-import math
 from pathlib import Path
 import win32com.client
 
-# ===============================
+# ==========================================================
 # CONFIG
-# ===============================
+# ==========================================================
 INPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
 OUTPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_with_holes.json")
 
-# ===============================
+# ==========================================================
 # INVENTOR CONNECT
-# ===============================
+# ==========================================================
 inv = win32com.client.Dispatch("Inventor.Application")
-inv.Visible = False
+inv.Visible = True
 
-# ===============================
+# ==========================================================
+# INVENTOR ENUMS (SAFE HARDCODE)
+# ==========================================================
+kPartDocument = 12291
+kAssemblyDocument = 12290
+kCutOperation = 20481
+kCylinderSurface = 103
+
+# ==========================================================
 # GEOMETRY HELPERS
-# ===============================
-def vec_to_tuple(v):
-    return (round(v.X, 5), round(v.Y, 5), round(v.Z, 5))
+# ==========================================================
+def vec_tuple(v):
+    return [round(v.X, 5), round(v.Y, 5), round(v.Z, 5)]
 
 def is_cylindrical(face):
     try:
-        return face.SurfaceType == 103  # kCylinderSurface
+        return face.SurfaceType == kCylinderSurface
     except:
         return False
 
-def face_diameter(face):
-    try:
-        return round(face.Geometry.Radius * 2, 4)
-    except:
-        return None
-
-# ===============================
-# HOLE EXTRACTION CORE
-# ===============================
+# ==========================================================
+# HOLE EXTRACTION FROM PART
+# ==========================================================
 def extract_holes_from_part(part_doc):
     holes = []
-
     comp_def = part_doc.ComponentDefinition
     features = comp_def.Features
 
-    # ----------------------------------
-    # 1️⃣ HoleFeatures (explicit)
-    # ----------------------------------
+    # ------------------------------------------------------
+    # 1️⃣ Explicit HoleFeatures
+    # ------------------------------------------------------
     for hf in features.HoleFeatures:
         try:
             hole = {
                 "source": "HoleFeature",
                 "diameter_mm": round(hf.HoleDiameter * 10, 3),
-                "depth_mm": None if hf.ExtentType == 0 else round(hf.Extent.Distance * 10, 3),
+                "depth_mm": None,
                 "through": hf.ExtentType == 0,
-                "axis_vector": vec_to_tuple(hf.PlacementDefinition.AxisVector),
+                "axis_vector": vec_tuple(hf.PlacementDefinition.AxisVector),
                 "patterned": False
             }
             holes.append(hole)
         except:
-            continue
+            pass
 
-    # ----------------------------------
-    # 2️⃣ Cut-Extrude Cylindrical Holes
-    # ----------------------------------
+    # ------------------------------------------------------
+    # 2️⃣ Cylindrical Cut-Extrude inference
+    # ------------------------------------------------------
     for ext in features.ExtrudeFeatures:
         try:
-            if ext.Operation != 20481:  # kCutOperation
+            if ext.Operation != kCutOperation:
                 continue
 
             for face in ext.Faces:
@@ -73,96 +73,90 @@ def extract_holes_from_part(part_doc):
 
                 hole = {
                     "source": "CutExtrude",
-                    "diameter_mm": face_diameter(face),
-                    "depth_mm": round(ext.Extent.Distance * 10, 3)
-                        if hasattr(ext.Extent, "Distance") else None,
+                    "diameter_mm": round(face.Geometry.Radius * 2, 3),
+                    "depth_mm": None,
                     "through": ext.ExtentType == 0,
-                    "axis_vector": vec_to_tuple(face.Geometry.AxisVector),
+                    "axis_vector": vec_tuple(face.Geometry.AxisVector),
                     "patterned": False
                 }
                 holes.append(hole)
-        except:
-            continue
-
-    # ----------------------------------
-    # 3️⃣ Pattern Multiplication
-    # ----------------------------------
-    for pattern in features.RectangularPatternFeatures:
-        try:
-            count = pattern.CountX * pattern.CountY
-            for _ in range(count - 1):
-                if holes:
-                    dup = holes[-1].copy()
-                    dup["patterned"] = True
-                    holes.append(dup)
-        except:
-            pass
-
-    for pattern in features.CircularPatternFeatures:
-        try:
-            count = pattern.Count
-            for _ in range(count - 1):
-                if holes:
-                    dup = holes[-1].copy()
-                    dup["patterned"] = True
-                    holes.append(dup)
         except:
             pass
 
     return holes
 
-# ===============================
+# ==========================================================
 # PART TYPE INFERENCE
-# ===============================
-def infer_part_type(occ, holes):
-    name = occ["part_number"].lower()
+# ==========================================================
+def infer_part_type(part_number, description, holes):
+    name = (part_number + " " + description).lower()
 
-    if "rivet" in name or "bolt" in name or "nut" in name:
+    if any(x in name for x in ["rivet", "bolt", "nut", "screw"]):
         return "Fastener"
 
-    if holes and all(h["through"] for h in holes):
+    if holes:
         return "Plate"
 
     return "Structural"
 
-# ===============================
+# ==========================================================
 # MAIN PIPELINE
-# ===============================
+# ==========================================================
 def run():
     with open(INPUT_JSON, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    asm_doc = inv.ActiveDocument
+    asm_def = asm_doc.ComponentDefinition
+
     for occ in data["occurrences"]:
         try:
-            part_path = occ["definition"]
-            doc = inv.Documents.Open(part_path, False)
+            # ---------------------------------------------
+            # Resolve occurrence safely
+            # ---------------------------------------------
+            occ_obj = asm_def.Occurrences.ItemByName(occ["name"])
 
-            if doc.DocumentType != 12291:  # PartDocument
+            if occ_obj.Suppressed:
                 occ["holes"] = []
                 occ["hole_count"] = 0
-                occ["inferred_part_type"] = "Structural"
-                doc.Close()
+                occ["inferred_part_type"] = "Suppressed"
                 continue
 
+            doc = occ_obj.Definition.Document
+
+            # ---------------------------------------------
+            # Skip sub-assemblies
+            # ---------------------------------------------
+            if doc.DocumentType != kPartDocument:
+                occ["holes"] = []
+                occ["hole_count"] = 0
+                occ["inferred_part_type"] = "SubAssembly"
+                continue
+
+            # ---------------------------------------------
+            # Extract holes
+            # ---------------------------------------------
             holes = extract_holes_from_part(doc)
 
             occ["holes"] = holes
             occ["hole_count"] = len(holes)
-            occ["inferred_part_type"] = infer_part_type(occ, holes)
-
-            doc.Close()
+            occ["inferred_part_type"] = infer_part_type(
+                occ.get("part_number", ""),
+                occ.get("description", ""),
+                holes
+            )
 
         except Exception as e:
             occ["holes"] = []
             occ["hole_count"] = 0
-            occ["inferred_part_type"] = "Unknown"
+            occ["inferred_part_type"] = "Error"
             occ["hole_error"] = str(e)
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-    print("✅ Phase-3 Hole Inference Completed")
+    print("✅ Phase-3 Hole Inference COMPLETED")
 
-# ===============================
+# ==========================================================
 if __name__ == "__main__":
     run()
