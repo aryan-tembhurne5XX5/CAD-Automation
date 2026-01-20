@@ -5,8 +5,8 @@ import json
 # =====================================================
 # CONFIG
 # =====================================================
-ASSEMBLY_PATH = r"E:\Phase 1\CAD-Automation\1093144795-M1.iam"
-OUTPUT_PATH = r"E:\Phase 1\CAD-Automation\assembly_extraction.json"
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
+OUTPUT_PATH = r"E:\Phase 1\extractions\assembly_extraction.json"
 
 # =====================================================
 # INVENTOR ENUM MAPS
