@@ -5,9 +5,9 @@ from pathlib import Path
 # =====================================================
 # CONFIG
 # =====================================================
-INPUT_JSON = Path("assembly_extraction.json")
-OUT_NORMALIZED = Path("normalized_constraints.json")
-OUT_RULES = Path("rules.json")
+INPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+OUT_NORMALIZED = Path(r"E:\Phase 1\extractions\normalized_constraints.json")
+OUT_RULES = Path(r"E:\Phase 1\extractions\rules.json")
 
 # =====================================================
 # LOAD DATA
