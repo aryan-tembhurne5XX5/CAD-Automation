@@ -1,114 +1,79 @@
 import json
-import pythoncom
-import win32com.client
 from collections import defaultdict
+from pathlib import Path
 
 # =====================================================
 # CONFIG
 # =====================================================
-ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
-OUTPUT_JSON   = r"E:\Phase 1\extractions\inferred_holes.json"
+INPUT_JSON  = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+OUTPUT_JSON = Path(r"E:\Phase 1\extractions\inferred_holes.json")
 
 # =====================================================
-# ENUMS
+# LOAD PHASE-1 DATA
 # =====================================================
-kAssemblyDocument = 12291
-kInsertConstraint = 100665344
+with open(INPUT_JSON, "r", encoding="utf-8") as f:
+    data = json.load(f)
 
-# =====================================================
-# INVENTOR CONNECTION
-# =====================================================
-def connect():
-    try:
-        inv = win32com.client.GetActiveObject("Inventor.Application")
-    except:
-        inv = win32com.client.Dispatch("Inventor.Application")
-        inv.Visible = True
-    return inv
-
-
-def open_assembly(inv):
-    for d in inv.Documents:
-        try:
-            if d.FullFileName.lower() == ASSEMBLY_PATH.lower():
-                return d
-        except:
-            pass
-    return inv.Documents.Open(ASSEMBLY_PATH, True)
-
+occurrences = {o["name"]: o for o in data["occurrences"]}
+constraints = data["constraints"]
 
 # =====================================================
-# FASTENER DETECTION
+# FASTENER IDENTIFICATION (SAME LOGIC AS PHASE-2)
 # =====================================================
 def is_fastener(occ):
-    try:
-        props = occ.Definition.Document.PropertySets.Item(
-            "Design Tracking Properties"
-        )
-        desc = (props.Item("Description").Value or "").upper()
-        return any(k in desc for k in ["RIVET", "BOLT", "SCREW", "PIN", "NUT"])
-    except:
-        return False
+    desc = (occ.get("description") or "").upper()
+    return any(k in desc for k in ["RIVET", "BOLT", "SCREW", "PIN", "NUT"])
 
+fasteners = {
+    name for name, occ in occurrences.items()
+    if is_fastener(occ)
+}
 
 # =====================================================
-# PHASE-3: CONSTRAINT-BASED HOLE INFERENCE
+# BUILD INSERT-CONSTRAINT GRAPH
 # =====================================================
-def infer_holes_from_constraints(asm_def):
-    hole_map = defaultdict(set)
+graph = defaultdict(set)
 
-    for c in asm_def.Constraints:
-        if c.Type != kInsertConstraint:
-            continue
+for c in constraints:
+    if c["constraint_type"] != "Insert":
+        continue
 
-        try:
-            o1 = c.OccurrenceOne.Name
-            o2 = c.OccurrenceTwo.Name
-        except:
-            continue
+    o1 = c.get("occurrence_1")
+    o2 = c.get("occurrence_2")
 
-        hole_map[o1].add(o2)
-        hole_map[o2].add(o1)
+    if not o1 or not o2:
+        continue
 
-    results = []
-
-    for occ in asm_def.Occurrences:
-        if not is_fastener(occ):
-            continue
-
-        connected = list(hole_map.get(occ.Name, []))
-
-        if len(connected) >= 2:
-            results.append({
-                "fastener": occ.Name,
-                "hole_stack": connected,
-                "confidence": round(0.8 + 0.05 * len(connected), 2)
-            })
-
-    return results
-
+    graph[o1].add(o2)
+    graph[o2].add(o1)
 
 # =====================================================
-# MAIN
+# INFER HOLE STACKS
 # =====================================================
-def run():
-    pythoncom.CoInitialize()
+hole_results = []
 
-    inv = connect()
-    doc = open_assembly(inv)
+for fastener in fasteners:
+    connected = graph.get(fastener, set())
 
-    if doc.DocumentType != kAssemblyDocument:
-        raise RuntimeError("Not an assembly")
+    # A hole stack must pass through >= 2 parts
+    plates = [
+        o for o in connected
+        if o in occurrences and not is_fastener(occurrences[o])
+    ]
 
-    asm_def = doc.ComponentDefinition
-    holes = infer_holes_from_constraints(asm_def)
+    if len(plates) >= 2:
+        hole_results.append({
+            "fastener": fastener,
+            "hole_stack": plates,
+            "confidence": round(0.8 + 0.05 * len(plates), 2)
+        })
 
-    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(holes, f, indent=4)
+# =====================================================
+# SAVE OUTPUT
+# =====================================================
+with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+    json.dump(hole_results, f, indent=4)
 
-    print(f"✅ Inferred hole stacks: {len(holes)}")
-    print(f"📁 Output written to: {OUTPUT_JSON}")
-
-
-if __name__ == "__main__":
-    run()
+print(f"✅ Phase-3 complete")
+print(f"   Inferred hole stacks: {len(hole_results)}")
+print(f"   Output → {OUTPUT_JSON}")
