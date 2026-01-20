@@ -1,46 +1,41 @@
 import json
-import pythoncom
-import win32com.client
 from pathlib import Path
+import win32com.client
+import pythoncom
 
-
-# ==========================
+# =========================
 # CONFIG
 # ==========================
-ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"   # CHANGE THIS
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\Assembly1.iam"   # CHANGE THIS
 OUTPUT_JSON = r"E:\Phase 1\extractions\phase3_holes.json"
 
 
 # Inventor constants
-kAssemblyDocument = 12290
-kPartDocument = 12289
+kPartDocument = 12290
+kAssemblyDocument = 12291
+kHoleFeatureObject = 8388
 
 
-# ==========================
+# =========================
 # UTILS
-# ==========================
-def safe_str(value):
+# =========================
+def safe_str(val):
     try:
-        return str(value)
+        return str(val)
     except:
         return ""
 
 
-def infer_part_type(description, hole_count):
-    desc = (description or "").upper()
-
-    if "RIVET" in desc or "BOLT" in desc or "SCREW" in desc:
-        return "Fastener"
-
-    if hole_count > 0:
-        return "Plate"
-
-    return "Unknown"
+def connect_inventor():
+    pythoncom.CoInitialize()
+    inv = win32com.client.Dispatch("Inventor.Application")
+    inv.Visible = True
+    return inv
 
 
-# ==========================
-# HOLE EXTRACTION (PART)
-# ==========================
+# =========================
+# HOLE EXTRACTION
+# =========================
 def extract_holes_from_part(part_doc):
     holes = []
 
@@ -48,39 +43,58 @@ def extract_holes_from_part(part_doc):
         comp_def = part_doc.ComponentDefinition
         features = comp_def.Features
 
-        if not hasattr(features, "HoleFeatures"):
-            return holes, None
+        for feat in features:
+            try:
+                if feat.Type == kHoleFeatureObject:
+                    hole = {
+                        "diameter": None,
+                        "depth": None,
+                        "threaded": False,
+                        "hole_type": safe_str(feat.HoleType)
+                    }
 
-        for hf in features.HoleFeatures:
-            hole_data = {
-                "diameter": safe_str(getattr(hf, "Diameter", None)),
-                "hole_type": safe_str(hf.HoleType),
-                "termination": safe_str(hf.TerminationType)
-            }
-            holes.append(hole_data)
+                    try:
+                        hole["diameter"] = feat.Diameter.Value
+                    except:
+                        pass
 
-        return holes, None
+                    try:
+                        hole["depth"] = feat.Depth.Value
+                    except:
+                        pass
+
+                    try:
+                        hole["threaded"] = feat.ThreadInfo is not None
+                    except:
+                        pass
+
+                    holes.append(hole)
+
+            except:
+                continue
 
     except Exception as e:
-        return [], safe_str(e)
+        return [], str(e)
+
+    return holes, None
 
 
-# ==========================
-# MAIN
-# ==========================
+# =========================
+# MAIN RUN
+# =========================
 def run():
-    pythoncom.CoInitialize()
+    inv = connect_inventor()
 
-    inv = win32com.client.Dispatch("Inventor.Application")
-    inv.Visible = True
-
-    # --------------------------
-    # OPEN / GET ASSEMBLY
-    # --------------------------
-    asm_doc = inv.ActiveDocument
-
-    if asm_doc is None or asm_doc.DocumentType != kAssemblyDocument:
+    # Open assembly safely
+    try:
         asm_doc = inv.Documents.Open(ASSEMBLY_PATH, True)
+    except Exception as e:
+        print("❌ Failed to open assembly:", e)
+        return
+
+    if asm_doc.DocumentType != kAssemblyDocument:
+        print("❌ Not an assembly document")
+        return
 
     asm_def = asm_doc.ComponentDefinition
 
@@ -90,15 +104,24 @@ def run():
         "constraints": []
     }
 
-    # --------------------------
+    # =========================
     # OCCURRENCES
-    # --------------------------
+    # =========================
     for occ in asm_def.Occurrences:
+        parent_name = None
+        try:
+            if hasattr(occ, "ParentOccurrence") and occ.ParentOccurrence:
+                parent_name = occ.ParentOccurrence.Name
+        except:
+            parent_name = None
+
         occ_data = {
             "name": occ.Name,
             "definition": safe_str(occ.Definition.Document.DisplayName),
-            "document_type": "Assembly" if occ.Definition.Document.DocumentType == kAssemblyDocument else "Part",
-            "parent": safe_str(occ.Parent.Name) if occ.Parent else None,
+            "document_type": "Assembly"
+            if occ.Definition.Document.DocumentType == kAssemblyDocument
+            else "Part",
+            "parent": parent_name,
             "suppressed": occ.Suppressed,
             "visible": occ.Visible,
             "part_number": "",
@@ -108,69 +131,58 @@ def run():
             "inferred_part_type": "Unknown"
         }
 
-        doc = occ.Definition.Document
+        # -------- Part metadata --------
+        try:
+            props = occ.Definition.Document.PropertySets
+            design = props.Item("Design Tracking Properties")
+            occ_data["part_number"] = safe_str(design.Item("Part Number").Value)
+            occ_data["description"] = safe_str(design.Item("Description").Value)
+        except:
+            pass
 
-        # --------------------------
-        # PART ONLY → HOLES
-        # --------------------------
-        if doc.DocumentType == kPartDocument:
+        # -------- Hole extraction --------
+        if occ.Definition.Document.DocumentType == kPartDocument:
             try:
-                prop_sets = doc.PropertySets
-                design_props = prop_sets.Item("Design Tracking Properties")
-
-                occ_data["part_number"] = safe_str(
-                    design_props.Item("Part Number").Value
-                )
-                occ_data["description"] = safe_str(
-                    design_props.Item("Description").Value
-                )
-
-            except:
-                pass
-
-            holes, hole_error = extract_holes_from_part(doc)
-            occ_data["holes"] = holes
-            occ_data["hole_count"] = len(holes)
-
-            occ_data["inferred_part_type"] = infer_part_type(
-                occ_data["description"],
-                occ_data["hole_count"]
-            )
-
-            if hole_error:
-                occ_data["hole_error"] = hole_error
+                holes, err = extract_holes_from_part(occ.Definition.Document)
+                occ_data["holes"] = holes
+                occ_data["hole_count"] = len(holes)
+                if err:
+                    occ_data["hole_error"] = err
+            except Exception as e:
+                occ_data["hole_error"] = str(e)
 
         result["occurrences"].append(occ_data)
 
-    # --------------------------
+    # =========================
     # CONSTRAINTS
-    # --------------------------
-    try:
-        for c in asm_def.Constraints:
+    # =========================
+    for c in asm_def.Constraints:
+        try:
             c_data = {
-                "constraint_type": safe_str(c.Type),
-                "health": safe_str(c.HealthStatus),
-                "occurrence_1": safe_str(c.OccurrenceOne.Name) if hasattr(c, "OccurrenceOne") else None,
-                "occurrence_2": safe_str(c.OccurrenceTwo.Name) if hasattr(c, "OccurrenceTwo") else None,
-                "entity_1_type": safe_str(c.EntityOne.Type) if hasattr(c, "EntityOne") else None,
-                "entity_2_type": safe_str(c.EntityTwo.Type) if hasattr(c, "EntityTwo") else None,
+                "constraint_type": c.Type,
+                "health": c.HealthStatus,
+                "occurrence_1": safe_str(c.OccurrenceOne.Name),
+                "occurrence_2": safe_str(c.OccurrenceTwo.Name),
+                "entity_1_type": safe_str(c.EntityOne.Type),
+                "entity_2_type": safe_str(c.EntityTwo.Type)
             }
             result["constraints"].append(c_data)
+        except:
+            continue
 
-    except Exception as e:
-        result["constraint_error"] = safe_str(e)
-
-    # --------------------------
+    # =========================
     # WRITE OUTPUT
-    # --------------------------
+    # =========================
     Path(OUTPUT_JSON).parent.mkdir(parents=True, exist_ok=True)
-
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=4)
 
-    print("✅ Phase-3 hole extraction complete")
+    print("✅ Phase-3 extraction complete")
     print("📄 Output:", OUTPUT_JSON)
 
 
+# =========================
+# ENTRY
+# =========================
 if __name__ == "__main__":
     run()
