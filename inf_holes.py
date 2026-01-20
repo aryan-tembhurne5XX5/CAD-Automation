@@ -6,8 +6,8 @@ from collections import defaultdict
 # CONFIG
 # -------------------------------
 
-INPUT_JSON = Path("assembly_extraction.json")
-OUTPUT_JSON = Path("assembly_with_inferred_holes.json")
+INPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+OUTPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_with_inferred_holes.json")
 
 # Inventor constraint enums (raw)
 INSERT_CONSTRAINT = 100665344
