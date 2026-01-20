@@ -2,7 +2,6 @@ import json
 import time
 import win32com.client
 import pythoncom
-import math
 from pathlib import Path
 
 # =====================================================
@@ -12,10 +11,11 @@ ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
 OUTPUT_JSON   = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
 
 # =====================================================
-# ENUMS
+# INVENTOR ENUMS
 # =====================================================
 kInsertConstraint = 100665344
-kAxisEntity       = 67120288
+kAxisEntity       = 67120288   # Axis
+kCylinderFace    = 67119536   # Cylindrical Face
 
 # =====================================================
 # INVENTOR CONNECTION
@@ -30,11 +30,18 @@ def connect_inventor():
         return inv
 
 # =====================================================
-# VECTOR / TRANSFORM HELPERS
+# TRANSFORM HELPERS
 # =====================================================
-def normalize(v):
-    mag = math.sqrt(sum(x*x for x in v))
-    return [x/mag for x in v] if mag else v
+def extract_transform(occ):
+    m = occ.Transformation
+    return {
+        "translation": [m.Cell(1,4), m.Cell(2,4), m.Cell(3,4)],
+        "rotation": [
+            [m.Cell(1,1), m.Cell(1,2), m.Cell(1,3)],
+            [m.Cell(2,1), m.Cell(2,2), m.Cell(2,3)],
+            [m.Cell(3,1), m.Cell(3,2), m.Cell(3,3)]
+        ]
+    }
 
 def transform_point(m, p):
     return [
@@ -44,11 +51,26 @@ def transform_point(m, p):
     ]
 
 def transform_vector(m, v):
-    return normalize([
+    return [
         m.Cell(1,1)*v[0] + m.Cell(1,2)*v[1] + m.Cell(1,3)*v[2],
         m.Cell(2,1)*v[0] + m.Cell(2,2)*v[1] + m.Cell(2,3)*v[2],
         m.Cell(3,1)*v[0] + m.Cell(3,2)*v[1] + m.Cell(3,3)*v[2],
-    ])
+    ]
+
+# =====================================================
+# AXIS EXTRACTION (SAFE)
+# =====================================================
+def extract_axis_from_entity(ent):
+    try:
+        geom = ent.Geometry
+        p = geom.PointOnLine
+        d = geom.Direction
+        return (
+            [p.X, p.Y, p.Z],
+            [d.X, d.Y, d.Z]
+        )
+    except:
+        return None, None
 
 # =====================================================
 # MAIN
@@ -65,47 +87,39 @@ def run():
         "fastener_axes": {}
     }
 
-    # --- Occurrence transforms ---
+    # -------------------------------------------------
+    # OCCURRENCE TRANSFORMS
+    # -------------------------------------------------
     for occ in asm_def.Occurrences:
-        m = occ.Transformation
-        geometry["occurrence_transforms"][occ.Name] = {
-            "translation": [m.Cell(1,4), m.Cell(2,4), m.Cell(3,4)],
-            "rotation": [
-                [m.Cell(1,1), m.Cell(1,2), m.Cell(1,3)],
-                [m.Cell(2,1), m.Cell(2,2), m.Cell(2,3)],
-                [m.Cell(3,1), m.Cell(3,2), m.Cell(3,3)],
-            ]
-        }
+        try:
+            geometry["occurrence_transforms"][occ.Name] = extract_transform(occ)
+        except:
+            continue
 
-    # --- Fastener axes from Insert constraints ---
+    # -------------------------------------------------
+    # FASTENER AXES FROM INSERT CONSTRAINTS
+    # -------------------------------------------------
     for c in asm_def.Constraints:
         if c.Type != kInsertConstraint:
             continue
 
-        pairs = [
+        candidates = [
             (c.OccurrenceOne, c.EntityOne),
             (c.OccurrenceOne, c.EntityTwo),
             (c.OccurrenceTwo, c.EntityOne),
             (c.OccurrenceTwo, c.EntityTwo),
         ]
 
-        for occ, ent in pairs:
-            if ent.Type != kAxisEntity:
+        for occ, ent in candidates:
+            if ent.Type not in (kAxisEntity, kCylinderFace):
                 continue
 
-            axis = ent.Geometry
-            origin_local = [
-                axis.RootPoint.X,
-                axis.RootPoint.Y,
-                axis.RootPoint.Z
-            ]
-            dir_local = [
-                axis.Direction.X,
-                axis.Direction.Y,
-                axis.Direction.Z
-            ]
+            origin_local, dir_local = extract_axis_from_entity(ent)
+            if not origin_local:
+                continue
 
             m = occ.Transformation
+
             geometry["fastener_axes"][occ.Name] = {
                 "origin": transform_point(m, origin_local),
                 "direction": transform_vector(m, dir_local),
@@ -113,12 +127,16 @@ def run():
                 "confidence": 1.0
             }
 
+    # -------------------------------------------------
+    # SAVE OUTPUT
+    # -------------------------------------------------
+    OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(geometry, f, indent=4)
 
     print("✅ Phase-4.2 geometry hooks extracted")
-    print(f"   Fastener axes: {len(geometry['fastener_axes'])}")
     print(f"   → {OUTPUT_JSON}")
+    print(f"   → Fastener axes found: {len(geometry['fastener_axes'])}")
 
     doc.Close(True)
 
