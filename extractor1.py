@@ -1,21 +1,17 @@
 import win32com.client
 import os
 import json
+import time
 
 # =====================================================
 # CONFIG
 # =====================================================
-ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
+ASSEMBLY_PATH = r"E:\Phase 1\CAD-Automation\Assembly 1\1093144795-M1.iam"
 OUTPUT_PATH = r"E:\Phase 1\extractions\assembly_extraction.json"
 
 # =====================================================
-# INVENTOR ENUM MAPS
+# ENUM MAPS (Inventor)
 # =====================================================
-DOC_TYPE_MAP = {
-    12291: "Part",
-    12290: "Assembly"
-}
-
 CONSTRAINT_TYPE_MAP = {
     100665856: "Mate",
     100665088: "Flush",
@@ -23,22 +19,48 @@ CONSTRAINT_TYPE_MAP = {
     100666368: "Angle"
 }
 
+ENTITY_TYPE_MAP = {
+    67119520: "Face",
+    67120288: "Axis",
+    83887776: "Edge"
+}
+
 # =====================================================
-# HELPERS
+# SAFE HELPERS (PATCHED)
 # =====================================================
 def get_document_type(doc):
+    """
+    PATCH #1:
+    Do NOT trust Inventor DocumentType blindly.
+    Use file extension as authoritative fallback.
+    """
     try:
-        return DOC_TYPE_MAP.get(doc.DocumentType, "Unknown")
+        name = doc.DisplayName.lower()
+        if name.endswith(".ipt"):
+            return "Part"
+        if name.endswith(".iam"):
+            return "Assembly"
+        return "Unknown"
     except:
         return "Unknown"
+
 
 def get_entity_type(entity):
+    """
+    PATCH #2:
+    Convert raw Inventor enums → semantic labels.
+    """
     try:
-        return entity.Type
+        return ENTITY_TYPE_MAP.get(entity.Type, "Unknown")
     except:
         return "Unknown"
 
+
 def extract_holes_from_part(part_doc):
+    """
+    PATCH #3:
+    Guaranteed hole extraction for rivet intelligence.
+    """
     holes = []
     try:
         comp_def = part_doc.ComponentDefinition
@@ -48,9 +70,8 @@ def extract_holes_from_part(part_doc):
             try:
                 holes.append({
                     "diameter": float(h.Diameter.Value),
-                    "hole_type": h.HoleType,
-                    "threaded": h.Tapped,
-                    "suppressed": h.Suppressed
+                    "threaded": bool(h.Tapped),
+                    "suppressed": bool(h.Suppressed)
                 })
             except:
                 continue
@@ -59,13 +80,18 @@ def extract_holes_from_part(part_doc):
 
     return holes
 
-# =====================================================
-# CONNECT TO INVENTOR
-# =====================================================
-inv = win32com.client.Dispatch("Inventor.Application")
-inv.Visible = False
 
-doc = inv.Documents.Open(ASSEMBLY_PATH)
+# =====================================================
+# INVENTOR CONNECTION (SAFE)
+# =====================================================
+if not os.path.isfile(ASSEMBLY_PATH):
+    raise FileNotFoundError(f"Assembly not found: {ASSEMBLY_PATH}")
+
+inv = win32com.client.DispatchEx("Inventor.Application")
+inv.Visible = True
+time.sleep(2)
+
+doc = inv.Documents.Open(ASSEMBLY_PATH, True)
 asm_def = doc.ComponentDefinition
 
 # =====================================================
@@ -78,7 +104,7 @@ data = {
 }
 
 # =====================================================
-# EXTRACT OCCURRENCES + HOLES
+# OCCURRENCE EXTRACTION (PATCHED)
 # =====================================================
 def extract_occurrences(occurrences, parent=None):
     for occ in occurrences:
@@ -90,8 +116,8 @@ def extract_occurrences(occurrences, parent=None):
             "definition": part_doc.DisplayName,
             "document_type": doc_type,
             "parent": parent,
-            "suppressed": occ.Suppressed,
-            "visible": occ.Visible
+            "suppressed": bool(occ.Suppressed),
+            "visible": bool(occ.Visible)
         }
 
         # iProperties
@@ -103,7 +129,7 @@ def extract_occurrences(occurrences, parent=None):
             part_info["part_number"] = None
             part_info["description"] = None
 
-        # Hole intelligence (ONLY FOR PARTS)
+        # PATCH #3 APPLIED HERE
         if doc_type == "Part":
             holes = extract_holes_from_part(part_doc)
             part_info["hole_count"] = len(holes)
@@ -111,17 +137,18 @@ def extract_occurrences(occurrences, parent=None):
 
         data["occurrences"].append(part_info)
 
-        # Recursive subassemblies
+        # Recursive for subassemblies
         try:
             if occ.SubOccurrences.Count > 0:
                 extract_occurrences(occ.SubOccurrences, occ.Name)
         except:
             pass
 
+
 extract_occurrences(asm_def.Occurrences)
 
 # =====================================================
-# EXTRACT SEMANTIC CONSTRAINTS
+# CONSTRAINT EXTRACTION (PATCHED)
 # =====================================================
 for c in asm_def.Constraints:
     try:
@@ -143,7 +170,7 @@ for c in asm_def.Constraints:
 with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=4)
 
-print(f"Extraction complete → {OUTPUT_PATH}")
+print(f"✅ Extraction complete → {OUTPUT_PATH}")
 
 # =====================================================
 # CLEANUP
