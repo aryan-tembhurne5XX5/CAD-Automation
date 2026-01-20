@@ -5,9 +5,10 @@ import pythoncom
 
 # =========================
 # CONFIG
-# =========================
-ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
-OUTPUT_JSON = r"E:\Phase 1\extractions\assembly_with_holes.json"
+# ==========================
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\Assembly1.iam"   # CHANGE THIS
+OUTPUT_JSON = r"E:\Phase 1\extractions\phase3_holes.json"
+
 
 # Inventor constants
 kPartDocument = 12290
