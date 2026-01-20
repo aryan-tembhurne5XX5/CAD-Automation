@@ -3,14 +3,12 @@ import pythoncom
 import win32com.client
 from pathlib import Path
 
-OUTPUT_FILE = Path("holes.json")
+OUTPUT_FILE = Path("final_inferred_holes.json")
 
-
-def safe(val, default=None):
-    try:
-        return val
-    except Exception:
-        return default
+# ---- ENUMS ----
+kAssemblyDocumentObject = 12291
+kInsertConstraint = 100665344
+kCylinderFace = 67119536
 
 
 def connect_inventor():
@@ -24,60 +22,43 @@ def connect_inventor():
 
 def get_active_assembly(inv):
     doc = inv.ActiveDocument
-    if not doc or doc.DocumentType != 12291:  # kAssemblyDocumentObject
-        raise RuntimeError("Active document is not an Assembly")
+    if not doc or doc.DocumentType != kAssemblyDocumentObject:
+        raise RuntimeError("Active document must be an Assembly")
     return doc.ComponentDefinition
 
 
-def get_insert_constraints(asm_def):
-    inserts = []
-    for c in asm_def.Constraints:
-        if c.Type == 100665344:  # InsertConstraintEnum
-            inserts.append(c)
-    return inserts
-
-
-def get_axis_from_constraint(constraint):
-    try:
-        return constraint.EntityOne
-    except Exception:
-        return None
-
-
-def axis_intersects_body(axis, body, tg):
+def extract_axis_from_entity(entity):
     """
-    Returns True if axis line intersects solid body
+    Robustly extract an axis from InsertConstraint entity
     """
     try:
-        axis_line = axis.Geometry
-        points = tg.CreateObjectCollection()
-        body.IntersectWithCurve(axis_line, points)
-        return points.Count > 0
+        if entity.Type == kCylinderFace:
+            return entity.Geometry.Axis
     except Exception:
-        return False
+        pass
+    return None
 
 
 def infer_holes(asm_def):
     tg = asm_def.Application.TransientGeometry
-    holes = []
+    results = []
 
     occurrences = list(asm_def.Occurrences)
-    inserts = get_insert_constraints(asm_def)
 
-    for ins in inserts:
-        axis = get_axis_from_constraint(ins)
+    for c in asm_def.Constraints:
+        if c.Type != kInsertConstraint:
+            continue
+
+        axis = None
+        axis = extract_axis_from_entity(c.EntityOne) or extract_axis_from_entity(c.EntityTwo)
         if not axis:
             continue
 
-        fastener_occ = ins.OccurrenceOne
-        axis_id = safe(fastener_occ.Name)
-
-        stack = []
+        fastener = c.OccurrenceOne
+        hole_stack = []
 
         for occ in occurrences:
-            if occ.Suppressed:
-                continue
-            if occ == fastener_occ:
+            if occ.Suppressed or occ == fastener:
                 continue
 
             try:
@@ -86,21 +67,26 @@ def infer_holes(asm_def):
                 continue
 
             for body in bodies:
-                if axis_intersects_body(axis, body, tg):
-                    stack.append(occ.Name)
-                    break
+                try:
+                    hits = tg.CreateObjectCollection()
+                    body.IntersectWithCurve(axis, hits)
+                    if hits.Count > 0:
+                        hole_stack.append(occ.Name)
+                        break
+                except Exception:
+                    pass
 
-        if len(stack) >= 2:
-            holes.append({
-                "axis_id": axis_id,
-                "fastener_part": fastener_occ.Definition.Document.PropertySets
+        if len(hole_stack) >= 2:
+            results.append({
+                "fastener_occurrence": fastener.Name,
+                "fastener_part": fastener.Definition.Document.PropertySets
                     .Item("Design Tracking Properties")
                     .Item("Part Number").Value,
-                "hole_stack": stack,
-                "confidence": round(min(1.0, 0.7 + 0.05 * len(stack)), 2)
+                "hole_stack": hole_stack,
+                "confidence": round(min(1.0, 0.75 + 0.05 * len(hole_stack)), 2)
             })
 
-    return holes
+    return results
 
 
 def run():
@@ -113,8 +99,8 @@ def run():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(holes, f, indent=4)
 
-    print(f"✔ Inferred {len(holes)} holes")
-    print(f"✔ Output written to {OUTPUT_FILE}")
+    print(f"✅ FINAL inferred holes: {len(holes)}")
+    print(f"📁 Output: {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
