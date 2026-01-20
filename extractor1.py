@@ -33,18 +33,31 @@ assembly_data = {
 # ----------------------------
 def extract_occurrences(occurrences, parent=None):
     for occ in occurrences:
+        doc = occ.Definition.Document
+
+        # Safe document type detection
+        doc_type_map = {
+            12291: "Part",
+            12290: "Assembly"
+        }
+
+        try:
+            doc_type = doc_type_map.get(doc.DocumentType, "Unknown")
+        except:
+            doc_type = "Unknown"
+
         part_info = {
             "name": occ.Name,
-            "definition": occ.Definition.Document.DisplayName,
-            "document_type": occ.Definition.DocumentType,
+            "definition": doc.DisplayName,
+            "document_type": doc_type,
             "parent": parent,
             "suppressed": occ.Suppressed,
             "visible": occ.Visible
         }
 
-        # iProperties (important for ML)
+        # iProperties (SAFE ACCESS)
         try:
-            props = occ.Definition.Document.PropertySets
+            props = doc.PropertySets
             design_props = props.Item("Design Tracking Properties")
             part_info["part_number"] = design_props.Item("Part Number").Value
             part_info["description"] = design_props.Item("Description").Value
@@ -54,9 +67,12 @@ def extract_occurrences(occurrences, parent=None):
 
         assembly_data["occurrences"].append(part_info)
 
-        # Recursive for subassemblies
-        if occ.SubOccurrences.Count > 0:
-            extract_occurrences(occ.SubOccurrences, occ.Name)
+        # Recursive call for subassemblies
+        try:
+            if occ.SubOccurrences.Count > 0:
+                extract_occurrences(occ.SubOccurrences, occ.Name)
+        except:
+            pass
 
 # Run extraction
 extract_occurrences(asm_def.Occurrences)
