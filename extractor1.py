@@ -90,15 +90,23 @@ for c in asm_def.Constraints:
     assembly_data["constraints"].append(constraint_info)
 
 # ----------------------------
-# EXTRACT PATTERNS (IMPORTANT FOR QUANTITY RULES)
+# EXTRACT PATTERNS (CORRECT)
 # ----------------------------
 for p in asm_def.OccurrencePatterns:
-    pattern_info = {
-        "name": p.Name,
-        "count": p.OccurrenceCount,
-        "suppressed": p.Suppressed
-    }
-    assembly_data["patterns"].append(pattern_info)
+    try:
+        pattern_info = {
+            "name": p.Name,
+            "count": p.Occurrences.Count,
+            "suppressed": p.Suppressed
+        }
+        assembly_data["patterns"].append(pattern_info)
+    except Exception as e:
+        assembly_data["patterns"].append({
+            "name": getattr(p, "Name", "Unknown"),
+            "count": None,
+            "suppressed": None,
+            "error": str(e)
+        })
 
 # ----------------------------
 # SAVE OUTPUT
