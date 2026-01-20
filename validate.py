@@ -8,7 +8,7 @@ from collections import defaultdict
 GROUPED_HOLES_JSON = Path(r"E:\Phase 1\extractions\grouped_holes.json")
 RULES_JSON         = Path(r"E:\Phase 1\extractions\rules.json")
 BOM_JSON           = Path(r"E:\Phase 1\extractions\bom.json")  # optional
-OUTPUT_JSON        = Path(r"E:\Phase 1\extractions\phase4_validation.json")
+OUTPUT_JSON        = Path(r"E:\Phase 1\extractions\validation.json")
 
 # =====================================================
 # LOAD DATA
