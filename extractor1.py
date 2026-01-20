@@ -5,8 +5,8 @@ import json
 # ----------------------------
 # CONFIG
 # ----------------------------
-ASSEMBLY_PATH = r"C:\InventorData\sample.iam"
-OUTPUT_DIR = r"C:\InventorData\extracted"
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
+OUTPUT_DIR = r"E:\Phase 1\extractions"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ----------------------------

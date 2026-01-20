@@ -1,0 +1,11 @@
+PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python314\python.exe "e:/Phase 1/CAD-Automation/extractor1.py"
+Traceback (most recent call last):
+  File "e:\Phase 1\CAD-Automation\extractor1.py", line 62, in <module>
+    extract_occurrences(asm_def.Occurrences)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "e:\Phase 1\CAD-Automation\extractor1.py", line 39, in extract_occurrences
+    "document_type": occ.Definition.DocumentType,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hrish\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 631, in __getattr__
+    raise AttributeError(f"{self._username_}.{attr}")
+AttributeError: <unknown>.DocumentType
