@@ -1,12 +1,396 @@
-PS E:\Phase 1\CAD-Automation> & C:\Users\hrish\AppData\Local\Programs\Python\Python314\python.exe "e:/Phase 1/CAD-Automation/rule_miner.py"
-e:\Phase 1\CAD-Automation\rule_miner.py:8: SyntaxWarning: "\P" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\P"? A raw string is also an option.
-  INPUT_JSON = Path("E:\Phase 1\extractions\assembly_extraction.json")
-e:\Phase 1\CAD-Automation\rule_miner.py:9: SyntaxWarning: "\P" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\P"? A raw string is also an option.
-  OUT_NORMALIZED = Path("E:\Phase 1\extractions\normalized_constraints.json")
-e:\Phase 1\CAD-Automation\rule_miner.py:10: SyntaxWarning: "\P" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\P"? A raw string is also an option.
-  OUT_RULES = Path("E:\Phase 1\extractions\rules.json")
-Traceback (most recent call last):
-  File "e:\Phase 1\CAD-Automation\rule_miner.py", line 15, in <module>
-    with open(INPUT_JSON, "r", encoding="utf-8") as f:
-         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-OSError: [Errno 22] Invalid argument: 'E:\\Phase 1\\extractions\x07ssembly_extraction.json'
+[
+    {
+        "rule_id": "RULE_001",
+        "constraint_type": "Mate",
+        "entity_pair": [
+            "Face",
+            "Face"
+        ],
+        "source_part_type": "Structural",
+        "target_part_type": "Structural",
+        "occurrences_seen": 11,
+        "confidence": 0.524,
+        "mandatory": false
+    },
+    {
+        "rule_id": "RULE_002",
+        "constraint_type": "Flush",
+        "entity_pair": [
+            "Face",
+            "Face"
+        ],
+        "source_part_type": "Structural",
+        "target_part_type": "Structural",
+        "occurrences_seen": 1,
+        "confidence": 0.048,
+        "mandatory": false
+    },
+    {
+        "rule_id": "RULE_003",
+        "constraint_type": "Angle",
+        "entity_pair": [
+            "Face",
+            "Face"
+        ],
+        "source_part_type": "Structural",
+        "target_part_type": "Structural",
+        "occurrences_seen": 4,
+        "confidence": 0.19,
+        "mandatory": false
+    },
+    {
+        "rule_id": "RULE_004",
+        "constraint_type": "Insert",
+        "entity_pair": [
+            "Axis",
+            "Axis"
+        ],
+        "source_part_type": "Fastener",
+        "target_part_type": "Structural",
+        "occurrences_seen": 21,
+        "confidence": 1.0,
+        "mandatory": true
+    },
+    {
+        "rule_id": "RULE_005",
+        "constraint_type": "Mate",
+        "entity_pair": [
+            "Edge",
+            "Face"
+        ],
+        "source_part_type": "Structural",
+        "target_part_type": "Structural",
+        "occurrences_seen": 1,
+        "confidence": 0.048,
+        "mandatory": false
+    },
+    {
+        "rule_id": "RULE_006",
+        "constraint_type": "Angle",
+        "entity_pair": [
+            "Edge",
+            "Face"
+        ],
+        "source_part_type": "Structural",
+        "target_part_type": "Structural",
+        "occurrences_seen": 1,
+        "confidence": 0.048,
+        "mandatory": false
+    }
+]
+
+
+[
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-B:2",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-B:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Flush",
+        "health": 11778,
+        "occurrence_1": "1028925335-B:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Angle",
+        "health": 11778,
+        "occurrence_1": "1028925335-B:1",
+        "occurrence_2": "1028925335-B:2",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-B:2",
+        "occurrence_2": "1028925335-B:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Angle",
+        "health": 11778,
+        "occurrence_1": "1028925335-C:2",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-C:2",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-C:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Angle",
+        "health": 11778,
+        "occurrence_1": "1028925335-C:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100025:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100025:2",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-D:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-D:1",
+        "occurrence_2": "1028925335-C:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Angle",
+        "health": 11778,
+        "occurrence_1": "1028925335-D:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-E:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1028925335-F:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "1093144795-G:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "0228100017-M1:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Face",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Mate",
+        "health": 11778,
+        "occurrence_1": "0228100017-M1:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Edge",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Angle",
+        "health": 11778,
+        "occurrence_1": "0228100017-M1:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Edge",
+        "entity_2_type": "Face"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:1",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:3",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:4",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:5",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:6",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:7",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:8",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:9",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:10",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:11",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:12",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:13",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:23",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:41",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:2",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:53",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:63",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:64",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    },
+    {
+        "constraint_type": "Insert",
+        "health": 11778,
+        "occurrence_1": "0298100030:71",
+        "occurrence_2": "1093144795-A:1",
+        "entity_1_type": "Axis",
+        "entity_2_type": "Axis"
+    }
+]
