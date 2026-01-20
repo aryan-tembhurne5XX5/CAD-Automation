@@ -1,9 +1,11 @@
 import json
 import pythoncom
 import win32com.client
-from pathlib import Path
 
-OUTPUT_FILE = Path("final_inferred_holes.json")
+# ================= USER CONFIG =================
+ASSEMBLY_PATH = r"E:\Assembly 1\1093144795-M1.iam"
+OUTPUT_FILE   = r"E:\Phase 1\data\final_inferred_holes.json"
+# ===============================================
 
 # ---- ENUMS ----
 kAssemblyDocumentObject = 12291
@@ -20,16 +22,19 @@ def connect_inventor():
     return inv
 
 
-def get_active_assembly(inv):
-    doc = inv.ActiveDocument
-    if not doc or doc.DocumentType != kAssemblyDocumentObject:
-        raise RuntimeError("Active document must be an Assembly")
-    return doc.ComponentDefinition
+def open_assembly(inv):
+    for doc in inv.Documents:
+        try:
+            if doc.FullFileName.lower() == ASSEMBLY_PATH.lower():
+                return doc
+        except Exception:
+            pass
+    return inv.Documents.Open(ASSEMBLY_PATH, True)
 
 
-def extract_axis_from_entity(entity):
+def extract_axis(entity):
     """
-    Robustly extract an axis from InsertConstraint entity
+    Correct way to extract axis from InsertConstraint geometry
     """
     try:
         if entity.Type == kCylinderFace:
@@ -49,8 +54,7 @@ def infer_holes(asm_def):
         if c.Type != kInsertConstraint:
             continue
 
-        axis = None
-        axis = extract_axis_from_entity(c.EntityOne) or extract_axis_from_entity(c.EntityTwo)
+        axis = extract_axis(c.EntityOne) or extract_axis(c.EntityTwo)
         if not axis:
             continue
 
@@ -91,16 +95,22 @@ def infer_holes(asm_def):
 
 def run():
     pythoncom.CoInitialize()
-    inv = connect_inventor()
-    asm_def = get_active_assembly(inv)
 
+    inv = connect_inventor()
+    asm_doc = open_assembly(inv)
+
+    if asm_doc.DocumentType != kAssemblyDocumentObject:
+        raise RuntimeError("Opened document is not an Assembly")
+
+    asm_def = asm_doc.ComponentDefinition
     holes = infer_holes(asm_def)
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(holes, f, indent=4)
 
-    print(f"✅ FINAL inferred holes: {len(holes)}")
-    print(f"📁 Output: {OUTPUT_FILE}")
+    print(f"✅ Assembly: {asm_doc.FullFileName}")
+    print(f"✅ Inferred holes: {len(holes)}")
+    print(f"📁 Output written to: {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
