@@ -3,8 +3,8 @@ import pythoncom
 import win32com.client
 
 # ================= USER CONFIG =================
-ASSEMBLY_PATH = r"E:\Assembly 1\1093144795-M1.iam"
-OUTPUT_FILE   = r"E:\Phase 1\data\final_inferred_holes.json"
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
+OUTPUT_FILE   = r"E:\Phase 1\extractions\final_inferred_holes.json"
 # ===============================================
 
 # ---- ENUMS ----
