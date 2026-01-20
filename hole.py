@@ -1,162 +1,176 @@
 import json
-from pathlib import Path
+import pythoncom
 import win32com.client
+from pathlib import Path
 
-# ==========================================================
+
+# ==========================
 # CONFIG
-# ==========================================================
-INPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-OUTPUT_JSON = Path(r"E:\Phase 1\extractions\assembly_with_holes.json")
+# ==========================
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\Assembly1.iam"   # CHANGE THIS
+OUTPUT_JSON = r"E:\Phase 1\extractions\phase3_holes.json"
 
-# ==========================================================
-# INVENTOR CONNECT
-# ==========================================================
-inv = win32com.client.Dispatch("Inventor.Application")
-inv.Visible = True
 
-# ==========================================================
-# INVENTOR ENUMS (SAFE HARDCODE)
-# ==========================================================
-kPartDocument = 12291
+# Inventor constants
 kAssemblyDocument = 12290
-kCutOperation = 20481
-kCylinderSurface = 103
+kPartDocument = 12289
 
-# ==========================================================
-# GEOMETRY HELPERS
-# ==========================================================
-def vec_tuple(v):
-    return [round(v.X, 5), round(v.Y, 5), round(v.Z, 5)]
 
-def is_cylindrical(face):
+# ==========================
+# UTILS
+# ==========================
+def safe_str(value):
     try:
-        return face.SurfaceType == kCylinderSurface
+        return str(value)
     except:
-        return False
+        return ""
 
-# ==========================================================
-# HOLE EXTRACTION FROM PART
-# ==========================================================
-def extract_holes_from_part(part_doc):
-    holes = []
-    comp_def = part_doc.ComponentDefinition
-    features = comp_def.Features
 
-    # ------------------------------------------------------
-    # 1️⃣ Explicit HoleFeatures
-    # ------------------------------------------------------
-    for hf in features.HoleFeatures:
-        try:
-            hole = {
-                "source": "HoleFeature",
-                "diameter_mm": round(hf.HoleDiameter * 10, 3),
-                "depth_mm": None,
-                "through": hf.ExtentType == 0,
-                "axis_vector": vec_tuple(hf.PlacementDefinition.AxisVector),
-                "patterned": False
-            }
-            holes.append(hole)
-        except:
-            pass
+def infer_part_type(description, hole_count):
+    desc = (description or "").upper()
 
-    # ------------------------------------------------------
-    # 2️⃣ Cylindrical Cut-Extrude inference
-    # ------------------------------------------------------
-    for ext in features.ExtrudeFeatures:
-        try:
-            if ext.Operation != kCutOperation:
-                continue
-
-            for face in ext.Faces:
-                if not is_cylindrical(face):
-                    continue
-
-                hole = {
-                    "source": "CutExtrude",
-                    "diameter_mm": round(face.Geometry.Radius * 2, 3),
-                    "depth_mm": None,
-                    "through": ext.ExtentType == 0,
-                    "axis_vector": vec_tuple(face.Geometry.AxisVector),
-                    "patterned": False
-                }
-                holes.append(hole)
-        except:
-            pass
-
-    return holes
-
-# ==========================================================
-# PART TYPE INFERENCE
-# ==========================================================
-def infer_part_type(part_number, description, holes):
-    name = (part_number + " " + description).lower()
-
-    if any(x in name for x in ["rivet", "bolt", "nut", "screw"]):
+    if "RIVET" in desc or "BOLT" in desc or "SCREW" in desc:
         return "Fastener"
 
-    if holes:
+    if hole_count > 0:
         return "Plate"
 
-    return "Structural"
+    return "Unknown"
 
-# ==========================================================
-# MAIN PIPELINE
-# ==========================================================
+
+# ==========================
+# HOLE EXTRACTION (PART)
+# ==========================
+def extract_holes_from_part(part_doc):
+    holes = []
+
+    try:
+        comp_def = part_doc.ComponentDefinition
+        features = comp_def.Features
+
+        if not hasattr(features, "HoleFeatures"):
+            return holes, None
+
+        for hf in features.HoleFeatures:
+            hole_data = {
+                "diameter": safe_str(getattr(hf, "Diameter", None)),
+                "hole_type": safe_str(hf.HoleType),
+                "termination": safe_str(hf.TerminationType)
+            }
+            holes.append(hole_data)
+
+        return holes, None
+
+    except Exception as e:
+        return [], safe_str(e)
+
+
+# ==========================
+# MAIN
+# ==========================
 def run():
-    with open(INPUT_JSON, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    pythoncom.CoInitialize()
 
+    inv = win32com.client.Dispatch("Inventor.Application")
+    inv.Visible = True
+
+    # --------------------------
+    # OPEN / GET ASSEMBLY
+    # --------------------------
     asm_doc = inv.ActiveDocument
+
+    if asm_doc is None or asm_doc.DocumentType != kAssemblyDocument:
+        asm_doc = inv.Documents.Open(ASSEMBLY_PATH, True)
+
     asm_def = asm_doc.ComponentDefinition
 
-    for occ in data["occurrences"]:
-        try:
-            # ---------------------------------------------
-            # Resolve occurrence safely
-            # ---------------------------------------------
-            occ_obj = asm_def.Occurrences.ItemByName(occ["name"])
+    result = {
+        "assembly_name": Path(ASSEMBLY_PATH).name,
+        "occurrences": [],
+        "constraints": []
+    }
 
-            if occ_obj.Suppressed:
-                occ["holes"] = []
-                occ["hole_count"] = 0
-                occ["inferred_part_type"] = "Suppressed"
-                continue
+    # --------------------------
+    # OCCURRENCES
+    # --------------------------
+    for occ in asm_def.Occurrences:
+        occ_data = {
+            "name": occ.Name,
+            "definition": safe_str(occ.Definition.Document.DisplayName),
+            "document_type": "Assembly" if occ.Definition.Document.DocumentType == kAssemblyDocument else "Part",
+            "parent": safe_str(occ.Parent.Name) if occ.Parent else None,
+            "suppressed": occ.Suppressed,
+            "visible": occ.Visible,
+            "part_number": "",
+            "description": "",
+            "hole_count": 0,
+            "holes": [],
+            "inferred_part_type": "Unknown"
+        }
 
-            doc = occ_obj.Definition.Document
+        doc = occ.Definition.Document
 
-            # ---------------------------------------------
-            # Skip sub-assemblies
-            # ---------------------------------------------
-            if doc.DocumentType != kPartDocument:
-                occ["holes"] = []
-                occ["hole_count"] = 0
-                occ["inferred_part_type"] = "SubAssembly"
-                continue
+        # --------------------------
+        # PART ONLY → HOLES
+        # --------------------------
+        if doc.DocumentType == kPartDocument:
+            try:
+                prop_sets = doc.PropertySets
+                design_props = prop_sets.Item("Design Tracking Properties")
 
-            # ---------------------------------------------
-            # Extract holes
-            # ---------------------------------------------
-            holes = extract_holes_from_part(doc)
+                occ_data["part_number"] = safe_str(
+                    design_props.Item("Part Number").Value
+                )
+                occ_data["description"] = safe_str(
+                    design_props.Item("Description").Value
+                )
 
-            occ["holes"] = holes
-            occ["hole_count"] = len(holes)
-            occ["inferred_part_type"] = infer_part_type(
-                occ.get("part_number", ""),
-                occ.get("description", ""),
-                holes
+            except:
+                pass
+
+            holes, hole_error = extract_holes_from_part(doc)
+            occ_data["holes"] = holes
+            occ_data["hole_count"] = len(holes)
+
+            occ_data["inferred_part_type"] = infer_part_type(
+                occ_data["description"],
+                occ_data["hole_count"]
             )
 
-        except Exception as e:
-            occ["holes"] = []
-            occ["hole_count"] = 0
-            occ["inferred_part_type"] = "Error"
-            occ["hole_error"] = str(e)
+            if hole_error:
+                occ_data["hole_error"] = hole_error
+
+        result["occurrences"].append(occ_data)
+
+    # --------------------------
+    # CONSTRAINTS
+    # --------------------------
+    try:
+        for c in asm_def.Constraints:
+            c_data = {
+                "constraint_type": safe_str(c.Type),
+                "health": safe_str(c.HealthStatus),
+                "occurrence_1": safe_str(c.OccurrenceOne.Name) if hasattr(c, "OccurrenceOne") else None,
+                "occurrence_2": safe_str(c.OccurrenceTwo.Name) if hasattr(c, "OccurrenceTwo") else None,
+                "entity_1_type": safe_str(c.EntityOne.Type) if hasattr(c, "EntityOne") else None,
+                "entity_2_type": safe_str(c.EntityTwo.Type) if hasattr(c, "EntityTwo") else None,
+            }
+            result["constraints"].append(c_data)
+
+    except Exception as e:
+        result["constraint_error"] = safe_str(e)
+
+    # --------------------------
+    # WRITE OUTPUT
+    # --------------------------
+    Path(OUTPUT_JSON).parent.mkdir(parents=True, exist_ok=True)
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4)
+        json.dump(result, f, indent=4)
 
-    print("✅ Phase-3 Hole Inference COMPLETED")
+    print("✅ Phase-3 hole extraction complete")
+    print("📄 Output:", OUTPUT_JSON)
 
-# ==========================================================
+
 if __name__ == "__main__":
     run()
