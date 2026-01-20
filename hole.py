@@ -7,7 +7,7 @@ from pathlib import Path
 # ==========================
 # CONFIG
 # ==========================
-ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\Assembly1.iam"   # CHANGE THIS
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"   # CHANGE THIS
 OUTPUT_JSON = r"E:\Phase 1\extractions\phase3_holes.json"
 
 
