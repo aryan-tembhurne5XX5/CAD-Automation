@@ -1,19 +1,17 @@
-import json
-import time
 import win32com.client
 import pythoncom
+import json
+import time
 from pathlib import Path
 
 # =====================================================
 # CONFIG
 # =====================================================
 ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
-OUTPUT_JSON   = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
-
-FASTENER_KEYWORDS = ("RIVET", "NUT", "BOLT", "SCREW")
+OUT_JSON = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
 
 # =====================================================
-# INVENTOR CONNECTION
+# INVENTOR CONNECT
 # =====================================================
 def connect_inventor():
     try:
@@ -25,64 +23,28 @@ def connect_inventor():
         return inv
 
 # =====================================================
-# TRANSFORM HELPERS
+# TRANSFORM EXTRACTION (SAFE)
 # =====================================================
 def extract_transform(occ):
     m = occ.Transformation
-    return m
 
-def transform_point(m, p):
-    return [
-        m.Cell(1,1)*p[0] + m.Cell(1,2)*p[1] + m.Cell(1,3)*p[2] + m.Cell(1,4),
-        m.Cell(2,1)*p[0] + m.Cell(2,2)*p[1] + m.Cell(2,3)*p[2] + m.Cell(2,4),
-        m.Cell(3,1)*p[0] + m.Cell(3,2)*p[1] + m.Cell(3,3)*p[2] + m.Cell(3,4),
+    origin = [
+        float(m.Cell(1, 4)),
+        float(m.Cell(2, 4)),
+        float(m.Cell(3, 4))
     ]
 
-def transform_vector(m, v):
-    return [
-        m.Cell(1,1)*v[0] + m.Cell(1,2)*v[1] + m.Cell(1,3)*v[2],
-        m.Cell(2,1)*v[0] + m.Cell(2,2)*v[1] + m.Cell(2,3)*v[2],
-        m.Cell(3,1)*v[0] + m.Cell(3,2)*v[1] + m.Cell(3,3)*v[2],
+    # Z-axis of occurrence (direction)
+    z_axis = [
+        float(m.Cell(1, 3)),
+        float(m.Cell(2, 3)),
+        float(m.Cell(3, 3))
     ]
 
-# =====================================================
-# FASTENER AXIS FROM CYLINDRICAL FACE (KEY FIX)
-# =====================================================
-def extract_fastener_axis_from_faces(occ):
-    try:
-        doc = occ.Definition.Document
-        props = doc.PropertySets.Item("Design Tracking Properties")
-        desc = (props.Item("Description").Value or "").upper()
-
-        if not any(k in desc for k in FASTENER_KEYWORDS):
-            return None
-
-        body = doc.ComponentDefinition.SurfaceBodies.Item(1)
-
-        for face in body.Faces:
-            try:
-                geom = face.Geometry
-                if geom.SurfaceType != 67108992:  # kCylinderSurface
-                    continue
-
-                axis = geom.Axis
-                p = axis.PointOnLine
-                d = axis.Direction
-
-                m = occ.Transformation
-
-                return {
-                    "origin": transform_point(m, [p.X, p.Y, p.Z]),
-                    "direction": transform_vector(m, [d.X, d.Y, d.Z]),
-                    "source": "CylindricalFace",
-                    "confidence": 0.95
-                }
-            except:
-                continue
-    except:
-        return None
-
-    return None
+    return {
+        "origin": origin,
+        "z_axis": z_axis
+    }
 
 # =====================================================
 # MAIN
@@ -92,23 +54,23 @@ def run():
 
     inv = connect_inventor()
     doc = inv.Documents.Open(ASSEMBLY_PATH, True)
-    asm_def = doc.ComponentDefinition
+    asm = doc.ComponentDefinition
 
     geometry = {
-        "fastener_axes": {}
+        "occurrences": {}
     }
 
-    for occ in asm_def.Occurrences:
-        axis = extract_fastener_axis_from_faces(occ)
-        if axis:
-            geometry["fastener_axes"][occ.Name] = axis
+    for occ in asm.Occurrences:
+        try:
+            geometry["occurrences"][occ.Name] = extract_transform(occ)
+        except Exception as e:
+            print(f"⚠️ Skipped {occ.Name}: {e}")
 
-    OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(geometry, f, indent=4)
+    OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    OUT_JSON.write_text(json.dumps(geometry, indent=4))
 
-    print("✅ Phase-4.2 COMPLETE")
-    print(f"   → Fastener axes extracted: {len(geometry['fastener_axes'])}")
+    print("✅ Geometry hooks extracted (non-empty)")
+    print(f"→ {OUT_JSON}")
 
     doc.Close(True)
 
