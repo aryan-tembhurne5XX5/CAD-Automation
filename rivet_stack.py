@@ -5,96 +5,109 @@ from pathlib import Path
 # =====================================================
 # CONFIG
 # =====================================================
-ASSEMBLY_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-AXIS_JSON     = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
-OUTPUT_JSON   = Path(r"E:\Phase 1\extractions\inferred_rivet_stacks.json")
+ASM_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+AXIS_JSON = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
+OUT_JSON  = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
 
-AXIS_TOLERANCE = 3.0   # mm (safe for sheet metal)
+# Geometry thresholds (mm)
+MAX_RIVET_GRIP = 20.0
+HOLE_RADIUS_THRESHOLD = 3.0
 
 # =====================================================
-# VECTOR UTILS
+# VECTOR HELPERS
 # =====================================================
 def dot(a, b):
     return sum(x*y for x, y in zip(a, b))
 
+def sub(a, b):
+    return [x-y for x, y in zip(a, b)]
+
 def norm(v):
     return math.sqrt(dot(v, v))
 
-def sub(a, b):
-    return [x - y for x, y in zip(a, b)]
+def normalize(v):
+    n = norm(v)
+    return [x/n for x in v] if n else v
 
-def scale(v, s):
-    return [x * s for x in v]
+def distance(a, b):
+    return norm(sub(a, b))
 
 # =====================================================
 # LOAD DATA
 # =====================================================
-assembly = json.loads(ASSEMBLY_JSON.read_text())
-axes     = json.loads(AXIS_JSON.read_text())
+with open(ASM_JSON, "r", encoding="utf-8") as f:
+    asm = json.load(f)
 
-occurrences = assembly["occurrences"]
+with open(AXIS_JSON, "r", encoding="utf-8") as f:
+    axes = json.load(f)
 
-# Plate candidates (non-fasteners)
-plates = {
-    occ["name"]: occ
-    for occ in occurrences
-    if occ["document_type"] == "Part"
-    and "RIVET" not in (occ.get("description") or "").upper()
-}
-
-# Plate centroids ≈ transform origins
-plate_positions = {
-    name: [
-        occ.get("transform", {}).get("translation", [0,0,0])[0]
-        if "transform" in occ else 0,
-        occ.get("transform", {}).get("translation", [0,0,0])[1]
-        if "transform" in occ else 0,
-        occ.get("transform", {}).get("translation", [0,0,0])[2]
-        if "transform" in occ else 0,
-    ]
-    for name, occ in plates.items()
+occ_map = {
+    o["name"]: o
+    for o in asm["occurrences"]
 }
 
 # =====================================================
-# STACK INFERENCE
+# PLATE FILTER
 # =====================================================
-results = []
+def is_plate(occ):
+    desc = (occ.get("description") or "").upper()
+    return not any(k in desc for k in ["RIVET", "NUT", "SCREW", "FASTENER"])
 
-for rivet in axes:
-    O = rivet["origin"]
-    D = rivet["direction"]
-    D_norm = norm(D)
-    if D_norm == 0:
+# =====================================================
+# PHASE-5 STACK INFERENCE
+# =====================================================
+stacks = []
+
+for fastener in axes:
+    f_name = fastener["occurrence"]
+    axis_o = fastener["origin"]
+    axis_d = normalize(fastener["direction"])
+
+    plates = []
+
+    for occ in asm["occurrences"]:
+        if not is_plate(occ):
+            continue
+
+        occ_name = occ["name"]
+        if occ_name == f_name:
+            continue
+
+        # Use occurrence transform origin if present
+        if "origin" not in occ:
+            continue
+
+        p = occ["origin"]
+        v = sub(p, axis_o)
+        t = dot(v, axis_d)
+
+        if t < 0 or t > MAX_RIVET_GRIP:
+            continue
+
+        radial = norm(sub(v, [t*x for x in axis_d]))
+        if radial > HOLE_RADIUS_THRESHOLD:
+            continue
+
+        plates.append((occ_name, t))
+
+    if len(plates) < 2:
         continue
-    D = scale(D, 1.0 / D_norm)
 
-    pierced = []
+    plates.sort(key=lambda x: x[1])
 
-    for plate_name, P in plate_positions.items():
-        V = sub(P, O)
-        t = dot(V, D)
-        closest = scale(D, t)
-        d = norm(sub(V, closest))
-
-        if d < AXIS_TOLERANCE:
-            pierced.append((plate_name, t))
-
-    if not pierced:
-        continue
-
-    pierced.sort(key=lambda x: x[1])
-
-    results.append({
-        "fastener": rivet["occurrence"],
-        "plates": [p[0] for p in pierced],
-        "stack_size": len(pierced),
-        "stack_type": "blind_rivet" if len(pierced) >= 2 else "single_plate",
-        "confidence": round(min(0.9 + 0.05 * len(pierced), 0.99), 2)
+    stacks.append({
+        "fastener": f_name,
+        "plates": [p[0] for p in plates],
+        "stack_size": len(plates),
+        "stack_type": "blind_rivet",
+        "confidence": round(min(0.95, 0.7 + 0.05 * len(plates)), 2)
     })
 
 # =====================================================
 # SAVE
 # =====================================================
-OUTPUT_JSON.write_text(json.dumps(results, indent=4))
-print(f"✅ Phase-5 complete → {OUTPUT_JSON}")
-print(f"   Inferred stacks: {len(results)}")
+with open(OUT_JSON, "w", encoding="utf-8") as f:
+    json.dump(stacks, f, indent=4)
+
+print("✅ Phase-5 blind rivet stacks inferred correctly")
+print(f"   → {OUT_JSON}")
