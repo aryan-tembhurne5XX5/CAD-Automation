@@ -7,7 +7,7 @@ from pathlib import Path
 # CONFIG
 # ==============================
 PART_PATH = r"E:\Phase 1\Assembly 1\1093144795-A.ipt"
-OUT_JSON  = r"E:\Phase 1\extractions\part_hole_debug.json"
+OUT_JSON  = r"E:\Phase 1\extractions\true_holes.json"
 
 # ==============================
 # INVENTOR CONNECT
@@ -21,16 +21,16 @@ def connect_inventor():
         return inv
 
 # ==============================
-# SAFE VALUE
+# SAFE FLOAT
 # ==============================
-def safe(v):
+def f(v):
     try:
         return float(v)
     except:
         return None
 
 # ==============================
-# MAIN EXTRACTION
+# MAIN
 # ==============================
 def run():
     pythoncom.CoInitialize()
@@ -39,80 +39,54 @@ def run():
     doc = inv.Documents.Open(PART_PATH, True)
     comp = doc.ComponentDefinition
 
-    output = {
-        "part": doc.DisplayName,
-        "holes": []
-    }
-
-    # ------------------------------
-    # 1. Hole FEATURES
-    # ------------------------------
-    for h in comp.Features.HoleFeatures:
-        hole_entry = {
-            "feature_name": h.Name,
-            "hole_type": h.HoleType,
-            "suppressed": h.Suppressed,
-            "diameter_mm": None,
-            "centers": [],
-            "pattern_count": 1
-        }
-
-        # ---- Diameter (robust) ----
-        try:
-            hole_entry["diameter_mm"] = safe(h.HoleDiameter.Value * 10)
-        except:
-            pass
-
-        # ---- Center points ----
-        try:
-            for p in h.HoleCenterPoints:
-                hole_entry["centers"].append([
-                    safe(p.X), safe(p.Y), safe(p.Z)
-                ])
-        except:
-            pass
-
-        # ---- Pattern participation ----
-        try:
-            parents = h.ParentFeatures
-            if parents and parents.Count > 0:
-                hole_entry["pattern_count"] = parents.Count
-        except:
-            pass
-
-        output["holes"].append(hole_entry)
-
-    # ------------------------------
-    # 2. CYLINDRICAL FACES (truth)
-    # ------------------------------
-    output["cylindrical_faces"] = []
+    holes = []
 
     for body in comp.SurfaceBodies:
         for face in body.Faces:
             try:
                 geom = face.Geometry
-                if geom.SurfaceType == 5891:  # Cylinder
-                    output["cylindrical_faces"].append({
-                        "radius_mm": safe(geom.Radius * 10),
-                        "axis_direction": [
-                            safe(geom.AxisVector.X),
-                            safe(geom.AxisVector.Y),
-                            safe(geom.AxisVector.Z)
-                        ],
-                        "base_point": [
-                            safe(geom.BasePoint.X),
-                            safe(geom.BasePoint.Y),
-                            safe(geom.BasePoint.Z)
-                        ]
-                    })
+                # 5891 = kCylinderSurface
+                if geom.SurfaceType != 5891:
+                    continue
+
+                # Ignore external cylinders (shafts, bosses)
+                if face.IsParamReversed is False:
+                    pass
+
+                axis = geom.Axis
+                base = geom.BasePoint
+
+                hole = {
+                    "diameter_mm": round(geom.Radius * 2 * 10, 3),
+                    "center": [
+                        f(base.X),
+                        f(base.Y),
+                        f(base.Z)
+                    ],
+                    "axis": [
+                        f(axis.Direction.X),
+                        f(axis.Direction.Y),
+                        f(axis.Direction.Z)
+                    ]
+                }
+
+                holes.append(hole)
+
             except:
                 continue
+
+    output = {
+        "part": doc.DisplayName,
+        "hole_count": len(holes),
+        "holes": holes
+    }
 
     with open(OUT_JSON, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=4)
 
-    print("✅ Diagnostic hole extraction complete")
-    print(f"→ {OUT_JSON}")
+    print("✅ TRUE hole geometry extracted")
+    print(f"   Holes found: {len(holes)}")
+    print(f"   → {OUT_JSON}")
 
     doc.Close(True)
 
