@@ -6,7 +6,7 @@ from pathlib import Path
 # CONFIG
 # =====================================================
 ASSEMBLY_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-AXIS_JSON     = Path(r"E:\Phase 1\Assembly 1\geometry_fastener_axes.json")
+AXIS_JSON     = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
 OUTPUT_JSON   = Path(r"E:\Phase 1\extractions\inferred_rivet_stacks.json")
 
 AXIS_TOLERANCE = 3.0   # mm (safe for sheet metal)
