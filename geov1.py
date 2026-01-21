@@ -10,7 +10,7 @@ from pathlib import Path
 ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
 OUTPUT_JSON   = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
 
-FASTENER_KEYWORDS = ("RIVET", "BOLT", "SCREW", "NUT")
+FASTENER_KEYWORDS = ("RIVET", "NUT", "BOLT", "SCREW")
 
 # =====================================================
 # INVENTOR CONNECTION
@@ -25,18 +25,11 @@ def connect_inventor():
         return inv
 
 # =====================================================
-# TRANSFORMS
+# TRANSFORM HELPERS
 # =====================================================
 def extract_transform(occ):
     m = occ.Transformation
-    return {
-        "translation": [m.Cell(1,4), m.Cell(2,4), m.Cell(3,4)],
-        "rotation": [
-            [m.Cell(1,1), m.Cell(1,2), m.Cell(1,3)],
-            [m.Cell(2,1), m.Cell(2,2), m.Cell(2,3)],
-            [m.Cell(3,1), m.Cell(3,2), m.Cell(3,3)]
-        ]
-    }
+    return m
 
 def transform_point(m, p):
     return [
@@ -53,9 +46,9 @@ def transform_vector(m, v):
     ]
 
 # =====================================================
-# FASTENER AXIS FROM PART (CORRECT)
+# FASTENER AXIS FROM CYLINDRICAL FACE (KEY FIX)
 # =====================================================
-def extract_fastener_axis(occ):
+def extract_fastener_axis_from_faces(occ):
     try:
         doc = occ.Definition.Document
         props = doc.PropertySets.Item("Design Tracking Properties")
@@ -64,22 +57,32 @@ def extract_fastener_axis(occ):
         if not any(k in desc for k in FASTENER_KEYWORDS):
             return None
 
-        comp_def = doc.ComponentDefinition
-        axis = comp_def.WorkAxes.Item(1)
+        body = doc.ComponentDefinition.SurfaceBodies.Item(1)
 
-        p = axis.Line.PointOnLine
-        d = axis.Line.Direction
+        for face in body.Faces:
+            try:
+                geom = face.Geometry
+                if geom.SurfaceType != 67108992:  # kCylinderSurface
+                    continue
 
-        m = occ.Transformation
+                axis = geom.Axis
+                p = axis.PointOnLine
+                d = axis.Direction
 
-        return {
-            "origin": transform_point(m, [p.X, p.Y, p.Z]),
-            "direction": transform_vector(m, [d.X, d.Y, d.Z]),
-            "source": "FastenerWorkAxis",
-            "confidence": 1.0
-        }
+                m = occ.Transformation
+
+                return {
+                    "origin": transform_point(m, [p.X, p.Y, p.Z]),
+                    "direction": transform_vector(m, [d.X, d.Y, d.Z]),
+                    "source": "CylindricalFace",
+                    "confidence": 0.95
+                }
+            except:
+                continue
     except:
         return None
+
+    return None
 
 # =====================================================
 # MAIN
@@ -92,14 +95,11 @@ def run():
     asm_def = doc.ComponentDefinition
 
     geometry = {
-        "occurrence_transforms": {},
         "fastener_axes": {}
     }
 
     for occ in asm_def.Occurrences:
-        geometry["occurrence_transforms"][occ.Name] = extract_transform(occ)
-
-        axis = extract_fastener_axis(occ)
+        axis = extract_fastener_axis_from_faces(occ)
         if axis:
             geometry["fastener_axes"][occ.Name] = axis
 
@@ -107,7 +107,7 @@ def run():
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(geometry, f, indent=4)
 
-    print("✅ Phase-4.2 FIXED")
+    print("✅ Phase-4.2 COMPLETE")
     print(f"   → Fastener axes extracted: {len(geometry['fastener_axes'])}")
 
     doc.Close(True)
