@@ -1,12 +1,15 @@
 PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python314\python.exe "e:/Phase 1/CAD-Automation/phe.py"
+🔍 Extracting holes from 0228100017-M1.ipt
+🔍 Extracting holes from 0298100025.ipt
 Traceback (most recent call last):
-  File "e:\Phase 1\CAD-Automation\phe.py", line 92, in <module>
+  File "e:\Phase 1\CAD-Automation\phe.py", line 97, in <module>
     run()
     ~~~^^
-  File "e:\Phase 1\CAD-Automation\phe.py", line 77, in run
+  File "e:\Phase 1\CAD-Automation\phe.py", line 82, in run
     holes = extract_holes_from_part(inv, part_path)
-  File "e:\Phase 1\CAD-Automation\phe.py", line 29, in extract_holes_from_part
-    part_doc.Activate()
-    ~~~~~~~~~~~~~~~~~^^
-  File "<COMObject Open>", line 2, in Activate
-pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)
+  File "e:\Phase 1\CAD-Automation\phe.py", line 35, in extract_holes_from_part
+    "diameter_mm": float(h.Diameter.Value),
+                         ^^^^^^^^^^
+  File "C:\Users\hrish\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 631, in __getattr__
+    raise AttributeError(f"{self._username_}.{attr}")
+AttributeError: <unknown>.Diameter
