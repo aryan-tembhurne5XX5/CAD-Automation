@@ -1,5 +1,32 @@
 [
     {
+        "fastener": "0298100030:12",
+        "plates": [
+            "1028925335-D:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:13",
+        "plates": [
+            "1028925335-D:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:41",
+        "plates": [
+            "1028925335-B:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
         "fastener": "0298100030:50",
         "plates": [
             "1093144795-G:1"
@@ -9,9 +36,99 @@
         "confidence": 0.95
     },
     {
+        "fastener": "0298100030:51",
+        "plates": [
+            "1093144795-G:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:55",
+        "plates": [
+            "1028925335-E:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
         "fastener": "0298100030:56",
         "plates": [
             "1028925335-E:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:58",
+        "plates": [
+            "1028925335-B:2"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:59",
+        "plates": [
+            "1028925335-B:2"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:65",
+        "plates": [
+            "0228100017-M1:5"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:66",
+        "plates": [
+            "0228100017-M1:5"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:23",
+        "plates": [
+            "1028925335-B:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:76",
+        "plates": [
+            "1028925335-E:1"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:79",
+        "plates": [
+            "1028925335-B:2"
+        ],
+        "stack_size": 1,
+        "stack_type": "blind_rivet",
+        "confidence": 0.95
+    },
+    {
+        "fastener": "0298100030:80",
+        "plates": [
+            "1028925335-B:2"
         ],
         "stack_size": 1,
         "stack_type": "blind_rivet",
