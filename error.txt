@@ -1,7 +1,22 @@
-PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python314\python.exe "e:/Phase 1/CAD-Automation/rivet_stack.py"
-Traceback (most recent call last):
-  File "e:\Phase 1\CAD-Automation\rivet_stack.py", line 69, in <module>
-    axis = axes.get(fname)
-           ^^^^^^^^
-AttributeError: 'list' object has no attribute 'get'
-PS E:\Phase 1> 
+[
+    {
+        "part": "1028925335-B.ipt",
+        "holes": []
+    },
+    {
+        "part": "1028925335-C.ipt",
+        "holes": []
+    },
+    {
+        "part": "1028925335-D.ipt",
+        "holes": []
+    },
+    {
+        "part": "0228100017-M1.ipt",
+        "holes": []
+    },
+    {
+        "part": "0298100030.ipt",
+        "holes": []
+    }
+]
