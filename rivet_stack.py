@@ -1,6 +1,6 @@
 import json
-from pathlib import Path
 import math
+from pathlib import Path
 
 # =====================================================
 # CONFIG
@@ -16,36 +16,39 @@ MIN_STACK_SIZE    = 1
 # =====================================================
 # HELPERS
 # =====================================================
-def dist_point_to_axis(p, axis_origin, axis_dir):
-    """Shortest distance from point to axis"""
+def dist_point_to_axis(p, o, d):
     px, py, pz = p
-    ox, oy, oz = axis_origin
-    dx, dy, dz = axis_dir
+    ox, oy, oz = o
+    dx, dy, dz = d
 
     vx, vy, vz = px - ox, py - oy, pz - oz
-    cross = (
-        vy*dz - vz*dy,
-        vz*dx - vx*dz,
-        vx*dy - vy*dx
-    )
-    num = math.sqrt(sum(c*c for c in cross))
+    cx = vy*dz - vz*dy
+    cy = vz*dx - vx*dz
+    cz = vx*dy - vy*dx
+
+    num = math.sqrt(cx*cx + cy*cy + cz*cz)
     den = math.sqrt(dx*dx + dy*dy + dz*dz)
     return num / den if den else float("inf")
 
 def is_rivet(desc):
-    d = (desc or "").upper()
-    return "RIVET" in d
+    return "RIVET" in (desc or "").upper()
 
 # =====================================================
 # LOAD DATA
 # =====================================================
 assembly = json.loads(ASSEMBLY_JSON.read_text(encoding="utf-8"))
-axes     = json.loads(AXIS_JSON.read_text(encoding="utf-8"))
-
-occurrences = {o["name"]: o for o in assembly["occurrences"]}
+axes_raw = json.loads(AXIS_JSON.read_text(encoding="utf-8"))
 
 # =====================================================
-# INDEX PARTS
+# INDEX AXES (FIX)
+# =====================================================
+axes = {
+    a["occurrence"]: a
+    for a in axes_raw
+}
+
+# =====================================================
+# CLASSIFY PARTS
 # =====================================================
 plates = []
 fasteners = []
@@ -77,16 +80,12 @@ for fast in fasteners:
 
     for plate in plates:
         for hole in plate.get("holes", []):
-            # Diameter compatibility
-            if abs(hole["diameter"] - fast.get("nominal_diameter", hole["diameter"])) > HOLE_DIAMETER_TOL:
+            # diameter compatibility
+            if abs(hole["diameter"] - hole["diameter"]) > HOLE_DIAMETER_TOL:
                 continue
 
-            # Use plate origin approximation (safe)
-            plate_axis_dist = dist_point_to_axis(
-                origin, origin, direction
-            )
-
-            if plate_axis_dist <= AXIS_DIST_TOL:
+            dist = dist_point_to_axis(origin, origin, direction)
+            if dist <= AXIS_DIST_TOL:
                 matched_plates.append(plate["name"])
                 break
 
@@ -100,7 +99,7 @@ for fast in fasteners:
         })
 
 # =====================================================
-# SAVE
+# SAVE OUTPUT
 # =====================================================
 OUT_JSON.write_text(json.dumps(stacks, indent=4), encoding="utf-8")
 
