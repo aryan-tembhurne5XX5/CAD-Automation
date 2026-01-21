@@ -25,12 +25,10 @@ def connect_inventor():
 def extract_holes_from_part(inv, part_path):
     holes = []
 
-    part_doc = inv.Documents.Open(str(part_path), False)
-    part_doc.Activate()
-    part_doc.Update()
-
+    part_doc = inv.Documents.Open(str(part_path), True)
     comp_def = part_doc.ComponentDefinition
 
+    # --- Hole features ---
     for h in comp_def.Features.HoleFeatures:
         hole_data = {
             "name": h.Name,
@@ -42,15 +40,21 @@ def extract_holes_from_part(inv, part_path):
 
         # Rectangular patterns
         for pat in comp_def.Features.RectangularPatternFeatures:
-            if h in list(pat.ParentFeatures):
-                hole_data["patterned"] = True
-                hole_data["pattern_count"] = pat.CountX * pat.CountY
+            try:
+                if h in list(pat.ParentFeatures):
+                    hole_data["patterned"] = True
+                    hole_data["pattern_count"] = pat.CountX * pat.CountY
+            except:
+                pass
 
         # Circular patterns
         for pat in comp_def.Features.CircularPatternFeatures:
-            if h in list(pat.ParentFeatures):
-                hole_data["patterned"] = True
-                hole_data["pattern_count"] = pat.Count
+            try:
+                if h in list(pat.ParentFeatures):
+                    hole_data["patterned"] = True
+                    hole_data["pattern_count"] = pat.Count
+            except:
+                pass
 
         holes.append(hole_data)
 
@@ -65,7 +69,7 @@ def run():
     with open(ASSEMBLY_EXTRACTION, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    unique_parts = set(o["definition"] for o in data["occurrences"])
+    unique_parts = sorted(set(o["definition"] for o in data["occurrences"]))
 
     output = []
 
@@ -74,6 +78,7 @@ def run():
         if not part_path.exists():
             continue
 
+        print(f"🔍 Extracting holes from {part_name}")
         holes = extract_holes_from_part(inv, part_path)
 
         output.append({
@@ -84,7 +89,7 @@ def run():
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=4)
 
-    print("✅ Hole extraction COMPLETE (direct part open)")
+    print("\n✅ Phase-3 Hole Extraction COMPLETE")
     print(f"→ {OUTPUT_JSON}")
 
 # =====================================================
