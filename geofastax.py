@@ -9,8 +9,8 @@ from pathlib import Path
 # CONFIG
 # =====================================================
 ASSEMBLY_PATH = Path(r"E:\Phase 1\Assembly 1\1093144795-M1.iam")
-BOM_CSV_PATH  = ASSEMBLY_PATH.parent / "BOM_1093144795-M1.csv"
-OUTPUT_JSON   = ASSEMBLY_PATH.parent / "geometry_fastener_axes.json"
+BOM_CSV_PATH  = ASSEMBLY_PATH.parent / r"E:\Phase 1\Assembly 1\BOM_1093144795-M1.csv"
+OUTPUT_JSON   = ASSEMBLY_PATH.parent / r"E:\Phase 1\extractions\geometry_fastener_axes.json"
 
 FASTENER_KEYWORDS = ["RIVET", "NUT", "BOLT", "SCREW"]
 
