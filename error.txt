@@ -1,15 +1,111 @@
-PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python314\python.exe "e:/Phase 1/CAD-Automation/phe.py"
-🔍 Extracting holes from 0228100017-M1.ipt
-🔍 Extracting holes from 0298100025.ipt
-Traceback (most recent call last):
-  File "e:\Phase 1\CAD-Automation\phe.py", line 97, in <module>
-    run()
-    ~~~^^
-  File "e:\Phase 1\CAD-Automation\phe.py", line 82, in run
-    holes = extract_holes_from_part(inv, part_path)
-  File "e:\Phase 1\CAD-Automation\phe.py", line 35, in extract_holes_from_part
-    "diameter_mm": float(h.Diameter.Value),
-                         ^^^^^^^^^^
-  File "C:\Users\hrish\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 631, in __getattr__
-    raise AttributeError(f"{self._username_}.{attr}")
-AttributeError: <unknown>.Diameter
+[
+    {
+        "part": "0228100017-M1.ipt",
+        "holes": []
+    },
+    {
+        "part": "0298100025.ipt",
+        "holes": [
+            {
+                "name": "Hole1",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            }
+        ]
+    },
+    {
+        "part": "0298100030.ipt",
+        "holes": []
+    },
+    {
+        "part": "1028925335-B.ipt",
+        "holes": []
+    },
+    {
+        "part": "1028925335-C.ipt",
+        "holes": []
+    },
+    {
+        "part": "1028925335-D.ipt",
+        "holes": []
+    },
+    {
+        "part": "1028925335-E.ipt",
+        "holes": [
+            {
+                "name": "Hole1",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            }
+        ]
+    },
+    {
+        "part": "1028925335-F.ipt",
+        "holes": [
+            {
+                "name": "Hole1",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            }
+        ]
+    },
+    {
+        "part": "1093144795-A.ipt",
+        "holes": [
+            {
+                "name": "Hole2",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            },
+            {
+                "name": "Hole3",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            },
+            {
+                "name": "Hole4",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            }
+        ]
+    },
+    {
+        "part": "1093144795-G.ipt",
+        "holes": [
+            {
+                "name": "Hole1",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            },
+            {
+                "name": "Hole2",
+                "suppressed": false,
+                "hole_type": "21505",
+                "diameter_mm": null,
+                "patterned": false,
+                "pattern_count": 1
+            }
+        ]
+    }
+]
