@@ -4,113 +4,143 @@ import json
 from pathlib import Path
 import time
 
-# ===============================
+# ================================
 # CONFIG
-# ===============================
+# ================================
 PART_PATH = r"E:\Phase 1\Assembly 1\1093144795-A.ipt"
-OUT_JSON  = Path(r"E:\Phase 1\extractions\part_full_dump.json")
+OUT_JSON  = Path(r"E:\Phase 1\extractions\part_debug_dump.json")
 
-# ===============================
-# SAFE HELPERS
-# ===============================
-def safe(val):
+# ================================
+# CONNECT INVENTOR
+# ================================
+def connect():
     try:
-        return float(val)
-    except:
-        return None
-
-def try_get(obj, attr):
-    try:
-        return getattr(obj, attr)
-    except:
-        return None
-
-# ===============================
-# INVENTOR CONNECT
-# ===============================
-def connect_inventor():
-    try:
-        return win32com.client.GetActiveObject("Inventor.Application")
+        inv = win32com.client.GetActiveObject("Inventor.Application")
     except:
         inv = win32com.client.Dispatch("Inventor.Application")
         inv.Visible = True
         time.sleep(2)
-        return inv
+    return inv
 
-# ===============================
-# MAIN DUMP
-# ===============================
+# ================================
+# MAIN
+# ================================
 def run():
     pythoncom.CoInitialize()
-    inv = connect_inventor()
+    inv = connect()
 
     doc = inv.Documents.Open(PART_PATH, True)
     comp = doc.ComponentDefinition
 
     dump = {
-        "part": doc.DisplayName,
-        "document_type": str(doc.DocumentType),
-        "surface_bodies": []
+        "part": Path(PART_PATH).name,
+        "hole_features": [],
+        "sketches": [],
+        "work_axes": [],
+        "work_points": [],
+        "cylindrical_faces": []
     }
 
-    for b_idx, body in enumerate(comp.SurfaceBodies):
-        body_data = {
-            "body_index": b_idx,
-            "faces": []
+    # ----------------------------
+    # HOLE FEATURES (RAW)
+    # ----------------------------
+    for h in comp.Features.HoleFeatures:
+        hole_data = {
+            "name": h.Name,
+            "hole_type_enum": int(h.HoleType),
+            "suppressed": bool(h.Suppressed),
+            "placement_definition_attrs": []
         }
 
-        for f_idx, face in enumerate(body.Faces):
-            face_data = {
-                "face_index": f_idx,
-                "surface_type": try_get(face.Geometry, "SurfaceType"),
-                "is_param_reversed": try_get(face, "IsParamReversed"),
-                "geometry_class": face.Geometry.__class__.__name__,
-                "geometry": {}
-            }
+        pd = h.PlacementDefinition
+        for attr in dir(pd):
+            if not attr.startswith("_"):
+                try:
+                    val = getattr(pd, attr)
+                    hole_data["placement_definition_attrs"].append(attr)
+                except:
+                    pass
 
-            geom = face.Geometry
+        dump["hole_features"].append(hole_data)
 
-            # Try extracting everything safely
-            for attr in [
-                "Radius",
-                "Diameter",
-                "Axis",
-                "BasePoint",
-                "Center",
-                "Normal",
-                "Direction"
-            ]:
-                val = try_get(geom, attr)
+    # ----------------------------
+    # SKETCH GEOMETRY
+    # ----------------------------
+    for sk in comp.Sketches:
+        sk_data = {
+            "name": sk.Name,
+            "points": [],
+            "circles": []
+        }
 
-                if val is None:
-                    face_data["geometry"][attr] = None
-                else:
-                    try:
-                        face_data["geometry"][attr] = {
-                            "X": safe(getattr(val, "X", None)),
-                            "Y": safe(getattr(val, "Y", None)),
-                            "Z": safe(getattr(val, "Z", None))
-                        }
-                    except:
-                        face_data["geometry"][attr] = str(val)
+        for pt in sk.SketchPoints:
+            sk_data["points"].append([pt.Geometry.X, pt.Geometry.Y, pt.Geometry.Z])
 
-            # Edge preview (count only)
+        for c in sk.SketchCircles:
+            center = c.CenterSketchPoint.Geometry
+            sk_data["circles"].append({
+                "center": [center.X, center.Y, center.Z],
+                "radius": c.Radius
+            })
+
+        dump["sketches"].append(sk_data)
+
+    # ----------------------------
+    # WORK FEATURES
+    # ----------------------------
+    for ax in comp.WorkAxes:
+        try:
+            geo = ax.Line
+            dump["work_axes"].append({
+                "name": ax.Name,
+                "origin": [geo.RootPoint.X, geo.RootPoint.Y, geo.RootPoint.Z],
+                "direction": [geo.Direction.X, geo.Direction.Y, geo.Direction.Z]
+            })
+        except:
+            pass
+
+    for wp in comp.WorkPoints:
+        try:
+            p = wp.Point
+            dump["work_points"].append({
+                "name": wp.Name,
+                "point": [p.X, p.Y, p.Z]
+            })
+        except:
+            pass
+
+    # ----------------------------
+    # CYLINDRICAL FACES (IMPORTANT)
+    # ----------------------------
+    for body in comp.SurfaceBodies:
+        for face in body.Faces:
             try:
-                face_data["edge_count"] = face.Edges.Count
+                if face.SurfaceType == 16:  # Cylinder
+                    cyl = face.Geometry
+                    dump["cylindrical_faces"].append({
+                        "radius": cyl.Radius,
+                        "axis_origin": [
+                            cyl.Axis.RootPoint.X,
+                            cyl.Axis.RootPoint.Y,
+                            cyl.Axis.RootPoint.Z
+                        ],
+                        "axis_direction": [
+                            cyl.Axis.Direction.X,
+                            cyl.Axis.Direction.Y,
+                            cyl.Axis.Direction.Z
+                        ]
+                    })
             except:
-                face_data["edge_count"] = None
+                pass
 
-            body_data["faces"].append(face_data)
-
-        dump["surface_bodies"].append(body_data)
-
+    # ----------------------------
+    # SAVE
+    # ----------------------------
     with open(OUT_JSON, "w", encoding="utf-8") as f:
         json.dump(dump, f, indent=4)
 
-    print("✅ FULL PART GEOMETRY DUMP COMPLETE")
-    print(f"   → {OUT_JSON}")
-
     doc.Close(True)
+    print(f"✅ Debug dump created → {OUT_JSON}")
 
 if __name__ == "__main__":
     run()
