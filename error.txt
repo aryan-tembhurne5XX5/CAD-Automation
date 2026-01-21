@@ -1,44 +1,2468 @@
-[
-    {
-        "fastener": "0228100017-M1:1",
-        "plates": [
-            "1093144795-A:1",
-            "1028925335-B:1",
-            "1028925335-B:2",
-            "1028925335-C:1",
-            "1028925335-C:2",
-            "1028925335-D:1",
-            "1028925335-E:1",
-            "1028925335-F:1",
-            "1093144795-G:1",
-            "0228100017-M1:1",
-            "0228100017-M1:3",
-            "0228100017-M1:4",
-            "0228100017-M1:5"
-        ],
-        "stack_size": 13,
-        "stack_type": "blind_rivet",
-        "confidence": 0.99
-    },
-    {
-        "fastener": "0228100017-M1:3",
-        "plates": [
-            "1093144795-A:1",
-            "1028925335-B:1",
-            "1028925335-B:2",
-            "1028925335-C:1",
-            "1028925335-C:2",
-            "1028925335-D:1",
-            "1028925335-E:1",
-            "1028925335-F:1",
-            "1093144795-G:1",
-            "0228100017-M1:1",
-            "0228100017-M1:3",
-            "0228100017-M1:4",
-            "0228100017-M1:5"
-        ],
-        "stack_size": 13,
-        "stack_type": "blind_rivet",
-        "confidence": 0.99
+{
+    "assembly_name": "1093144795-M1.iam",
+    "occurrences": [
+        {
+            "name": "1093144795-A:1",
+            "definition": "1093144795-A.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1093144795-A",
+            "description": "Th=1,25mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-B:1",
+            "definition": "1028925335-B.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-B",
+            "description": "Th=1,25mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-B:2",
+            "definition": "1028925335-B.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-B",
+            "description": "Th=1,25mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-C:1",
+            "definition": "1028925335-C.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-C",
+            "description": "Th=2mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-C:2",
+            "definition": "1028925335-C.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-C",
+            "description": "Th=2mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-D:1",
+            "definition": "1028925335-D.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-D",
+            "description": "Th=1,25mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-E:1",
+            "definition": "1028925335-E.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-E",
+            "description": "Th=1,5mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1028925335-F:1",
+            "definition": "1028925335-F.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1028925335-F",
+            "description": "Th=1,5mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "1093144795-G:1",
+            "definition": "1093144795-G.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "1093144795-G",
+            "description": "Th=1,5mm",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100025:1",
+            "definition": "0298100025.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100025",
+            "description": "NUT, RIVET, CORNER, M8",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100025:2",
+            "definition": "0298100025.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100025",
+            "description": "NUT, RIVET, CORNER, M8",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0228100017-M1:1",
+            "definition": "0228100017-M1.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0228100017-M1",
+            "description": "",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0228100017-M1:3",
+            "definition": "0228100017-M1.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0228100017-M1",
+            "description": "",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0228100017-M1:4",
+            "definition": "0228100017-M1.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0228100017-M1",
+            "description": "",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0228100017-M1:5",
+            "definition": "0228100017-M1.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0228100017-M1",
+            "description": "",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:1",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:3",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:4",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:5",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:6",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:7",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:8",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:9",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:10",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:11",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:12",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:13",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:14",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:15",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:16",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:17",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:18",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:19",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:20",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:21",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:22",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:41",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:42",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:43",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:44",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:45",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:53",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:2",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:46",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:47",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:48",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:49",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:50",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:51",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:52",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:54",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:55",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:56",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:57",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:58",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:59",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:60",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:61",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:62",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:63",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:64",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:65",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:66",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:67",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:68",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:69",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:70",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:71",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:23",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:24",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:25",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:26",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:27",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:28",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:29",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:30",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:31",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:72",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:73",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:74",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:75",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:76",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:77",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:78",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:79",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        },
+        {
+            "name": "0298100030:80",
+            "definition": "0298100030.ipt",
+            "document_type": "Part",
+            "parent": null,
+            "suppressed": false,
+            "visible": true,
+            "part_number": "0298100030",
+            "description": "RIVET",
+            "hole_count": 0,
+            "holes": []
+        }
+    ],
+    "constraints": [
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-B:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-B:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Flush",
+            "health": 11778,
+            "occurrence_1": "1028925335-B:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1093144795-A:1",
+            "occurrence_2": "1028925335-B:2",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-B:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Angle",
+            "health": 11778,
+            "occurrence_1": "1028925335-B:1",
+            "occurrence_2": "1028925335-B:2",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-B:2",
+            "occurrence_2": "1028925335-B:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Angle",
+            "health": 11778,
+            "occurrence_1": "1028925335-C:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-C:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-C:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-C:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Angle",
+            "health": 11778,
+            "occurrence_1": "1028925335-C:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-C:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100025:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100025:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-D:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-D:1",
+            "occurrence_2": "1028925335-C:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Angle",
+            "health": 11778,
+            "occurrence_1": "1028925335-D:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-E:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-E:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-F:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-F:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1093144795-A:1",
+            "occurrence_2": "1028925335-F:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1093144795-G:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1093144795-G:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1093144795-G:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "1028925335-E:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "0228100017-M1:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Face",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Mate",
+            "health": 11778,
+            "occurrence_1": "0228100017-M1:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Edge",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Angle",
+            "health": 11778,
+            "occurrence_1": "0228100017-M1:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Edge",
+            "entity_2_type": "Face"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:1",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:3",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:4",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:5",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:6",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:7",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:8",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:9",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:10",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:11",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:12",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:13",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:23",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:41",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:2",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:53",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:63",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:64",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        },
+        {
+            "constraint_type": "Insert",
+            "health": 11778,
+            "occurrence_1": "0298100030:71",
+            "occurrence_2": "1093144795-A:1",
+            "entity_1_type": "Axis",
+            "entity_2_type": "Axis"
+        }
+    ]
+}
+
+{
+    "occurrences": {
+        "1093144795-A:1": {
+            "origin": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "z_axis": [
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        "1028925335-B:1": {
+            "origin": [
+                79.87500000000003,
+                101.90000000000005,
+                -5.999999999993422
+            ],
+            "z_axis": [
+                -1.0072189995627111e-16,
+                1.0,
+                5.934837715805314e-14
+            ]
+        },
+        "1028925335-B:2": {
+            "origin": [
+                54.87500000000003,
+                57.50000000000004,
+                -5.999999999999998
+            ],
+            "z_axis": [
+                2.320451449087505e-16,
+                -1.0,
+                -5.194087990387062e-15
+            ]
+        },
+        "1028925335-C:1": {
+            "origin": [
+                0.375000000000043,
+                9.998388347648264,
+                -2.775000000000459
+            ],
+            "z_axis": [
+                -3.2828527993691057e-31,
+                5.752669956763846e-16,
+                -1.0
+            ]
+        },
+        "1028925335-C:2": {
+            "origin": [
+                92.37499999999997,
+                9.998388347648145,
+                -2.7749999999999524
+            ],
+            "z_axis": [
+                6.0930229101424975e-15,
+                1.153206000833095e-15,
+                -1.0
+            ]
+        },
+        "1028925335-D:1": {
+            "origin": [
+                33.4999999999997,
+                89.99838834764822,
+                -4.999999999999999
+            ],
+            "z_axis": [
+                2.2597711961556866e-16,
+                -0.9999999999999989,
+                1.830959627749065e-15
+            ]
+        },
+        "1028925335-E:1": {
+            "origin": [
+                50.54499999999998,
+                74.79999999999998,
+                4.429067189672654e-12
+            ],
+            "z_axis": [
+                -2.883850366647421e-16,
+                5.940700015174967e-14,
+                -1.0
+            ]
+        },
+        "1028925335-F:1": {
+            "origin": [
+                38.044999999999966,
+                36.3,
+                3.920600935624061e-17
+            ],
+            "z_axis": [
+                -3.7000091563211126e-21,
+                -1.0,
+                -5.894284035139058e-17
+            ]
+        },
+        "1093144795-G:1": {
+            "origin": [
+                10.54499999999994,
+                47.5499999999999,
+                3.9206009356240454e-17
+            ],
+            "z_axis": [
+                -0.9999999999999978,
+                -3.0695708913968777e-16,
+                -5.894284035139056e-17
+            ]
+        },
+        "0298100025:1": {
+            "origin": [
+                90.49999999999983,
+                119.73161165235177,
+                -4.649999999999911
+            ],
+            "z_axis": [
+                1.6653345369397092e-16,
+                -0.9999999999999994,
+                -6.103751306826673e-14
+            ]
+        },
+        "0298100025:2": {
+            "origin": [
+                -5.499999999999732,
+                119.73161165235172,
+                -4.650000000000424
+            ],
+            "z_axis": [
+                6.30489186612029e-16,
+                -1.0000000000000002,
+                -6.165330305609909e-14
+            ]
+        },
+        "0228100017-M1:1": {
+            "origin": [
+                2.4999999999999396,
+                105.31000000000006,
+                6.852204375071677e-17
+            ],
+            "z_axis": [
+                -3.069558787450823e-16,
+                0.9999999999999984,
+                -2.2439933806639353e-44
+            ]
+        },
+        "0228100017-M1:3": {
+            "origin": [
+                2.4999999999999463,
+                84.31000000000004,
+                6.852204375071677e-17
+            ],
+            "z_axis": [
+                -3.069558787450823e-16,
+                0.9999999999999984,
+                -2.2439933806639353e-44
+            ]
+        },
+        "0228100017-M1:4": {
+            "origin": [
+                23.49999999999994,
+                105.31000000000007,
+                6.852204375059573e-17
+            ],
+            "z_axis": [
+                -3.069558787450823e-16,
+                0.9999999999999984,
+                -2.2439933806639353e-44
+            ]
+        },
+        "0228100017-M1:5": {
+            "origin": [
+                23.499999999999947,
+                84.31000000000006,
+                6.852204375059573e-17
+            ],
+            "z_axis": [
+                -3.069558787450823e-16,
+                0.9999999999999984,
+                -2.2439933806639353e-44
+            ]
+        },
+        "0298100030:1": {
+            "origin": [
+                46.849999999999945,
+                120.87000000000003,
+                -0.07999999999999996
+            ],
+            "z_axis": [
+                9.957711914122246e-15,
+                1.3441753467883656e-16,
+                0.9999999999999987
+            ]
+        },
+        "0298100030:3": {
+            "origin": [
+                41.449999999999946,
+                120.87000000000003,
+                -0.08000000000000003
+            ],
+            "z_axis": [
+                4.0245584642661925e-16,
+                -4.8570479547572746e-17,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:4": {
+            "origin": [
+                36.14999999999994,
+                120.87000000000003,
+                -0.08000000000000015
+            ],
+            "z_axis": [
+                -1.1102230246251565e-16,
+                5.201712160896367e-16,
+                1.0000000000000018
+            ]
+        },
+        "0298100030:5": {
+            "origin": [
+                33.94999999999994,
+                118.87000000000003,
+                -0.08000000000000004
+            ],
+            "z_axis": [
+                9.133319101017885e-16,
+                -6.41528476369824e-16,
+                1.0
+            ]
+        },
+        "0298100030:6": {
+            "origin": [
+                33.94999999999994,
+                115.57000000000004,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                1.1529501103677996e-15,
+                -5.417161985877348e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:7": {
+            "origin": [
+                33.94999999999995,
+                112.07000000000005,
+                -0.07999999999999988
+            ],
+            "z_axis": [
+                -5.204170427930434e-17,
+                -7.771561172376096e-16,
+                0.999999999999998
+            ]
+        },
+        "0298100030:8": {
+            "origin": [
+                33.949999999999925,
+                108.57000000000005,
+                -0.08000000000000015
+            ],
+            "z_axis": [
+                -5.412337245047641e-16,
+                3.5532839187338874e-16,
+                1.000000000000001
+            ]
+        },
+        "0298100030:9": {
+            "origin": [
+                33.949999999999946,
+                105.07000000000004,
+                -0.08
+            ],
+            "z_axis": [
+                1.3880621950637704e-15,
+                2.2632022419604785e-17,
+                0.9999999999999996
+            ]
+        },
+        "0298100030:10": {
+            "origin": [
+                33.949999999999946,
+                101.57000000000004,
+                -0.08000000000000004
+            ],
+            "z_axis": [
+                5.551115123125782e-16,
+                1.0841675959996448e-16,
+                1.0
+            ]
+        },
+        "0298100030:11": {
+            "origin": [
+                33.949999999999946,
+                98.07000000000004,
+                -0.07999999999999996
+            ],
+            "z_axis": [
+                4.654620791798977e-16,
+                2.4213337584188674e-16,
+                0.9999999999999989
+            ]
+        },
+        "0298100030:12": {
+            "origin": [
+                33.949999999999946,
+                94.57000000000004,
+                -0.08000000000000003
+            ],
+            "z_axis": [
+                -5.5511151231257704e-17,
+                4.3102838428802236e-17,
+                0.9999999999999999
+            ]
+        },
+        "0298100030:13": {
+            "origin": [
+                33.94999999999995,
+                91.07000000000006,
+                -0.08000000000000004
+            ],
+            "z_axis": [
+                1.70116162787875e-16,
+                3.199493670992089e-17,
+                1.0
+            ]
+        },
+        "0298100030:14": {
+            "origin": [
+                49.04999999999994,
+                118.87000000000003,
+                -0.07999999999999752
+            ],
+            "z_axis": [
+                9.133319101017885e-16,
+                -6.41528476369824e-16,
+                1.0
+            ]
+        },
+        "0298100030:15": {
+            "origin": [
+                49.04999999999994,
+                115.57000000000004,
+                -0.07999999999999756
+            ],
+            "z_axis": [
+                1.1529501103677996e-15,
+                -5.417161985877348e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:16": {
+            "origin": [
+                49.04999999999996,
+                112.07000000000005,
+                -0.07999999999999735
+            ],
+            "z_axis": [
+                -5.204170427930434e-17,
+                -7.771561172376096e-16,
+                0.999999999999998
+            ]
+        },
+        "0298100030:17": {
+            "origin": [
+                49.049999999999926,
+                108.57000000000004,
+                -0.07999999999999763
+            ],
+            "z_axis": [
+                -5.412337245047641e-16,
+                3.5532839187338874e-16,
+                1.000000000000001
+            ]
+        },
+        "0298100030:18": {
+            "origin": [
+                49.04999999999995,
+                105.07000000000004,
+                -0.07999999999999748
+            ],
+            "z_axis": [
+                1.3880621950637704e-15,
+                2.2632022419604785e-17,
+                0.9999999999999996
+            ]
+        },
+        "0298100030:19": {
+            "origin": [
+                49.04999999999994,
+                101.57000000000004,
+                -0.0799999999999975
+            ],
+            "z_axis": [
+                5.551115123125782e-16,
+                1.0841675959996448e-16,
+                1.0
+            ]
+        },
+        "0298100030:20": {
+            "origin": [
+                49.04999999999995,
+                98.07000000000004,
+                -0.07999999999999743
+            ],
+            "z_axis": [
+                4.654620791798977e-16,
+                2.4213337584188674e-16,
+                0.9999999999999989
+            ]
+        },
+        "0298100030:21": {
+            "origin": [
+                49.04999999999994,
+                94.57000000000002,
+                -0.0799999999999975
+            ],
+            "z_axis": [
+                -5.5511151231257704e-17,
+                4.3102838428802236e-17,
+                0.9999999999999999
+            ]
+        },
+        "0298100030:22": {
+            "origin": [
+                49.04999999999996,
+                91.07000000000005,
+                -0.07999999999999752
+            ],
+            "z_axis": [
+                1.70116162787875e-16,
+                3.199493670992089e-17,
+                1.0
+            ]
+        },
+        "0298100030:41": {
+            "origin": [
+                80.69999999999996,
+                100.46999999999998,
+                -0.07999999999999993
+            ],
+            "z_axis": [
+                2.602545912676859e-15,
+                -1.3661637055400974e-15,
+                0.9999999999999979
+            ]
+        },
+        "0298100030:42": {
+            "origin": [
+                74.49999999999996,
+                100.46999999999998,
+                -0.08000000000000097
+            ],
+            "z_axis": [
+                2.602545912676859e-15,
+                -1.3661637055400974e-15,
+                0.9999999999999979
+            ]
+        },
+        "0298100030:43": {
+            "origin": [
+                68.29999999999995,
+                100.46999999999998,
+                -0.08000000000000201
+            ],
+            "z_axis": [
+                2.602545912676859e-15,
+                -1.3661637055400974e-15,
+                0.9999999999999979
+            ]
+        },
+        "0298100030:44": {
+            "origin": [
+                62.09999999999995,
+                100.46999999999998,
+                -0.08000000000000304
+            ],
+            "z_axis": [
+                2.602545912676859e-15,
+                -1.3661637055400974e-15,
+                0.9999999999999979
+            ]
+        },
+        "0298100030:45": {
+            "origin": [
+                55.89999999999996,
+                100.46999999999997,
+                -0.08000000000000407
+            ],
+            "z_axis": [
+                2.602545912676859e-15,
+                -1.3661637055400974e-15,
+                0.9999999999999979
+            ]
+        },
+        "0298100030:53": {
+            "origin": [
+                8.699999999999948,
+                31.380000000000035,
+                -0.08000000000000004
+            ],
+            "z_axis": [
+                1.4131904070699899e-15,
+                -4.549002041071054e-17,
+                1.0
+            ]
+        },
+        "0298100030:2": {
+            "origin": [
+                8.699999999999884,
+                79.07999999999998,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:46": {
+            "origin": [
+                8.699999999999893,
+                73.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:47": {
+            "origin": [
+                8.699999999999886,
+                67.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:48": {
+            "origin": [
+                8.699999999999886,
+                61.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:49": {
+            "origin": [
+                8.699999999999884,
+                55.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:50": {
+            "origin": [
+                8.699999999999891,
+                49.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:51": {
+            "origin": [
+                8.699999999999896,
+                43.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:52": {
+            "origin": [
+                8.6999999999999,
+                37.07999999999997,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:54": {
+            "origin": [
+                51.79999999999994,
+                31.380000000000035,
+                -0.08000000000000117
+            ],
+            "z_axis": [
+                1.4131904070699899e-15,
+                -4.549002041071054e-17,
+                1.0
+            ]
+        },
+        "0298100030:55": {
+            "origin": [
+                51.7999999999999,
+                79.07999999999996,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:56": {
+            "origin": [
+                51.7999999999999,
+                73.07999999999996,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:57": {
+            "origin": [
+                51.7999999999999,
+                67.07999999999994,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:58": {
+            "origin": [
+                51.7999999999999,
+                61.079999999999956,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:59": {
+            "origin": [
+                51.7999999999999,
+                55.079999999999956,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:60": {
+            "origin": [
+                51.79999999999989,
+                49.079999999999956,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:61": {
+            "origin": [
+                51.799999999999905,
+                43.07999999999996,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:62": {
+            "origin": [
+                51.799999999999905,
+                37.07999999999997,
+                -0.08000000000000124
+            ],
+            "z_axis": [
+                -1.3340259520381455e-16,
+                4.457595408468856e-16,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:63": {
+            "origin": [
+                10.899999999999958,
+                81.08000000000003,
+                -0.08000000000000004
+            ],
+            "z_axis": [
+                1.6930901125533637e-15,
+                -2.968871766845151e-15,
+                1.0
+            ]
+        },
+        "0298100030:64": {
+            "origin": [
+                15.800000000000004,
+                81.08000000000006,
+                -0.08000000000000006
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:65": {
+            "origin": [
+                20.70000000000001,
+                81.08000000000007,
+                -0.07999999999999924
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:66": {
+            "origin": [
+                25.6,
+                81.08000000000006,
+                -0.0799999999999984
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:67": {
+            "origin": [
+                30.500000000000007,
+                81.08000000000006,
+                -0.0799999999999976
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:68": {
+            "origin": [
+                35.400000000000006,
+                81.08000000000006,
+                -0.07999999999999678
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:69": {
+            "origin": [
+                40.30000000000001,
+                81.08000000000007,
+                -0.07999999999999596
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:70": {
+            "origin": [
+                45.2,
+                81.08000000000006,
+                -0.07999999999999513
+            ],
+            "z_axis": [
+                -1.800137460001168e-16,
+                1.9771114329264965e-15,
+                1.0000000000000002
+            ]
+        },
+        "0298100030:71": {
+            "origin": [
+                49.69999999999992,
+                81.08000000000003,
+                -0.0800000000000001
+            ],
+            "z_axis": [
+                9.43689570931383e-16,
+                1.818884461927119e-17,
+                1.0000000000000007
+            ]
+        },
+        "0298100030:23": {
+            "origin": [
+                82.91999999999999,
+                98.47000000000003,
+                -0.08000000000000003
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:24": {
+            "origin": [
+                82.91999999999999,
+                92.77000000000002,
+                -0.08000000000000855
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:25": {
+            "origin": [
+                82.92,
+                87.07000000000002,
+                -0.08000000000001709
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:26": {
+            "origin": [
+                82.92,
+                81.37000000000003,
+                -0.0800000000000256
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:27": {
+            "origin": [
+                82.92000000000002,
+                75.67000000000002,
+                -0.08000000000003414
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:28": {
+            "origin": [
+                82.92000000000002,
+                69.97000000000003,
+                -0.08000000000004266
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:29": {
+            "origin": [
+                82.92000000000003,
+                64.27000000000001,
+                -0.0800000000000512
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:30": {
+            "origin": [
+                82.92000000000003,
+                58.57000000000002,
+                -0.08000000000005972
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:31": {
+            "origin": [
+                82.92000000000004,
+                52.87000000000002,
+                -0.08000000000006825
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:72": {
+            "origin": [
+                53.69999999999999,
+                98.47000000000003,
+                -0.08000000000000491
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:73": {
+            "origin": [
+                53.699999999999974,
+                92.77000000000001,
+                -0.08000000000001344
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:74": {
+            "origin": [
+                53.69999999999999,
+                87.07000000000002,
+                -0.08000000000002197
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:75": {
+            "origin": [
+                53.7,
+                81.37000000000003,
+                -0.08000000000003049
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:76": {
+            "origin": [
+                53.70000000000002,
+                75.67000000000002,
+                -0.08000000000003903
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:77": {
+            "origin": [
+                53.70000000000001,
+                69.97000000000003,
+                -0.08000000000004755
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:78": {
+            "origin": [
+                53.70000000000002,
+                64.27000000000001,
+                -0.08000000000005608
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:79": {
+            "origin": [
+                53.70000000000003,
+                58.57000000000001,
+                -0.0800000000000646
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        },
+        "0298100030:80": {
+            "origin": [
+                53.700000000000045,
+                52.870000000000005,
+                -0.08000000000007314
+            ],
+            "z_axis": [
+                1.0866425881544271e-15,
+                1.0481944609341057e-15,
+                0.9999999999999998
+            ]
+        }
     }
-]
+}
