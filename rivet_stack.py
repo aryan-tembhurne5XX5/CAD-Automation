@@ -5,109 +5,114 @@ from pathlib import Path
 # =====================================================
 # CONFIG
 # =====================================================
-ASM_JSON   = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-GEOM_JSON  = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
-OUT_JSON   = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
+ASSEMBLY_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+AXIS_JSON     = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
+OUT_JSON      = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
 
-# Geometry tolerances (mm)
-AXIS_DISTANCE_TOL = 5.0     # radial distance to axis
-MAX_STACK_LENGTH  = 20.0     # max plate stack depth
+# ---- Tunable parameters ----
+AXIS_DISTANCE_TOL = 8.0     # mm (axis proximity)
+MAX_STACK_LENGTH  = 12.0    # mm (blind rivet allowance)
+MIN_STACK_PLATES  = 1
 
 # =====================================================
-# VECTOR MATH
+# VECTOR HELPERS
 # =====================================================
 def dot(a, b):
-    return sum(x*y for x, y in zip(a, b))
+    return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]
 
 def sub(a, b):
-    return [x - y for x, y in zip(a, b)]
+    return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]
 
 def norm(v):
     return math.sqrt(dot(v, v))
 
 def normalize(v):
     n = norm(v)
-    return [x / n for x in v] if n > 0 else [0, 0, 0]
+    return [v[0]/n, v[1]/n, v[2]/n] if n else [0,0,0]
+
+def dist_point_to_axis(p, o, d):
+    v = sub(p, o)
+    proj = dot(v, d)
+    closest = [o[i] + proj*d[i] for i in range(3)]
+    return norm(sub(p, closest)), proj
 
 # =====================================================
-# LOAD INPUTS
+# LOAD DATA
 # =====================================================
-assembly = json.loads(ASM_JSON.read_text())
-geometry = json.loads(GEOM_JSON.read_text())["occurrences"]
+with open(ASSEMBLY_JSON, "r", encoding="utf-8") as f:
+    asm = json.load(f)
 
-occurrences = assembly["occurrences"]
+with open(AXIS_JSON, "r", encoding="utf-8") as f:
+    axes = json.load(f)
 
-# =====================================================
-# CLASSIFY PARTS
-# =====================================================
-fasteners = {}
+occurrences = asm["occurrences"]
+
+# -----------------------------------------------------
+# Classify parts
+# -----------------------------------------------------
 plates = {}
+fasteners = {}
 
 for occ in occurrences:
     name = occ["name"]
     desc = (occ.get("description") or "").upper()
 
-    if "RIVET" in desc or "BLIND" in desc:
+    if "RIVET" in desc:
         fasteners[name] = occ
     else:
         plates[name] = occ
 
 # =====================================================
-# PHASE-5 INFERENCE
+# PHASE-5 STACK INFERENCE
 # =====================================================
 results = []
 
-for fname in fasteners:
-    if fname not in geometry:
-        continue
+for fast_name, axis_data in axes.items():
 
-    f_origin = geometry[fname]["origin"]
-    f_axis   = normalize(geometry[fname]["z_axis"])
+    origin = axis_data["origin"]
+    direction = normalize(axis_data["direction"])
 
-    stack = []
+    candidates = []
 
-    for pname in plates:
-        if pname not in geometry:
+    for plate_name, plate in plates.items():
+
+        plate_origin = plate.get("origin")
+        if not plate_origin:
             continue
 
-        p_origin = geometry[pname]["origin"]
-        v = sub(p_origin, f_origin)
+        dist, proj = dist_point_to_axis(
+            plate_origin, origin, direction
+        )
 
-        # Projection along axis
-        t = dot(v, f_axis)
-
-        # Reject behind rivet or too deep
-        if abs(t) > MAX_STACK_LENGTH:
+        if dist > AXIS_DISTANCE_TOL:
             continue
 
-        # Radial distance to axis
-        radial = sub(v, [t * d for d in f_axis])
-        dist = norm(radial)
+        if 0 < proj < MAX_STACK_LENGTH:
+            candidates.append((proj, plate_name))
 
-        if dist <= AXIS_DISTANCE_TOL:
-            stack.append((t, pname))
-
-    if not stack:
+    if len(candidates) < MIN_STACK_PLATES:
         continue
 
-    # Sort plates along axis
-    stack.sort(key=lambda x: x[0])
+    candidates.sort(key=lambda x: x[0])
+
+    stack_plates = [p for _, p in candidates]
+
+    confidence = min(0.95, 0.6 + 0.15 * len(stack_plates))
 
     results.append({
-        "fastener": fname,
-        "plates": [p for _, p in stack],
-        "stack_size": len(stack),
+        "fastener": fast_name,
+        "plates": stack_plates,
+        "stack_size": len(stack_plates),
         "stack_type": "blind_rivet",
-        "confidence": 0.95
+        "confidence": round(confidence, 3)
     })
 
 # =====================================================
 # SAVE OUTPUT
 # =====================================================
-OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-OUT_JSON.write_text(json.dumps(results, indent=4))
-print("Fasteners:", len(fasteners))
-print("Fasteners with geometry:", sum(1 for f in fasteners if f in geometry))
-print("✅ Phase-5 blind rivet inference complete")
-print(f"→ {OUT_JSON}")
-print(f"→ {len(results)} rivets inferred")
+with open(OUT_JSON, "w", encoding="utf-8") as f:
+    json.dump(results, f, indent=4)
+
+print("✅ Phase-5 complete")
+print(f"   → {OUT_JSON}")
+print(f"   → stacks inferred: {len(results)}")
