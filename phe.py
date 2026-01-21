@@ -1,113 +1,120 @@
 import win32com.client
 import pythoncom
 import json
-import time
 from pathlib import Path
 
-# =====================================================
+# ==============================
 # CONFIG
-# =====================================================
-ASSEMBLY_EXTRACTION = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-PART_ROOT_FOLDER   = Path(r"E:\Phase 1\Assembly 1")
-OUTPUT_JSON        = Path(r"E:\Phase 1\extractions\hole_features.json")
+# ==============================
+PART_PATH = r"E:\Phase 1\Assembly 1\1093144795-A.ipt"
+OUT_JSON  = r"E:\Phase 1\extractions\part_hole_debug.json"
 
-# =====================================================
+# ==============================
+# INVENTOR CONNECT
+# ==============================
 def connect_inventor():
     try:
         return win32com.client.GetActiveObject("Inventor.Application")
     except:
         inv = win32com.client.Dispatch("Inventor.Application")
         inv.Visible = True
-        time.sleep(2)
         return inv
 
-# =====================================================
-def extract_holes_from_part(inv, part_path):
-    holes = []
+# ==============================
+# SAFE VALUE
+# ==============================
+def safe(v):
+    try:
+        return float(v)
+    except:
+        return None
 
-    part_doc = inv.Documents.Open(str(part_path), True)
-    comp_def = part_doc.ComponentDefinition
-
-    for h in comp_def.Features.HoleFeatures:
-        try:
-            hole_info = {
-                "name": h.Name,
-                "suppressed": bool(h.Suppressed),
-                "hole_type": str(h.HoleType),
-                "diameter_mm": None,
-                "patterned": False,
-                "pattern_count": 1
-            }
-
-            pd = h.PlacementDefinition
-
-            # ---- Diameter extraction (SAFE) ----
-            try:
-                if hasattr(pd, "HoleDiameter"):
-                    hole_info["diameter_mm"] = float(pd.HoleDiameter.Value)
-                elif hasattr(pd, "TapDrillDiameter"):
-                    hole_info["diameter_mm"] = float(pd.TapDrillDiameter.Value)
-                elif hasattr(pd, "ClearanceDiameter"):
-                    hole_info["diameter_mm"] = float(pd.ClearanceDiameter.Value)
-            except:
-                hole_info["diameter_mm"] = None
-
-            # ---- Pattern detection ----
-            for pat in comp_def.Features.RectangularPatternFeatures:
-                try:
-                    if h in list(pat.ParentFeatures):
-                        hole_info["patterned"] = True
-                        hole_info["pattern_count"] = pat.CountX * pat.CountY
-                except:
-                    pass
-
-            for pat in comp_def.Features.CircularPatternFeatures:
-                try:
-                    if h in list(pat.ParentFeatures):
-                        hole_info["patterned"] = True
-                        hole_info["pattern_count"] = pat.Count
-                except:
-                    pass
-
-            holes.append(hole_info)
-
-        except Exception as e:
-            print(f"⚠️ Skipped hole in {part_path.name}: {e}")
-
-    part_doc.Close(True)
-    return holes
-
-# =====================================================
+# ==============================
+# MAIN EXTRACTION
+# ==============================
 def run():
     pythoncom.CoInitialize()
     inv = connect_inventor()
 
-    with open(ASSEMBLY_EXTRACTION, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    doc = inv.Documents.Open(PART_PATH, True)
+    comp = doc.ComponentDefinition
 
-    unique_parts = sorted(set(o["definition"] for o in data["occurrences"]))
+    output = {
+        "part": doc.DisplayName,
+        "holes": []
+    }
 
-    output = []
+    # ------------------------------
+    # 1. Hole FEATURES
+    # ------------------------------
+    for h in comp.Features.HoleFeatures:
+        hole_entry = {
+            "feature_name": h.Name,
+            "hole_type": h.HoleType,
+            "suppressed": h.Suppressed,
+            "diameter_mm": None,
+            "centers": [],
+            "pattern_count": 1
+        }
 
-    for part_name in unique_parts:
-        part_path = PART_ROOT_FOLDER / part_name
-        if not part_path.exists():
-            continue
+        # ---- Diameter (robust) ----
+        try:
+            hole_entry["diameter_mm"] = safe(h.HoleDiameter.Value * 10)
+        except:
+            pass
 
-        print(f"🔍 Extracting holes from {part_name}")
-        holes = extract_holes_from_part(inv, part_path)
+        # ---- Center points ----
+        try:
+            for p in h.HoleCenterPoints:
+                hole_entry["centers"].append([
+                    safe(p.X), safe(p.Y), safe(p.Z)
+                ])
+        except:
+            pass
 
-        output.append({
-            "part": part_name,
-            "holes": holes
-        })
+        # ---- Pattern participation ----
+        try:
+            parents = h.ParentFeatures
+            if parents and parents.Count > 0:
+                hole_entry["pattern_count"] = parents.Count
+        except:
+            pass
 
-    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        output["holes"].append(hole_entry)
+
+    # ------------------------------
+    # 2. CYLINDRICAL FACES (truth)
+    # ------------------------------
+    output["cylindrical_faces"] = []
+
+    for body in comp.SurfaceBodies:
+        for face in body.Faces:
+            try:
+                geom = face.Geometry
+                if geom.SurfaceType == 5891:  # Cylinder
+                    output["cylindrical_faces"].append({
+                        "radius_mm": safe(geom.Radius * 10),
+                        "axis_direction": [
+                            safe(geom.AxisVector.X),
+                            safe(geom.AxisVector.Y),
+                            safe(geom.AxisVector.Z)
+                        ],
+                        "base_point": [
+                            safe(geom.BasePoint.X),
+                            safe(geom.BasePoint.Y),
+                            safe(geom.BasePoint.Z)
+                        ]
+                    })
+            except:
+                continue
+
+    with open(OUT_JSON, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=4)
 
-    print("\n✅ Phase-3 Hole Extraction COMPLETE")
-    print(f"→ {OUTPUT_JSON}")
+    print("✅ Diagnostic hole extraction complete")
+    print(f"→ {OUT_JSON}")
 
-# =====================================================
+    doc.Close(True)
+
 if __name__ == "__main__":
     run()
