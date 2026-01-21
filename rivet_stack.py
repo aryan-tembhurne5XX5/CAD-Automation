@@ -10,7 +10,7 @@ AXIS_JSON     = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
 OUT_JSON      = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
 
 # ---- Tunable parameters ----
-AXIS_DISTANCE_TOL = 8.0     # mm (axis proximity)
+AXIS_DISTANCE_TOL = 8.0     # mm (distance from axis)
 MAX_STACK_LENGTH  = 12.0    # mm (blind rivet allowance)
 MIN_STACK_PLATES  = 1
 
@@ -43,13 +43,21 @@ with open(ASSEMBLY_JSON, "r", encoding="utf-8") as f:
     asm = json.load(f)
 
 with open(AXIS_JSON, "r", encoding="utf-8") as f:
-    axes = json.load(f)
+    axis_list = json.load(f)
 
 occurrences = asm["occurrences"]
 
-# -----------------------------------------------------
-# Classify parts
-# -----------------------------------------------------
+# =====================================================
+# BUILD AXIS MAP  (🔥 FIX FOR YOUR ERROR 🔥)
+# =====================================================
+axis_map = {
+    a["occurrence"]: a
+    for a in axis_list
+}
+
+# =====================================================
+# CLASSIFY PARTS
+# =====================================================
 plates = {}
 fasteners = {}
 
@@ -67,7 +75,7 @@ for occ in occurrences:
 # =====================================================
 results = []
 
-for fast_name, axis_data in axes.items():
+for fast_name, axis_data in axis_map.items():
 
     origin = axis_data["origin"]
     direction = normalize(axis_data["direction"])
@@ -94,7 +102,6 @@ for fast_name, axis_data in axes.items():
         continue
 
     candidates.sort(key=lambda x: x[0])
-
     stack_plates = [p for _, p in candidates]
 
     confidence = min(0.95, 0.6 + 0.15 * len(stack_plates))
