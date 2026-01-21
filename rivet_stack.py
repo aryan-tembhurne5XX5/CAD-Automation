@@ -5,93 +5,94 @@ from pathlib import Path
 # =====================================================
 # CONFIG
 # =====================================================
-ASM_JSON   = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-HOOKS_JSON = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
-AXIS_JSON  = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
-OUT_JSON   = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
+GEOM_JSON = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
+ASM_JSON  = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+OUT_JSON  = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
 
-MAX_RIVET_GRIP = 20.0      # mm
-HOLE_RADIUS    = 3.0       # mm
-
-# =====================================================
-# VECTOR MATH
-# =====================================================
-def dot(a, b): return sum(x*y for x, y in zip(a, b))
-def sub(a, b): return [x-y for x, y in zip(a, b)]
-def norm(v): return math.sqrt(dot(v, v))
-def normalize(v):
-    n = norm(v)
-    return [x/n for x in v] if n else v
-
-# =====================================================
-# LOAD FILES
-# =====================================================
-asm   = json.loads(ASM_JSON.read_text())
-hooks = json.loads(HOOKS_JSON.read_text())
-axes  = json.loads(AXIS_JSON.read_text())
-
-occ_info = {o["name"]: o for o in asm["occurrences"]}
-occ_pos  = {
-    name: data["translation"]
-    for name, data in hooks["occurrence_transforms"].items()
-}
+PROXIMITY_TOL_MM = 3.0
 
 # =====================================================
 # HELPERS
 # =====================================================
-def is_plate(occ):
-    desc = (occ.get("description") or "").upper()
-    return not any(k in desc for k in ("RIVET", "NUT", "SCREW", "FASTENER"))
+def dist(a, b):
+    return math.sqrt(sum((a[i] - b[i]) ** 2 for i in range(3)))
 
 # =====================================================
-# PHASE-5: STACK INFERENCE
+# LOAD DATA
 # =====================================================
-results = []
+geometry = json.loads(GEOM_JSON.read_text())
+assembly = json.loads(ASM_JSON.read_text())
 
-for fast in axes:
-    f_name = fast["occurrence"]
-    axis_o = fast["origin"]
-    axis_d = normalize(fast["direction"])
+occ_geom = geometry["occurrences"]
+occ_info = {o["name"]: o for o in assembly["occurrences"]}
+constraints = assembly["constraints"]
+
+# =====================================================
+# CLASSIFY PARTS
+# =====================================================
+fasteners = set()
+plates = set()
+
+for name, o in occ_info.items():
+    desc = (o.get("description") or "").upper()
+    if "RIVET" in desc or "NUT" in desc:
+        fasteners.add(name)
+    else:
+        plates.add(name)
+
+# =====================================================
+# INSERT CONSTRAINT MAP
+# =====================================================
+insert_map = {}
+
+for c in constraints:
+    if c["constraint_type"] != "Insert":
+        continue
+    insert_map.setdefault(c["occurrence_1"], set()).add(c["occurrence_2"])
+    insert_map.setdefault(c["occurrence_2"], set()).add(c["occurrence_1"])
+
+# =====================================================
+# STACK INFERENCE
+# =====================================================
+stacks = []
+
+for f in fasteners:
+    if f not in occ_geom:
+        continue
+
+    f_origin = occ_geom[f]["origin"]
+    connected = insert_map.get(f, set())
 
     stack = []
-
-    for occ_name, occ in occ_info.items():
-        if occ_name == f_name:
+    for p in connected:
+        if p not in plates or p not in occ_geom:
             continue
-        if not is_plate(occ):
-            continue
-        if occ_name not in occ_pos:
-            continue
+        d = dist(f_origin, occ_geom[p]["origin"])
+        if d <= PROXIMITY_TOL_MM:
+            stack.append((p, d))
 
-        p = occ_pos[occ_name]
-        v = sub(p, axis_o)
-        t = dot(v, axis_d)
-
-        if t < 0 or t > MAX_RIVET_GRIP:
-            continue
-
-        radial = norm(sub(v, [t*x for x in axis_d]))
-        if radial > HOLE_RADIUS:
-            continue
-
-        stack.append((occ_name, t))
-
-    if len(stack) < 2:
+    if not stack:
         continue
 
     stack.sort(key=lambda x: x[1])
+    plate_stack = [p for p, _ in stack]
 
-    results.append({
-        "fastener": f_name,
-        "plates": [s[0] for s in stack],
-        "stack_size": len(stack),
-        "stack_type": "blind_rivet",
-        "confidence": 0.95
+    stack_type = (
+        "single_plate" if len(plate_stack) == 1
+        else "blind_rivet"
+    )
+
+    stacks.append({
+        "fastener": f,
+        "plates": plate_stack,
+        "stack_size": len(plate_stack),
+        "stack_type": stack_type,
+        "confidence": round(min(1.0, 0.7 + 0.1 * len(plate_stack)), 2)
     })
 
 # =====================================================
 # SAVE
 # =====================================================
-OUT_JSON.write_text(json.dumps(results, indent=4))
-print("✅ Phase-5 complete → blind rivet stacks inferred")
+OUT_JSON.write_text(json.dumps(stacks, indent=4))
+print("✅ Phase-5 blind rivet stacks inferred")
 print(f"→ {OUT_JSON}")
