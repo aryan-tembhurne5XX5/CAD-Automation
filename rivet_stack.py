@@ -5,79 +5,65 @@ from pathlib import Path
 # =====================================================
 # CONFIG
 # =====================================================
-ASM_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
-AXIS_JSON = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
-OUT_JSON  = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
+ASM_JSON   = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
+HOOKS_JSON = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
+AXIS_JSON  = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
+OUT_JSON   = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
 
-# Geometry thresholds (mm)
-MAX_RIVET_GRIP = 20.0
-HOLE_RADIUS_THRESHOLD = 3.0
+MAX_RIVET_GRIP = 20.0      # mm
+HOLE_RADIUS    = 3.0       # mm
 
 # =====================================================
-# VECTOR HELPERS
+# VECTOR MATH
 # =====================================================
-def dot(a, b):
-    return sum(x*y for x, y in zip(a, b))
-
-def sub(a, b):
-    return [x-y for x, y in zip(a, b)]
-
-def norm(v):
-    return math.sqrt(dot(v, v))
-
+def dot(a, b): return sum(x*y for x, y in zip(a, b))
+def sub(a, b): return [x-y for x, y in zip(a, b)]
+def norm(v): return math.sqrt(dot(v, v))
 def normalize(v):
     n = norm(v)
     return [x/n for x in v] if n else v
 
-def distance(a, b):
-    return norm(sub(a, b))
-
 # =====================================================
-# LOAD DATA
+# LOAD FILES
 # =====================================================
-with open(ASM_JSON, "r", encoding="utf-8") as f:
-    asm = json.load(f)
+asm   = json.loads(ASM_JSON.read_text())
+hooks = json.loads(HOOKS_JSON.read_text())
+axes  = json.loads(AXIS_JSON.read_text())
 
-with open(AXIS_JSON, "r", encoding="utf-8") as f:
-    axes = json.load(f)
-
-occ_map = {
-    o["name"]: o
-    for o in asm["occurrences"]
+occ_info = {o["name"]: o for o in asm["occurrences"]}
+occ_pos  = {
+    name: data["translation"]
+    for name, data in hooks["occurrence_transforms"].items()
 }
 
 # =====================================================
-# PLATE FILTER
+# HELPERS
 # =====================================================
 def is_plate(occ):
     desc = (occ.get("description") or "").upper()
-    return not any(k in desc for k in ["RIVET", "NUT", "SCREW", "FASTENER"])
+    return not any(k in desc for k in ("RIVET", "NUT", "SCREW", "FASTENER"))
 
 # =====================================================
-# PHASE-5 STACK INFERENCE
+# PHASE-5: STACK INFERENCE
 # =====================================================
-stacks = []
+results = []
 
-for fastener in axes:
-    f_name = fastener["occurrence"]
-    axis_o = fastener["origin"]
-    axis_d = normalize(fastener["direction"])
+for fast in axes:
+    f_name = fast["occurrence"]
+    axis_o = fast["origin"]
+    axis_d = normalize(fast["direction"])
 
-    plates = []
+    stack = []
 
-    for occ in asm["occurrences"]:
-        if not is_plate(occ):
-            continue
-
-        occ_name = occ["name"]
+    for occ_name, occ in occ_info.items():
         if occ_name == f_name:
             continue
-
-        # Use occurrence transform origin if present
-        if "origin" not in occ:
+        if not is_plate(occ):
+            continue
+        if occ_name not in occ_pos:
             continue
 
-        p = occ["origin"]
+        p = occ_pos[occ_name]
         v = sub(p, axis_o)
         t = dot(v, axis_d)
 
@@ -85,29 +71,27 @@ for fastener in axes:
             continue
 
         radial = norm(sub(v, [t*x for x in axis_d]))
-        if radial > HOLE_RADIUS_THRESHOLD:
+        if radial > HOLE_RADIUS:
             continue
 
-        plates.append((occ_name, t))
+        stack.append((occ_name, t))
 
-    if len(plates) < 2:
+    if len(stack) < 2:
         continue
 
-    plates.sort(key=lambda x: x[1])
+    stack.sort(key=lambda x: x[1])
 
-    stacks.append({
+    results.append({
         "fastener": f_name,
-        "plates": [p[0] for p in plates],
-        "stack_size": len(plates),
+        "plates": [s[0] for s in stack],
+        "stack_size": len(stack),
         "stack_type": "blind_rivet",
-        "confidence": round(min(0.95, 0.7 + 0.05 * len(plates)), 2)
+        "confidence": 0.95
     })
 
 # =====================================================
 # SAVE
 # =====================================================
-with open(OUT_JSON, "w", encoding="utf-8") as f:
-    json.dump(stacks, f, indent=4)
-
-print("✅ Phase-5 blind rivet stacks inferred correctly")
-print(f"   → {OUT_JSON}")
+OUT_JSON.write_text(json.dumps(results, indent=4))
+print("✅ Phase-5 complete → blind rivet stacks inferred")
+print(f"→ {OUT_JSON}")
