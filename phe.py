@@ -28,35 +28,51 @@ def extract_holes_from_part(inv, part_path):
     part_doc = inv.Documents.Open(str(part_path), True)
     comp_def = part_doc.ComponentDefinition
 
-    # --- Hole features ---
     for h in comp_def.Features.HoleFeatures:
-        hole_data = {
-            "name": h.Name,
-            "diameter_mm": float(h.Diameter.Value),
-            "suppressed": bool(h.Suppressed),
-            "patterned": False,
-            "pattern_count": 1
-        }
+        try:
+            hole_info = {
+                "name": h.Name,
+                "suppressed": bool(h.Suppressed),
+                "hole_type": str(h.HoleType),
+                "diameter_mm": None,
+                "patterned": False,
+                "pattern_count": 1
+            }
 
-        # Rectangular patterns
-        for pat in comp_def.Features.RectangularPatternFeatures:
+            pd = h.PlacementDefinition
+
+            # ---- Diameter extraction (SAFE) ----
             try:
-                if h in list(pat.ParentFeatures):
-                    hole_data["patterned"] = True
-                    hole_data["pattern_count"] = pat.CountX * pat.CountY
+                if hasattr(pd, "HoleDiameter"):
+                    hole_info["diameter_mm"] = float(pd.HoleDiameter.Value)
+                elif hasattr(pd, "TapDrillDiameter"):
+                    hole_info["diameter_mm"] = float(pd.TapDrillDiameter.Value)
+                elif hasattr(pd, "ClearanceDiameter"):
+                    hole_info["diameter_mm"] = float(pd.ClearanceDiameter.Value)
             except:
-                pass
+                hole_info["diameter_mm"] = None
 
-        # Circular patterns
-        for pat in comp_def.Features.CircularPatternFeatures:
-            try:
-                if h in list(pat.ParentFeatures):
-                    hole_data["patterned"] = True
-                    hole_data["pattern_count"] = pat.Count
-            except:
-                pass
+            # ---- Pattern detection ----
+            for pat in comp_def.Features.RectangularPatternFeatures:
+                try:
+                    if h in list(pat.ParentFeatures):
+                        hole_info["patterned"] = True
+                        hole_info["pattern_count"] = pat.CountX * pat.CountY
+                except:
+                    pass
 
-        holes.append(hole_data)
+            for pat in comp_def.Features.CircularPatternFeatures:
+                try:
+                    if h in list(pat.ParentFeatures):
+                        hole_info["patterned"] = True
+                        hole_info["pattern_count"] = pat.Count
+                except:
+                    pass
+
+            holes.append(hole_info)
+
+        except Exception as e:
+            print(f"⚠️ Skipped hole in {part_path.name}: {e}")
 
     part_doc.Close(True)
     return holes
