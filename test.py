@@ -6,7 +6,9 @@ from pathlib import Path
 
 # ================= CONFIG =================
 PART_PATH = Path(r"E:\Phase 1\Assembly 1\1093144795-A.ipt")
-OUTPUT_JSON = Path(r"E:\Phase 1\extractions\_probe_holes.json")
+OUTPUT_JSON = Path(r"E:\Phase 1\extractions\_probe_everything.json")
+
+MAX_ATTRS = 300  # safety limit
 
 # ================= INVENTOR =================
 def connect_inventor():
@@ -18,99 +20,95 @@ def connect_inventor():
         time.sleep(2)
         return inv
 
-def safe(val):
+def safe_get(obj, attr):
     try:
-        return val
+        v = getattr(obj, attr)
+        if callable(v):
+            return "<callable>"
+        return str(v)
     except:
         return None
 
-def safe_float(val):
-    try:
-        return float(val)
-    except:
-        return None
+def list_attrs(obj):
+    out = {}
+    for a in dir(obj):
+        if a.startswith("_"):
+            continue
+        try:
+            val = getattr(obj, a)
+            if callable(val):
+                out[a] = "<callable>"
+            else:
+                out[a] = str(val)
+        except:
+            out[a] = None
+        if len(out) > MAX_ATTRS:
+            break
+    return out
 
-# ================= PROBE ====================
-def probe_part(part_path):
+# ================= MAIN PROBE =================
+def run():
     pythoncom.CoInitialize()
     inv = connect_inventor()
 
-    doc = inv.Documents.Open(str(part_path), True)
+    doc = inv.Documents.Open(str(PART_PATH), True)
     comp = doc.ComponentDefinition
 
-    probe = {
-        "part": part_path.name,
-        "hole_features": []
+    dump = {
+        "part": PART_PATH.name,
+        "property_sets": {},
+        "features": [],
+        "faces": [],
+        "sketches": []
     }
 
-    for h in comp.Features.HoleFeatures:
-        entry = {
-            "name": h.Name,
-            "suppressed": safe(h.Suppressed),
-            "feature_type": safe(h.Type),
-            "properties": {},
-            "definition": {},
-            "faces": []
-        }
-
-        # -------- Feature-level properties --------
-        for attr in [
-            "Diameter", "Tapped", "Threaded", "CounterboreDiameter",
-            "CountersinkAngle", "Extent"
-        ]:
+    # ---------- PropertySets ----------
+    for ps in doc.PropertySets:
+        props = {}
+        for p in ps:
             try:
-                entry["properties"][attr] = safe_float(getattr(h, attr).Value)
+                props[p.Name] = str(p.Value)
             except:
-                entry["properties"][attr] = None
+                props[p.Name] = None
+        dump["property_sets"][ps.Name] = props
 
-        # -------- HoleDefinition inspection --------
-        try:
-            hd = h.HoleDefinition
-            entry["definition"]["Type"] = str(safe(hd.Type))
+    # ---------- Features ----------
+    for f in comp.Features:
+        f_entry = {
+            "name": safe_get(f, "Name"),
+            "type": safe_get(f, "Type"),
+            "all_attributes": list_attrs(f)
+        }
+        dump["features"].append(f_entry)
 
-            for attr in dir(hd):
-                if "Diameter" in attr or "Thread" in attr:
-                    try:
-                        v = getattr(hd, attr)
-                        entry["definition"][attr] = safe_float(v.Value) if hasattr(v, "Value") else str(v)
-                    except:
-                        pass
-        except:
-            entry["definition"] = None
+    # ---------- Faces ----------
+    try:
+        for body in comp.SurfaceBodies:
+            for face in body.Faces:
+                dump["faces"].append({
+                    "surface_type": safe_get(face, "SurfaceType"),
+                    "geometry": list_attrs(face.Geometry)
+                })
+    except:
+        pass
 
-        # -------- Face-based geometry --------
-        try:
-            for face in h.Faces:
-                if face.SurfaceType == 16:  # Cylinder
-                    cyl = face.Geometry
-                    axis = cyl.Axis
-                    entry["faces"].append({
-                        "axis_dir": [
-                            axis.Direction.X,
-                            axis.Direction.Y,
-                            axis.Direction.Z
-                        ],
-                        "axis_origin": [
-                            axis.RootPoint.X,
-                            axis.RootPoint.Y,
-                            axis.RootPoint.Z
-                        ],
-                        "radius_mm": safe_float(cyl.Radius)
-                    })
-        except:
-            pass
-
-        probe["hole_features"].append(entry)
+    # ---------- Sketches ----------
+    try:
+        for sk in comp.Sketches:
+            dump["sketches"].append({
+                "name": sk.Name,
+                "entities": list_attrs(sk)
+            })
+    except:
+        pass
 
     doc.Close(True)
-    return probe
-
-# ================= MAIN =====================
-if __name__ == "__main__":
-    data = probe_part(PART_PATH)
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4)
+        json.dump(dump, f, indent=2)
 
-    print("✅ Probe complete")
+    print("✅ FULL PROBE COMPLETE")
     print(f"→ {OUTPUT_JSON}")
+
+if __name__ == "__main__":
+    run()
