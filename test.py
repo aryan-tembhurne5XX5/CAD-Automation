@@ -1,16 +1,33 @@
 import win32com.client
 import pythoncom
 import json
-import time
 from pathlib import Path
+import time
 
-# ================= CONFIG =================
-PART_PATH = Path(r"E:\Phase 1\Assembly 1\1093144795-A.ipt")
-OUTPUT_JSON = Path(r"E:\Phase 1\extractions\_probe_everything.json")
+# ===============================
+# CONFIG
+# ===============================
+PART_PATH = r"E:\Phase 1\Assembly 1\1093144795-A.ipt"
+OUT_JSON  = Path(r"E:\Phase 1\extractions\part_full_dump.json")
 
-MAX_ATTRS = 300  # safety limit
+# ===============================
+# SAFE HELPERS
+# ===============================
+def safe(val):
+    try:
+        return float(val)
+    except:
+        return None
 
-# ================= INVENTOR =================
+def try_get(obj, attr):
+    try:
+        return getattr(obj, attr)
+    except:
+        return None
+
+# ===============================
+# INVENTOR CONNECT
+# ===============================
 def connect_inventor():
     try:
         return win32com.client.GetActiveObject("Inventor.Application")
@@ -20,95 +37,80 @@ def connect_inventor():
         time.sleep(2)
         return inv
 
-def safe_get(obj, attr):
-    try:
-        v = getattr(obj, attr)
-        if callable(v):
-            return "<callable>"
-        return str(v)
-    except:
-        return None
-
-def list_attrs(obj):
-    out = {}
-    for a in dir(obj):
-        if a.startswith("_"):
-            continue
-        try:
-            val = getattr(obj, a)
-            if callable(val):
-                out[a] = "<callable>"
-            else:
-                out[a] = str(val)
-        except:
-            out[a] = None
-        if len(out) > MAX_ATTRS:
-            break
-    return out
-
-# ================= MAIN PROBE =================
+# ===============================
+# MAIN DUMP
+# ===============================
 def run():
     pythoncom.CoInitialize()
     inv = connect_inventor()
 
-    doc = inv.Documents.Open(str(PART_PATH), True)
+    doc = inv.Documents.Open(PART_PATH, True)
     comp = doc.ComponentDefinition
 
     dump = {
-        "part": PART_PATH.name,
-        "property_sets": {},
-        "features": [],
-        "faces": [],
-        "sketches": []
+        "part": doc.DisplayName,
+        "document_type": str(doc.DocumentType),
+        "surface_bodies": []
     }
 
-    # ---------- PropertySets ----------
-    for ps in doc.PropertySets:
-        props = {}
-        for p in ps:
-            try:
-                props[p.Name] = str(p.Value)
-            except:
-                props[p.Name] = None
-        dump["property_sets"][ps.Name] = props
-
-    # ---------- Features ----------
-    for f in comp.Features:
-        f_entry = {
-            "name": safe_get(f, "Name"),
-            "type": safe_get(f, "Type"),
-            "all_attributes": list_attrs(f)
+    for b_idx, body in enumerate(comp.SurfaceBodies):
+        body_data = {
+            "body_index": b_idx,
+            "faces": []
         }
-        dump["features"].append(f_entry)
 
-    # ---------- Faces ----------
-    try:
-        for body in comp.SurfaceBodies:
-            for face in body.Faces:
-                dump["faces"].append({
-                    "surface_type": safe_get(face, "SurfaceType"),
-                    "geometry": list_attrs(face.Geometry)
-                })
-    except:
-        pass
+        for f_idx, face in enumerate(body.Faces):
+            face_data = {
+                "face_index": f_idx,
+                "surface_type": try_get(face.Geometry, "SurfaceType"),
+                "is_param_reversed": try_get(face, "IsParamReversed"),
+                "geometry_class": face.Geometry.__class__.__name__,
+                "geometry": {}
+            }
 
-    # ---------- Sketches ----------
-    try:
-        for sk in comp.Sketches:
-            dump["sketches"].append({
-                "name": sk.Name,
-                "entities": list_attrs(sk)
-            })
-    except:
-        pass
+            geom = face.Geometry
+
+            # Try extracting everything safely
+            for attr in [
+                "Radius",
+                "Diameter",
+                "Axis",
+                "BasePoint",
+                "Center",
+                "Normal",
+                "Direction"
+            ]:
+                val = try_get(geom, attr)
+
+                if val is None:
+                    face_data["geometry"][attr] = None
+                else:
+                    try:
+                        face_data["geometry"][attr] = {
+                            "X": safe(getattr(val, "X", None)),
+                            "Y": safe(getattr(val, "Y", None)),
+                            "Z": safe(getattr(val, "Z", None))
+                        }
+                    except:
+                        face_data["geometry"][attr] = str(val)
+
+            # Edge preview (count only)
+            try:
+                face_data["edge_count"] = face.Edges.Count
+            except:
+                face_data["edge_count"] = None
+
+            body_data["faces"].append(face_data)
+
+        dump["surface_bodies"].append(body_data)
+
+    with open(OUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(dump, f, indent=4)
+
+    print("✅ FULL PART GEOMETRY DUMP COMPLETE")
+    print(f"   → {OUT_JSON}")
 
     doc.Close(True)
-
-    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
-        json.dump(dump, f, indent=2)
-
-    print("✅ FULL PROBE COMPLETE")
-    print(f"→ {OUTPUT_JSON}")
 
 if __name__ == "__main__":
     run()
