@@ -10,7 +10,7 @@ GEOM_JSON  = Path(r"E:\Phase 1\extractions\geometry_hooks.json")
 OUT_JSON   = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
 
 # Geometry tolerances (mm)
-AXIS_DISTANCE_TOL = 3.0      # radial distance to axis
+AXIS_DISTANCE_TOL = 5.0     # radial distance to axis
 MAX_STACK_LENGTH  = 20.0     # max plate stack depth
 
 # =====================================================
@@ -77,7 +77,7 @@ for fname in fasteners:
         t = dot(v, f_axis)
 
         # Reject behind rivet or too deep
-        if t < 0 or t > MAX_STACK_LENGTH:
+        if abs(t) > MAX_STACK_LENGTH:
             continue
 
         # Radial distance to axis
@@ -106,7 +106,8 @@ for fname in fasteners:
 # =====================================================
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 OUT_JSON.write_text(json.dumps(results, indent=4))
-
+print("Fasteners:", len(fasteners))
+print("Fasteners with geometry:", sum(1 for f in fasteners if f in geometry))
 print("✅ Phase-5 blind rivet inference complete")
 print(f"→ {OUT_JSON}")
 print(f"→ {len(results)} rivets inferred")
