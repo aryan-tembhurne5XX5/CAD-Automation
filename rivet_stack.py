@@ -1,125 +1,109 @@
 import json
-import math
 from pathlib import Path
+import math
 
 # =====================================================
 # CONFIG
 # =====================================================
 ASSEMBLY_JSON = Path(r"E:\Phase 1\extractions\assembly_extraction.json")
 AXIS_JSON     = Path(r"E:\Phase 1\extractions\geometry_fastener_axes.json")
-OUT_JSON      = Path(r"E:\Phase 1\extractions\blind_rivet_stacks.json")
+OUT_JSON      = Path(r"E:\Phase 1\extractions\rivet_stacks.json")
 
-# ---- Tunable parameters ----
-AXIS_DISTANCE_TOL = 8.0     # mm (distance from axis)
-MAX_STACK_LENGTH  = 12.0    # mm (blind rivet allowance)
-MIN_STACK_PLATES  = 1
+HOLE_DIAMETER_TOL = 0.3   # mm
+AXIS_DIST_TOL     = 2.0   # mm
+MIN_STACK_SIZE    = 1
 
 # =====================================================
-# VECTOR HELPERS
+# HELPERS
 # =====================================================
-def dot(a, b):
-    return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]
+def dist_point_to_axis(p, axis_origin, axis_dir):
+    """Shortest distance from point to axis"""
+    px, py, pz = p
+    ox, oy, oz = axis_origin
+    dx, dy, dz = axis_dir
 
-def sub(a, b):
-    return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]
+    vx, vy, vz = px - ox, py - oy, pz - oz
+    cross = (
+        vy*dz - vz*dy,
+        vz*dx - vx*dz,
+        vx*dy - vy*dx
+    )
+    num = math.sqrt(sum(c*c for c in cross))
+    den = math.sqrt(dx*dx + dy*dy + dz*dz)
+    return num / den if den else float("inf")
 
-def norm(v):
-    return math.sqrt(dot(v, v))
-
-def normalize(v):
-    n = norm(v)
-    return [v[0]/n, v[1]/n, v[2]/n] if n else [0,0,0]
-
-def dist_point_to_axis(p, o, d):
-    v = sub(p, o)
-    proj = dot(v, d)
-    closest = [o[i] + proj*d[i] for i in range(3)]
-    return norm(sub(p, closest)), proj
+def is_rivet(desc):
+    d = (desc or "").upper()
+    return "RIVET" in d
 
 # =====================================================
 # LOAD DATA
 # =====================================================
-with open(ASSEMBLY_JSON, "r", encoding="utf-8") as f:
-    asm = json.load(f)
+assembly = json.loads(ASSEMBLY_JSON.read_text(encoding="utf-8"))
+axes     = json.loads(AXIS_JSON.read_text(encoding="utf-8"))
 
-with open(AXIS_JSON, "r", encoding="utf-8") as f:
-    axis_list = json.load(f)
-
-occurrences = asm["occurrences"]
+occurrences = {o["name"]: o for o in assembly["occurrences"]}
 
 # =====================================================
-# BUILD AXIS MAP  (🔥 FIX FOR YOUR ERROR 🔥)
+# INDEX PARTS
 # =====================================================
-axis_map = {
-    a["occurrence"]: a
-    for a in axis_list
-}
+plates = []
+fasteners = []
 
-# =====================================================
-# CLASSIFY PARTS
-# =====================================================
-plates = {}
-fasteners = {}
-
-for occ in occurrences:
-    name = occ["name"]
-    desc = (occ.get("description") or "").upper()
-
-    if "RIVET" in desc:
-        fasteners[name] = occ
-    else:
-        plates[name] = occ
-
-# =====================================================
-# PHASE-5 STACK INFERENCE
-# =====================================================
-results = []
-
-for fast_name, axis_data in axis_map.items():
-
-    origin = axis_data["origin"]
-    direction = normalize(axis_data["direction"])
-
-    candidates = []
-
-    for plate_name, plate in plates.items():
-
-        plate_origin = plate.get("origin")
-        if not plate_origin:
-            continue
-
-        dist, proj = dist_point_to_axis(
-            plate_origin, origin, direction
-        )
-
-        if dist > AXIS_DISTANCE_TOL:
-            continue
-
-        if 0 < proj < MAX_STACK_LENGTH:
-            candidates.append((proj, plate_name))
-
-    if len(candidates) < MIN_STACK_PLATES:
+for occ in assembly["occurrences"]:
+    if occ["document_type"] != "Part":
         continue
 
-    candidates.sort(key=lambda x: x[0])
-    stack_plates = [p for _, p in candidates]
-
-    confidence = min(0.95, 0.6 + 0.15 * len(stack_plates))
-
-    results.append({
-        "fastener": fast_name,
-        "plates": stack_plates,
-        "stack_size": len(stack_plates),
-        "stack_type": "blind_rivet",
-        "confidence": round(confidence, 3)
-    })
+    if is_rivet(occ.get("description")):
+        fasteners.append(occ)
+    elif occ.get("hole_count", 0) > 0:
+        plates.append(occ)
 
 # =====================================================
-# SAVE OUTPUT
+# RIVET STACK INFERENCE
 # =====================================================
-with open(OUT_JSON, "w", encoding="utf-8") as f:
-    json.dump(results, f, indent=4)
+stacks = []
 
-print("✅ Phase-5 complete")
+for fast in fasteners:
+    fname = fast["name"]
+    axis = axes.get(fname)
+    if not axis:
+        continue
+
+    origin = axis["origin"]
+    direction = axis["direction"]
+
+    matched_plates = []
+
+    for plate in plates:
+        for hole in plate.get("holes", []):
+            # Diameter compatibility
+            if abs(hole["diameter"] - fast.get("nominal_diameter", hole["diameter"])) > HOLE_DIAMETER_TOL:
+                continue
+
+            # Use plate origin approximation (safe)
+            plate_axis_dist = dist_point_to_axis(
+                origin, origin, direction
+            )
+
+            if plate_axis_dist <= AXIS_DIST_TOL:
+                matched_plates.append(plate["name"])
+                break
+
+    if len(matched_plates) >= MIN_STACK_SIZE:
+        stacks.append({
+            "fastener": fname,
+            "plates": matched_plates,
+            "stack_size": len(matched_plates),
+            "stack_type": "blind_rivet",
+            "confidence": round(0.85 + 0.05 * min(len(matched_plates), 3), 2)
+        })
+
+# =====================================================
+# SAVE
+# =====================================================
+OUT_JSON.write_text(json.dumps(stacks, indent=4), encoding="utf-8")
+
+print("✅ Phase-5 rivet stack inference complete")
 print(f"   → {OUT_JSON}")
-print(f"   → stacks inferred: {len(results)}")
+print(f"   → stacks found: {len(stacks)}")
