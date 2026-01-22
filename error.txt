@@ -9,3 +9,8 @@ Traceback (most recent call last):
   File "C:\Users\hrish\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 631, in __getattr__
     raise AttributeError(f"{self._username_}.{attr}")
 AttributeError: Inventor.Application.DocumentTypeEnum
+    raise AttributeError(f"{self._username_}.{attr}")
+    raise AttributeError(f"{self._username_}.{attr}")
+    raise AttributeError(f"{self._username_}.{attr}")
+    raise AttributeError(f"{self._username_}.{attr}")
+AttributeError: Inventor.Application.DocumentTypeEnum
