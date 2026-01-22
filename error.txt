@@ -1,5 +1,3 @@
-Rule Compile Errors in Rule4, in 1093144795-A.ipt
+Error on line 93 in rule: Rule4, in document: 1093144795-A.ipt
 
-Error on Line 30 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
-Error on Line 129 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
-Error on Line 132 : 'File' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
+Public member 'SketchCenterPoints' on type 'SketchHolePlacementDefinition' not found.
