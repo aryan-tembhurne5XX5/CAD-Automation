@@ -1,113 +1,84 @@
-Imports System.IO
+' ================================
+' SAFE iLogic Assembly Export
+' ================================
+
 Imports System.Text
-Imports System.Web.Script.Serialization
+Imports System.IO
 
-Dim asm As AssemblyDocument = ThisDoc.Document
-Dim asmDef As AssemblyComponentDefinition = asm.ComponentDefinition
+Dim asmDoc As AssemblyDocument = ThisApplication.ActiveDocument
+Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
 
-Dim result As New Dictionary(Of String, Object)
+Dim sb As New StringBuilder()
+sb.AppendLine("{")
+sb.AppendLine("""assembly"": """ & asmDoc.DisplayName & """,")
 
-' ============================
+' ================================
 ' OCCURRENCES
-' ============================
-Dim occList As New List(Of Object)
+' ================================
+sb.AppendLine("""occurrences"": [")
 
-For Each occ As ComponentOccurrence In asmDef.Occurrences.AllReferencedOccurrences
-    Dim o As New Dictionary(Of String, Object)
+Dim firstOcc As Boolean = True
 
-    o("name") = occ.Name
-    o("definition") = occ.Definition.Document.DisplayName
-    o("full_path") = occ.Definition.Document.FullFileName
-    o("suppressed") = occ.Suppressed
-    o("grounded") = occ.Grounded
+For Each occ As ComponentOccurrence In asmDef.Occurrences
+    If Not firstOcc Then sb.AppendLine(",")
+    firstOcc = False
 
-    ' Transform
     Dim m = occ.Transformation
-    Dim mat(3,3) As Double
+
+    sb.AppendLine("{")
+    sb.AppendLine("""name"": """ & occ.Name & """,")
+    sb.AppendLine("""definition"": """ & occ.Definition.Document.DisplayName & """,")
+    sb.AppendLine("""suppressed"": " & occ.Suppressed.ToString().ToLower() & ",")
+    sb.AppendLine("""grounded"": " & occ.Grounded.ToString().ToLower() & ",")
+
+    sb.AppendLine("""transform"": [")
     For r = 1 To 4
+        sb.Append("  [")
         For c = 1 To 4
-            mat(r-1,c-1) = m.Cell(r,c)
+            sb.Append(m.Cell(r, c))
+            If c < 4 Then sb.Append(", ")
         Next
+        sb.Append("]")
+        If r < 4 Then sb.AppendLine(",") Else sb.AppendLine()
     Next
-    o("transform") = mat
+    sb.AppendLine("]")
 
-    ' Pattern
-    If occ.PatternElement IsNot Nothing Then
-        o("pattern_parent") = occ.PatternElement.Parent.Name
-    Else
-        o("pattern_parent") = Nothing
-    End If
-
-    occList.Add(o)
+    sb.Append("}")
 Next
 
-result("occurrences") = occList
+sb.AppendLine("],")
 
-' ============================
+' ================================
 ' CONSTRAINTS
-' ============================
-Dim conList As New List(Of Object)
+' ================================
+sb.AppendLine("""constraints"": [")
+
+Dim firstC As Boolean = True
 
 For Each c As AssemblyConstraint In asmDef.Constraints
-    Dim cd As New Dictionary(Of String, Object)
+    If Not firstC Then sb.AppendLine(",")
+    firstC = False
 
-    cd("name") = c.Name
-    cd("type") = c.Type
-    cd("suppressed") = c.Suppressed
-
-    If TypeOf c Is MateConstraint Or TypeOf c Is FlushConstraint Or TypeOf c Is InsertConstraint Then
-        cd("occurrence_1") = c.OccurrenceOne.Name
-        cd("occurrence_2") = c.OccurrenceTwo.Name
-
-        cd("entity_1_type") = c.EntityOne.Type
-        cd("entity_2_type") = c.EntityTwo.Type
-
-        cd("entity_1_ref") = c.EntityOne.ReferenceKey
-        cd("entity_2_ref") = c.EntityTwo.ReferenceKey
-    End If
-
-    conList.Add(cd)
+    sb.AppendLine("{")
+    sb.AppendLine("""name"": """ & c.Name & """,")
+    sb.AppendLine("""type"": " & c.Type & ",")
+    sb.AppendLine("""suppressed"": " & c.Suppressed.ToString().ToLower())
+    sb.Append("}")
 Next
 
-result("constraints") = conList
+sb.AppendLine("]")
 
-' ============================
-' HOLES (PART LEVEL)
-' ============================
-Dim holeList As New List(Of Object)
+sb.AppendLine("}")
 
-For Each occ As ComponentOccurrence In asmDef.Occurrences.AllReferencedOccurrences
-    If occ.DefinitionDocumentType <> DocumentTypeEnum.kPartDocumentObject Then Continue For
+' ================================
+' WRITE FILE
+' ================================
+Dim outPath As String =
+    System.IO.Path.Combine(
+        System.IO.Path.GetDirectoryName(asmDoc.FullFileName),
+        "assembly_export.json"
+    )
 
-    Dim part As PartDocument = occ.Definition.Document
-    Dim cd = part.ComponentDefinition
+System.IO.File.WriteAllText(outPath, sb.ToString())
 
-    For Each h As HoleFeature In cd.Features.HoleFeatures
-        If h.Suppressed Then Continue For
-
-        Dim hd As New Dictionary(Of String, Object)
-        hd("occurrence") = occ.Name
-        hd("part") = part.DisplayName
-        hd("diameter_mm") = h.HoleDiameter.Value * 10
-        hd("threaded") = h.Tapped
-
-        Dim axis = h.Axis
-        hd("center") = New Double() {axis.RootPoint.X*10, axis.RootPoint.Y*10, axis.RootPoint.Z*10}
-        hd("direction") = New Double() {axis.Direction.X, axis.Direction.Y, axis.Direction.Z}
-
-        holeList.Add(hd)
-    Next
-Next
-
-result("holes") = holeList
-
-' ============================
-' EXPORT JSON
-' ============================
-Dim serializer As New JavaScriptSerializer
-Dim json As String = serializer.Serialize(result)
-
-Dim outPath As String = Path.Combine(Path.GetDirectoryName(asm.FullFileName), "assembly_export.json")
-File.WriteAllText(outPath, json, Encoding.UTF8)
-
-MessageBox.Show("✅ Assembly exported:" & vbCrLf & outPath, "iLogic Export")
+MessageBox.Show("✅ Assembly exported to:" & vbLf & outPath)
