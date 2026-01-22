@@ -41,7 +41,7 @@ def extract_holes_from_part(part_doc):
         if hole.Suppressed:
             continue
 
-        hdef = hole.HoleDefinition
+        hdef = hole.Definition
         pdef = hole.PlacementDefinition
 
         # --- Diameter ---
@@ -84,7 +84,7 @@ def extract_holes_from_part(part_doc):
         if not parent:
             continue
 
-        hdef = parent.HoleDefinition
+        hdef = parent.Definition
         pdef = parent.PlacementDefinition
         if pdef.Type != 0:
             continue
