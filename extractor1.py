@@ -7,10 +7,10 @@ import time
 # CONFIG
 # =====================================================
 ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
-OUTPUT_PATH = r"E:\Phase 1\extractions\assembly_extraction.json"
+OUTPUT_PATH   = r"E:\Phase 1\extractions\assembly_extraction.json"
 
 # =====================================================
-# ENUM MAPS (Inventor)
+# ENUM MAPS (SAFE)
 # =====================================================
 CONSTRAINT_TYPE_MAP = {
     100665856: "Mate",
@@ -26,13 +26,12 @@ ENTITY_TYPE_MAP = {
 }
 
 # =====================================================
-# SAFE HELPERS (PATCHED)
+# SAFE HELPERS
 # =====================================================
 def get_document_type(doc):
     """
-    PATCH #1:
-    Do NOT trust Inventor DocumentType blindly.
-    Use file extension as authoritative fallback.
+    DO NOT trust DocumentType alone.
+    Python + Inventor COM is unreliable here.
     """
     try:
         name = doc.DisplayName.lower()
@@ -46,134 +45,211 @@ def get_document_type(doc):
 
 
 def get_entity_type(entity):
-    """
-    PATCH #2:
-    Convert raw Inventor enums → semantic labels.
-    """
     try:
-        return ENTITY_TYPE_MAP.get(entity.Type, "Unknown")
+        if not entity:
+            return "None"
+        return ENTITY_TYPE_MAP.get(entity.Type, f"Unknown ({entity.Type})")
     except:
         return "Unknown"
 
 
+def point_mm(p):
+    # Inventor internal units = cm
+    return [
+        round(p.X * 10, 4),
+        round(p.Y * 10, 4),
+        round(p.Z * 10, 4)
+    ]
+
+
+def vec(v):
+    return [
+        round(v.X, 6),
+        round(v.Y, 6),
+        round(v.Z, 6)
+    ]
+
+# =====================================================
+# HOLE EXTRACTION (FIXED FOR PYTHON)
+# =====================================================
 def extract_holes_from_part(part_doc):
     """
-    PATCH #3:
-    Guaranteed hole extraction for rivet intelligence.
+    ✔ Uses hole.Definition (NOT HoleDefinition)
+    ✔ Uses Geometry3d (true 3D)
+    ✔ Safe on all hole subtypes
     """
     holes = []
-    try:
-        comp_def = part_doc.ComponentDefinition
-        hole_features = comp_def.Features.HoleFeatures
 
-        for h in hole_features:
-            try:
-                holes.append({
-                    "diameter": float(h.Diameter.Value),
-                    "threaded": bool(h.Tapped),
-                    "suppressed": bool(h.Suppressed)
-                })
-            except:
-                continue
+    try:
+        cd = part_doc.ComponentDefinition
+        hole_features = cd.Features.HoleFeatures
     except:
-        pass
+        return holes
+
+    for hole in hole_features:
+        if hole.Suppressed:
+            continue
+
+        try:
+            hdef = hole.Definition                # ✅ CRITICAL FIX
+            pdef = hole.PlacementDefinition
+        except:
+            continue
+
+        # ---- Diameter (robust) ----
+        diameter_mm = None
+        try:
+            if hasattr(hdef, "Diameter"):
+                diameter_mm = hdef.Diameter.Value * 10
+            elif hasattr(hdef, "TapInfo"):
+                diameter_mm = hdef.TapInfo.MajorDiameter * 10
+        except:
+            diameter_mm = None
+
+        # ---- Sketch-based holes (99%) ----
+        if pdef.Type == 0:  # kSketchPlacementDefinition
+            try:
+                sketch_plane = pdef.Sketch.PlanarEntityGeometry
+                axis = vec(sketch_plane.Normal.AsVector())
+            except:
+                axis = None
+
+            for pt in pdef.SketchPoints:
+                try:
+                    center = pt.Geometry3d      # ✅ TRUE 3D CENTER
+                except:
+                    continue
+
+                holes.append({
+                    "feature_name": hole.Name,
+                    "diameter_mm": round(diameter_mm, 4) if diameter_mm else None,
+                    "center_mm": point_mm(center),
+                    "axis_vector": axis,
+                    "threaded": bool(hdef.Tapped) if hasattr(hdef, "Tapped") else False
+                })
 
     return holes
 
-
 # =====================================================
-# INVENTOR CONNECTION (SAFE)
-# =====================================================
-if not os.path.isfile(ASSEMBLY_PATH):
-    raise FileNotFoundError(f"Assembly not found: {ASSEMBLY_PATH}")
-
-inv = win32com.client.DispatchEx("Inventor.Application")
-inv.Visible = True
-time.sleep(2)
-
-doc = inv.Documents.Open(ASSEMBLY_PATH, True)
-asm_def = doc.ComponentDefinition
-
-# =====================================================
-# DATA CONTAINERS
-# =====================================================
-data = {
-    "assembly_name": doc.DisplayName,
-    "occurrences": [],
-    "constraints": []
-}
-
-# =====================================================
-# OCCURRENCE EXTRACTION (PATCHED)
+# RECURSIVE OCCURRENCE EXTRACTION
 # =====================================================
 def extract_occurrences(occurrences, parent=None):
+    result = []
+
     for occ in occurrences:
-        part_doc = occ.Definition.Document
-        doc_type = get_document_type(part_doc)
-
-        part_info = {
-            "name": occ.Name,
-            "definition": part_doc.DisplayName,
-            "document_type": doc_type,
-            "parent": parent,
-            "suppressed": bool(occ.Suppressed),
-            "visible": bool(occ.Visible)
-        }
-
-        # iProperties
         try:
-            props = part_doc.PropertySets.Item("Design Tracking Properties")
-            part_info["part_number"] = props.Item("Part Number").Value
-            part_info["description"] = props.Item("Description").Value
-        except:
-            part_info["part_number"] = None
-            part_info["description"] = None
+            is_suppressed = bool(occ.Suppressed)
 
-        # PATCH #3 APPLIED HERE
-        if doc_type == "Part":
-            holes = extract_holes_from_part(part_doc)
-            part_info["hole_count"] = len(holes)
-            part_info["holes"] = holes
+            occ_data = {
+                "name": occ.Name,
+                "parent": parent,
+                "suppressed": is_suppressed,
+                "visible": bool(occ.Visible),
+                "document_type": "Unknown",
+                "definition": None,
+                "part_number": None,
+                "description": None,
+                "holes": []
+            }
 
-        data["occurrences"].append(part_info)
+            if is_suppressed:
+                occ_data["note"] = "Suppressed"
+                result.append(occ_data)
+                continue
 
-        # Recursive for subassemblies
-        try:
-            if occ.SubOccurrences.Count > 0:
-                extract_occurrences(occ.SubOccurrences, occ.Name)
-        except:
-            pass
+            part_doc = occ.Definition.Document
+            occ_data["document_type"] = get_document_type(part_doc)
+            occ_data["definition"] = part_doc.DisplayName
 
+            # iProperties
+            try:
+                props = part_doc.PropertySets.Item("Design Tracking Properties")
+                occ_data["part_number"] = props.Item("Part Number").Value
+                occ_data["description"] = props.Item("Description").Value
+            except:
+                pass
 
-extract_occurrences(asm_def.Occurrences)
+            # Holes (Parts only)
+            if occ_data["document_type"] == "Part":
+                occ_data["holes"] = extract_holes_from_part(part_doc)
+
+            result.append(occ_data)
+
+            # Recurse into subassemblies
+            try:
+                if occ.SubOccurrences.Count > 0:
+                    result.extend(
+                        extract_occurrences(occ.SubOccurrences, occ.Name)
+                    )
+            except:
+                pass
+
+        except Exception as e:
+            print(f"⚠️ Occurrence error [{occ.Name}]: {e}")
+
+    return result
 
 # =====================================================
-# CONSTRAINT EXTRACTION (PATCHED)
+# MAIN
 # =====================================================
-for c in asm_def.Constraints:
+def main():
+    if not os.path.isfile(ASSEMBLY_PATH):
+        print(f"❌ Assembly not found: {ASSEMBLY_PATH}")
+        return
+
+    os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+
+    # Connect to Inventor
     try:
-        constraint = {
-            "constraint_type": CONSTRAINT_TYPE_MAP.get(c.Type, "Unknown"),
-            "health": c.HealthStatus,
-            "occurrence_1": c.OccurrenceOne.Name if hasattr(c, "OccurrenceOne") else None,
-            "occurrence_2": c.OccurrenceTwo.Name if hasattr(c, "OccurrenceTwo") else None,
-            "entity_1_type": get_entity_type(c.EntityOne),
-            "entity_2_type": get_entity_type(c.EntityTwo)
-        }
-        data["constraints"].append(constraint)
+        inv = win32com.client.GetActiveObject("Inventor.Application")
+        created = False
     except:
-        continue
+        inv = win32com.client.DispatchEx("Inventor.Application")
+        inv.Visible = True
+        created = True
+        time.sleep(5)
 
-# =====================================================
-# SAVE OUTPUT
-# =====================================================
-with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=4)
+    doc = None
 
-print(f"✅ Extraction complete → {OUTPUT_PATH}")
+    try:
+        doc = inv.Documents.Open(ASSEMBLY_PATH, True)
+        asm_def = doc.ComponentDefinition
 
-# =====================================================
-# CLEANUP
-# =====================================================
-doc.Close(True)
-inv.Quit()
+        data = {
+            "assembly_name": doc.DisplayName,
+            "timestamp": time.ctime(),
+            "occurrences": [],
+            "constraints": []
+        }
+
+        print("⚙️ Extracting occurrences...")
+        data["occurrences"] = extract_occurrences(asm_def.Occurrences)
+
+        print("🔗 Extracting constraints...")
+        for c in asm_def.Constraints:
+            try:
+                data["constraints"].append({
+                    "name": c.Name,
+                    "constraint_type": CONSTRAINT_TYPE_MAP.get(c.Type, f"Other ({c.Type})"),
+                    "health": c.HealthStatus,
+                    "occurrence_1": c.OccurrenceOne.Name if c.OccurrenceOne else None,
+                    "occurrence_2": c.OccurrenceTwo.Name if c.OccurrenceTwo else None,
+                    "entity_1_type": get_entity_type(c.EntityOne),
+                    "entity_2_type": get_entity_type(c.EntityTwo)
+                })
+            except:
+                continue
+
+        with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+
+        print(f"✅ Extraction complete → {OUTPUT_PATH}")
+
+    finally:
+        if doc:
+            doc.Close(True)
+        if created:
+            inv.Quit()
+
+if __name__ == "__main__":
+    main()
