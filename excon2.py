@@ -1,84 +1,137 @@
-' ==========================================
-' PART EXPORT — ASSEMBLY READY (FINAL)
-' ==========================================
-
-Imports System.Text
 Imports System.IO
+Imports System.Text
 
-Dim partDoc As PartDocument = ThisApplication.ActiveDocument
-Dim cd As PartComponentDefinition = partDoc.ComponentDefinition
+Sub Main()
+    ' Check if active document is a Part
+    If ThisApplication.ActiveDocument.DocumentType <> DocumentTypeEnum.kPartDocumentObject Then
+        MessageBox.Show("This rule must be run inside a Part file.", "iLogic Export", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Exit Sub
+    End If
 
-Dim sb As New StringBuilder()
+    Dim oDoc As PartDocument
+    oDoc = ThisApplication.ActiveDocument
 
-sb.AppendLine("{")
-sb.AppendLine("""part_name"": """ & partDoc.DisplayName & """,")
+    Dim oDef As PartComponentDefinition
+    oDef = oDoc.ComponentDefinition
 
-' -------------------------
-' iProperties
-' -------------------------
-Try
-    Dim props = partDoc.PropertySets.Item("Design Tracking Properties")
-    sb.AppendLine("""part_number"": """ & props.Item("Part Number").Value & """,")
-    sb.AppendLine("""description"": """ & props.Item("Description").Value & """,")
-Catch
-    sb.AppendLine("""part_number"": null,")
-    sb.AppendLine("""description"": null,")
-End Try
+    ' --- 1. Prepare JSON Builder ---
+    Dim sb As New StringBuilder()
+    sb.AppendLine("{")
+    
+    ' --- 2. Extract Metadata (iProperties) ---
+    Dim partName As String = System.IO.Path.GetFileNameWithoutExtension(oDoc.FullFileName)
+    Dim partNum As String = oDoc.PropertySets.Item("Design Tracking Properties").Item("Part Number").Value.ToString()
+    Dim desc As String = oDoc.PropertySets.Item("Design Tracking Properties").Item("Description").Value.ToString()
 
-' -------------------------
-' HOLES (iLogic SAFE)
-' -------------------------
-sb.AppendLine("""holes"": [")
+    ' Escape strings for JSON
+    partName = EscapeJson(partName)
+    partNum = EscapeJson(partNum)
+    desc = EscapeJson(desc)
 
-Dim firstHole As Boolean = True
+    sb.AppendLine("  ""partName"": """ & partName & """,")
+    sb.AppendLine("  ""partNumber"": """ & partNum & """,")
+    sb.AppendLine("  ""description"": """ & desc & """,")
+    sb.AppendLine("  ""holes"": [")
 
-For Each h As HoleFeature In cd.Features.HoleFeatures
-    If h.Suppressed Then Continue For
+    ' --- 3. Extract Holes ---
+    Dim holeList As New List(Of String)
+    
+    ' Iterate through all HoleFeatures in the part
+    For Each oHole As HoleFeature In oDef.Features.HoleFeatures
+        
+        ' Skip if suppressed
+        If oHole.Suppressed Then Continue For
 
-    Dim pdef = h.PlacementDefinition
-    If pdef.Type <> 0 Then Continue For ' must be sketch-based
+        ' Only process Sketch-based holes (Standard mechanism)
+        If oHole.PlacementDefinition.Type = FeatureDimensionsTypeEnum.kSketchHolePlacementDefinition Then
+            
+            ' Extract Basic Hole Data
+            Dim isThreaded As Boolean = oHole.Tapped
+            Dim diameterMm As Double = 0.0
+            
+            ' Determine Diameter based on API constraints (HoleDiameter returns ModelParameter)
+            ' Internal units are cm, convert to mm (* 10)
+            Try
+                diameterMm = oHole.HoleDiameter.Value * 10.0
+            Catch ex As Exception
+                ' Fallback for complex types like Tapered or specific tapped definitions if HoleDiameter is not direct
+                ' However, HoleDiameter is the standard API property requested. 
+                ' If it fails (e.g. some NPT types), we default to 0 or try TapInfo
+                If isThreaded Then
+                     ' Approximate using TapInfo if HoleDiameter fails, though constraint was specific
+                     diameterMm = 0.0 
+                End If
+            End Try
 
-    ' Axis = sketch plane normal
-    Dim plane = pdef.Sketch.PlanarEntityGeometry
-    Dim axisX As Double = plane.Normal.X
-    Dim axisY As Double = plane.Normal.Y
-    Dim axisZ As Double = plane.Normal.Z
+            Dim holeType As String = "Simple"
+            If isThreaded Then holeType = "Threaded"
 
-    ' Diameter (cm → mm)
-    Dim diaMM As Double = h.HoleDiameter.Value * 10
+            ' Iterate through Sketch Points (Handles Sketch Patterns/Multiple Centers)
+            Dim oSketchPoints As Object = oHole.SketchCenterPoints
+            
+            For Each oPoint As SketchPoint In oSketchPoints
+                
+                ' Get 3D Center (SketchPoint.Geometry3d is in Model Space, Internal Units cm)
+                Dim pX As Double = oPoint.Geometry3d.X * 10.0
+                Dim pY As Double = oPoint.Geometry3d.Y * 10.0
+                Dim pZ As Double = oPoint.Geometry3d.Z * 10.0
 
-    ' One hole feature can generate multiple holes (patterns)
-    For Each sp As SketchPoint In pdef.HoleCenterPoints
-        If Not firstHole Then sb.AppendLine(",")
-        firstHole = False
+                ' Get Axis Vector (Normal of the Sketch Plane)
+                ' We use the Sketch associated with the point
+                Dim oSketch As PlanarSketch = oPoint.Parent
+                Dim oPlane As Plane = oSketch.PlanarEntityGeometry
+                
+                Dim nX As Double = oPlane.Normal.X
+                Dim nY As Double = oPlane.Normal.Y
+                Dim nZ As Double = oPlane.Normal.Z
 
-        Dim p = sp.Geometry3d
-
-        sb.AppendLine("{")
-        sb.AppendLine("""feature_name"": """ & h.Name & """,")
-        sb.AppendLine("""hole_type"": " & h.HoleType & ",")
-        sb.AppendLine("""diameter_mm"": " & Math.Round(diaMM, 3) & ",")
-        sb.AppendLine("""center"": [" &
-            p.X & "," & p.Y & "," & p.Z & "],")
-        sb.AppendLine("""axis"": [" &
-            axisX & "," & axisY & "," & axisZ & "],")
-        sb.AppendLine("""threaded"": " & h.Tapped.ToString().ToLower())
-        sb.Append("}")
+                ' Construct JSON Object for this specific hole instance
+                Dim hBuilder As New StringBuilder()
+                hBuilder.AppendLine("    {")
+                hBuilder.AppendLine("      ""featureName"": """ & EscapeJson(oHole.Name) & """,")
+                hBuilder.AppendLine("      ""type"": """ & holeType & """,")
+                hBuilder.AppendLine("      ""diameterMm"": " & diameterMm.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
+                hBuilder.AppendLine("      ""isThreaded"": " & isThreaded.ToString().ToLower() & ",")
+                
+                ' Position
+                hBuilder.AppendLine("      ""center"": {")
+                hBuilder.AppendLine("        ""x"": " & pX.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
+                hBuilder.AppendLine("        ""y"": " & pY.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
+                hBuilder.AppendLine("        ""z"": " & pZ.ToString(System.Globalization.CultureInfo.InvariantCulture) )
+                hBuilder.AppendLine("      },")
+                
+                ' Axis
+                hBuilder.AppendLine("      ""axis"": {")
+                hBuilder.AppendLine("        ""x"": " & nX.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
+                hBuilder.AppendLine("        ""y"": " & nY.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
+                hBuilder.AppendLine("        ""z"": " & nZ.ToString(System.Globalization.CultureInfo.InvariantCulture) )
+                hBuilder.AppendLine("      }")
+                
+                hBuilder.Append("    }")
+                
+                holeList.Add(hBuilder.ToString())
+            Next
+        End If
     Next
-Next
 
-sb.AppendLine("]")
-sb.AppendLine("}")
+    ' Join hole objects with commas
+    sb.Append(String.Join("," & vbCrLf, holeList.ToArray()))
+    sb.AppendLine()
+    sb.AppendLine("  ]") ' End holes
+    sb.AppendLine("}") ' End root
 
-' -------------------------
-' WRITE FILE
-' -------------------------
-Dim outPath As String =
-    System.IO.Path.Combine(
-        System.IO.Path.GetDirectoryName(partDoc.FullFileName),
-        partDoc.DisplayName & "_assembly_data.json"
-    )
+    ' --- 4. Write to File ---
+    Dim path As String = oDoc.FullFileName
+    Dim jsonPath As String = System.IO.Path.ChangeExtension(path, "json")
+    
+    System.IO.File.WriteAllText(jsonPath, sb.ToString())
+    
+    MessageBox.Show("Export successful!" & vbCrLf & "File saved to: " & jsonPath, "iLogic Export")
 
-System.IO.File.WriteAllText(outPath, sb.ToString())
+End Sub
 
-MessageBox.Show("✅ Part data exported successfully:" & vbLf & outPath)
+' Helper function to escape special characters for JSON strings
+Function EscapeJson(str As String) As String
+    If str Is Nothing Then Return ""
+    Return str.Replace("\", "\\").Replace("""", "\""").Replace(vbCrLf, "\n").Replace(vbCr, "\n").Replace(vbLf, "\n")
+End Function
