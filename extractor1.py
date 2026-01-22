@@ -5,7 +5,7 @@ import os
 # =================================================
 # USER INPUT
 # =================================================
-ASSEMBLY_PATH = r"C:\Your\Assembly\Path\MainAssembly.iam"
+ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
 
 # =================================================
 # CONNECT TO INVENTOR
