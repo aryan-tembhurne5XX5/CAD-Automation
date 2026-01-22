@@ -5,36 +5,13 @@ import csv
 # =========================
 # CONFIG
 # =========================
-BASE_DIR = Path(__file__).parent
-PARTS_DIR = BASE_DIR / "parts"
-JSON_FILE = BASE_DIR / "assembly_data.json"
-OUTPUT_IAM = BASE_DIR / "Reconstructed.iam"
+IPT_FOLDER = Path(r"E:\Phase 1\ipt_files")
+BOM_CSV    = Path(r"E:\Phase 1\BOM_1625891052.csv")
+OUTPUT_ASM = Path(r"E:\Phase 1\Reconstructed.iam")
 
-# =========================
-# HELPERS
-# =========================
-def make_matrix(inv, rotation, translation):
-    """
-    Build Inventor Matrix from rotation + translation
-    """
-    tg = inv.TransientGeometry
-    m = tg.CreateMatrix()
+# Inventor document type (RAW ENUM)
+kAssemblyDocumentObject = 12291
 
-    # rotation (3x3)
-    m.Cell[1,1], m.Cell[1,2], m.Cell[1,3] = rotation[0]
-    m.Cell[2,1], m.Cell[2,2], m.Cell[2,3] = rotation[1]
-    m.Cell[3,1], m.Cell[3,2], m.Cell[3,3] = rotation[2]
-
-    # translation
-    m.Cell[1,4] = translation[0]
-    m.Cell[2,4] = translation[1]
-    m.Cell[3,4] = translation[2]
-
-    return m
-
-# =========================
-# MAIN
-# =========================
 def run():
     inv = win32com.client.Dispatch("Inventor.Application")
     inv.Visible = True

@@ -74,12 +74,12 @@ def run():
         }
 
         for pt in sk.SketchPoints:
-            sk_data["points"].append([pt.Geometry.X, pt.Geometry.Y, pt.Geometry.Z])
+            sk_data["points"].append([pt.Geometry.X, pt.Geometry.Y])
 
         for c in sk.SketchCircles:
             center = c.CenterSketchPoint.Geometry
             sk_data["circles"].append({
-                "center": [center.X, center.Y, center.Z],
+                "center": [center.X, center.Y],
                 "radius": c.Radius
             })
 
