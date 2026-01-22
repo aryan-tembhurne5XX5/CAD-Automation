@@ -1,8 +1,7 @@
-
-Error on Line 15 : Argument not specified for parameter '[Object]' of 'ReadOnly Property AllReferencedOccurrences([Object] As Object) As ComponentOccurrencesEnumerator'.
-Error on Line 79 : Argument not specified for parameter '[Object]' of 'ReadOnly Property AllReferencedOccurrences([Object] As Object) As ComponentOccurrencesEnumerator'.
-Error on Line 107 : Type 'JavaScriptSerializer' is not defined.
-Error on Line 110 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
-Error on Line 110 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
-Error on Line 111 : 'File' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
-Warning on Line 3 : Namespace or type specified in the Imports 'System.Web.Script.Serialization' doesn't contain any public member or cannot be found. Make sure the namespace or the type is defined and contains at least one public member. Make sure the imported element name doesn't use any aliases.
+{
+"part_name": "1093144795-A.ipt",
+"part_number": "1093144795-A",
+"description": "Th=1,25mm",
+"holes": [
+]
+}
