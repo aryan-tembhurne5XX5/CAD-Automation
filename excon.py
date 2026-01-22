@@ -2,177 +2,114 @@ import win32com.client
 import json
 import os
 
-# ============================================================
-# CONFIG
-# ============================================================
-ASSEMBLY_PATH = r"C:\InventorModels\MainAssembly.iam"
+IPT_PATH = r"C:\InventorModels\Part.ipt"
 
-# ============================================================
-# CONNECT INVENTOR
-# ============================================================
 inv = win32com.client.Dispatch("Inventor.Application")
 inv.Visible = False
-doc = inv.Documents.Open(ASSEMBLY_PATH, True)
+doc = inv.Documents.Open(IPT_PATH, True)
 
-if doc.DocumentType != 12291:
-    raise Exception("Not an Assembly document")
+if doc.DocumentType != 12290:
+    raise Exception("Not a Part document")
 
-asm = doc.ComponentDefinition
-tg = inv.TransientGeometry
+cd = doc.ComponentDefinition
 
-# ============================================================
-# HELPERS
-# ============================================================
-def matrix(m):
-    return [[m.Cell(i, j) for j in range(1,5)] for i in range(1,5)]
+def safe(val):
+    try:
+        return str(val)
+    except:
+        return None
 
-def vec(v): return [v.X, v.Y, v.Z]
-
-def point(p): return [p.X, p.Y, p.Z]
-
-# ============================================================
-# EXPLODED VIEW (LOSSLESS)
-# ============================================================
-exploded = None
-if doc.ActiveView.RepresentationType == 12294:  # kExplodedViewRepresentation
-    exploded = {
-        "name": doc.ActiveView.Name,
-        "camera": {
-            "eye": point(doc.ActiveView.Camera.Eye),
-            "target": point(doc.ActiveView.Camera.Target)
-        }
-    }
-
-# ============================================================
-# OCCURRENCES (FULL)
-# ============================================================
-occurrences = []
-
-for occ in asm.Occurrences:
-    occurrences.append({
-        "name": occ.Name,
-        "path": occ.Definition.Document.FullFileName,
-        "grounded": occ.Grounded,
-        "visible": occ.Visible,
-        "suppressed": occ.Suppressed,
-        "transform": matrix(occ.Transformation),
-        "pattern": {
-            "element": occ.PatternElement.Name if occ.PatternElement else None,
-            "parent": occ.PatternElement.Parent.Name if occ.PatternElement else None
-        }
-    })
-
-# ============================================================
-# CONSTRAINTS (ALL TYPES)
-# ============================================================
-constraints = []
-
-for c in asm.Constraints:
-    constraints.append({
-        "name": c.Name,
-        "type": c.Type,
-        "suppressed": c.Suppressed,
-        "occ1": getattr(c, "OccurrenceOne", None).Name if hasattr(c, "OccurrenceOne") else None,
-        "occ2": getattr(c, "OccurrenceTwo", None).Name if hasattr(c, "OccurrenceTwo") else None,
-        "offset": getattr(c, "Offset", None),
-        "angle": getattr(c, "Angle", None)
-    })
-
-# ============================================================
-# COMPONENT PATTERNS
-# ============================================================
-patterns = []
-
-for p in asm.ComponentPatterns:
-    patterns.append({
-        "name": p.Name,
-        "count": p.Count,
-        "elements": [
-            {
-                "index": e.Index,
-                "suppressed": e.Suppressed,
-                "transform": matrix(e.Transformation)
-            } for e in p.PatternElements
-        ]
-    })
-
-# ============================================================
-# PART DATA EXTRACTION
-# ============================================================
-parts = {}
-
-for occ in asm.Occurrences:
-    if occ.DefinitionDocumentType != 12290:
-        continue
-
-    part = occ.Definition.Document
-    cd = part.ComponentDefinition
-
-    pdata = {
-        "features": [],
-        "sketches": []
-    }
-
-    # ---------------- HOLES ----------------
-    for h in cd.Features.HoleFeatures:
-        axis = h.Axis
-        pdata["features"].append({
-            "type": "Hole",
-            "name": h.Name,
-            "diameter": h.HoleDiameter.Value,
-            "depth": getattr(h, "HoleDepth", None),
-            "tapped": h.Tapped,
-            "axis": {
-                "origin": point(axis.RootPoint),
-                "direction": vec(axis.Direction)
-            }
-        })
-
-    # ---------------- CUTS ----------------
-    for c in cd.Features.ExtrudeFeatures:
-        pdata["features"].append({
-            "type": "Extrude",
-            "name": c.Name,
-            "operation": c.Operation
-        })
-
-    # ---------------- SKETCHES ----------------
-    for sk in cd.Sketches:
-        sketch = {
-            "name": sk.Name,
-            "points": [],
-            "dimensions": []
-        }
-
-        for p in sk.SketchPoints:
-            sketch["points"].append(point(p.Geometry))
-
-        for d in sk.DimensionConstraints:
-            sketch["dimensions"].append({
-                "value": d.Parameter.Value,
-                "type": d.Type
-            })
-
-        pdata["sketches"].append(sketch)
-
-    parts[occ.Name] = pdata
-
-# ============================================================
-# FINAL JSON
-# ============================================================
 dump = {
-    "assembly": doc.DisplayName,
-    "file": ASSEMBLY_PATH,
-    "exploded_view": exploded,
-    "occurrences": occurrences,
-    "constraints": constraints,
-    "patterns": patterns,
-    "parts": parts
+    "document": {},
+    "parameters": [],
+    "work_features": {},
+    "features": {},
+    "sketches": [],
+    "bodies": []
 }
 
-out = os.path.join(os.path.dirname(ASSEMBLY_PATH), "FULL_ASSEMBLY_DUMP.json")
+# ---------------- DOCUMENT ----------------
+dump["document"] = {
+    "display_name": doc.DisplayName,
+    "full_path": doc.FullFileName,
+    "units": safe(doc.UnitsOfMeasure.LengthUnits),
+    "model_states": [s.Name for s in doc.ModelStates]
+}
+
+# ---------------- PARAMETERS ----------------
+for p in doc.Parameters:
+    dump["parameters"].append({
+        "name": p.Name,
+        "value": safe(p.Value),
+        "units": safe(p.Units),
+        "expression": safe(p.Expression),
+        "exposed": p.ExposedAsProperty
+    })
+
+# ---------------- WORK FEATURES ----------------
+dump["work_features"]["planes"] = [wp.Name for wp in cd.WorkPlanes]
+dump["work_features"]["axes"] = [wa.Name for wa in cd.WorkAxes]
+dump["work_features"]["points"] = [wp.Name for wp in cd.WorkPoints]
+
+# ---------------- FEATURES (BLIND) ----------------
+for collection_name in dir(cd.Features):
+    if collection_name.endswith("Features"):
+        try:
+            col = getattr(cd.Features, collection_name)
+            feats = []
+            for f in col:
+                feats.append({
+                    "name": f.Name,
+                    "type": f.Type,
+                    "suppressed": getattr(f, "Suppressed", None)
+                })
+            dump["features"][collection_name] = feats
+        except:
+            pass
+
+# ---------------- SKETCHES ----------------
+for sk in cd.Sketches:
+    s = {
+        "name": sk.Name,
+        "plane": safe(sk.PlanarEntity),
+        "points": [],
+        "entities": [],
+        "dimensions": []
+    }
+
+    for p in sk.SketchPoints:
+        s["points"].append({
+            "x": p.Geometry.X,
+            "y": p.Geometry.Y,
+            "z": p.Geometry.Z
+        })
+
+    for e in sk.SketchEntities:
+        s["entities"].append({
+            "type": e.Type
+        })
+
+    for d in sk.DimensionConstraints:
+        s["dimensions"].append({
+            "value": safe(d.Parameter.Value),
+            "type": d.Type
+        })
+
+    dump["sketches"].append(s)
+
+# ---------------- BODIES ----------------
+for body in cd.SurfaceBodies:
+    b = {
+        "faces": body.Faces.Count,
+        "edges": body.Edges.Count,
+        "vertices": body.Vertices.Count,
+        "volume": safe(body.Volume)
+    }
+    dump["bodies"].append(b)
+
+# ---------------- WRITE ----------------
+out = os.path.join(os.path.dirname(IPT_PATH), "RAW_IPT_DUMP.json")
 with open(out, "w") as f:
     json.dump(dump, f, indent=2)
 
-print("✅ FULL LOSSLESS EXPORT COMPLETE")
-print(out)
+print("✅ Raw IPT dump complete:", out)
