@@ -6,7 +6,7 @@ from pathlib import Path
 # ==============================
 # CONFIG
 # ==============================
-PART_PATH = r"E:\Phase 1\Parts"      # folder with IPTs
+PART_PATH = r"E:\Phase 1\Assembly 1"      # folder with IPTs
 OUTPUT_JSON = r"E:\Phase 1\extractions\part_holes.json"
 
 # ==============================

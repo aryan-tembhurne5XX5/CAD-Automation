@@ -5,9 +5,9 @@ import csv
 # =========================
 # CONFIG
 # =========================
-IPT_FOLDER = Path(r"E:\Phase 1\ipt_files")
-BOM_CSV    = Path(r"E:\Phase 1\BOM_1625891052.csv")
-OUTPUT_ASM = Path(r"E:\Phase 1\Reconstructed.iam")
+IPT_FOLDER = Path(r"E:\Phase 1\Assembly 1")
+BOM_CSV    = Path(r"E:\Phase 1\Assembly 1\BOM_1093144795-M1.csv")
+OUTPUT_ASM = Path(r"E:\Phase 1\Assembly 1\Reconstructed.iam")
 
 # Inventor document type (RAW ENUM)
 kAssemblyDocumentObject = 12291
