@@ -7,7 +7,7 @@ import time
 # CONFIG
 # =====================================================
 ASSEMBLY_PATH = r"E:\Phase 1\Assembly 1\1093144795-M1.iam"
-OUTPUT_PATH   = r"E:\Phase 1\extractions\assembly_extraction.json"
+OUTPUT_PATH   = r"E:\Phase 1\extractions\assembly_extraction2.json"
 
 # =====================================================
 # ENUM MAPS (SAFE)
