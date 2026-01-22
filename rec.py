@@ -5,7 +5,7 @@ import csv
 # =========================
 # CONFIG
 # =========================
-IPT_FOLDER = Path(r"E:\Phase 1\ipt_files")
+IPT_FOLDER = Path(r"E:\Phase 1\Assembly 1")
 BOM_CSV    = Path(r"E:\Phase 1\BOM_1625891052.csv")
 OUTPUT_ASM = Path(r"E:\Phase 1\Reconstructed.iam")
 
