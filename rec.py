@@ -1,101 +1,68 @@
 import win32com.client
-import json
 import csv
 import os
-from collections import defaultdict
+import time
 
 # ==============================
 # CONFIG
 # ==============================
-JSON_FILE = r"E:\Phase 1\Assembly 1\assembly_dump.json"
-BOM_FILE = r"E:\Phase 1\Assembly 1\BOM_1093144795-M1.csv"
-OUTPUT_ASSEMBLY = r"REBUILT_FROM_JSON.iam"
-WORKING_DIR = os.getcwd()
+BOM_FILE = "bom.csv"
+OUTPUT_ASM = "reconstructed.iam"
+SPACING_MM = 30  # visual spacing between parts
 
 # ==============================
-# LOAD JSON
+# CONNECT INVENTOR
 # ==============================
-with open(JSON_FILE, "r", encoding="utf-8") as f:
-    data = json.load(f)
+inv = win32com.client.DispatchEx("Inventor.Application")
+inv.Visible = True
+time.sleep(2)
 
-occurrences = data["occurrences"]
+asm_doc = inv.Documents.Add(12291)  # kAssemblyDocumentObject
+asm_def = asm_doc.ComponentDefinition
+
+base_path = os.getcwd()
 
 # ==============================
 # LOAD BOM
 # ==============================
-bom_parts = defaultdict(int)
+bom_parts = []
 
 with open(BOM_FILE, newline="", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     for row in reader:
-        part_title = row["Part Title"].strip()
-        qty = int(row["Quantity"])
-        bom_parts[part_title] += qty
+        part = row["part title"].strip()
+        qty = int(row["quantity"])
+        bom_parts.append((part, qty))
 
 # ==============================
-# CONNECT TO INVENTOR
+# INSERT PARTS
 # ==============================
-inv = win32com.client.Dispatch("Inventor.Application")
-inv.Visible = True
+x_offset = 0
+is_first = True
 
-docs = inv.Documents
-asm_doc = docs.Add(12291, "", True)  # kAssemblyDocumentObject
-asm_doc.SaveAs(os.path.join(WORKING_DIR, OUTPUT_ASSEMBLY), False)
+for part_name, qty in bom_parts:
+    part_file = os.path.join(base_path, f"{part_name}.ipt")
 
-asm_def = asm_doc.ComponentDefinition
-tg = inv.TransientGeometry
-
-# ==============================
-# MATRIX HELPER
-# ==============================
-def matrix_from_list(m):
-    mat = tg.CreateMatrix()
-    for r in range(3):
-        for c in range(4):
-            mat.Cell[r+1, c+1] = m[r][c]
-    mat.Cell[4,4] = 1
-    return mat
-
-# ==============================
-# INSERT COMPONENTS
-# ==============================
-json_count = defaultdict(int)
-missing_files = set()
-
-for occ in occurrences:
-    part_name = occ["definition"].replace(".ipt", "")
-    filename = f"{part_name}.ipt"
-    part_path = os.path.join(WORKING_DIR, filename)
-
-    json_count[part_name] += 1
-
-    if not os.path.exists(part_path):
-        missing_files.add(filename)
+    if not os.path.exists(part_file):
+        print(f"❌ Missing file: {part_file}")
         continue
 
-    transform = matrix_from_list(occ["transform"])
-    asm_def.Occurrences.Add(part_path, transform)
+    for i in range(qty):
+        trans = inv.TransientGeometry.CreateMatrix()
+        trans.Cell(1, 4) = x_offset
+
+        occ = asm_def.Occurrences.Add(part_file, trans)
+
+        if is_first:
+            occ.Grounded = True
+            is_first = False
+
+        x_offset += SPACING_MM
 
 # ==============================
-# VALIDATION REPORT
+# SAVE
 # ==============================
-print("\n🔎 BOM vs JSON CHECK\n")
+out_path = os.path.join(base_path, OUTPUT_ASM)
+asm_doc.SaveAs(out_path, False)
 
-for part, bom_qty in bom_parts.items():
-    json_qty = json_count.get(part, 0)
-    status = "OK" if bom_qty == json_qty else "MISMATCH"
-    print(f"{part:20} BOM={bom_qty:3} | JSON={json_qty:3} → {status}")
-
-if missing_files:
-    print("\n❌ Missing IPT files:")
-    for f in missing_files:
-        print("  ", f)
-
-# ==============================
-# FINALIZE
-# ==============================
-asm_doc.Update()
-asm_doc.Save()
-
-print("\n✅ Assembly rebuilt successfully")
-print(f"📁 Output: {OUTPUT_ASSEMBLY}")
+print("✅ Assembly created:", out_path)
