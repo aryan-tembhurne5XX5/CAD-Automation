@@ -4,7 +4,6 @@ Imports Inventor
 
 Sub Main()
     ' --- 1. Environment Validation ---
-    ' Use ThisDoc.Document to target the file containing the rule specifically
     Dim oDoc As Document = ThisDoc.Document
 
     If oDoc.DocumentType <> DocumentTypeEnum.kPartDocumentObject Then
@@ -39,7 +38,7 @@ Sub Main()
         sb.AppendLine("  ""physical"": null,")
     End Try
 
-    ' --- 4. iProperties (Summary & Design Tracking) ---
+    ' --- 4. iProperties ---
     sb.AppendLine("  ""properties"": {")
     sb.AppendLine("    ""partNumber"": """ & GetProp(oDoc, "Design Tracking Properties", "Part Number") & """,")
     sb.AppendLine("    ""description"": """ & GetProp(oDoc, "Design Tracking Properties", "Description") & """,")
@@ -49,7 +48,6 @@ Sub Main()
     sb.AppendLine("  },")
 
     ' --- 5. Feature List (Overview) ---
-    ' Lists all feature names for reference
     sb.AppendLine("  ""featureList"": [")
     Dim featList As New List(Of String)
     For Each feat As PartFeature In oDef.Features
@@ -58,7 +56,7 @@ Sub Main()
     sb.Append(String.Join(",", featList.ToArray()))
     sb.AppendLine("  ],")
 
-    ' --- 6. DETAILED HOLE DATA (Crucial for Assembly Reconstruction) ---
+    ' --- 6. DETAILED HOLE DATA ---
     sb.AppendLine("  ""connectionPoints"": [")
     
     Dim connectionList As New List(Of String)
@@ -67,33 +65,29 @@ Sub Main()
     For Each oHole As HoleFeature In oDef.Features.HoleFeatures
         If oHole.Suppressed Then Continue For
 
-        ' We only process Sketch Holes to get accurate centers/axes via Sketch Geometry
-        If oHole.PlacementDefinition.Type = FeatureDimensionsTypeEnum.kSketchHolePlacementDefinition Then
+        ' FIX: Correctly check if the placement definition is a Sketch Hole using ObjectTypeEnum
+        If oHole.PlacementDefinition.Type = ObjectTypeEnum.kSketchHolePlacementDefinitionObject Then
             
             Dim isThreaded As Boolean = oHole.Tapped
             Dim holeType As String = If(isThreaded, "Threaded", "Simple")
             Dim diameterMm As Double = 0.0
 
-            ' Try to get diameter; handle failures gracefully
             Try
                 diameterMm = oHole.HoleDiameter.Value * 10.0 ' cm to mm
             Catch
-                diameterMm = 0.0 ' Complex definition
+                diameterMm = 0.0
             End Try
 
-            ' Get all sketch points (handles patterns)
             Dim oSketchPoints As Object = oHole.SketchCenterPoints
 
             For Each oPoint As SketchPoint In oSketchPoints
                 
                 ' 3D Center Calculation
-                ' Geometry3d gives coordinates in Part Model Space (Internal Units: cm)
                 Dim pX As Double = oPoint.Geometry3d.X * 10.0
                 Dim pY As Double = oPoint.Geometry3d.Y * 10.0
                 Dim pZ As Double = oPoint.Geometry3d.Z * 10.0
 
                 ' Axis Vector Calculation
-                ' We use the Normal of the Sketch Plane containing the point
                 Dim oSketch As PlanarSketch = CType(oPoint.Parent, PlanarSketch)
                 Dim oPlane As Plane = oSketch.PlanarEntityGeometry
                 
@@ -101,7 +95,7 @@ Sub Main()
                 Dim nY As Double = oPlane.Normal.Y
                 Dim nZ As Double = oPlane.Normal.Z
 
-                ' Build JSON Object for this connection point
+                ' Build JSON Object
                 Dim cb As New StringBuilder()
                 cb.AppendLine("    {")
                 cb.AppendLine("      ""featureName"": """ & EscapeJson(oHole.Name) & """,")
@@ -109,10 +103,8 @@ Sub Main()
                 cb.AppendLine("      ""diameterMm"": " & diameterMm.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
                 cb.AppendLine("      ""threaded"": " & isThreaded.ToString().ToLower() & ",")
                 
-                ' Position
                 cb.AppendLine("      ""center"": { ""x"": " & pX.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""y"": " & pY.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""z"": " & pZ.ToString(System.Globalization.CultureInfo.InvariantCulture) & " },")
                 
-                ' Direction/Axis
                 cb.AppendLine("      ""axis"": { ""x"": " & nX.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""y"": " & nY.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""z"": " & nZ.ToString(System.Globalization.CultureInfo.InvariantCulture) & " }")
                 
                 cb.Append("    }")
@@ -125,12 +117,11 @@ Sub Main()
     sb.AppendLine()
     sb.AppendLine("  ]")
     
-    sb.AppendLine("}") ' End JSON
+    sb.AppendLine("}") 
 
     ' --- 7. File Output ---
     Dim jsonPath As String = System.IO.Path.ChangeExtension(oPartDoc.FullFileName, "json")
     
-    ' Check if file is saved
     If String.IsNullOrEmpty(oPartDoc.FullFileName) Then
         MessageBox.Show("Please save the IPT file before exporting.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         Exit Sub
@@ -147,7 +138,6 @@ End Sub
 
 ' --- Helper Functions ---
 
-' safely get iProperty value
 Function GetProp(doc As Document, setName As String, propName As String) As String
     Try
         Return EscapeJson(doc.PropertySets.Item(setName).Item(propName).Value.ToString())
@@ -156,7 +146,6 @@ Function GetProp(doc As Document, setName As String, propName As String) As Stri
     End Try
 End Function
 
-' Escape special chars for JSON
 Function EscapeJson(str As String) As String
     If str Is Nothing Then Return ""
     Return str.Replace("\", "\\").Replace("""", "\""").Replace(vbCrLf, "\n").Replace(vbCr, "\n").Replace(vbLf, "\n")
