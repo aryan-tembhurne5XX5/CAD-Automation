@@ -1,9 +1,12 @@
+PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python314\python.exe "e:/Phase 1/CAD-Automation/holes.py"
+🔍 0228100017-M1.ipt
+🔍 0298100025.ipt
 Traceback (most recent call last):
   File "e:\Phase 1\CAD-Automation\holes.py", line 127, in <module>
     holes = extract_holes_from_part(doc)
   File "e:\Phase 1\CAD-Automation\holes.py", line 44, in extract_holes_from_part
-    hdef = hole.HoleDefinition
-           ^^^^^^^^^^^^^^^^^^^
+    hdef = hole.Definition
+           ^^^^^^^^^^^^^^^
   File "C:\Users\hrish\AppData\Local\Programs\Python\Python314\Lib\site-packages\win32com\client\dynamic.py", line 631, in __getattr__
     raise AttributeError(f"{self._username_}.{attr}")
-AttributeError: <unknown>.HoleDefinition
+AttributeError: <unknown>.Definition
