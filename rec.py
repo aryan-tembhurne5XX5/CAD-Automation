@@ -1,14 +1,14 @@
-import json
 import win32com.client
 from pathlib import Path
+import csv
 
 # =========================
 # CONFIG
 # =========================
 BASE_DIR = Path(__file__).parent
-PARTS_DIR =  r"E:\Phase 1\Assembly 1"
-JSON_FILE =  r"E:\Phase 1\extractions\final_phase1_to_5.json"
-OUTPUT_IAM =  r"E:\Phase 1\Assembly 1\Reconstructed.iam"
+PARTS_DIR = BASE_DIR / "parts"
+JSON_FILE = BASE_DIR / "assembly_data.json"
+OUTPUT_IAM = BASE_DIR / "Reconstructed.iam"
 
 # =========================
 # HELPERS
@@ -36,48 +36,44 @@ def make_matrix(inv, rotation, translation):
 # MAIN
 # =========================
 def run():
-    # Load JSON
-    with open(JSON_FILE, "r") as f:
-        data = json.load(f)
-
-    occurrences = data["occurrences"]
-
-    # Start Inventor
     inv = win32com.client.Dispatch("Inventor.Application")
     inv.Visible = True
 
-    # Create new assembly
+    # Create new Assembly document
     asm_doc = inv.Documents.Add(
-        inv.DocumentTypeEnum.kAssemblyDocumentObject,
+        kAssemblyDocumentObject,
         inv.FileManager.GetTemplateFile(
-            inv.DocumentTypeEnum.kAssemblyDocumentObject
-        )
+            kAssemblyDocumentObject,
+            inv.Language
+        ),
+        True
     )
 
     asm_def = asm_doc.ComponentDefinition
+    tg = inv.TransientGeometry
 
-    print("🔧 Rebuilding assembly...")
+    # Read BOM
+    with open(BOM_CSV, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
 
-    for occ_name, occ_data in occurrences.items():
-        part_name = occ_data["definition"]
-        part_path = PARTS_DIR / part_name
+    for row in rows:
+        part = row["Part Number"].strip()
+        qty  = int(row.get("Quantity", 1))
 
+        part_path = IPT_FOLDER / f"{part}.ipt"
         if not part_path.exists():
-            print(f"❌ Missing part: {part_name}")
+            print(f"❌ Missing: {part_path}")
             continue
 
-        rotation = occ_data["transform"]["rotation"]
-        translation = occ_data["transform"]["translation"]
+        for _ in range(qty):
+            matrix = tg.CreateMatrix()
+            asm_def.Occurrences.Add(str(part_path), matrix)
+            print(f"✅ Inserted {part}")
 
-        matrix = make_matrix(inv, rotation, translation)
-
-        asm_def.Occurrences.Add(str(part_path), matrix)
-        print(f"✅ Placed {occ_name}")
-
-    # Save assembly
-    asm_doc.SaveAs(str(OUTPUT_IAM), False)
-    print("\n🎉 Assembly reconstruction complete")
-    print(f"📦 Saved as: {OUTPUT_IAM}")
+    asm_doc.SaveAs(str(OUTPUT_ASM), False)
+    print("\n🎉 Assembly reconstructed successfully")
+    print(f"📦 Saved to: {OUTPUT_ASM}")
 
 if __name__ == "__main__":
     run()
