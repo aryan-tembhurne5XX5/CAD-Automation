@@ -6,8 +6,8 @@ import time
 # ==============================
 # CONFIG
 # ==============================
-BOM_FILE = "bom.csv"
-OUTPUT_ASM = "reconstructed.iam"
+BOM_FILE = r"E:\Phase 1\Assembly 1\BOM_1093144795-M1.csv"
+OUTPUT_ASM = r"reconstructed.iam"
 SPACING_MM = 30  # visual spacing between parts
 
 # ==============================
@@ -20,7 +20,7 @@ time.sleep(2)
 asm_doc = inv.Documents.Add(12291)  # kAssemblyDocumentObject
 asm_def = asm_doc.ComponentDefinition
 
-base_path = os.getcwd()
+base_path =r"E:\Phase 1\Assembly 1"
 
 # ==============================
 # LOAD BOM
@@ -30,8 +30,8 @@ bom_parts = []
 with open(BOM_FILE, newline="", encoding="utf-8") as f:
     reader = csv.DictReader(f)
     for row in reader:
-        part = row["part title"].strip()
-        qty = int(row["quantity"])
+        part = row["Title"].strip()
+        qty = int(row["Quantity"])
         bom_parts.append((part, qty))
 
 # ==============================
@@ -49,7 +49,7 @@ for part_name, qty in bom_parts:
 
     for i in range(qty):
         trans = inv.TransientGeometry.CreateMatrix()
-        trans.Cell(1, 4) = x_offset
+        trans.Cell(1, 4) == x_offset
 
         occ = asm_def.Occurrences.Add(part_file, trans)
 
