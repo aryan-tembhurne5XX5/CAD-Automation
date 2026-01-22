@@ -6,9 +6,9 @@ from pathlib import Path
 # CONFIG
 # =========================
 BASE_DIR = Path(__file__).parent
-PARTS_DIR = BASE_DIR / "parts"
-JSON_FILE = BASE_DIR / "assembly_data.json"
-OUTPUT_IAM = BASE_DIR / "Reconstructed.iam"
+PARTS_DIR =  r"E:\Phase 1\Assembly 1"
+JSON_FILE =  r"E:\Phase 1\extractions\final_phase1_to_5.json"
+OUTPUT_IAM =  r"E:\Phase 1\Assembly 1\Reconstructed.iam"
 
 # =========================
 # HELPERS
