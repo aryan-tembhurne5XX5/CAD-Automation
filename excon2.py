@@ -1,44 +1,51 @@
 Imports System.IO
 Imports System.Text
 Imports Inventor
+Imports System.Globalization
+Imports System.Windows.Forms
 
 Sub Main()
-    ' --- 1. Environment Validation ---
+
+    ' ---------------- 1. Validate Environment ----------------
     Dim oDoc As Document = ThisDoc.Document
 
     If oDoc.DocumentType <> DocumentTypeEnum.kPartDocumentObject Then
-        MessageBox.Show("This rule can only be run inside a Part file (.ipt).", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Return
+        MessageBox.Show("Run this rule inside a Part (.ipt) file only.", "Export Error")
+        Exit Sub
     End If
 
     Dim oPartDoc As PartDocument = CType(oDoc, PartDocument)
     Dim oDef As PartComponentDefinition = oPartDoc.ComponentDefinition
 
-    ' --- 2. JSON Construction Setup ---
+    If String.IsNullOrEmpty(oPartDoc.FullFileName) Then
+        MessageBox.Show("Please save the IPT file before exporting.", "Export Error")
+        Exit Sub
+    End If
+
+    ' ---------------- 2. JSON Builder ----------------
     Dim sb As New StringBuilder()
     sb.AppendLine("{")
 
-    ' --- 3. General Info & Physical Properties ---
-    Dim partName As String = System.IO.Path.GetFileNameWithoutExtension(oPartDoc.FullFileName)
+    ' ---------------- 3. File Info ----------------
+    Dim partName As String = Path.GetFileNameWithoutExtension(oPartDoc.FullFileName)
+
     sb.AppendLine("  ""fileName"": """ & EscapeJson(partName) & """,")
     sb.AppendLine("  ""fullPath"": """ & EscapeJson(oPartDoc.FullFileName) & """,")
-    
-    ' Physical (MassProps)
+
+    ' ---------------- 4. Physical Properties ----------------
     Try
-        Dim mass As Double = oPartDoc.ComponentDefinition.MassProperties.Mass ' kg
-        Dim volume As Double = oPartDoc.ComponentDefinition.MassProperties.Volume ' cm^3
-        Dim area As Double = oPartDoc.ComponentDefinition.MassProperties.Area ' cm^2
-        
+        Dim mp As MassProperties = oDef.MassProperties
+
         sb.AppendLine("  ""physical"": {")
-        sb.AppendLine("    ""mass_kg"": " & mass.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
-        sb.AppendLine("    ""volume_cm3"": " & volume.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
-        sb.AppendLine("    ""area_cm2"": " & area.ToString(System.Globalization.CultureInfo.InvariantCulture))
+        sb.AppendLine("    ""mass_kg"": " & mp.Mass.ToString(CultureInfo.InvariantCulture) & ",")
+        sb.AppendLine("    ""volume_cm3"": " & mp.Volume.ToString(CultureInfo.InvariantCulture) & ",")
+        sb.AppendLine("    ""area_cm2"": " & mp.Area.ToString(CultureInfo.InvariantCulture))
         sb.AppendLine("  },")
     Catch
         sb.AppendLine("  ""physical"": null,")
     End Try
 
-    ' --- 4. iProperties ---
+    ' ---------------- 5. iProperties ----------------
     sb.AppendLine("  ""properties"": {")
     sb.AppendLine("    ""partNumber"": """ & GetProp(oDoc, "Design Tracking Properties", "Part Number") & """,")
     sb.AppendLine("    ""description"": """ & GetProp(oDoc, "Design Tracking Properties", "Description") & """,")
@@ -47,104 +54,90 @@ Sub Main()
     sb.AppendLine("    ""material"": """ & GetProp(oDoc, "Design Tracking Properties", "Material") & """")
     sb.AppendLine("  },")
 
-    ' --- 5. Feature List (Overview) ---
+    ' ---------------- 6. Feature List ----------------
     sb.AppendLine("  ""featureList"": [")
-    Dim featList As New List(Of String)
-    For Each feat As PartFeature In oDef.Features
-        featList.Add("""" & EscapeJson(feat.Name) & """")
+
+    Dim featureNames As New List(Of String)
+    For Each f As PartFeature In oDef.Features
+        featureNames.Add("""" & EscapeJson(f.Name) & """")
     Next
-    sb.Append(String.Join(",", featList.ToArray()))
+
+    sb.AppendLine("    " & String.Join(",", featureNames))
     sb.AppendLine("  ],")
 
-    ' --- 6. DETAILED HOLE DATA ---
+    ' ---------------- 7. Hole / Connection Data ----------------
     sb.AppendLine("  ""connectionPoints"": [")
-    
-    Dim connectionList As New List(Of String)
 
-    ' Iterate through standard HoleFeatures
+    Dim connections As New List(Of String)
+
     For Each oHole As HoleFeature In oDef.Features.HoleFeatures
+
         If oHole.Suppressed Then Continue For
 
-        ' Get the placement definition
-        Dim oPlacement As HolePlacementDefinition = oHole.PlacementDefinition
+        Dim placement As HolePlacementDefinition = oHole.PlacementDefinition
 
-        ' FIX: Check type and Cast to SketchHolePlacementDefinition to access SketchCenterPoints
-        If oPlacement.Type = ObjectTypeEnum.kSketchHolePlacementDefinitionObject Then
-            
-            ' Cast definition to get access to specific sketch properties
-            Dim oSketchPlacement As SketchHolePlacementDefinition
-            oSketchPlacement = oPlacement
+        If placement.Type <> ObjectTypeEnum.kSketchHolePlacementDefinitionObject Then Continue For
 
-            Dim isThreaded As Boolean = oHole.Tapped
-            Dim holeType As String = If(isThreaded, "Threaded", "Simple")
-            Dim diameterMm As Double = 0.0
+        Dim sketchPlacement As SketchHolePlacementDefinition =
+            CType(placement, SketchHolePlacementDefinition)
 
-            Try
-                diameterMm = oHole.HoleDiameter.Value * 10.0 ' cm to mm
-            Catch
-                diameterMm = 0.0
-            End Try
+        Dim isThreaded As Boolean = oHole.Tapped
+        Dim holeType As String = If(isThreaded, "Threaded", "Simple")
 
-            ' FIX: Access SketchCenterPoints from the Placement object, not the Hole feature
-            Dim oSketchPoints As Object = oSketchPlacement.SketchCenterPoints
+        Dim diameterMm As Double = 0
+        Try
+            diameterMm = oHole.HoleDiameter.Value * 10.0 ' cm → mm
+        Catch
+        End Try
 
-            For Each oPoint As SketchPoint In oSketchPoints
-                
-                ' 3D Center Calculation
-                Dim pX As Double = oPoint.Geometry3d.X * 10.0
-                Dim pY As Double = oPoint.Geometry3d.Y * 10.0
-                Dim pZ As Double = oPoint.Geometry3d.Z * 10.0
+        For Each sp As SketchPoint In sketchPlacement.SketchCenterPoints
 
-                ' Axis Vector Calculation
-                Dim oSketch As PlanarSketch = CType(oPoint.Parent, PlanarSketch)
-                Dim oPlane As Plane = oSketch.PlanarEntityGeometry
-                
-                Dim nX As Double = oPlane.Normal.X
-                Dim nY As Double = oPlane.Normal.Y
-                Dim nZ As Double = oPlane.Normal.Z
+            Dim pt As Point = sp.Geometry3d
 
-                ' Build JSON Object
-                Dim cb As New StringBuilder()
-                cb.AppendLine("    {")
-                cb.AppendLine("      ""featureName"": """ & EscapeJson(oHole.Name) & """,")
-                cb.AppendLine("      ""type"": """ & holeType & """,")
-                cb.AppendLine("      ""diameterMm"": " & diameterMm.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
-                cb.AppendLine("      ""threaded"": " & isThreaded.ToString().ToLower() & ",")
-                
-                cb.AppendLine("      ""center"": { ""x"": " & pX.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""y"": " & pY.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""z"": " & pZ.ToString(System.Globalization.CultureInfo.InvariantCulture) & " },")
-                
-                cb.AppendLine("      ""axis"": { ""x"": " & nX.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""y"": " & nY.ToString(System.Globalization.CultureInfo.InvariantCulture) & ", ""z"": " & nZ.ToString(System.Globalization.CultureInfo.InvariantCulture) & " }")
-                
-                cb.Append("    }")
-                connectionList.Add(cb.ToString())
-            Next
-        End If
+            Dim px As Double = pt.X * 10.0
+            Dim py As Double = pt.Y * 10.0
+            Dim pz As Double = pt.Z * 10.0
+
+            Dim ps As PlanarSketch = CType(sp.Parent, PlanarSketch)
+            Dim plane As Plane = ps.PlanarEntityGeometry
+
+            Dim cb As New StringBuilder()
+            cb.AppendLine("    {")
+            cb.AppendLine("      ""featureName"": """ & EscapeJson(oHole.Name) & """,")
+            cb.AppendLine("      ""type"": """ & holeType & """,")
+            cb.AppendLine("      ""diameterMm"": " & diameterMm.ToString(CultureInfo.InvariantCulture) & ",")
+            cb.AppendLine("      ""threaded"": " & isThreaded.ToString().ToLower() & ",")
+            cb.AppendLine("      ""center"": { ""x"": " &
+                          px.ToString(CultureInfo.InvariantCulture) & ", ""y"": " &
+                          py.ToString(CultureInfo.InvariantCulture) & ", ""z"": " &
+                          pz.ToString(CultureInfo.InvariantCulture) & " },")
+            cb.AppendLine("      ""axis"": { ""x"": " &
+                          plane.Normal.X.ToString(CultureInfo.InvariantCulture) & ", ""y"": " &
+                          plane.Normal.Y.ToString(CultureInfo.InvariantCulture) & ", ""z"": " &
+                          plane.Normal.Z.ToString(CultureInfo.InvariantCulture) & " }")
+            cb.Append("    }")
+
+            connections.Add(cb.ToString())
+        Next
     Next
 
-    sb.Append(String.Join("," & vbCrLf, connectionList.ToArray()))
-    sb.AppendLine()
+    sb.AppendLine(String.Join("," & vbCrLf, connections))
     sb.AppendLine("  ]")
-    
-    sb.AppendLine("}") 
+    sb.AppendLine("}")
 
-    ' --- 7. File Output ---
-    Dim jsonPath As String = System.IO.Path.ChangeExtension(oPartDoc.FullFileName, "json")
-    
-    If String.IsNullOrEmpty(oPartDoc.FullFileName) Then
-        MessageBox.Show("Please save the IPT file before exporting.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        Exit Sub
-    End If
+    ' ---------------- 8. Write File ----------------
+    Dim jsonPath As String = Path.ChangeExtension(oPartDoc.FullFileName, "json")
 
     Try
-        System.IO.File.WriteAllText(jsonPath, sb.ToString())
-        MessageBox.Show("Data exported successfully!" & vbCrLf & jsonPath, "iLogic Export")
+        File.WriteAllText(jsonPath, sb.ToString())
+        MessageBox.Show("Export successful!" & vbCrLf & jsonPath, "iLogic Export")
     Catch ex As Exception
-        MessageBox.Show("Error writing file: " & ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        MessageBox.Show("File write error: " & ex.Message, "Export Error")
     End Try
 
 End Sub
 
-' --- Helper Functions ---
+' ---------------- Helper Functions ----------------
 
 Function GetProp(doc As Document, setName As String, propName As String) As String
     Try
@@ -154,7 +147,8 @@ Function GetProp(doc As Document, setName As String, propName As String) As Stri
     End Try
 End Function
 
-Function EscapeJson(str As String) As String
-    If str Is Nothing Then Return ""
-    Return str.Replace("\", "\\").Replace("""", "\""").Replace(vbCrLf, "\n").Replace(vbCr, "\n").Replace(vbLf, "\n")
+Function EscapeJson(value As String) As String
+    If String.IsNullOrEmpty(value) Then Return ""
+    Return value.Replace("\", "\\").Replace("""", "\""").
+                 Replace(vbCrLf, "\n").Replace(vbCr, "\n").Replace(vbLf, "\n")
 End Function
