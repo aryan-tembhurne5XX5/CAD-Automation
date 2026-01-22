@@ -1,5 +1,5 @@
 ' ==========================================
-' PART DATA EXPORT — ASSEMBLY READY
+' PART EXPORT — ASSEMBLY READY (FIXED)
 ' ==========================================
 
 Imports System.Text
@@ -26,32 +26,7 @@ Catch
 End Try
 
 ' -------------------------
-' ORIGIN & AXES
-' -------------------------
-Dim wp = cd.WorkPoints.Item("Center Point")
-sb.AppendLine("""origin"": [" &
-    wp.Point.X & "," &
-    wp.Point.Y & "," &
-    wp.Point.Z & "],")
-
-sb.AppendLine("""axes"": {")
-For Each ax As WorkAxis In cd.WorkAxes
-    sb.AppendLine("""" & ax.Name & """: {")
-    sb.AppendLine("""origin"": [" &
-        ax.Line.RootPoint.X & "," &
-        ax.Line.RootPoint.Y & "," &
-        ax.Line.RootPoint.Z & "],")
-    sb.AppendLine("""direction"": [" &
-        ax.Line.Direction.X & "," &
-        ax.Line.Direction.Y & "," &
-        ax.Line.Direction.Z & "]")
-    sb.AppendLine("},")
-Next
-sb.Remove(sb.Length - 3, 1)
-sb.AppendLine("},")
-
-' -------------------------
-' HOLES (CRITICAL)
+' HOLES (CORRECT METHOD)
 ' -------------------------
 sb.AppendLine("""holes"": [")
 
@@ -60,14 +35,19 @@ Dim firstHole As Boolean = True
 For Each h As HoleFeature In cd.Features.HoleFeatures
     If h.Suppressed Then Continue For
 
-    If Not firstHole Then sb.AppendLine(",")
-    firstHole = False
-
-    Dim axis = h.Axis
+    Dim pdef = h.PlacementDefinition
     Dim hdef = h.HoleDefinition
 
-    sb.AppendLine("{")
-    sb.AppendLine("""name"": """ & h.Name & """,")
+    ' Hole axis = sketch plane normal
+    Dim axisVec(2) As Double
+    If pdef.Type = 0 Then ' kSketchPlacementDefinition
+        Dim plane = pdef.Sketch.PlanarEntityGeometry
+        axisVec(0) = plane.Normal.X
+        axisVec(1) = plane.Normal.Y
+        axisVec(2) = plane.Normal.Z
+    Else
+        Continue For
+    End If
 
     ' Diameter (cm → mm)
     Dim diaMM As Double = 0
@@ -75,44 +55,30 @@ For Each h As HoleFeature In cd.Features.HoleFeatures
         diaMM = hdef.Diameter.Value * 10
     Catch
     End Try
-    sb.AppendLine("""diameter_mm"": " & diaMM & ",")
 
-    ' Hole center (3D)
-    sb.AppendLine("""center"": [" &
-        axis.RootPoint.X & "," &
-        axis.RootPoint.Y & "," &
-        axis.RootPoint.Z & "],")
+    ' Each hole may have multiple centers (patterns)
+    For Each sp As SketchPoint In pdef.HoleCenterPoints
+        If Not firstHole Then sb.AppendLine(",")
+        firstHole = False
 
-    ' Hole axis
-    sb.AppendLine("""axis"": [" &
-        axis.Direction.X & "," &
-        axis.Direction.Y & "," &
-        axis.Direction.Z & "],")
+        Dim p = sp.Geometry3d
 
-    sb.AppendLine("""threaded"": " & h.Tapped.ToString().ToLower() & ",")
+        sb.AppendLine("{")
+        sb.AppendLine("""feature_name"": """ & h.Name & """,")
+        sb.AppendLine("""diameter_mm"": " & Math.Round(diaMM, 3) & ",")
 
-    sb.AppendLine("""extent"": " & hdef.ExtentType)
+        sb.AppendLine("""center"": [" &
+            p.X & "," & p.Y & "," & p.Z & "],")
 
-    sb.Append("}")
+        sb.AppendLine("""axis"": [" &
+            axisVec(0) & "," & axisVec(1) & "," & axisVec(2) & "],")
+
+        sb.AppendLine("""threaded"": " & h.Tapped.ToString().ToLower())
+        sb.Append("}")
+    Next
 Next
 
-sb.AppendLine("],")
-
-' -------------------------
-' BOUNDING BOX
-' -------------------------
-Dim box = cd.RangeBox
-sb.AppendLine("""bounding_box"": {")
-sb.AppendLine("""min"": [" &
-    box.MinPoint.X & "," &
-    box.MinPoint.Y & "," &
-    box.MinPoint.Z & "],")
-sb.AppendLine("""max"": [" &
-    box.MaxPoint.X & "," &
-    box.MaxPoint.Y & "," &
-    box.MaxPoint.Z & "]")
-sb.AppendLine("}")
-
+sb.AppendLine("]")
 sb.AppendLine("}")
 
 ' -------------------------
@@ -126,4 +92,4 @@ Dim outPath As String =
 
 System.IO.File.WriteAllText(outPath, sb.ToString())
 
-MessageBox.Show("✅ Part exported for assembly:" & vbLf & outPath)
+MessageBox.Show("✅ Hole data exported successfully:" & vbLf & outPath)
