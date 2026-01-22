@@ -7,9 +7,9 @@ from collections import defaultdict
 # ==============================
 # CONFIG
 # ==============================
-JSON_FILE = "assembly_dump.json"
-BOM_FILE = "bom.csv"
-OUTPUT_ASSEMBLY = "REBUILT_FROM_JSON.iam"
+JSON_FILE = r"E:\Phase 1\Assembly 1\assembly_dump.json"
+BOM_FILE = r"E:\Phase 1\Assembly 1\BOM_1093144795-M1.csv"
+OUTPUT_ASSEMBLY = r"REBUILT_FROM_JSON.iam"
 WORKING_DIR = os.getcwd()
 
 # ==============================
