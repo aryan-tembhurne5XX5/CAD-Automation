@@ -1,115 +1,113 @@
-import win32com.client
-import json
-import os
+Imports System.IO
+Imports System.Text
+Imports System.Web.Script.Serialization
 
-IPT_PATH = r"C:\InventorModels\Part.ipt"
+Dim asm As AssemblyDocument = ThisDoc.Document
+Dim asmDef As AssemblyComponentDefinition = asm.ComponentDefinition
 
-inv = win32com.client.Dispatch("Inventor.Application")
-inv.Visible = False
-doc = inv.Documents.Open(IPT_PATH, True)
+Dim result As New Dictionary(Of String, Object)
 
-if doc.DocumentType != 12290:
-    raise Exception("Not a Part document")
+' ============================
+' OCCURRENCES
+' ============================
+Dim occList As New List(Of Object)
 
-cd = doc.ComponentDefinition
+For Each occ As ComponentOccurrence In asmDef.Occurrences.AllReferencedOccurrences
+    Dim o As New Dictionary(Of String, Object)
 
-def safe(val):
-    try:
-        return str(val)
-    except:
-        return None
+    o("name") = occ.Name
+    o("definition") = occ.Definition.Document.DisplayName
+    o("full_path") = occ.Definition.Document.FullFileName
+    o("suppressed") = occ.Suppressed
+    o("grounded") = occ.Grounded
 
-dump = {
-    "document": {},
-    "parameters": [],
-    "work_features": {},
-    "features": {},
-    "sketches": [],
-    "bodies": []
-}
+    ' Transform
+    Dim m = occ.Transformation
+    Dim mat(3,3) As Double
+    For r = 1 To 4
+        For c = 1 To 4
+            mat(r-1,c-1) = m.Cell(r,c)
+        Next
+    Next
+    o("transform") = mat
 
-# ---------------- DOCUMENT ----------------
-dump["document"] = {
-    "display_name": doc.DisplayName,
-    "full_path": doc.FullFileName,
-    "units": safe(doc.UnitsOfMeasure.LengthUnits),
-    "model_states": [s.Name for s in doc.ModelStates]
-}
+    ' Pattern
+    If occ.PatternElement IsNot Nothing Then
+        o("pattern_parent") = occ.PatternElement.Parent.Name
+    Else
+        o("pattern_parent") = Nothing
+    End If
 
-# ---------------- PARAMETERS ----------------
-for p in doc.Parameters:
-    dump["parameters"].append({
-        "name": p.Name,
-        "value": safe(p.Value),
-        "units": safe(p.Units),
-        "expression": safe(p.Expression),
-        "exposed": p.ExposedAsProperty
-    })
+    occList.Add(o)
+Next
 
-# ---------------- WORK FEATURES ----------------
-dump["work_features"]["planes"] = [wp.Name for wp in cd.WorkPlanes]
-dump["work_features"]["axes"] = [wa.Name for wa in cd.WorkAxes]
-dump["work_features"]["points"] = [wp.Name for wp in cd.WorkPoints]
+result("occurrences") = occList
 
-# ---------------- FEATURES (BLIND) ----------------
-for collection_name in dir(cd.Features):
-    if collection_name.endswith("Features"):
-        try:
-            col = getattr(cd.Features, collection_name)
-            feats = []
-            for f in col:
-                feats.append({
-                    "name": f.Name,
-                    "type": f.Type,
-                    "suppressed": getattr(f, "Suppressed", None)
-                })
-            dump["features"][collection_name] = feats
-        except:
-            pass
+' ============================
+' CONSTRAINTS
+' ============================
+Dim conList As New List(Of Object)
 
-# ---------------- SKETCHES ----------------
-for sk in cd.Sketches:
-    s = {
-        "name": sk.Name,
-        "plane": safe(sk.PlanarEntity),
-        "points": [],
-        "entities": [],
-        "dimensions": []
-    }
+For Each c As AssemblyConstraint In asmDef.Constraints
+    Dim cd As New Dictionary(Of String, Object)
 
-    for p in sk.SketchPoints:
-        s["points"].append({
-            "x": p.Geometry.X,
-            "y": p.Geometry.Y,
-            "z": p.Geometry.Z
-        })
+    cd("name") = c.Name
+    cd("type") = c.Type
+    cd("suppressed") = c.Suppressed
 
-    for e in sk.SketchEntities:
-        s["entities"].append({
-            "type": e.Type
-        })
+    If TypeOf c Is MateConstraint Or TypeOf c Is FlushConstraint Or TypeOf c Is InsertConstraint Then
+        cd("occurrence_1") = c.OccurrenceOne.Name
+        cd("occurrence_2") = c.OccurrenceTwo.Name
 
-    for d in sk.DimensionConstraints:
-        s["dimensions"].append({
-            "value": safe(d.Parameter.Value),
-            "type": d.Type
-        })
+        cd("entity_1_type") = c.EntityOne.Type
+        cd("entity_2_type") = c.EntityTwo.Type
 
-    dump["sketches"].append(s)
+        cd("entity_1_ref") = c.EntityOne.ReferenceKey
+        cd("entity_2_ref") = c.EntityTwo.ReferenceKey
+    End If
 
-# ---------------- BODIES ----------------
-for body in cd.SurfaceBodies:
-    b = {
-        "faces": body.Faces.Count,
-        "edges": body.Edges.Count,
-        "vertices": body.Vertices.Count,
-        "volume": safe(body.Volume)
-    }
-    dump["bodies"].append(b)
+    conList.Add(cd)
+Next
 
-# ---------------- WRITE ----------------
-out = os.path.join(os.path.dirname(IPT_PATH), "RAW_IPT_DUMP.json")
-with open(out, "w") as f:
-    json.dump(dump, f, indent=2)
+result("constraints") = conList
 
-print("✅ Raw IPT dump complete:", out)
+' ============================
+' HOLES (PART LEVEL)
+' ============================
+Dim holeList As New List(Of Object)
+
+For Each occ As ComponentOccurrence In asmDef.Occurrences.AllReferencedOccurrences
+    If occ.DefinitionDocumentType <> DocumentTypeEnum.kPartDocumentObject Then Continue For
+
+    Dim part As PartDocument = occ.Definition.Document
+    Dim cd = part.ComponentDefinition
+
+    For Each h As HoleFeature In cd.Features.HoleFeatures
+        If h.Suppressed Then Continue For
+
+        Dim hd As New Dictionary(Of String, Object)
+        hd("occurrence") = occ.Name
+        hd("part") = part.DisplayName
+        hd("diameter_mm") = h.HoleDiameter.Value * 10
+        hd("threaded") = h.Tapped
+
+        Dim axis = h.Axis
+        hd("center") = New Double() {axis.RootPoint.X*10, axis.RootPoint.Y*10, axis.RootPoint.Z*10}
+        hd("direction") = New Double() {axis.Direction.X, axis.Direction.Y, axis.Direction.Z}
+
+        holeList.Add(hd)
+    Next
+Next
+
+result("holes") = holeList
+
+' ============================
+' EXPORT JSON
+' ============================
+Dim serializer As New JavaScriptSerializer
+Dim json As String = serializer.Serialize(result)
+
+Dim outPath As String = Path.Combine(Path.GetDirectoryName(asm.FullFileName), "assembly_export.json")
+File.WriteAllText(outPath, json, Encoding.UTF8)
+
+MessageBox.Show("✅ Assembly exported:" & vbCrLf & outPath, "iLogic Export")
