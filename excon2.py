@@ -65,9 +65,16 @@ Sub Main()
     For Each oHole As HoleFeature In oDef.Features.HoleFeatures
         If oHole.Suppressed Then Continue For
 
-        ' FIX: Correctly check if the placement definition is a Sketch Hole using ObjectTypeEnum
-        If oHole.PlacementDefinition.Type = ObjectTypeEnum.kSketchHolePlacementDefinitionObject Then
+        ' Get the placement definition
+        Dim oPlacement As HolePlacementDefinition = oHole.PlacementDefinition
+
+        ' FIX: Check type and Cast to SketchHolePlacementDefinition to access SketchCenterPoints
+        If oPlacement.Type = ObjectTypeEnum.kSketchHolePlacementDefinitionObject Then
             
+            ' Cast definition to get access to specific sketch properties
+            Dim oSketchPlacement As SketchHolePlacementDefinition
+            oSketchPlacement = oPlacement
+
             Dim isThreaded As Boolean = oHole.Tapped
             Dim holeType As String = If(isThreaded, "Threaded", "Simple")
             Dim diameterMm As Double = 0.0
@@ -78,7 +85,8 @@ Sub Main()
                 diameterMm = 0.0
             End Try
 
-            Dim oSketchPoints As Object = oHole.SketchCenterPoints
+            ' FIX: Access SketchCenterPoints from the Placement object, not the Hole feature
+            Dim oSketchPoints As Object = oSketchPlacement.SketchCenterPoints
 
             For Each oPoint As SketchPoint In oSketchPoints
                 
