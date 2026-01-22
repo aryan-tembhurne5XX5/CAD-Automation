@@ -1,7 +1,3 @@
-{
-"part_name": "1093144795-A.ipt",
-"part_number": "1093144795-A",
-"description": "Th=1,25mm",
-"holes": [
-]
-}
+Error on line 8 in rule: Rule2, in document: 1093144795-A.ipt
+
+Unable to cast COM object of type 'System.__ComObject' to interface type 'Inventor.AssemblyDocument'. This operation failed because the QueryInterface call on the COM component for the interface with IID '{29F0D465-C114-11D2-B77F-0060B0F159EF}' failed due to the following error: No such interface supported (0x80004002 (E_NOINTERFACE)).
