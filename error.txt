@@ -1,28 +1,28 @@
-Rule Compile Errors in Rule1, in 1093144795-M1.iam
+Rule Compile Errors in Rule2, in 1093144795-M1.iam
 
 Error on Line 128 : Keyword is not valid as an identifier.
-Error on Line 135 : '(' expected.
-Error on Line 135 : Expression expected.
-Error on Line 135 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 135 : Type expected.
-Error on Line 135 : ')' expected.
-Error on Line 143 : '(' expected.
-Error on Line 143 : Expression expected.
-Error on Line 143 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 143 : Type expected.
-Error on Line 143 : ')' expected.
-Error on Line 151 : '(' expected.
-Error on Line 151 : Expression expected.
-Error on Line 151 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 151 : Type expected.
-Error on Line 151 : ')' expected.
-Error on Line 159 : '(' expected.
-Error on Line 159 : Expression expected.
-Error on Line 159 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 159 : Type expected.
-Error on Line 159 : ')' expected.
-Error on Line 194 : '(' expected.
-Error on Line 194 : Expression expected.
-Error on Line 194 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 194 : Type expected.
-Error on Line 194 : ')' expected.
+Error on Line 136 : '(' expected.
+Error on Line 136 : Expression expected.
+Error on Line 136 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 136 : Type expected.
+Error on Line 136 : ')' expected.
+Error on Line 144 : '(' expected.
+Error on Line 144 : Expression expected.
+Error on Line 144 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 144 : Type expected.
+Error on Line 144 : ')' expected.
+Error on Line 152 : '(' expected.
+Error on Line 152 : Expression expected.
+Error on Line 152 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 152 : Type expected.
+Error on Line 152 : ')' expected.
+Error on Line 160 : '(' expected.
+Error on Line 160 : Expression expected.
+Error on Line 160 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 160 : Type expected.
+Error on Line 160 : ')' expected.
+Error on Line 195 : '(' expected.
+Error on Line 195 : Expression expected.
+Error on Line 195 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 195 : Type expected.
+Error on Line 195 : ')' expected.
