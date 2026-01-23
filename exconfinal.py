@@ -29,14 +29,14 @@ Sub Main()
     sb.AppendLine("    ""material"": """ & GetProp(oDoc, "Design Tracking Properties", "Material") & """,")
     sb.AppendLine("    ""units"": ""mm"",")
     Try
-        sb.AppendLine("    ""mass_kg"": " & oDef.MassProperties.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture))
+        sb.AppendLine("    ""mass_kg"": " & Num(oDef.MassProperties.Mass))
     Catch
         sb.AppendLine("    ""mass_kg"": 0")
     End Try
     sb.AppendLine("  },")
 
     ' ==========================================
-    ' SECTION: COORDINATE SYSTEM (Identity)
+    ' SECTION: COORDINATE SYSTEM
     ' ==========================================
     sb.AppendLine("  ""coordinate_system"": {")
     sb.AppendLine("    ""origin_mm"": { ""x"": 0, ""y"": 0, ""z"": 0 },")
@@ -81,7 +81,10 @@ Sub Main()
             Dim minorDiam As String = "null"
             Dim pitch As String = "null"
             Dim isThreaded As Boolean = oHole.Tapped
-            Dim isThrough As Boolean = (oHole.ExtentType = PartFeatureExtentTypeEnum.kThroughAllExtent)
+            
+            ' FIX 1: Use ObjectType check for Extents instead of missing Enum
+            Dim isThrough As Boolean = (oHole.Extent.Type = ObjectTypeEnum.kThroughAllExtentObject)
+            
             Dim depthStr As String = "null"
             Dim angleStr As String = "null"
 
@@ -93,22 +96,15 @@ Sub Main()
 
             ' Specific Type Handling
             If oHole.HoleType = HoleTypeEnum.kCounterBoreHole Then holeTypeStr = "Counterbore"
-            If oHole.HoleType = HoleTypeEnum.kCounterSinkHole Then 
-                holeTypeStr = "Countersink"
-                Try
-                   ' angleStr = (oHole.CsinkAngle.Value * (180/Math.PI)).ToString() ' If needed
-                Catch
-                End Try
-            End If
+            If oHole.HoleType = HoleTypeEnum.kCounterSinkHole Then holeTypeStr = "Countersink"
             If isThreaded Then holeTypeStr = "Tapped"
 
             ' Thread Info
             If isThreaded Then
                 Try
                     Dim tapInfo As HoleTapInfo = oHole.TapInfo
-                    ' Estimate minor diam (approx) or try to read from TapInfo if available
-                    ' API access to MinorDiameter is limited, usually derived from ThreadInfo
-                    ' pitch = tapInfo.Pitch.Value * 10 ' often fails on standard threads
+                    ' Note: MinorDiameter is not always directly accessible via simple properties
+                    ' pitch = tapInfo.Pitch.Value * 10 
                 Catch
                 End Try
             End If
@@ -116,9 +112,11 @@ Sub Main()
             ' Depth
             If Not isThrough Then
                Try
-                   ' This is tricky, depends on Extent object type
-                   Dim distExt As DistanceExtent = CType(oHole.Extent, DistanceExtent)
-                   depthStr = Num(distExt.Distance.Value * 10.0)
+                   ' Safe cast to DistanceExtent
+                   If oHole.Extent.Type = ObjectTypeEnum.kDistanceExtentObject Then
+                       Dim distExt As DistanceExtent = CType(oHole.Extent, DistanceExtent)
+                       depthStr = Num(distExt.Distance.Value * 10.0)
+                   End If
                Catch
                End Try
             End If
@@ -143,13 +141,8 @@ Sub Main()
                 Dim nY As Double = oSketch.PlanarEntityGeometry.Normal.Y
                 Dim nZ As Double = oSketch.PlanarEntityGeometry.Normal.Z
 
-                ' Entry Face ID
+                ' Entry Face ID (Optional, hard to get stable ID without named faces)
                 Dim entryFaceId As String = "null"
-                Try
-                    ' Attempt to get internal name of the sketch plane face
-                    ' entryFaceId = """" & EscapeJson(oSketch.PlanarEntity.InternalName) & """"
-                Catch
-                End Try
 
                 cpSb.AppendLine("    {")
                 cpSb.AppendLine("      ""id"": """ & System.Guid.NewGuid().ToString() & """,")
@@ -203,7 +196,7 @@ Sub Main()
     sb.AppendLine("  ""faces"": [")
     Dim faceList As New List(Of String)
     Try
-        ' Limit face count for performance on huge parts
+        ' Limit face count for performance
         Dim faces As Faces = oDef.SurfaceBodies(1).Faces
         Dim maxFaces As Integer = 500
         Dim count As Integer = 0
@@ -213,7 +206,8 @@ Sub Main()
             count += 1
             
             Dim fType As String = "Other"
-            If f.SurfaceType = SurfaceTypeEnum.kPlanarSurface Then fType = "Planar"
+            ' FIX 2: Correct Enum Member is kPlaneSurface
+            If f.SurfaceType = SurfaceTypeEnum.kPlaneSurface Then fType = "Planar"
             If f.SurfaceType = SurfaceTypeEnum.kCylinderSurface Then fType = "Cylindrical"
             If f.SurfaceType = SurfaceTypeEnum.kConeSurface Then fType = "Conical"
             
@@ -223,7 +217,6 @@ Sub Main()
             Dim cenY As Double = pt.Y * 10.0
             Dim cenZ As Double = pt.Z * 10.0
             
-            ' Normal at Point
             Dim n(2) As Double
             Dim p(2) As Double
             p(0) = pt.X : p(1) = pt.Y : p(2) = pt.Z
@@ -231,7 +224,7 @@ Sub Main()
             
             Dim fSb As New StringBuilder()
             fSb.AppendLine("    {")
-            fSb.AppendLine("      ""face_id"": """ & count & """,") ' InternalName is too long, using Index
+            fSb.AppendLine("      ""face_id"": """ & count & """,")
             fSb.AppendLine("      ""face_type"": """ & fType & """,")
             fSb.AppendLine("      ""area_mm2"": " & Num(area) & ",")
             fSb.AppendLine("      ""normal"": { ""x"": " & Num(n(0)) & ", ""y"": " & Num(n(1)) & ", ""z"": " & Num(n(2)) & " },")
@@ -262,7 +255,6 @@ Sub Main()
         If TypeOf feat Is RectangularPatternFeature Then fType = "Pattern"
         If TypeOf feat Is CircularPatternFeature Then fType = "Pattern"
 
-        ' Dependencies
         Dim childList As New List(Of String)
         Try
             For Each child As PartFeature In feat.DependentFeatures
@@ -275,7 +267,7 @@ Sub Main()
         fgSb.AppendLine("      {")
         fgSb.AppendLine("        ""feature_name"": """ & EscapeJson(feat.Name) & """,")
         fgSb.AppendLine("        ""feature_type"": """ & fType & """,")
-        fgSb.AppendLine("        ""parent_features"": [],") ' Parents hard to traverse up via API generically
+        fgSb.AppendLine("        ""parent_features"": [],")
         fgSb.AppendLine("        ""child_features"": [" & String.Join(",", childList.ToArray()) & "]")
         fgSb.Append("      }")
         featGraphList.Add(fgSb.ToString())
