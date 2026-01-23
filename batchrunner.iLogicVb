@@ -3,7 +3,11 @@ Imports Inventor
 
 Sub Main()
 
-    Dim folderPath As String = r"E:\Phase 1\Assembly 1"
+    Dim folderPath As String = InputBox(
+        "Enter folder path containing IPT files",
+        "Batch JSON Export",
+        "E:\InventorParts"
+    )
 
     If Not Directory.Exists(folderPath) Then
         MessageBox.Show("Folder not found")
@@ -25,18 +29,15 @@ Sub Main()
                 Continue For
             End If
 
-            ' 🔴 RULE NAME MUST MATCH EXACTLY
-            iLogicVb.Automation.AddRule(partDoc, "DeepJsonExport")
-            iLogicVb.RunRule(partDoc, "DeepJsonExport")
+            ' ✅ External rule = works for ALL parts
+            iLogicVb.RunExternalRule("DeepJsonExport")
 
-            partDoc.Save()
             partDoc.Close(True)
-
             successCount += 1
 
         Catch ex As Exception
             MessageBox.Show(
-                "Failed on file:" & vbCrLf & filePath & vbCrLf & ex.Message,
+                "Failed on:" & vbCrLf & filePath & vbCrLf & ex.Message,
                 "Batch Error"
             )
         End Try
