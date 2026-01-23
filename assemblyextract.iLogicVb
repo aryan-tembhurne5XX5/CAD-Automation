@@ -1,361 +1,159 @@
 Imports System.IO
 Imports System.Text
 Imports Inventor
+Imports System.Globalization
 
 Sub Main()
-    ' --- 1. Environment Check ---
+
+    ' ======================================================
+    ' 1. DOCUMENT CHECK
+    ' ======================================================
     Dim oDoc As Document = ThisDoc.Document
     If oDoc.DocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
-        MessageBox.Show("Run this rule inside an Assembly (.iam) file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        MessageBox.Show("Run this rule inside an Assembly (.iam) file.")
         Return
     End If
 
     Dim oAsmDoc As AssemblyDocument = CType(oDoc, AssemblyDocument)
     Dim oDef As AssemblyComponentDefinition = oAsmDoc.ComponentDefinition
+    Dim tg As TransientGeometry = ThisApplication.TransientGeometry
 
-    ' --- 2. Initialize JSON Builder ---
+    ' ======================================================
+    ' 2. JSON BUILDER
+    ' ======================================================
     Dim sb As New StringBuilder()
     sb.AppendLine("{")
 
-    ' ==========================================
-    ' SECTION: ASSEMBLY METADATA
-    ' ==========================================
-    Dim asmName As String = System.IO.Path.GetFileNameWithoutExtension(oAsmDoc.FullFileName)
+    ' ======================================================
+    ' 3. ASSEMBLY METADATA
+    ' ======================================================
     sb.AppendLine("  ""assembly_metadata"": {")
-    sb.AppendLine("    ""assembly_name"": """ & EscapeJson(asmName) & """,")
+    sb.AppendLine("    ""assembly_name"": """ & EscapeJson(Path.GetFileNameWithoutExtension(oAsmDoc.FullFileName)) & """,")
     sb.AppendLine("    ""full_path"": """ & EscapeJson(oAsmDoc.FullFileName) & """,")
     sb.AppendLine("    ""units"": ""mm"",")
-    
-    Dim mass As Double = 0
-    Try
-        mass = oDef.MassProperties.Mass
-    Catch
-    End Try
-    sb.AppendLine("    ""mass_kg"": " & FormatValue(mass) & ",")
-    sb.AppendLine("    ""created_on"": """ & GetProp(oDoc, "Design Tracking Properties", "Creation Time") & """,")
-    sb.AppendLine("    ""author"": """ & GetProp(oDoc, "Summary Information", "Author") & """")
+    sb.AppendLine("    ""mass_kg"": " & F(oDef.MassProperties.Mass))
     sb.AppendLine("  },")
 
-    ' ==========================================
-    ' SECTION: ROOT COORDINATE SYSTEM
-    ' ==========================================
-    sb.AppendLine("  ""root_coordinate_system"": {")
-    sb.AppendLine("    ""origin_mm"": { ""x"": 0, ""y"": 0, ""z"": 0 },")
-    sb.AppendLine("    ""x_axis"": { ""x"": 1, ""y"": 0, ""z"": 0 },")
-    sb.AppendLine("    ""y_axis"": { ""x"": 0, ""y"": 1, ""z"": 0 },")
-    sb.AppendLine("    ""z_axis"": { ""x"": 0, ""y"": 0, ""z"": 1 }")
-    sb.AppendLine("  },")
-
-    ' ==========================================
-    ' SECTION: COMPONENTS
-    ' ==========================================
+    ' ======================================================
+    ' 4. COMPONENTS
+    ' ======================================================
     sb.AppendLine("  ""components"": [")
-    Dim compList As New List(Of String)
-    Dim fastenerList As New List(Of ComponentOccurrence) ' Store for later processing
+    Dim compJson As New List(Of String)
 
-    ' Iterate occurrences
-    For Each oOcc As ComponentOccurrence In oDef.Occurrences.AllLeafOccurrences
-        
-        ' 1. Transform Data
-        Dim mat As Matrix = oOcc.Transformation
-        ' Translation (Internal cm -> mm)
-        Dim trans As Vector = mat.Translation
-        Dim tX As Double = trans.X * 10.0
-        Dim tY As Double = trans.Y * 10.0
-        Dim tZ As Double = trans.Z * 10.0
+    For Each occ As ComponentOccurrence In oDef.Occurrences.AllLeafOccurrences
 
-        ' Rotation Matrix cells
-        Dim r11 As Double = mat.Cell(1, 1) : Dim r12 As Double = mat.Cell(1, 2) : Dim r13 As Double = mat.Cell(1, 3)
-        Dim r21 As Double = mat.Cell(2, 1) : Dim r22 As Double = mat.Cell(2, 2) : Dim r23 As Double = mat.Cell(2, 3)
-        Dim r31 As Double = mat.Cell(3, 1) : Dim r32 As Double = mat.Cell(3, 2) : Dim r33 As Double = mat.Cell(3, 3)
+        Dim m As Matrix = occ.Transformation
+        Dim t As Vector = m.Translation
 
-        ' 2. Pattern Info
-        Dim patternParent As String = "null"
-        If oOcc.IsPatternElement Then
-            Try
-                Dim oPatElement As OccurrencePatternElement = oOcc.PatternElement
-                patternParent = """" & EscapeJson(oPatElement.Parent.Name) & """"
-            Catch
-            End Try
-        End If
+        Dim partDoc As Document = occ.Definition.Document
+        Dim partNumber As String = GetProp(partDoc, "Design Tracking Properties", "Part Number")
 
-        ' 3. Fastener Check
-        If IsFastener(oOcc) Then fastenerList.Add(oOcc)
+        Dim c As New StringBuilder()
+        c.AppendLine("    {")
+        c.AppendLine("      ""occurrence"": """ & EscapeJson(occ.Name) & """,")
+        c.AppendLine("      ""part_number"": """ & EscapeJson(partNumber) & """,")
+        c.AppendLine("      ""file"": """ & EscapeJson(Path.GetFileName(partDoc.FullFileName)) & """,")
 
-        ' 4. Metadata
-        Dim pNum As String = ""
-        Try
-            pNum = oOcc.Definition.Document.PropertySets.Item("Design Tracking Properties").Item("Part Number").Value
-        Catch
-            pNum = oOcc.Name
-        End Try
+        ' Transform
+        c.AppendLine("      ""transform"": {")
+        c.AppendLine("        ""translation_mm"": { ""x"": " & F(t.X * 10) & ", ""y"": " & F(t.Y * 10) & ", ""z"": " & F(t.Z * 10) & " },")
+        c.AppendLine("        ""rotation_matrix"": [")
+        c.AppendLine("          [ " & F(m.Cell(1,1)) & ", " & F(m.Cell(1,2)) & ", " & F(m.Cell(1,3)) & " ],")
+        c.AppendLine("          [ " & F(m.Cell(2,1)) & ", " & F(m.Cell(2,2)) & ", " & F(m.Cell(2,3)) & " ],")
+        c.AppendLine("          [ " & F(m.Cell(3,1)) & ", " & F(m.Cell(3,2)) & ", " & F(m.Cell(3,3)) & " ]")
+        c.AppendLine("        ]")
+        c.AppendLine("      },")
 
-        Dim cSb As New StringBuilder()
-        cSb.AppendLine("    {")
-        cSb.AppendLine("      ""occurrence_name"": """ & EscapeJson(oOcc.Name) & """,")
-        cSb.AppendLine("      ""part_number"": """ & EscapeJson(pNum) & """,")
-        cSb.AppendLine("      ""file_name"": """ & EscapeJson(System.IO.Path.GetFileName(oOcc.Definition.Document.FullFileName)) & """,")
-        
-        cSb.AppendLine("      ""transform"": {")
-        cSb.AppendLine("        ""translation_mm"": { ""x"": " & FormatValue(tX) & ", ""y"": " & FormatValue(tY) & ", ""z"": " & FormatValue(tZ) & " },")
-        cSb.AppendLine("        ""rotation_matrix"": [")
-        cSb.AppendLine("          [ " & FormatValue(r11) & ", " & FormatValue(r12) & ", " & FormatValue(r13) & " ],")
-        cSb.AppendLine("          [ " & FormatValue(r21) & ", " & FormatValue(r22) & ", " & FormatValue(r23) & " ],")
-        cSb.AppendLine("          [ " & FormatValue(r31) & ", " & FormatValue(r32) & ", " & FormatValue(r33) & " ]")
-        cSb.AppendLine("        ]")
-        cSb.AppendLine("      },")
+        c.AppendLine("      ""grounded"": " & occ.Grounded.ToString().ToLower() & ",")
+        c.AppendLine("      ""suppressed"": " & occ.Suppressed.ToString().ToLower())
 
-        cSb.AppendLine("      ""grounded"": " & oOcc.Grounded.ToString().ToLower() & ",")
-        cSb.AppendLine("      ""suppressed"": " & oOcc.Suppressed.ToString().ToLower() & ",")
-        cSb.AppendLine("      ""instance_index"": 1,")
-        cSb.AppendLine("      ""pattern_parent"": " & patternParent)
-        cSb.Append("    }")
-        compList.Add(cSb.ToString())
+        c.Append("    }")
+        compJson.Add(c.ToString())
+
     Next
-    sb.Append(String.Join("," & vbCrLf, compList.ToArray()))
-    sb.AppendLine()
+
+    sb.AppendLine(String.Join("," & vbCrLf, compJson))
     sb.AppendLine("  ],")
 
-    ' ==========================================
-    ' SECTION: CONSTRAINTS
-    ' ==========================================
+    ' ======================================================
+    ' 5. CONSTRAINTS
+    ' ======================================================
     sb.AppendLine("  ""constraints"": [")
-    Dim consList As New List(Of String)
-    
-    For Each oCons As AssemblyConstraint In oDef.Constraints
-        If oCons.Suppressed Then Continue For
+    Dim conJson As New List(Of String)
 
-        Dim cType As String = "Other"
+    For Each con As AssemblyConstraint In oDef.Constraints
+        If con.Suppressed Then Continue For
+
+        Dim typeStr As String = "Other"
         Dim offsetMm As String = "null"
         Dim angleDeg As String = "null"
-        Dim flip As String = "false"
 
-        ' --- FIXED: Used oCons.[Type] to escape keyword ---
-        ' kMateConstraintObject = 117462784
-        If oCons.[Type] = ObjectTypeEnum.kMateConstraintObject Then
-            cType = "Mate"
-            Dim mc As MateConstraint = oCons
-            Try 
-                offsetMm = FormatValue(mc.Offset.Value * 10.0) 
-            Catch 
-            End Try
-            
-        ElseIf oCons.[Type] = ObjectTypeEnum.kFlushConstraintObject Then
-            cType = "Flush"
-            Dim fc As MateConstraint = oCons
-            Try 
-                offsetMm = FormatValue(fc.Offset.Value * 10.0) 
-            Catch 
-            End Try
+        If con.[Type] = ObjectTypeEnum.kMateConstraintObject Then
+            typeStr = "Mate"
+            Dim mc As MateConstraint = CType(con, MateConstraint)
+            Try : offsetMm = F(mc.Offset.Value * 10) : Catch : End Try
 
-        ElseIf oCons.[Type] = ObjectTypeEnum.kInsertConstraintObject Then
-            cType = "Insert"
-            Dim ic As InsertConstraint = oCons
-            Try 
-                offsetMm = FormatValue(ic.Distance.Value * 10.0) 
-            Catch 
-            End Try
+        ElseIf con.[Type] = ObjectTypeEnum.kFlushConstraintObject Then
+            typeStr = "Flush"
+            Dim fc As FlushConstraint = CType(con, FlushConstraint)
+            Try : offsetMm = F(fc.Offset.Value * 10) : Catch : End Try
 
-        ElseIf oCons.[Type] = ObjectTypeEnum.kAngleConstraintObject Then
-            cType = "Angle"
-            Dim ac As AngleConstraint = oCons
-            Try 
-                angleDeg = FormatValue(ac.Angle.Value * (180.0 / 3.14159265359)) 
-            Catch 
-            End Try
+        ElseIf con.[Type] = ObjectTypeEnum.kInsertConstraintObject Then
+            typeStr = "Insert"
+            Dim ic As InsertConstraint = CType(con, InsertConstraint)
+            Try : offsetMm = F(ic.Distance.Value * 10) : Catch : End Try
+
+        ElseIf con.[Type] = ObjectTypeEnum.kAngleConstraintObject Then
+            typeStr = "Angle"
+            Dim ac As AngleConstraint = CType(con, AngleConstraint)
+            Try : angleDeg = F(ac.Angle.Value * 180 / Math.PI) : Catch : End Try
         End If
 
-        ' Get Participants
-        Dim occ1Name As String = "Unknown"
-        Dim occ2Name As String = "Unknown"
-        Dim ent1Type As String = "Unknown"
-        
-        Try
-            If oCons.OccurrenceOne IsNot Nothing Then occ1Name = oCons.OccurrenceOne.Name
-            If oCons.OccurrenceTwo IsNot Nothing Then occ2Name = oCons.OccurrenceTwo.Name
-            
-            ' Heuristic for Entity Type
-            If oCons.EntityOne IsNot Nothing Then
-                If TypeOf oCons.EntityOne Is Inventor.Face Then 
-                    ent1Type = "Face"
-                ElseIf TypeOf oCons.EntityOne Is Inventor.WorkPlane Then 
-                    ent1Type = "Plane"
-                ElseIf TypeOf oCons.EntityOne Is Inventor.WorkAxis Then 
-                    ent1Type = "Axis"
-                ElseIf TypeOf oCons.EntityOne Is Inventor.Edge Then 
-                    ent1Type = "Axis"
-                End If
-            End If
-        Catch
-        End Try
+        Dim cj As New StringBuilder()
+        cj.AppendLine("    {")
+        cj.AppendLine("      ""constraint_type"": """ & typeStr & """,")
+        cj.AppendLine("      ""occurrence_1"": """ & EscapeJson(con.OccurrenceOne.Name) & """,")
+        cj.AppendLine("      ""occurrence_2"": """ & EscapeJson(con.OccurrenceTwo.Name) & """,")
+        cj.AppendLine("      ""offset_mm"": " & offsetMm & ",")
+        cj.AppendLine("      ""angle_deg"": " & angleDeg)
+        cj.Append("    }")
 
-        Dim conSb As New StringBuilder()
-        conSb.AppendLine("    {")
-        conSb.AppendLine("      ""constraint_id"": """ & EscapeJson(oCons.Name) & """,")
-        conSb.AppendLine("      ""constraint_type"": """ & cType & """,")
-        
-        conSb.AppendLine("      ""component_1"": { ""occurrence"": """ & EscapeJson(occ1Name) & """, ""connection_point_id"": null, ""entity_type"": """ & ent1Type & """ },")
-        conSb.AppendLine("      ""component_2"": { ""occurrence"": """ & EscapeJson(occ2Name) & """, ""connection_point_id"": null, ""entity_type"": ""Unknown"" },")
-        
-        conSb.AppendLine("      ""parameters"": {")
-        conSb.AppendLine("        ""offset_mm"": " & offsetMm & ",")
-        conSb.AppendLine("        ""angle_deg"": " & angleDeg & ",")
-        conSb.AppendLine("        ""flip"": false")
-        conSb.AppendLine("      },")
-        conSb.AppendLine("      ""confidence"": 1.0")
-        conSb.Append("    }")
-        consList.Add(conSb.ToString())
+        conJson.Add(cj.ToString())
     Next
-    sb.Append(String.Join("," & vbCrLf, consList.ToArray()))
-    sb.AppendLine()
-    sb.AppendLine("  ],")
 
-    ' ==========================================
-    ' SECTION: FASTENERS
-    ' ==========================================
-    sb.AppendLine("  ""fasteners"": [")
-    Dim fJsonList As New List(Of String)
-    
-    For Each fOcc As ComponentOccurrence In fastenerList
-        Dim mat As Matrix = fOcc.Transformation
-        
-        ' Extract Z vector manually to avoid cast errors
-        Dim zX As Double = mat.Cell(3, 1)
-        Dim zY As Double = mat.Cell(3, 2)
-        Dim zZ As Double = mat.Cell(3, 3)
-        
-        ' Create vector explicitly
-        Dim zV As Inventor.Vector = ThisApplication.TransientGeometry.CreateVector(zX, zY, zZ)
-        zV.Normalize()
+    sb.AppendLine(String.Join("," & vbCrLf, conJson))
+    sb.AppendLine("  ]")
 
-        ' Stack Logic
-        Dim stackList As New List(Of String)
-        For Each oCons As AssemblyConstraint In oDef.Constraints
-            Try
-                Dim otherOcc As String = ""
-                If oCons.OccurrenceOne.Name = fOcc.Name Then otherOcc = oCons.OccurrenceTwo.Name
-                If oCons.OccurrenceTwo.Name = fOcc.Name Then otherOcc = oCons.OccurrenceOne.Name
-                
-                If otherOcc <> "" Then
-                    Dim stkObj As String = "{ ""occurrence"": """ & EscapeJson(otherOcc) & """, ""connection_point_id"": ""LinkedByConstraint"" }"
-                    stackList.Add(stkObj)
-                End If
-            Catch
-            End Try
-        Next
+    ' ======================================================
+    ' END JSON
+    ' ======================================================
+    sb.AppendLine("}")
 
-        Dim fSb As New StringBuilder()
-        fSb.AppendLine("    {")
-        fSb.AppendLine("      ""fastener_occurrence"": """ & EscapeJson(fOcc.Name) & """,")
-        fSb.AppendLine("      ""fastener_type"": ""Bolt"",") 
-        fSb.AppendLine("      ""axis"": { ""x"": " & FormatValue(zV.X) & ", ""y"": " & FormatValue(zV.Y) & ", ""z"": " & FormatValue(zV.Z) & " },")
-        fSb.AppendLine("      ""stack"": [ " & String.Join(",", stackList.ToArray()) & " ],")
-        fSb.AppendLine("      ""stack_height_mm"": 0,")
-        fSb.AppendLine("      ""confidence"": 0.8")
-        fSb.Append("    }")
-        fJsonList.Add(fSb.ToString())
-    Next
-    sb.Append(String.Join("," & vbCrLf, fJsonList.ToArray()))
-    sb.AppendLine()
-    sb.AppendLine("  ],")
+    ' ======================================================
+    ' WRITE FILE
+    ' ======================================================
+    Dim outPath As String = Path.ChangeExtension(oAsmDoc.FullFileName, "json")
+    File.WriteAllText(outPath, sb.ToString())
 
-    ' ==========================================
-    ' SECTION: PATTERNS
-    ' ==========================================
-    sb.AppendLine("  ""patterns"": [")
-    Dim patList As New List(Of String)
-    For Each oPat As OccurrencePattern In oDef.OccurrencePatterns
-        Dim pType As String = "Rectangular"
-        If TypeOf oPat Is CircularOccurrencePattern Then pType = "Circular"
-        
-        Dim seedName As String = "Unknown"
-        If oPat.ParentComponents.Count > 0 Then seedName = oPat.ParentComponents(1).Name
-
-        Dim pSb As New StringBuilder()
-        pSb.AppendLine("    {")
-        pSb.AppendLine("      ""pattern_name"": """ & EscapeJson(oPat.Name) & """,")
-        pSb.AppendLine("      ""pattern_type"": """ & pType & """,")
-        pSb.AppendLine("      ""seed_component"": """ & EscapeJson(seedName) & """,")
-        pSb.AppendLine("      ""count"": " & oPat.OccurrencePatternElements.Count & ",")
-        pSb.AppendLine("      ""direction_1"": { ""vector"": { ""x"": 1, ""y"": 0, ""z"": 0 }, ""spacing_mm"": 0 },")
-        pSb.AppendLine("      ""direction_2"": { ""vector"": { ""x"": 0, ""y"": 1, ""z"": 0 }, ""spacing_mm"": 0 }")
-        pSb.Append("    }")
-        patList.Add(pSb.ToString())
-    Next
-    sb.Append(String.Join("," & vbCrLf, patList.ToArray()))
-    sb.AppendLine()
-    sb.AppendLine("  ],")
-
-    ' ==========================================
-    ' SECTION: ASSEMBLY GRAPH
-    ' ==========================================
-    sb.AppendLine("  ""assembly_graph"": {")
-    
-    ' Nodes
-    sb.AppendLine("    ""nodes"": [")
-    Dim nodeList As New List(Of String)
-    For Each oOcc As ComponentOccurrence In oDef.Occurrences.AllLeafOccurrences
-        Dim nType As String = If(IsFastener(oOcc), "Fastener", "Part")
-        nodeList.Add("      { ""occurrence"": """ & EscapeJson(oOcc.Name) & """, ""type"": """ & nType & """ }")
-    Next
-    sb.Append(String.Join("," & vbCrLf, nodeList.ToArray()))
-    sb.AppendLine()
-    sb.AppendLine("    ],")
-
-    ' Edges
-    sb.AppendLine("    ""edges"": [")
-    Dim edgeList As New List(Of String)
-    For Each oCons As AssemblyConstraint In oDef.Constraints
-        Try
-            If oCons.Suppressed Then Continue For
-            Dim n1 As String = oCons.OccurrenceOne.Name
-            Dim n2 As String = oCons.OccurrenceTwo.Name
-            edgeList.Add("      { ""from"": """ & EscapeJson(n1) & """, ""to"": """ & EscapeJson(n2) & """, ""relation"": ""Constrained"" }")
-        Catch
-        End Try
-    Next
-    sb.Append(String.Join("," & vbCrLf, edgeList.ToArray()))
-    sb.AppendLine()
-    sb.AppendLine("    ]")
-    sb.AppendLine("  }")
-
-    sb.AppendLine("}") ' End Root
-
-    ' --- Output ---
-    Dim jsonPath As String = System.IO.Path.ChangeExtension(oAsmDoc.FullFileName, "json")
-    System.IO.File.WriteAllText(jsonPath, sb.ToString())
-    MessageBox.Show("Assembly Data Exported: " & vbCrLf & jsonPath, "Success")
+    MessageBox.Show("✅ Assembly JSON exported:" & vbCrLf & outPath)
 
 End Sub
 
-' --- Helper Functions ---
-
-Function IsFastener(oOcc As ComponentOccurrence) As Boolean
-    Try
-        If oOcc.Definition.IsContentMember Then Return True
-        Dim name As String = oOcc.Name.ToUpper()
-        Dim filename As String = oOcc.Definition.Document.DisplayName.ToUpper()
-        If name.Contains("BOLT") Or name.Contains("SCREW") Or name.Contains("ISO") Or name.Contains("DIN") Or _
-           filename.Contains("BOLT") Or filename.Contains("SCREW") Then
-            Return True
-        End If
-    Catch
-    End Try
-    Return False
+' ======================================================
+' HELPERS
+' ======================================================
+Function F(v As Double) As String
+    Return v.ToString(CultureInfo.InvariantCulture)
 End Function
 
-Function FormatValue(val As Double) As String
-    Return val.ToString(System.Globalization.CultureInfo.InvariantCulture)
-End Function
-
-Function EscapeJson(str As String) As String
-    If str Is Nothing Then Return ""
-    Return str.Replace("\", "\\").Replace("""", "\""").Replace(vbCrLf, "")
+Function EscapeJson(s As String) As String
+    If s Is Nothing Then Return ""
+    Return s.Replace("\", "\\").Replace("""", "\""")
 End Function
 
 Function GetProp(doc As Document, setName As String, propName As String) As String
     Try
-        Return EscapeJson(doc.PropertySets.Item(setName).Item(propName).Value.ToString())
+        Return doc.PropertySets.Item(setName).Item(propName).Value.ToString()
     Catch
         Return ""
     End Try
