@@ -1,0 +1,54 @@
+Imports System.IO
+Imports Inventor
+
+Sub Main()
+
+    Dim folderPath As String = InputBox(
+        "Enter folder path containing IPT files",
+        "Batch JSON Export",
+        "E:\InventorParts"
+    )
+
+    If Not Directory.Exists(folderPath) Then
+        MessageBox.Show("Folder not found")
+        Return
+    End If
+
+    Dim app As Inventor.Application = ThisApplication
+    Dim iptFiles = Directory.GetFiles(folderPath, "*.ipt")
+
+    Dim successCount As Integer = 0
+
+    For Each filePath As String In iptFiles
+        Try
+            Dim partDoc As PartDocument =
+                CType(app.Documents.Open(filePath, False), PartDocument)
+
+            If partDoc.DocumentType <> DocumentTypeEnum.kPartDocumentObject Then
+                partDoc.Close(True)
+                Continue For
+            End If
+
+            ' 🔴 RULE NAME MUST MATCH EXACTLY
+            iLogicVb.Automation.AddRule(partDoc, "DeepJsonExport")
+            iLogicVb.RunRule(partDoc, "DeepJsonExport")
+
+            partDoc.Save()
+            partDoc.Close(True)
+
+            successCount += 1
+
+        Catch ex As Exception
+            MessageBox.Show(
+                "Failed on file:" & vbCrLf & filePath & vbCrLf & ex.Message,
+                "Batch Error"
+            )
+        End Try
+    Next
+
+    MessageBox.Show(
+        "JSON export completed for " & successCount & " parts.",
+        "Batch Complete"
+    )
+
+End Sub
