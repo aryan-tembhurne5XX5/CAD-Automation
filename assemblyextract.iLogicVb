@@ -1,7 +1,6 @@
 Imports System.IO
 Imports System.Text
 Imports Inventor
-Imports System.Globalization
 
 Sub Main()
     ' --- 1. Environment Check ---
@@ -13,9 +12,6 @@ Sub Main()
 
     Dim oAsmDoc As AssemblyDocument = CType(oDoc, AssemblyDocument)
     Dim oDef As AssemblyComponentDefinition = oAsmDoc.ComponentDefinition
-
-    ' Define Culture for Number Formatting (Inline safety)
-    Dim culture As CultureInfo = CultureInfo.InvariantCulture
 
     ' --- 2. Initialize JSON Builder ---
     Dim sb As New StringBuilder()
@@ -35,7 +31,7 @@ Sub Main()
         mass = oDef.MassProperties.Mass
     Catch
     End Try
-    sb.AppendLine("    ""mass_kg"": " & mass.ToString(culture) & ",")
+    sb.AppendLine("    ""mass_kg"": " & FormatVal(mass) & ",")
     sb.AppendLine("    ""created_on"": """ & GetProp(oDoc, "Design Tracking Properties", "Creation Time") & """,")
     sb.AppendLine("    ""author"": """ & GetProp(oDoc, "Summary Information", "Author") & """")
     sb.AppendLine("  },")
@@ -62,13 +58,14 @@ Sub Main()
         
         ' 1. Transform Data
         Dim mat As Matrix = oOcc.Transformation
+        
         ' Translation (Internal cm -> mm)
         Dim trans As Vector = mat.Translation
         Dim tX As Double = trans.X * 10.0
         Dim tY As Double = trans.Y * 10.0
         Dim tZ As Double = trans.Z * 10.0
 
-        ' Rotation Matrix
+        ' Rotation Matrix Cells
         Dim r11 As Double = mat.Cell(1, 1) : Dim r12 As Double = mat.Cell(1, 2) : Dim r13 As Double = mat.Cell(1, 3)
         Dim r21 As Double = mat.Cell(2, 1) : Dim r22 As Double = mat.Cell(2, 2) : Dim r23 As Double = mat.Cell(2, 3)
         Dim r31 As Double = mat.Cell(3, 1) : Dim r32 As Double = mat.Cell(3, 2) : Dim r33 As Double = mat.Cell(3, 3)
@@ -101,11 +98,11 @@ Sub Main()
         cSb.AppendLine("      ""file_name"": """ & EscapeJson(System.IO.Path.GetFileName(oOcc.Definition.Document.FullFileName)) & """,")
         
         cSb.AppendLine("      ""transform"": {")
-        cSb.AppendLine("        ""translation_mm"": { ""x"": " & tX.ToString(culture) & ", ""y"": " & tY.ToString(culture) & ", ""z"": " & tZ.ToString(culture) & " },")
+        cSb.AppendLine("        ""translation_mm"": { ""x"": " & FormatVal(tX) & ", ""y"": " & FormatVal(tY) & ", ""z"": " & FormatVal(tZ) & " },")
         cSb.AppendLine("        ""rotation_matrix"": [")
-        cSb.AppendLine("          [ " & r11.ToString(culture) & ", " & r12.ToString(culture) & ", " & r13.ToString(culture) & " ],")
-        cSb.AppendLine("          [ " & r21.ToString(culture) & ", " & r22.ToString(culture) & ", " & r23.ToString(culture) & " ],")
-        cSb.AppendLine("          [ " & r31.ToString(culture) & ", " & r32.ToString(culture) & ", " & r33.ToString(culture) & " ]")
+        cSb.AppendLine("          [ " & FormatVal(r11) & ", " & FormatVal(r12) & ", " & FormatVal(r13) & " ],")
+        cSb.AppendLine("          [ " & FormatVal(r21) & ", " & FormatVal(r22) & ", " & FormatVal(r23) & " ],")
+        cSb.AppendLine("          [ " & FormatVal(r31) & ", " & FormatVal(r32) & ", " & FormatVal(r33) & " ]")
         cSb.AppendLine("        ]")
         cSb.AppendLine("      },")
 
@@ -133,12 +130,12 @@ Sub Main()
         Dim offsetMm As String = "null"
         Dim angleDeg As String = "null"
         
-        ' --- FIXED: Use TypeOf Is Checks to avoid property keyword conflicts ---
+        ' Strict Type Checks to avoid Keyword Conflicts
         If TypeOf oCons Is FlushConstraint Then
             cType = "Flush"
             Try
                 Dim fc As FlushConstraint = oCons
-                offsetMm = (fc.Offset.Value * 10.0).ToString(culture)
+                offsetMm = FormatVal(fc.Offset.Value * 10.0)
             Catch
             End Try
             
@@ -146,7 +143,7 @@ Sub Main()
             cType = "Mate"
             Try
                 Dim mc As MateConstraint = oCons
-                offsetMm = (mc.Offset.Value * 10.0).ToString(culture)
+                offsetMm = FormatVal(mc.Offset.Value * 10.0)
             Catch
             End Try
 
@@ -154,7 +151,7 @@ Sub Main()
             cType = "Insert"
             Try
                 Dim ic As InsertConstraint = oCons
-                offsetMm = (ic.Distance.Value * 10.0).ToString(culture)
+                offsetMm = FormatVal(ic.Distance.Value * 10.0)
             Catch
             End Try
 
@@ -162,7 +159,7 @@ Sub Main()
             cType = "Angle"
             Try
                 Dim ac As AngleConstraint = oCons
-                angleDeg = (ac.Angle.Value * (180.0 / 3.14159265359)).ToString(culture)
+                angleDeg = FormatVal(ac.Angle.Value * (180.0 / 3.14159265359))
             Catch
             End Try
         End If
@@ -221,13 +218,18 @@ Sub Main()
     For Each fOcc As ComponentOccurrence In fastenerList
         Dim mat As Matrix = fOcc.Transformation
         
-        ' Manual Vector Creation to avoid ambiguity
+        ' Manual Vector Creation - using explicit doubles
         Dim zX As Double = mat.Cell(3, 1)
         Dim zY As Double = mat.Cell(3, 2)
         Dim zZ As Double = mat.Cell(3, 3)
         
-        Dim zV As Vector = ThisApplication.TransientGeometry.CreateVector(zX, zY, zZ)
-        zV.Normalize()
+        ' Normalize manually if vector creation fails, or try TransientGeometry
+        Dim vLen As Double = Math.Sqrt(zX * zX + zY * zY + zZ * zZ)
+        If vLen > 0.0000001 Then
+            zX = zX / vLen
+            zY = zY / vLen
+            zZ = zZ / vLen
+        End If
 
         ' Stack Logic
         Dim stackList As New List(Of String)
@@ -249,7 +251,7 @@ Sub Main()
         fSb.AppendLine("    {")
         fSb.AppendLine("      ""fastener_occurrence"": """ & EscapeJson(fOcc.Name) & """,")
         fSb.AppendLine("      ""fastener_type"": ""Bolt"",") 
-        fSb.AppendLine("      ""axis"": { ""x"": " & zV.X.ToString(culture) & ", ""y"": " & zV.Y.ToString(culture) & ", ""z"": " & zV.Z.ToString(culture) & " },")
+        fSb.AppendLine("      ""axis"": { ""x"": " & FormatVal(zX) & ", ""y"": " & FormatVal(zY) & ", ""z"": " & FormatVal(zZ) & " },")
         fSb.AppendLine("      ""stack"": [ " & String.Join(",", stackList.ToArray()) & " ],")
         fSb.AppendLine("      ""stack_height_mm"": 0,")
         fSb.AppendLine("      ""confidence"": 0.8")
@@ -330,6 +332,11 @@ Sub Main()
 End Sub
 
 ' --- Helper Functions ---
+
+' Helper: Use String.Format to safely convert numbers to string with dot separator
+Function FormatVal(ByVal val As Double) As String
+    Return String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}", val)
+End Function
 
 Function IsFastener(oOcc As ComponentOccurrence) As Boolean
     Try
