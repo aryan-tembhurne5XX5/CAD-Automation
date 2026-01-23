@@ -1,32 +1,3 @@
-Rule Compile Errors in Rule4, in 1093144795-M1.iam
+Rule Compile Errors in BatchExport, in 1028925335-B.ipt
 
-Error on Line 132 : Keyword is not valid as an identifier.
-Error on Line 138 : '(' expected.
-Error on Line 138 : Expression expected.
-Error on Line 138 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 138 : Type expected.
-Error on Line 138 : ')' expected.
-Error on Line 146 : '(' expected.
-Error on Line 146 : Expression expected.
-Error on Line 146 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 146 : Type expected.
-Error on Line 146 : ')' expected.
-Error on Line 154 : '(' expected.
-Error on Line 154 : Expression expected.
-Error on Line 154 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 154 : Type expected.
-Error on Line 154 : ')' expected.
-Error on Line 162 : '(' expected.
-Error on Line 162 : Expression expected.
-Error on Line 162 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 162 : Type expected.
-Error on Line 162 : ')' expected.
-Error on Line 197 : '(' expected.
-Error on Line 197 : Expression expected.
-Error on Line 197 : Syntax error in cast operator; two arguments separated by comma are required.
-Error on Line 197 : Type expected.
-Error on Line 197 : ')' expected.
-Error on Line 141 : Value of type 'CultureInfo' cannot be converted to 'Integer'.
-Error on Line 149 : Value of type 'CultureInfo' cannot be converted to 'Integer'.
-Error on Line 157 : Value of type 'CultureInfo' cannot be converted to 'Integer'.
-Error on Line 165 : Value of type 'CultureInfo' cannot be converted to 'Integer'.
+Error on Line 29 : Argument not specified for parameter 'ruleText' of 'Function AddRule(doc As Document, ruleName As String, ruleText As String) As iLogicRule'.
