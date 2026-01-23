@@ -53,7 +53,7 @@ Sub Main()
     Dim compList As New List(Of String)
     Dim fastenerList As New List(Of ComponentOccurrence) ' Store for later processing
 
-    ' We iterate AllLeafOccurrences to get actual parts, ignoring sub-assembly structure for the flat BOM view
+    ' Iterate occurrences
     For Each oOcc As ComponentOccurrence In oDef.Occurrences.AllLeafOccurrences
         
         ' 1. Transform Data
@@ -79,7 +79,7 @@ Sub Main()
             End Try
         End If
 
-        ' 3. Heuristic Fastener Detection (Save for later section)
+        ' 3. Fastener Check
         If IsFastener(oOcc) Then fastenerList.Add(oOcc)
 
         ' 4. Metadata
@@ -107,7 +107,7 @@ Sub Main()
 
         cSb.AppendLine("      ""grounded"": " & oOcc.Grounded.ToString().ToLower() & ",")
         cSb.AppendLine("      ""suppressed"": " & oOcc.Suppressed.ToString().ToLower() & ",")
-        cSb.AppendLine("      ""instance_index"": 1,") ' Simplification: Index tracking requires complex recursive counting
+        cSb.AppendLine("      ""instance_index"": 1,")
         cSb.AppendLine("      ""pattern_parent"": " & patternParent)
         cSb.Append("    }")
         compList.Add(cSb.ToString())
@@ -130,21 +130,38 @@ Sub Main()
         Dim angleDeg As String = "null"
         Dim flip As String = "false"
 
-        ' Determine Type & Parameters
-        If TypeOf oCons Is MateConstraint Then
+        ' --- FIXED LOGIC: Use ObjectTypeEnum to safely identify constraint types ---
+        If oCons.Type = ObjectTypeEnum.kMateConstraintObject Then
+            cType = "Mate"
             Dim mc As MateConstraint = oCons
-            If mc.Result.Type = ObjectTypeEnum.kFlushConstraintObject Then
-                cType = "Flush"
-            Else
-                cType = "Mate"
-            End If
-            Try : offsetMm = Num(mc.Offset.Value * 10.0) : Catch : End Try
-        ElseIf TypeOf oCons Is InsertConstraint Then
+            Try 
+                offsetMm = Num(mc.Offset.Value * 10.0) 
+            Catch 
+            End Try
+            
+        ElseIf oCons.Type = ObjectTypeEnum.kFlushConstraintObject Then
+            cType = "Flush"
+            Dim fc As MateConstraint = oCons ' Flush is technically a MateConstraint object in API
+            Try 
+                offsetMm = Num(fc.Offset.Value * 10.0) 
+            Catch 
+            End Try
+
+        ElseIf oCons.Type = ObjectTypeEnum.kInsertConstraintObject Then
             cType = "Insert"
-            Try : offsetMm = Num(CType(oCons, InsertConstraint).Distance.Value * 10.0) : Catch : End Try
-        ElseIf TypeOf oCons Is AngleConstraint Then
+            Dim ic As InsertConstraint = oCons
+            Try 
+                offsetMm = Num(ic.Distance.Value * 10.0) 
+            Catch 
+            End Try
+
+        ElseIf oCons.Type = ObjectTypeEnum.kAngleConstraintObject Then
             cType = "Angle"
-            Try : angleDeg = Num(CType(oCons, AngleConstraint).Angle.Value * (180 / Math.PI)) : Catch : End Try
+            Dim ac As AngleConstraint = oCons
+            Try 
+                angleDeg = Num(ac.Angle.Value * (180.0 / 3.14159265359)) 
+            Catch 
+            End Try
         End If
 
         ' Get Participants
@@ -156,12 +173,17 @@ Sub Main()
             If oCons.OccurrenceOne IsNot Nothing Then occ1Name = oCons.OccurrenceOne.Name
             If oCons.OccurrenceTwo IsNot Nothing Then occ2Name = oCons.OccurrenceTwo.Name
             
-            ' Heuristic for Entity Type based on Geometry
+            ' Heuristic for Entity Type
             If oCons.EntityOne IsNot Nothing Then
-                If TypeOf oCons.EntityOne Is Face Then ent1Type = "Face"
-                If TypeOf oCons.EntityOne Is WorkPlane Then ent1Type = "Plane"
-                If TypeOf oCons.EntityOne Is WorkAxis Then ent1Type = "Axis"
-                If TypeOf oCons.EntityOne Is Edge Then ent1Type = "Axis" ' Cylindrical edge treated as axis often
+                If TypeOf oCons.EntityOne Is Face Then 
+                    ent1Type = "Face"
+                ElseIf TypeOf oCons.EntityOne Is WorkPlane Then 
+                    ent1Type = "Plane"
+                ElseIf TypeOf oCons.EntityOne Is WorkAxis Then 
+                    ent1Type = "Axis"
+                ElseIf TypeOf oCons.EntityOne Is Edge Then 
+                    ent1Type = "Axis"
+                End If
             End If
         Catch
         End Try
@@ -188,21 +210,20 @@ Sub Main()
     sb.AppendLine("  ],")
 
     ' ==========================================
-    ' SECTION: FASTENERS (Analyzed from List)
+    ' SECTION: FASTENERS
     ' ==========================================
     sb.AppendLine("  ""fasteners"": [")
     Dim fJsonList As New List(Of String)
     
     For Each fOcc As ComponentOccurrence In fastenerList
         Dim axisX As Double = 0 : Dim axisY As Double = 0 : Dim axisZ As Double = 1
-        ' Assume Z-axis of component definition is the fastener axis (Standard for Content Center)
+        
         Dim mat As Matrix = fOcc.Transformation
-        Dim zVec As Vector = mat.Cell(3, 1) & "," & mat.Cell(3, 2) & "," & mat.Cell(3, 3) 
-        ' Normalize manually
+        ' Manually create vector from matrix cells to avoid 'TransientGeometry' ambiguity if not imported
         Dim zV As Vector = ThisApplication.TransientGeometry.CreateVector(mat.Cell(3, 1), mat.Cell(3, 2), mat.Cell(3, 3))
         zV.Normalize()
 
-        ' Stack Logic: Find components constrained to this fastener
+        ' Stack Logic
         Dim stackList As New List(Of String)
         For Each oCons As AssemblyConstraint In oDef.Constraints
             Try
@@ -221,7 +242,7 @@ Sub Main()
         Dim fSb As New StringBuilder()
         fSb.AppendLine("    {")
         fSb.AppendLine("      ""fastener_occurrence"": """ & EscapeJson(fOcc.Name) & """,")
-        fSb.AppendLine("      ""fastener_type"": ""Bolt"",") ' Defaulting to Bolt, can refine with Naming check
+        fSb.AppendLine("      ""fastener_type"": ""Bolt"",") 
         fSb.AppendLine("      ""axis"": { ""x"": " & Num(zV.X) & ", ""y"": " & Num(zV.Y) & ", ""z"": " & Num(zV.Z) & " },")
         fSb.AppendLine("      ""stack"": [ " & String.Join(",", stackList.ToArray()) & " ],")
         fSb.AppendLine("      ""stack_height_mm"": 0,")
@@ -276,7 +297,7 @@ Sub Main()
     sb.AppendLine()
     sb.AppendLine("    ],")
 
-    ' Edges (Constraints)
+    ' Edges
     sb.AppendLine("    ""edges"": [")
     Dim edgeList As New List(Of String)
     For Each oCons As AssemblyConstraint In oDef.Constraints
@@ -304,16 +325,11 @@ End Sub
 
 ' --- Helper Functions ---
 
-' Heuristic to check if an occurrence is a fastener
 Function IsFastener(oOcc As ComponentOccurrence) As Boolean
     Try
-        ' Check 1: Content Center
         If oOcc.Definition.IsContentMember Then Return True
-        
-        ' Check 2: Naming Convention
         Dim name As String = oOcc.Name.ToUpper()
         Dim filename As String = oOcc.Definition.Document.DisplayName.ToUpper()
-        
         If name.Contains("BOLT") Or name.Contains("SCREW") Or name.Contains("ISO") Or name.Contains("DIN") Or _
            filename.Contains("BOLT") Or filename.Contains("SCREW") Then
             Return True
