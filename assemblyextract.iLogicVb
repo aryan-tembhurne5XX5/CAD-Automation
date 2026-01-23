@@ -31,7 +31,7 @@ Sub Main()
         mass = oDef.MassProperties.Mass
     Catch
     End Try
-    sb.AppendLine("    ""mass_kg"": " & Num(mass) & ",")
+    sb.AppendLine("    ""mass_kg"": " & FormatValue(mass) & ",")
     sb.AppendLine("    ""created_on"": """ & GetProp(oDoc, "Design Tracking Properties", "Creation Time") & """,")
     sb.AppendLine("    ""author"": """ & GetProp(oDoc, "Summary Information", "Author") & """")
     sb.AppendLine("  },")
@@ -97,11 +97,11 @@ Sub Main()
         cSb.AppendLine("      ""file_name"": """ & EscapeJson(System.IO.Path.GetFileName(oOcc.Definition.Document.FullFileName)) & """,")
         
         cSb.AppendLine("      ""transform"": {")
-        cSb.AppendLine("        ""translation_mm"": { ""x"": " & Num(tX) & ", ""y"": " & Num(tY) & ", ""z"": " & Num(tZ) & " },")
+        cSb.AppendLine("        ""translation_mm"": { ""x"": " & FormatValue(tX) & ", ""y"": " & FormatValue(tY) & ", ""z"": " & FormatValue(tZ) & " },")
         cSb.AppendLine("        ""rotation_matrix"": [")
-        cSb.AppendLine("          [ " & Num(r11) & ", " & Num(r12) & ", " & Num(r13) & " ],")
-        cSb.AppendLine("          [ " & Num(r21) & ", " & Num(r22) & ", " & Num(r23) & " ],")
-        cSb.AppendLine("          [ " & Num(r31) & ", " & Num(r32) & ", " & Num(r33) & " ]")
+        cSb.AppendLine("          [ " & FormatValue(r11) & ", " & FormatValue(r12) & ", " & FormatValue(r13) & " ],")
+        cSb.AppendLine("          [ " & FormatValue(r21) & ", " & FormatValue(r22) & ", " & FormatValue(r23) & " ],")
+        cSb.AppendLine("          [ " & FormatValue(r31) & ", " & FormatValue(r32) & ", " & FormatValue(r33) & " ]")
         cSb.AppendLine("        ]")
         cSb.AppendLine("      },")
 
@@ -130,36 +130,37 @@ Sub Main()
         Dim angleDeg As String = "null"
         Dim flip As String = "false"
 
-        ' --- FIXED LOGIC: Use ObjectTypeEnum to safely identify constraint types ---
-        If oCons.Type = ObjectTypeEnum.kMateConstraintObject Then
+        ' --- FIXED: Used oCons.[Type] to escape keyword ---
+        ' kMateConstraintObject = 117462784
+        If oCons.[Type] = ObjectTypeEnum.kMateConstraintObject Then
             cType = "Mate"
             Dim mc As MateConstraint = oCons
             Try 
-                offsetMm = Num(mc.Offset.Value * 10.0) 
+                offsetMm = FormatValue(mc.Offset.Value * 10.0) 
             Catch 
             End Try
             
-        ElseIf oCons.Type = ObjectTypeEnum.kFlushConstraintObject Then
+        ElseIf oCons.[Type] = ObjectTypeEnum.kFlushConstraintObject Then
             cType = "Flush"
-            Dim fc As MateConstraint = oCons ' Flush is technically a MateConstraint object in API
+            Dim fc As MateConstraint = oCons
             Try 
-                offsetMm = Num(fc.Offset.Value * 10.0) 
+                offsetMm = FormatValue(fc.Offset.Value * 10.0) 
             Catch 
             End Try
 
-        ElseIf oCons.Type = ObjectTypeEnum.kInsertConstraintObject Then
+        ElseIf oCons.[Type] = ObjectTypeEnum.kInsertConstraintObject Then
             cType = "Insert"
             Dim ic As InsertConstraint = oCons
             Try 
-                offsetMm = Num(ic.Distance.Value * 10.0) 
+                offsetMm = FormatValue(ic.Distance.Value * 10.0) 
             Catch 
             End Try
 
-        ElseIf oCons.Type = ObjectTypeEnum.kAngleConstraintObject Then
+        ElseIf oCons.[Type] = ObjectTypeEnum.kAngleConstraintObject Then
             cType = "Angle"
             Dim ac As AngleConstraint = oCons
             Try 
-                angleDeg = Num(ac.Angle.Value * (180.0 / 3.14159265359)) 
+                angleDeg = FormatValue(ac.Angle.Value * (180.0 / 3.14159265359)) 
             Catch 
             End Try
         End If
@@ -175,13 +176,13 @@ Sub Main()
             
             ' Heuristic for Entity Type
             If oCons.EntityOne IsNot Nothing Then
-                If TypeOf oCons.EntityOne Is Face Then 
+                If TypeOf oCons.EntityOne Is Inventor.Face Then 
                     ent1Type = "Face"
-                ElseIf TypeOf oCons.EntityOne Is WorkPlane Then 
+                ElseIf TypeOf oCons.EntityOne Is Inventor.WorkPlane Then 
                     ent1Type = "Plane"
-                ElseIf TypeOf oCons.EntityOne Is WorkAxis Then 
+                ElseIf TypeOf oCons.EntityOne Is Inventor.WorkAxis Then 
                     ent1Type = "Axis"
-                ElseIf TypeOf oCons.EntityOne Is Edge Then 
+                ElseIf TypeOf oCons.EntityOne Is Inventor.Edge Then 
                     ent1Type = "Axis"
                 End If
             End If
@@ -216,11 +217,15 @@ Sub Main()
     Dim fJsonList As New List(Of String)
     
     For Each fOcc As ComponentOccurrence In fastenerList
-        Dim axisX As Double = 0 : Dim axisY As Double = 0 : Dim axisZ As Double = 1
-        
         Dim mat As Matrix = fOcc.Transformation
-        ' Manually create vector from matrix cells to avoid 'TransientGeometry' ambiguity if not imported
-        Dim zV As Vector = ThisApplication.TransientGeometry.CreateVector(mat.Cell(3, 1), mat.Cell(3, 2), mat.Cell(3, 3))
+        
+        ' Extract Z vector manually to avoid cast errors
+        Dim zX As Double = mat.Cell(3, 1)
+        Dim zY As Double = mat.Cell(3, 2)
+        Dim zZ As Double = mat.Cell(3, 3)
+        
+        ' Create vector explicitly
+        Dim zV As Inventor.Vector = ThisApplication.TransientGeometry.CreateVector(zX, zY, zZ)
         zV.Normalize()
 
         ' Stack Logic
@@ -243,7 +248,7 @@ Sub Main()
         fSb.AppendLine("    {")
         fSb.AppendLine("      ""fastener_occurrence"": """ & EscapeJson(fOcc.Name) & """,")
         fSb.AppendLine("      ""fastener_type"": ""Bolt"",") 
-        fSb.AppendLine("      ""axis"": { ""x"": " & Num(zV.X) & ", ""y"": " & Num(zV.Y) & ", ""z"": " & Num(zV.Z) & " },")
+        fSb.AppendLine("      ""axis"": { ""x"": " & FormatValue(zV.X) & ", ""y"": " & FormatValue(zV.Y) & ", ""z"": " & FormatValue(zV.Z) & " },")
         fSb.AppendLine("      ""stack"": [ " & String.Join(",", stackList.ToArray()) & " ],")
         fSb.AppendLine("      ""stack_height_mm"": 0,")
         fSb.AppendLine("      ""confidence"": 0.8")
@@ -339,7 +344,7 @@ Function IsFastener(oOcc As ComponentOccurrence) As Boolean
     Return False
 End Function
 
-Function Num(val As Double) As String
+Function FormatValue(val As Double) As String
     Return val.ToString(System.Globalization.CultureInfo.InvariantCulture)
 End Function
 
