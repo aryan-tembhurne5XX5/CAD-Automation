@@ -3,11 +3,7 @@ Imports Inventor
 
 Sub Main()
 
-    Dim folderPath As String = InputBox(
-        "Enter folder path containing IPT files",
-        "Batch JSON Export",
-        "E:\InventorParts"
-    )
+    Dim folderPath As String = "E:\Phase 1\Assembly 1"
 
     If Not Directory.Exists(folderPath) Then
         MessageBox.Show("Folder not found")
