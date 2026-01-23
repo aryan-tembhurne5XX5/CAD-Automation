@@ -1,3 +1,28 @@
-Rule Compile Errors in BatchExport, in 1028925335-B.ipt
+Rule Compile Errors in AssemblyExport, in 1093144795-M1.iam
 
-Error on Line 29 : Argument not specified for parameter 'ruleText' of 'Function AddRule(doc As Document, ruleName As String, ruleText As String) As iLogicRule'.
+Error on Line 129 : Keyword is not valid as an identifier.
+Error on Line 135 : '(' expected.
+Error on Line 135 : Expression expected.
+Error on Line 135 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 135 : Type expected.
+Error on Line 135 : ')' expected.
+Error on Line 143 : '(' expected.
+Error on Line 143 : Expression expected.
+Error on Line 143 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 143 : Type expected.
+Error on Line 143 : ')' expected.
+Error on Line 151 : '(' expected.
+Error on Line 151 : Expression expected.
+Error on Line 151 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 151 : Type expected.
+Error on Line 151 : ')' expected.
+Error on Line 159 : '(' expected.
+Error on Line 159 : Expression expected.
+Error on Line 159 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 159 : Type expected.
+Error on Line 159 : ')' expected.
+Error on Line 194 : '(' expected.
+Error on Line 194 : Expression expected.
+Error on Line 194 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 194 : Type expected.
+Error on Line 194 : ')' expected.
