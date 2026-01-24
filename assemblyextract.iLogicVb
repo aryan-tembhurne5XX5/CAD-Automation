@@ -21,7 +21,7 @@ Sub Main()
     ' ==========================================
     ' SECTION: ASSEMBLY METADATA
     ' ==========================================
-    Dim asmName As String = Path.GetFileNameWithoutExtension(oAsmDoc.FullFileName)
+    Dim asmName As String = IO.Path.GetFileNameWithoutExtension(oAsmDoc.FullFileName)
     sb.AppendLine("  ""assembly_metadata"": {")
     sb.AppendLine("    ""assembly_name"": """ & EscapeJson(asmName) & """,")
     sb.AppendLine("    ""full_path"": """ & EscapeJson(oAsmDoc.FullFileName) & """,")
@@ -29,9 +29,8 @@ Sub Main()
     
     Dim mass As Double = 0.0
     Try
-        mass = oDef.MassProperties.Mass / 1000.0  ' Convert grams to kg
-    Catch ex As Exception
-        mass = 0.0
+        mass = oDef.MassProperties.Mass / 1000.0  ' grams to kg
+    Catch
     End Try
     
     sb.AppendLine("    ""mass_kg"": " & mass.ToString("F6", CultureInfo.InvariantCulture) & ",")
@@ -57,18 +56,15 @@ Sub Main()
     Dim fastenerList As New List(Of ComponentOccurrence) 
 
     For Each oOcc As ComponentOccurrence In oDef.Occurrences.AllLeafOccurrences
-        ' Transform Data
         Dim mat As Matrix = oOcc.Transformation
-        Dim tX As Double = mat.Cell(0,3) * 10.0  ' Inventor matrix: row 0, col 3 = tx (cm to mm)
+        Dim tX As Double = mat.Cell(0,3) * 10.0
         Dim tY As Double = mat.Cell(1,3) * 10.0
         Dim tZ As Double = mat.Cell(2,3) * 10.0
 
-        ' Rotation matrix (rows 0-2, cols 0-2)
         Dim r00 As Double = mat.Cell(0,0) : Dim r01 As Double = mat.Cell(0,1) : Dim r02 As Double = mat.Cell(0,2)
         Dim r10 As Double = mat.Cell(1,0) : Dim r11 As Double = mat.Cell(1,1) : Dim r12 As Double = mat.Cell(1,2)
         Dim r20 As Double = mat.Cell(2,0) : Dim r21 As Double = mat.Cell(2,1) : Dim r22 As Double = mat.Cell(2,2)
 
-        ' Pattern parent
         Dim patternParent As String = "null"
         Try
             If oOcc.PatternElement IsNot Nothing Then
@@ -79,7 +75,6 @@ Sub Main()
 
         If IsFastener(oOcc) Then fastenerList.Add(oOcc)
 
-        ' Part number
         Dim pNum As String = oOcc.Name
         Try
             pNum = oOcc.Definition.Document.PropertySets("Design Tracking Properties")("Part Number").Value.ToString()
@@ -90,7 +85,7 @@ Sub Main()
         cSb.AppendLine("    {")
         cSb.AppendLine("      ""occurrence_name"": """ & EscapeJson(oOcc.Name) & """,")
         cSb.AppendLine("      ""part_number"": """ & EscapeJson(pNum) & """,")
-        cSb.AppendLine("      ""file_name"": """ & EscapeJson(Path.GetFileName(oOcc.Definition.Document.FullFileName)) & """,")
+        cSb.AppendLine("      ""file_name"": """ & EscapeJson(IO.Path.GetFileName(oOcc.Definition.Document.FullFileName)) & """,")
         cSb.AppendLine("      ""transform"": {")
         cSb.AppendLine("        ""translation_mm"": { ""x"": " & tX.ToString("F6", CultureInfo.InvariantCulture) & ", ""y"": " & tY.ToString("F6", CultureInfo.InvariantCulture) & ", ""z"": " & tZ.ToString("F6", CultureInfo.InvariantCulture) & " },")
         cSb.AppendLine("        ""rotation_matrix"": [")
@@ -106,7 +101,7 @@ Sub Main()
         cSb.AppendLine("    }")
         compList.Add(cSb.ToString())
     Next
-    sb.AppendLine(String.Join("," & vbCrLf, compList.ToArray()))
+    sb.AppendLine(String.Join("," & vbCrLf, compList))
     sb.AppendLine("  ],")
 
     ' ==========================================
@@ -118,32 +113,31 @@ Sub Main()
     For Each oCons As AssemblyConstraint In oDef.Constraints
         If oCons.Suppressed Then Continue For
 
-        Dim cType As String = oCons.Type.ToString()
+        Dim cType As String = "Other"
         Dim offsetMm As String = "null"
         Dim angleDeg As String = "null"
-        Dim flip As Boolean = False
+        Dim flipVal As Boolean = False
         
         Try
-            Select Case oCons.Type
-                Case ConstraintTypeEnum.kFlushConstraintEnum
-                    cType = "Flush"
-                    Dim fc As FlushConstraint = DirectCast(oCons, FlushConstraint)
-                    offsetMm = (fc.Offset.Value * 10).ToString("F6", CultureInfo.InvariantCulture)
-                    flip = fc.FlipEnabled
-                Case ConstraintTypeEnum.kMateConstraintEnum
-                    cType = "Mate"
-                    Dim mc As MateConstraint = DirectCast(oCons, MateConstraint)
-                    offsetMm = (mc.Offset.Value * 10).ToString("F6", CultureInfo.InvariantCulture)
-                    flip = mc.FlipEnabled
-                Case ConstraintTypeEnum.kInsertConstraintEnum
-                    cType = "Insert"
-                    Dim ic As InsertConstraint = DirectCast(oCons, InsertConstraint)
-                    offsetMm = (ic.Distance.Value * 10).ToString("F6", CultureInfo.InvariantCulture)
-                Case ConstraintTypeEnum.kAngleConstraintEnum
-                    cType = "Angle"
-                    Dim ac As AngleConstraint = DirectCast(oCons, AngleConstraint)
-                    angleDeg = (ac.Angle.Value * 180 / Math.PI).ToString("F6", CultureInfo.InvariantCulture)
-            End Select
+            If TypeOf oCons Is FlushConstraint Then
+                cType = "Flush"
+                Dim fc As FlushConstraint = DirectCast(oCons, FlushConstraint)
+                offsetMm = (fc.Offset.Value * 10).ToString("F6", CultureInfo.InvariantCulture)
+                flipVal = fc.FlipEnabled
+            ElseIf TypeOf oCons Is MateConstraint Then
+                cType = "Mate"
+                Dim mc As MateConstraint = DirectCast(oCons, MateConstraint)
+                offsetMm = (mc.Offset.Value * 10).ToString("F6", CultureInfo.InvariantCulture)
+                flipVal = mc.FlipEnabled
+            ElseIf TypeOf oCons Is InsertConstraint Then
+                cType = "Insert"
+                Dim ic As InsertConstraint = DirectCast(oCons, InsertConstraint)
+                offsetMm = (ic.Distance.Value * 10).ToString("F6", CultureInfo.InvariantCulture)
+            ElseIf TypeOf oCons Is AngleConstraint Then
+                cType = "Angle"
+                Dim ac As AngleConstraint = DirectCast(oCons, AngleConstraint)
+                angleDeg = (ac.Angle.Value * 180 / Math.PI).ToString("F6", CultureInfo.InvariantCulture)
+            End If
         Catch
         End Try
 
@@ -177,17 +171,17 @@ Sub Main()
         conSb.AppendLine("      ""parameters"": {")
         conSb.AppendLine("        ""offset_mm"": " & offsetMm & ",")
         conSb.AppendLine("        ""angle_deg"": " & angleDeg & ",")
-        conSb.AppendLine("        ""flip"": " & flip.ToString.ToLower)
+        conSb.AppendLine("        ""flip"": " & flipVal.ToString.ToLower)
         conSb.AppendLine("      },")
         conSb.AppendLine("      ""confidence"": 1.0")
         conSb.AppendLine("    }")
         consList.Add(conSb.ToString())
     Next
-    sb.AppendLine(String.Join("," & vbCrLf, consList.ToArray()))
+    sb.AppendLine(String.Join("," & vbCrLf, consList))
     sb.AppendLine("  ],")
 
     ' ==========================================
-    ' SECTION: FASTENERS (uses heuristic detection)
+    ' SECTION: FASTENERS
     ' ==========================================
     sb.AppendLine("  ""fasteners"": [")
     Dim fJsonList As New List(Of String)
@@ -200,16 +194,19 @@ Sub Main()
         
         Dim vLen As Double = Math.Sqrt(zX*zX + zY*zY + zZ*zZ)
         If vLen > 1E-6 Then
-            zX /= vLen : zY /= vLen : zZ /= vLen
+            zX = zX / vLen
+            zY = zY / vLen
+            zZ = zZ / vLen
         End If
 
         Dim stackList As New List(Of String)
         For Each oCons As AssemblyConstraint In oDef.Constraints
             Try
                 If oCons.OccurrenceOne IsNot Nothing AndAlso oCons.OccurrenceTwo IsNot Nothing Then
-                    If oCons.OccurrenceOne.Name = fOcc.Name Or oCons.OccurrenceTwo.Name = fOcc.Name Then
-                        Dim otherName As String = If(oCons.OccurrenceOne.Name = fOcc.Name, oCons.OccurrenceTwo.Name, oCons.OccurrenceOne.Name)
-                        stackList.Add("{ ""occurrence"": """ & EscapeJson(otherName) & """, ""connection_point_id"": ""constraint_link"" }")
+                    If oCons.OccurrenceOne.Name = fOcc.Name Then
+                        stackList.Add("{ ""occurrence"": """ & EscapeJson(oCons.OccurrenceTwo.Name) & """, ""connection_point_id"": ""constraint_link"" }")
+                    ElseIf oCons.OccurrenceTwo.Name = fOcc.Name Then
+                        stackList.Add("{ ""occurrence"": """ & EscapeJson(oCons.OccurrenceOne.Name) & """, ""connection_point_id"": ""constraint_link"" }")
                     End If
                 End If
             Catch
@@ -222,14 +219,16 @@ Sub Main()
         fSb.AppendLine("      ""fastener_type"": """ & GetFastenerType(fOcc) & """,")
         fSb.AppendLine("      ""axis"": { ""x"": " & zX.ToString("F6", CultureInfo.InvariantCulture) & ", ""y"": " & zY.ToString("F6", CultureInfo.InvariantCulture) & ", ""z"": " & zZ.ToString("F6", CultureInfo.InvariantCulture) & " },")
         fSb.AppendLine("      ""stack"": [")
-        fSb.AppendLine(String.Join("," & vbCrLf & "      ", stackList.ToArray()))
+        If stackList.Count > 0 Then
+            fSb.AppendLine(String.Join("," & vbCrLf & "        ", stackList))
+        End If
         fSb.AppendLine("      ],")
         fSb.AppendLine("      ""stack_height_mm"": 0,")
         fSb.AppendLine("      ""confidence"": 0.8")
         fSb.AppendLine("    }")
         fJsonList.Add(fSb.ToString())
     Next
-    sb.AppendLine(String.Join("," & vbCrLf, fJsonList.ToArray()))
+    sb.AppendLine(String.Join("," & vbCrLf, fJsonList))
     sb.AppendLine("  ],")
 
     ' ==========================================
@@ -247,14 +246,11 @@ Sub Main()
         Catch
         End Try
 
-        Dim dir1Vec As String = "{ ""x"": 1, ""y"": 0, ""z"": 0 }"
         Dim dir1Space As Double = 0.0
-        Dim dir2Vec As String = "{ ""x"": 0, ""y"": 1, ""z"": 0 }"
         Dim dir2Space As Double = 0.0
-        
         Try
-            If TypeOf oPat Is RectangularOccurrencePattern Then
-                Dim rectPat As RectangularOccurrencePattern = DirectCast(oPat, RectangularOccurrencePattern)
+            Dim rectPat As RectangularOccurrencePattern = TryCast(oPat, RectangularOccurrencePattern)
+            If rectPat IsNot Nothing Then
                 dir1Space = rectPat.Spacing(1) * 10
                 dir2Space = rectPat.Spacing(2) * 10
             End If
@@ -267,12 +263,12 @@ Sub Main()
         pSb.AppendLine("      ""pattern_type"": """ & pType & """,")
         pSb.AppendLine("      ""seed_component"": """ & EscapeJson(seedName) & """,")
         pSb.AppendLine("      ""count"": " & oPat.OccurrencePatternElements.Count & ",")
-        pSb.AppendLine("      ""direction_1"": { ""vector"": " & dir1Vec & ", ""spacing_mm"": " & dir1Space.ToString("F6", CultureInfo.InvariantCulture) & " },")
-        pSb.AppendLine("      ""direction_2"": { ""vector"": " & dir2Vec & ", ""spacing_mm"": " & dir2Space.ToString("F6", CultureInfo.InvariantCulture) & " }")
+        pSb.AppendLine("      ""direction_1"": { ""vector"": { ""x"": 1, ""y"": 0, ""z"": 0 }, ""spacing_mm"": " & dir1Space.ToString("F6", CultureInfo.InvariantCulture) & " },")
+        pSb.AppendLine("      ""direction_2"": { ""vector"": { ""x"": 0, ""y"": 1, ""z"": 0 }, ""spacing_mm"": " & dir2Space.ToString("F6", CultureInfo.InvariantCulture) & " }")
         pSb.AppendLine("    }")
         patList.Add(pSb.ToString())
     Next
-    sb.AppendLine(String.Join("," & vbCrLf, patList.ToArray()))
+    sb.AppendLine(String.Join("," & vbCrLf, patList))
     sb.AppendLine("  ],")
 
     ' ==========================================
@@ -285,7 +281,7 @@ Sub Main()
         Dim nType As String = If(IsFastener(oOcc), "Fastener", "Part")
         nodeList.Add("      { ""occurrence"": """ & EscapeJson(oOcc.Name) & """, ""type"": """ & nType & """ }")
     Next
-    sb.AppendLine(String.Join("," & vbCrLf, nodeList.ToArray()))
+    sb.AppendLine(String.Join("," & vbCrLf, nodeList))
     sb.AppendLine("    ],")
     sb.AppendLine("    ""edges"": [")
     Dim edgeList As New List(Of String)
@@ -299,31 +295,24 @@ Sub Main()
         Catch
         End Try
     Next
-    sb.AppendLine(String.Join("," & vbCrLf, edgeList.ToArray()))
+    sb.AppendLine(String.Join("," & vbCrLf, edgeList))
     sb.AppendLine("    ]")
     sb.AppendLine("  }")
     sb.AppendLine("}")
 
     ' --- Output ---
-    Dim jsonPath As String = Path.ChangeExtension(oAsmDoc.FullFileName, ".json")
-    File.WriteAllText(jsonPath, sb.ToString(), Encoding.UTF8)
-    MessageBox.Show("Assembly schema exported successfully!" & vbCrLf & jsonPath, "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    
-    ' Optional: Open in default JSON viewer if available
-    Try
-        System.Diagnostics.Process.Start(jsonPath)
-    Catch
-    End Try
+    Dim jsonPath As String = IO.Path.ChangeExtension(oAsmDoc.FullFileName, ".json")
+    IO.File.WriteAllText(jsonPath, sb.ToString(), Encoding.UTF8)
+    MessageBox.Show("Assembly schema exported!" & vbCrLf & jsonPath, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 End Sub
 
-' --- Helper Functions ---
 Function IsFastener(oOcc As ComponentOccurrence) As Boolean
     Try
         Dim name As String = oOcc.Name.ToUpperInvariant()
         Dim docName As String = oOcc.Definition.Document.DisplayName.ToUpperInvariant()
         If oOcc.Definition.IsContentMember Then Return True
-        If name.Contains("BOLT") OrElse name.Contains("SCREW") OrElse name.Contains("NUT") OrElse name.Contains("WASHER") OrElse _
-           name.Contains("ISO") OrElse name.Contains("DIN") OrElse name.Contains("RIVET") OrElse name.Contains("PIN") OrElse _
+        If name.Contains("BOLT") OrElse name.Contains("SCREW") OrElse name.Contains("NUT") OrElse _
+           name.Contains("WASHER") OrElse name.Contains("RIVET") OrElse name.Contains("PIN") OrElse _
            docName.Contains("BOLT") OrElse docName.Contains("SCREW") Then
             Return True
         End If
