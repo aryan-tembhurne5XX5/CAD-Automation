@@ -13,7 +13,46 @@ Error on Line 143 : Type expected.
 Error on Line 143 : ')' expected.
 Error on Line 151 : '(' expected.
 Error on Line 151 : Expression expected.
-Error on Line 151 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 151 : Syntax error in cast operator; two argumRule Compile Errors in Rule0, in 1093144795-M1.iam
+
+Error on Line 121 : Keyword is not valid as an identifier.
+Error on Line 129 : '(' expected.
+Error on Line 129 : Expression expected.
+Error on Line 129 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 129 : Type expected.
+Error on Line 129 : ')' expected.
+Error on Line 134 : '(' expected.
+Error on Line 134 : Expression expected.
+Error on Line 134 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 134 : Type expected.
+Error on Line 134 : ')' expected.
+Error on Line 139 : '(' expected.
+Error on Line 139 : Expression expected.
+Error on Line 139 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 139 : Type expected.
+Error on Line 139 : ')' expected.
+Error on Line 143 : '(' expected.
+Error on Line 143 : Expression expected.
+Error on Line 143 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 143 : Type expected.
+Error on Line 143 : ')' expected.
+Error on Line 166 : '(' expected.
+Error on Line 166 : Expression expected.
+Error on Line 166 : Syntax error in cast operator; two arguments separated by comma are required.
+Error on Line 166 : Type expected.
+Error on Line 166 : ')' expected.
+Error on Line 24 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
+Error on Line 93 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
+Error on Line 128 : 'ConstraintTypeEnum' is not declared. It may be inaccessible due to its protection level.
+Error on Line 131 : Too many arguments to 'Public Overloads ReadOnly Default Property Chars(index As Integer) As Char'.
+Error on Line 133 : 'ConstraintTypeEnum' is not declared. It may be inaccessible due to its protection level.
+Error on Line 136 : Too many arguments to 'Public Overloads ReadOnly Default Property Chars(index As Integer) As Char'.
+Error on Line 138 : 'ConstraintTypeEnum' is not declared. It may be inaccessible due to its protection level.
+Error on Line 141 : Too many arguments to 'Public Overloads ReadOnly Default Property Chars(index As Integer) As Char'.
+Error on Line 142 : 'ConstraintTypeEnum' is not declared. It may be inaccessible due to its protection level.
+Error on Line 145 : Too many arguments to 'Public Overloads ReadOnly Default Property Chars(index As Integer) As Char'.
+Error on Line 308 : 'Path' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.
+Error on Line 309 : 'File' is ambiguous, imported from the namespaces or types 'System.IO, Inventor'.ents separated by comma are required.
 Error on Line 151 : Type expected.
 Error on Line 151 : ')' expected.
 Error on Line 159 : '(' expected.
