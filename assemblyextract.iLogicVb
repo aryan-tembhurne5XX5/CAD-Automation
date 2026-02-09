@@ -1,19 +1,17 @@
-Assembly extract
+Imports Inventor
+Imports System.Text
+Imports System.IO
 
 Sub Main()
 
-    Dim asmDoc As Inventor.AssemblyDocument
-    asmDoc = ThisApplication.ActiveDocument
-
-    If asmDoc.DocumentType <> Inventor.DocumentTypeEnum.kAssemblyDocumentObject Then
+    Dim asmDoc As AssemblyDocument = ThisApplication.ActiveDocument
+    If asmDoc.DocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
         MessageBox.Show("Run this rule in an Assembly (.iam)")
         Exit Sub
     End If
 
-    Dim asmDef As Inventor.AssemblyComponentDefinition
-    asmDef = asmDoc.ComponentDefinition
-
-    Dim sb As New System.Text.StringBuilder()
+    Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
+    Dim sb As New StringBuilder()
     Dim Q As String = Chr(34)
 
     sb.AppendLine("{")
@@ -23,100 +21,161 @@ Sub Main()
     sb.AppendLine("    " & Q & "assembly_name" & Q & ": " & Q & asmDoc.DisplayName & Q & ",")
     sb.AppendLine("    " & Q & "full_path" & Q & ": " & Q & asmDoc.FullFileName & Q & ",")
     sb.AppendLine("    " & Q & "units" & Q & ": " & Q & "mm" & Q & ",")
-    sb.AppendLine("    " & Q & "mass_kg" & Q & ": " & asmDef.MassProperties.Mass)
+    sb.AppendLine("    " & Q & "mass_kg" & Q & ": " & asmDef.MassProperties.Mass & ",")
+    sb.AppendLine("    " & Q & "created_on" & Q & ": " & Q & GetProp(asmDoc, "Design Tracking Properties", "Creation Time") & Q & ",")
+    sb.AppendLine("    " & Q & "author" & Q & ": " & Q & GetProp(asmDoc, "Summary Information", "Author") & Q)
     sb.AppendLine("  },")
 
     '================ Root Coordinate System =================
     sb.AppendLine("  " & Q & "root_coordinate_system" & Q & ": {")
-    sb.AppendLine("    " & Q & "origin_mm" & Q & ": { " & Q & "x" & Q & ": 0, " & Q & "y" & Q & ": 0, " & Q & "z" & Q & ": 0 },")
-    sb.AppendLine("    " & Q & "x_axis" & Q & ": { " & Q & "x" & Q & ": 1, " & Q & "y" & Q & ": 0, " & Q & "z" & Q & ": 0 },")
-    sb.AppendLine("    " & Q & "y_axis" & Q & ": { " & Q & "x" & Q & ": 0, " & Q & "y" & Q & ": 1, " & Q & "z" & Q & ": 0 },")
-    sb.AppendLine("    " & Q & "z_axis" & Q & ": { " & Q & "x" & Q & ": 0, " & Q & "y" & Q & ": 0, " & Q & "z" & Q & ": 1 }")
+    sb.AppendLine("    " & Q & "origin_mm" & Q & ": { ""x"":0,""y"":0,""z"":0 },")
+    sb.AppendLine("    " & Q & "x_axis" & Q & ": { ""x"":1,""y"":0,""z"":0 },")
+    sb.AppendLine("    " & Q & "y_axis" & Q & ": { ""x"":0,""y"":1,""z"":0 },")
+    sb.AppendLine("    " & Q & "z_axis" & Q & ": { ""x"":0,""y"":0,""z"":1 }")
     sb.AppendLine("  },")
 
     '================ Components =================
     sb.AppendLine("  " & Q & "components" & Q & ": [")
 
+    Dim occs = asmDef.Occurrences.AllLeafOccurrences
     Dim idx As Integer = 0
+    Dim compJson As New List(Of String)
+    Dim fasteners As New List(Of ComponentOccurrence)
 
-    For Each occ As Inventor.ComponentOccurrence In asmDef.Occurrences
+    For Each occ As ComponentOccurrence In occs
 
-        Dim m As Inventor.Matrix = occ.Transformation
+        Dim m As Matrix = occ.Transformation
 
-        ' Part Number
-        Dim partNumber As String = "unknown"
-        Try
-            partNumber = occ.Definition.Document.PropertySets _
-                .Item("Design Tracking Properties").Item("Part Number").Value
-        Catch
-        End Try
+        Dim partNum As String = GetProp(occ.Definition.Document, "Design Tracking Properties", "Part Number")
+        If partNum = "" Then partNum = occ.Name
 
-        sb.AppendLine("    {")
-        sb.AppendLine("      " & Q & "occurrence_name" & Q & ": " & Q & occ.Name & Q & ",")
-        sb.AppendLine("      " & Q & "file_name" & Q & ": " & Q & occ.Definition.Document.DisplayName & Q & ",")
-        sb.AppendLine("      " & Q & "part_number" & Q & ": " & Q & partNumber & Q & ",")
+        Dim compType As String = "Part"
+        If occ.DefinitionDocumentType = DocumentTypeEnum.kAssemblyDocumentObject Then compType = "Subassembly"
+        If IsFastener(occ) Then
+            compType = "Fastener"
+            fasteners.Add(occ)
+        End If
 
-        sb.AppendLine("      " & Q & "transform" & Q & ": {")
-        sb.AppendLine("        " & Q & "translation_mm" & Q & ": { " & _
-                      Q & "x" & Q & ": " & m.Cell(1,4) & ", " & _
-                      Q & "y" & Q & ": " & m.Cell(2,4) & ", " & _
-                      Q & "z" & Q & ": " & m.Cell(3,4) & " },")
+        Dim patParent As String = "null"
+        If occ.IsPatternElement Then
+            Try
+                patParent = Q & occ.PatternElement.Parent.Name & Q
+            Catch
+            End Try
+        End If
 
-        sb.AppendLine("        " & Q & "rotation_matrix" & Q & ": [")
-        sb.AppendLine("          [" & m.Cell(1,1) & ", " & m.Cell(1,2) & ", " & m.Cell(1,3) & "],")
-        sb.AppendLine("          [" & m.Cell(2,1) & ", " & m.Cell(2,2) & ", " & m.Cell(2,3) & "],")
-        sb.AppendLine("          [" & m.Cell(3,1) & ", " & m.Cell(3,2) & ", " & m.Cell(3,3) & "]")
-        sb.AppendLine("        ]")
-        sb.AppendLine("      },")
+        Dim s As New StringBuilder()
+        s.AppendLine("    {")
+        s.AppendLine("      ""occurrence_name"": """ & occ.Name & """,")
+        s.AppendLine("      ""part_number"": """ & partNum & """,")
+        s.AppendLine("      ""file_name"": """ & occ.Definition.Document.DisplayName & """,")
 
-        sb.AppendLine("      " & Q & "grounded" & Q & ": " & LCase(CStr(occ.Grounded)) & ",")
-        sb.AppendLine("      " & Q & "suppressed" & Q & ": " & LCase(CStr(occ.Suppressed)) & ",")
-        sb.AppendLine("      " & Q & "instance_index" & Q & ": " & idx)
-        sb.Append("    }")
+        s.AppendLine("      ""transform"": {")
+        s.AppendLine("        ""translation_mm"": { ""x"":" & (m.Cell(1,4)*10) & ", ""y"":" & (m.Cell(2,4)*10) & ", ""z"":" & (m.Cell(3,4)*10) & " },")
+        s.AppendLine("        ""rotation_matrix"": [")
+        s.AppendLine("          [" & m.Cell(1,1) & "," & m.Cell(1,2) & "," & m.Cell(1,3) & "],")
+        s.AppendLine("          [" & m.Cell(2,1) & "," & m.Cell(2,2) & "," & m.Cell(2,3) & "],")
+        s.AppendLine("          [" & m.Cell(3,1) & "," & m.Cell(3,2) & "," & m.Cell(3,3) & "]")
+        s.AppendLine("        ]")
+        s.AppendLine("      },")
 
+        s.AppendLine("      ""grounded"": " & LCase(CStr(occ.Grounded)) & ",")
+        s.AppendLine("      ""suppressed"": " & LCase(CStr(occ.Suppressed)) & ",")
+        s.AppendLine("      ""instance_index"": " & idx & ",")
+        s.AppendLine("      ""pattern_parent"": " & patParent & ",")
+        s.AppendLine("      ""component_type"": """ & compType & """,")
+        s.AppendLine("      ""confidence"": 1.0")
+        s.Append("    }")
+
+        compJson.Add(s.ToString())
         idx += 1
-        If idx < asmDef.Occurrences.Count Then sb.AppendLine(",") Else sb.AppendLine()
-
     Next
 
+    sb.AppendLine(String.Join("," & vbCrLf, compJson))
     sb.AppendLine("  ],")
 
     '================ Constraints =================
-    sb.AppendLine("  " & Q & "constraints" & Q & ": [")
+    sb.AppendLine("  ""constraints"": [")
 
-    Dim cIdx As Integer = 0
-    For Each c As Inventor.AssemblyConstraint In asmDef.Constraints
-        sb.AppendLine("    {")
-        sb.AppendLine("      " & Q & "constraint_name" & Q & ": " & Q & c.Name & Q & ",")
-        sb.AppendLine("      " & Q & "constraint_type" & Q & ": " & Q & c.Type.ToString() & Q)
-        sb.Append("    }")
-        cIdx += 1
-        If cIdx < asmDef.Constraints.Count Then sb.AppendLine(",") Else sb.AppendLine()
+    Dim consJson As New List(Of String)
+
+    For Each c As AssemblyConstraint In asmDef.Constraints
+        If c.Suppressed Then Continue For
+
+        Dim cType As String = "Other"
+        If TypeOf c Is MateConstraint Then cType = "Mate"
+        If TypeOf c Is FlushConstraint Then cType = "Flush"
+        If TypeOf c Is InsertConstraint Then cType = "Insert"
+        If TypeOf c Is AngleConstraint Then cType = "Angle"
+
+        Dim s As New StringBuilder()
+        s.AppendLine("    {")
+        s.AppendLine("      ""constraint_id"": """ & c.Name & """,")
+        s.AppendLine("      ""constraint_type"": """ & cType & """,")
+
+        s.AppendLine("      ""component_1"": { ""occurrence"": """ & c.OccurrenceOne.Name & """, ""entity_type"": ""Unknown"", ""connection_point_id"": null },")
+        s.AppendLine("      ""component_2"": { ""occurrence"": """ & c.OccurrenceTwo.Name & """, ""entity_type"": ""Unknown"", ""connection_point_id"": null },")
+
+        s.AppendLine("      ""parameters"": { ""offset_mm"": null, ""angle_deg"": null, ""flip"": false },")
+        s.AppendLine("      ""derived"": false,")
+        s.AppendLine("      ""confidence"": 1.0")
+        s.Append("    }")
+
+        consJson.Add(s.ToString())
     Next
 
+    sb.AppendLine(String.Join("," & vbCrLf, consJson))
     sb.AppendLine("  ],")
 
-    '================ Patterns =================
-    sb.AppendLine("  " & Q & "patterns" & Q & ": [")
+    '================ Assembly Graph =================
+    sb.AppendLine("  ""assembly_graph"": {")
+    sb.AppendLine("    ""nodes"": [")
 
-    Dim pIdx As Integer = 0
-    For Each p As Inventor.OccurrencePattern In asmDef.OccurrencePatterns
-        sb.AppendLine("    {")
-        sb.AppendLine("      " & Q & "pattern_name" & Q & ": " & Q & p.Name & Q & ",")
-        sb.AppendLine("      " & Q & "pattern_type" & Q & ": " & Q & p.Type.ToString() & Q)
-        sb.Append("    }")
-        pIdx += 1
-        If pIdx < asmDef.OccurrencePatterns.Count Then sb.AppendLine(",") Else sb.AppendLine()
+    Dim nodes As New List(Of String)
+    For Each occ As ComponentOccurrence In occs
+        Dim t As String = If(IsFastener(occ), "Fastener", "Part")
+        nodes.Add("      { ""occurrence"": """ & occ.Name & """, ""type"": """ & t & """ }")
     Next
 
-    sb.AppendLine("  ]")
+    sb.AppendLine(String.Join("," & vbCrLf, nodes))
+    sb.AppendLine("    ],")
+
+    sb.AppendLine("    ""edges"": [")
+
+    Dim edges As New List(Of String)
+    For Each c As AssemblyConstraint In asmDef.Constraints
+        Try
+            edges.Add("      { ""from"": """ & c.OccurrenceOne.Name & """, ""to"": """ & c.OccurrenceTwo.Name & """, ""relation"": ""Constrained"" }")
+        Catch
+        End Try
+    Next
+
+    sb.AppendLine(String.Join("," & vbCrLf, edges))
+    sb.AppendLine("    ]")
+    sb.AppendLine("  }")
 
     sb.AppendLine("}")
 
-    Dim outPath As String
-    outPath = System.IO.Path.ChangeExtension(asmDoc.FullFileName, ".json")
-    System.IO.File.WriteAllText(outPath, sb.ToString())
-
-    MessageBox.Show("Assembly JSON exported successfully")
+    Dim outPath = Path.ChangeExtension(asmDoc.FullFileName, ".json")
+    File.WriteAllText(outPath, sb.ToString())
+    MessageBox.Show("Upgraded assembly JSON exported")
 
 End Sub
+
+Function IsFastener(oOcc As ComponentOccurrence) As Boolean
+    Try
+        If oOcc.Definition.IsContentMember Then Return True
+        Dim n = oOcc.Name.ToUpper()
+        If n.Contains("BOLT") Or n.Contains("SCREW") Or n.Contains("ISO") Or n.Contains("DIN") Then Return True
+    Catch
+    End Try
+    Return False
+End Function
+
+Function GetProp(doc As Document, setName As String, propName As String) As String
+    Try
+        Return doc.PropertySets.Item(setName).Item(propName).Value.ToString()
+    Catch
+        Return ""
+    End Try
+End Function
