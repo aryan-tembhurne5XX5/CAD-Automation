@@ -1,3 +1,5 @@
+Assembly extract
+
 Sub Main()
 
     Dim asmDoc As Inventor.AssemblyDocument
