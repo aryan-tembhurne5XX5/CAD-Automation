@@ -123,7 +123,7 @@ Sub Main()
         sb.AppendLine("        " & Q & "angle_deg" & Q & ": " & If(IsNumeric(angleVal), angleVal.ToString(), "null"))
         sb.AppendLine("      },")
 
-        sb.AppendLine("      " & Q & "derived" & Q & ": " & LCase(CStr(c.Derived)) & ",")
+        sb.AppendLine("      " & Q & "derived" & Q & ": false,")
         sb.AppendLine("      " & Q & "confidence" & Q & ": 1.0")
         sb.Append("    }")
 
