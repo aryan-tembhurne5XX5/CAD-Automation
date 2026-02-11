@@ -1,6 +1,5 @@
 Imports Inventor
 Imports System.Text
-Imports System.IO
 Imports System.Globalization
 
 Sub Main()
@@ -25,7 +24,6 @@ Sub Main()
     sb.AppendLine("    " & Q & "full_path" & Q & ": " & Q & asmDoc.FullFileName.Replace("\", "/") & Q & ",")
     sb.AppendLine("    " & Q & "units" & Q & ": " & Q & "mm" & Q & ",")
     sb.AppendLine("    " & Q & "mass_kg" & Q & ": " & asmDef.MassProperties.Mass.ToString(CultureInfo.InvariantCulture) & ",")
-    sb.AppendLine("    " & Q & "created_on" & Q & ": " & Q & GetProp(asmDoc, "Design Tracking Properties", "Creation Time") & Q & ",")
     sb.AppendLine("    " & Q & "author" & Q & ": " & Q & GetProp(asmDoc, "Summary Information", "Author") & Q)
     sb.AppendLine("  },")
 
@@ -40,13 +38,12 @@ Sub Main()
     For Each occ As ComponentOccurrence In occs
 
         Dim m As Matrix = occ.Transformation
-        Dim partNum As String = ""
+        Dim partNum As String = occ.Name
 
         Try
             partNum = occ.Definition.Document.PropertySets _
                 .Item("Design Tracking Properties").Item("Part Number").Value
         Catch
-            partNum = occ.Name
         End Try
 
         sb.AppendLine("    {")
@@ -56,9 +53,9 @@ Sub Main()
 
         sb.AppendLine("      " & Q & "transform" & Q & ": {")
         sb.AppendLine("        " & Q & "translation_mm" & Q & ": { " &
-            Q & "x" & Q & ": " & (m.Cell(1,4)*10).ToString(CultureInfo.InvariantCulture) & ", " &
-            Q & "y" & Q & ": " & (m.Cell(2,4)*10).ToString(CultureInfo.InvariantCulture) & ", " &
-            Q & "z" & Q & ": " & (m.Cell(3,4)*10).ToString(CultureInfo.InvariantCulture) & " },")
+            Q & "x" & Q & ": " & (m.Cell(1,4) * 10).ToString(CultureInfo.InvariantCulture) & ", " &
+            Q & "y" & Q & ": " & (m.Cell(2,4) * 10).ToString(CultureInfo.InvariantCulture) & ", " &
+            Q & "z" & Q & ": " & (m.Cell(3,4) * 10).ToString(CultureInfo.InvariantCulture) & " },")
         sb.AppendLine("        " & Q & "rotation_matrix" & Q & ": [")
         sb.AppendLine("          [" & m.Cell(1,1) & "," & m.Cell(1,2) & "," & m.Cell(1,3) & "],")
         sb.AppendLine("          [" & m.Cell(2,1) & "," & m.Cell(2,2) & "," & m.Cell(2,3) & "],")
@@ -79,7 +76,7 @@ Sub Main()
     sb.AppendLine("  ],")
 
     '=================================================
-    ' CONSTRAINTS + RELATIONS + INTENT
+    ' CONSTRAINTS + RELATIONS + INTENT (COM SAFE)
     '=================================================
     sb.AppendLine("  " & Q & "constraints" & Q & ": [")
 
@@ -92,18 +89,36 @@ Sub Main()
         Dim angleVal As Object = "null"
         Dim intent As String = "Fixed"
 
-        If TypeOf c Is MateConstraint Or TypeOf c Is FlushConstraint Then
-            offsetVal = CType(c, MateConstraint).Offset.Value * 10
-            intent = "Sliding"
-        End If
+        Select Case c.Type
 
-        If TypeOf c Is AngleConstraint Then
-            angleVal = CType(c, AngleConstraint).Angle.Value * 180 / Math.PI
-            intent = "Rotational"
-        End If
+            Case ObjectTypeEnum.kMateConstraintObject
+                Dim mc As MateConstraint = TryCast(c, MateConstraint)
+                If mc IsNot Nothing Then
+                    offsetVal = mc.Offset.Value * 10
+                    intent = "Sliding"
+                End If
 
-        If TypeOf c Is InsertConstraint Then intent = "Inserted"
-        If TypeOf c Is TangentConstraint Then intent = "Tangent"
+            Case ObjectTypeEnum.kFlushConstraintObject
+                Dim fc As FlushConstraint = TryCast(c, FlushConstraint)
+                If fc IsNot Nothing Then
+                    offsetVal = fc.Offset.Value * 10
+                    intent = "Sliding"
+                End If
+
+            Case ObjectTypeEnum.kAngleConstraintObject
+                Dim ac As AngleConstraint = TryCast(c, AngleConstraint)
+                If ac IsNot Nothing Then
+                    angleVal = ac.Angle.Value * 180 / Math.PI
+                    intent = "Rotational"
+                End If
+
+            Case ObjectTypeEnum.kInsertConstraintObject
+                intent = "Inserted"
+
+            Case ObjectTypeEnum.kTangentConstraintObject
+                intent = "Tangent"
+
+        End Select
 
         sb.AppendLine("    {")
         sb.AppendLine("      " & Q & "constraint_id" & Q & ": " & Q & c.Name & Q & ",")
@@ -123,7 +138,6 @@ Sub Main()
         sb.AppendLine("        " & Q & "angle_deg" & Q & ": " & If(IsNumeric(angleVal), angleVal.ToString(), "null"))
         sb.AppendLine("      },")
 
-        sb.AppendLine("      " & Q & "derived" & Q & ": false,")
         sb.AppendLine("      " & Q & "confidence" & Q & ": 1.0")
         sb.Append("    }")
 
@@ -135,10 +149,13 @@ Sub Main()
     sb.AppendLine("  ]")
     sb.AppendLine("}")
 
+    '=================================================
+    ' WRITE FILE (NO AMBIGUITY)
+    '=================================================
     Dim outPath As String = System.IO.Path.ChangeExtension(asmDoc.FullFileName, ".json")
     System.IO.File.WriteAllText(outPath, sb.ToString())
 
-    MessageBox.Show("✔ Assembly + Constraints + Relations + Intent extracted" & vbCrLf & outPath)
+    MessageBox.Show("✔ Assembly + constraints extracted successfully" & vbCrLf & outPath)
 
 End Sub
 
