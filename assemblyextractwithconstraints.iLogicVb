@@ -135,8 +135,8 @@ Sub Main()
     sb.AppendLine("  ]")
     sb.AppendLine("}")
 
-    Dim outPath As String = Path.ChangeExtension(asmDoc.FullFileName, ".json")
-    File.WriteAllText(outPath, sb.ToString())
+    Dim outPath As String = System.IO.Path.ChangeExtension(asmDoc.FullFileName, ".json")
+    System.IO.File.WriteAllText(outPath, sb.ToString())
 
     MessageBox.Show("✔ Assembly + Constraints + Relations + Intent extracted" & vbCrLf & outPath)
 
