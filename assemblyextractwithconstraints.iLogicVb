@@ -11,6 +11,9 @@ Sub Main()
     End If
 
     Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
+    Dim refMgr As ReferenceKeyManager = asmDoc.ReferenceKeyManager
+    Dim keyContext As ReferenceKeyContext = refMgr.CreateKeyContext()
+
     Dim sb As New StringBuilder()
     Dim Q As String = Chr(34)
 
@@ -76,69 +79,54 @@ Sub Main()
     sb.AppendLine("  ],")
 
     '=================================================
-    ' CONSTRAINTS + RELATIONS + INTENT (COM SAFE)
+    ' CONSTRAINTS WITH REFERENCE KEYS
     '=================================================
     sb.AppendLine("  " & Q & "constraints" & Q & ": [")
 
     Dim cIdx As Integer = 0
+
     For Each c As AssemblyConstraint In asmDef.Constraints
 
         If c.Suppressed Then Continue For
 
         Dim offsetVal As Object = "null"
         Dim angleVal As Object = "null"
-        Dim intent As String = "Fixed"
 
-        Select Case c.Type
+        If TypeOf c Is MateConstraint Then
+            offsetVal = CType(c, MateConstraint).Offset.Value * 10
+        ElseIf TypeOf c Is FlushConstraint Then
+            offsetVal = CType(c, FlushConstraint).Offset.Value * 10
+        ElseIf TypeOf c Is AngleConstraint Then
+            angleVal = CType(c, AngleConstraint).Angle.Value * 180 / Math.PI
+        End If
 
-            Case ObjectTypeEnum.kMateConstraintObject
-                Dim mc As MateConstraint = TryCast(c, MateConstraint)
-                If mc IsNot Nothing Then
-                    offsetVal = mc.Offset.Value * 10
-                    intent = "Sliding"
-                End If
+        '---------------------------
+        ' GET REFERENCE KEYS
+        '---------------------------
+        Dim key1() As Byte = {}
+        Dim key2() As Byte = {}
 
-            Case ObjectTypeEnum.kFlushConstraintObject
-                Dim fc As FlushConstraint = TryCast(c, FlushConstraint)
-                If fc IsNot Nothing Then
-                    offsetVal = fc.Offset.Value * 10
-                    intent = "Sliding"
-                End If
+        c.EntityOne.GetReferenceKey(key1, keyContext)
+        c.EntityTwo.GetReferenceKey(key2, keyContext)
 
-            Case ObjectTypeEnum.kAngleConstraintObject
-                Dim ac As AngleConstraint = TryCast(c, AngleConstraint)
-                If ac IsNot Nothing Then
-                    angleVal = ac.Angle.Value * 180 / Math.PI
-                    intent = "Rotational"
-                End If
-
-            Case ObjectTypeEnum.kInsertConstraintObject
-                intent = "Inserted"
-
-            Case ObjectTypeEnum.kTangentConstraintObject
-                intent = "Tangent"
-
-        End Select
+        Dim keyStr1 As String = refMgr.KeyToString(key1)
+        Dim keyStr2 As String = refMgr.KeyToString(key2)
 
         sb.AppendLine("    {")
         sb.AppendLine("      " & Q & "constraint_id" & Q & ": " & Q & c.Name & Q & ",")
         sb.AppendLine("      " & Q & "constraint_type" & Q & ": " & Q & c.Type.ToString() & Q & ",")
-        sb.AppendLine("      " & Q & "intent" & Q & ": " & Q & intent & Q & ",")
 
-        sb.AppendLine("      " & Q & "component_1" & Q & ": { " &
-            Q & "occurrence" & Q & ": " & Q & c.OccurrenceOne.Name & Q & ", " &
-            Q & "entity_type" & Q & ": " & Q & GetEntityType(c.EntityOne) & Q & " },")
+        sb.AppendLine("      " & Q & "occurrence_one" & Q & ": " & Q & c.OccurrenceOne.Name & Q & ",")
+        sb.AppendLine("      " & Q & "occurrence_two" & Q & ": " & Q & c.OccurrenceTwo.Name & Q & ",")
 
-        sb.AppendLine("      " & Q & "component_2" & Q & ": { " &
-            Q & "occurrence" & Q & ": " & Q & c.OccurrenceTwo.Name & Q & ", " &
-            Q & "entity_type" & Q & ": " & Q & GetEntityType(c.EntityTwo) & Q & " },")
+        sb.AppendLine("      " & Q & "entity_one_refkey" & Q & ": " & Q & keyStr1 & Q & ",")
+        sb.AppendLine("      " & Q & "entity_two_refkey" & Q & ": " & Q & keyStr2 & Q & ",")
 
         sb.AppendLine("      " & Q & "parameters" & Q & ": {")
         sb.AppendLine("        " & Q & "offset_mm" & Q & ": " & If(IsNumeric(offsetVal), offsetVal.ToString(), "null") & ",")
         sb.AppendLine("        " & Q & "angle_deg" & Q & ": " & If(IsNumeric(angleVal), angleVal.ToString(), "null"))
-        sb.AppendLine("      },")
+        sb.AppendLine("      }")
 
-        sb.AppendLine("      " & Q & "confidence" & Q & ": 1.0")
         sb.Append("    }")
 
         cIdx += 1
@@ -149,13 +137,10 @@ Sub Main()
     sb.AppendLine("  ]")
     sb.AppendLine("}")
 
-    '=================================================
-    ' WRITE FILE (NO AMBIGUITY)
-    '=================================================
     Dim outPath As String = System.IO.Path.ChangeExtension(asmDoc.FullFileName, ".json")
     System.IO.File.WriteAllText(outPath, sb.ToString())
 
-    MessageBox.Show("✔ Assembly + constraints extracted successfully" & vbCrLf & outPath)
+    MessageBox.Show("✔ EXACT Assembly extraction complete (with ReferenceKeys)" & vbCrLf & outPath)
 
 End Sub
 
@@ -167,14 +152,6 @@ Function GetProp(doc As Document, setName As String, propName As String) As Stri
     Catch
         Return ""
     End Try
-End Function
-
-Function GetEntityType(ent As Object) As String
-    If TypeOf ent Is Face Then Return "Face"
-    If TypeOf ent Is Edge Then Return "Edge"
-    If TypeOf ent Is WorkAxis Then Return "Axis"
-    If TypeOf ent Is WorkPlane Then Return "Plane"
-    Return "Unknown"
 End Function
 
 Function GetComponentType(o As ComponentOccurrence) As String
