@@ -1,8 +1,8 @@
 import os
 import json
+import math
 import pythoncom
 import win32com.client
-import math
 
 
 # ------------------------------------------------------------
@@ -24,28 +24,22 @@ def find_occurrence(asm_def, name):
 
 
 # ------------------------------------------------------------
-# Bind ReferenceKey to actual geometry
+# Bind ReferenceKey → actual geometry
 # ------------------------------------------------------------
 def bind_refkey(asm_doc, refkey_string):
     ref_mgr = asm_doc.ReferenceKeyManager
-
     key_bytes = ref_mgr.StringToKey(refkey_string)
-
-    # This returns actual geometry object (FaceProxy, EdgeProxy, etc.)
-    obj = ref_mgr.BindKeyToObject(key_bytes)
-
-    return obj
+    return ref_mgr.BindKeyToObject(key_bytes)
 
 
 # ------------------------------------------------------------
-# Build exact assembly
+# Build Exact Assembly
 # ------------------------------------------------------------
 def build_exact_assembly(json_path, output_path):
 
     pythoncom.CoInitialize()
 
     data = load_json(json_path)
-
     components = data["components"]
     constraints = data.get("constraints", [])
 
@@ -57,7 +51,7 @@ def build_exact_assembly(json_path, output_path):
     tg = inventor.TransientGeometry
 
     # Create new assembly
-    asm_doc = inventor.Documents.Add(12291)
+    asm_doc = inventor.Documents.Add(12291)  # Assembly doc
     asm_def = asm_doc.ComponentDefinition
 
     print(f"\nCreating assembly with {len(components)} components...\n")
@@ -95,33 +89,26 @@ def build_exact_assembly(json_path, output_path):
         print(f"✅ Added: {occ.Name}")
 
     # ------------------------------------------------------------
-    # APPLY CONSTRAINTS EXACTLY (ReferenceKey Based)
+    # APPLY CONSTRAINTS USING REFERENCEKEYS
     # ------------------------------------------------------------
     print(f"\nApplying {len(constraints)} constraints...\n")
 
     for c in constraints:
 
         try:
-            occ1 = find_occurrence(asm_def, c["occurrence_one"])
-            occ2 = find_occurrence(asm_def, c["occurrence_two"])
+            ctype = c["constraint_type"]
 
-            if not occ1 or not occ2:
-                print(f"⚠️ Missing occurrence for {c['constraint_id']}")
-                continue
-
-            # Bind stored ReferenceKeys back to geometry
             entity1 = bind_refkey(asm_doc, c["entity_one_refkey"])
             entity2 = bind_refkey(asm_doc, c["entity_two_refkey"])
 
-            ctype = c["constraint_type"]
             params = c.get("parameters", {})
 
             offset_cm = (params.get("offset_mm") or 0) / 10.0
             angle_rad = (params.get("angle_deg") or 0) * math.pi / 180.0
 
-            # ----------------------------------------------------
-            # Apply correct constraint type
-            # ----------------------------------------------------
+            # -----------------------------
+            # Apply correct constraint
+            # -----------------------------
             if ctype == "kMateConstraintObject":
                 asm_def.Constraints.AddMateConstraint(
                     entity1, entity2, offset_cm
@@ -148,7 +135,7 @@ def build_exact_assembly(json_path, output_path):
                 )
 
             else:
-                print(f"⚠️ Unsupported constraint: {ctype}")
+                print(f"⚠️ Unsupported constraint type: {ctype}")
                 continue
 
             print(f"🔗 Applied {ctype}: {c['constraint_id']}")
@@ -166,7 +153,7 @@ def build_exact_assembly(json_path, output_path):
 
 
 # ------------------------------------------------------------
-# Entry point
+# Entry Point
 # ------------------------------------------------------------
 if __name__ == "__main__":
 
