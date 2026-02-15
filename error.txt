@@ -1,447 +1,130 @@
-"""
-Inventor Assembly Reconstruction WITH FACE MATCHING
-- Use _ml_ready.json for correct placement (has real translation_mm)
-- Use _with_faces.json for constraints (has face_geometry)
-- Fallback: derive translation from bounding_box when translation is [0,0,0]
+' ==========================================================
+' COMPLETE ASSEMBLY EXTRACTION WITH TRANSFORMS + CONSTRAINTS
+' ==========================================================
 
-ALTERNATE APPROACHES if constraints still fail:
-1. iLogic/VBA in Inventor: Extract ReferenceKey at export, use BindKeyToObject at import
-2. Place at origin + constrain: Add all parts at (0,0,0), then apply constraints to pull
-   them into position (Inventor solves constraints)
-3. ReferenceKey in extraction: Ensure your extractor saves entity_one_refkey, entity_two_refkey
-   per constraint; use reassemble.py pattern with BindKeyToObject
-"""
+Imports System
+Imports System.IO
+Imports System.Text
+Imports System.Web.Script.Serialization
 
-import json
-import win32com.client
-import pythoncom
-from pathlib import Path
-import numpy as np
-from typing import Dict, Optional, Tuple
-import time
+Dim asmDoc As AssemblyDocument = ThisApplication.ActiveDocument
+Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
+Dim refKeyMgr As ReferenceKeyManager = asmDoc.ReferenceKeyManager
 
+Dim exportData As New Dictionary(Of String, Object)
 
-class InventorAssemblyReconstructor:
-    
-    def __init__(self, assembly_json: str, parts_folder: str, placement_json: Optional[str] = None):
-        self.assembly_json = Path(assembly_json)
-        self.parts_folder = Path(parts_folder)
-        
-        with open(assembly_json, 'r') as f:
-            self.data = json.load(f)
-        
-        # Use placement_json for correct transforms if provided (_ml_ready has real translation)
-        self.placement_data = None
-        if placement_json:
-            p = Path(placement_json)
-            if p.exists():
-                with open(p, 'r') as f:
-                    self.placement_data = json.load(f)
-                print(f"   Using placement from: {p.name}")
-        
-        self.part_local_bbox = {}  # cache: file_stem -> center [x,y,z]
-        self.app = None
-        self.asm_doc = None
-        self.occ_map = {}
-        
-        print(f"📋 {self.data['assembly_metadata']['assembly_name']}")
-        print(f"   {self.data['assembly_metadata']['total_occurrences']} components")
-        print(f"   {self.data['assembly_metadata']['total_constraints']} constraints")
-    
-    def connect(self):
-        pythoncom.CoInitialize()
-        
-        try:
-            self.app = win32com.client.GetActiveObject("Inventor.Application")
-            print("✓ Connected to Inventor")
-        except:
-            self.app = win32com.client.Dispatch("Inventor.Application")
-            self.app.Visible = True
-            print("✓ Started Inventor")
-            time.sleep(2)
-        print(f"  Version: {self.app.SoftwareVersion.DisplayVersion}")
-    
-    def create_assembly(self) -> str:
-        self.asm_doc = self.app.Documents.Add(12291)
-        time.sleep(0.5)
-        output = str(self.parts_folder / f"{self.assembly_json.stem}_reconstructed.iam")
-        print(f"✓ Created assembly")
-        return output
-    
-    def _get_part_local_center(self, file_name: str) -> np.ndarray:
-        """Get part's local bounding box center from part JSON (mm)"""
-        stem = Path(file_name).stem
-        if stem in self.part_local_bbox:
-            return self.part_local_bbox[stem]
-        jp = self.parts_folder / f"{stem}.json"
-        if jp.exists():
-            try:
-                with open(jp) as f:
-                    d = json.load(f)
-                bb = d.get('bounding_box_mm', {})
-                mn, mx = bb.get('min', {}), bb.get('max', {})
-                if mn and mx:
-                    c = np.array([
-                        (mn.get('x', 0) + mx.get('x', 0)) / 2,
-                        (mn.get('y', 0) + mx.get('y', 0)) / 2,
-                        (mn.get('z', 0) + mx.get('z', 0)) / 2
-                    ])
-                    self.part_local_bbox[stem] = c
-                    return c
-            except Exception:
-                pass
-        self.part_local_bbox[stem] = np.zeros(3)
-        return np.zeros(3)
-    
-    def _get_transform_for_component(self, comp: Dict) -> Tuple[np.ndarray, np.ndarray]:
-        """Get (rotation 3x3, translation [x,y,z] mm) - handles both JSON formats"""
-        trans = comp['transform']
-        rot = np.array(trans['rotation_matrix'])
-        pos = trans['translation_mm']
-        
-        pos_arr = np.array([pos['x'], pos['y'], pos['z']]) if isinstance(pos, dict) else np.array(pos)
-        
-        # If translation is zero, derive from bounding_box: t = asm_center - R @ local_center
-        if np.max(np.abs(pos_arr)) < 1e-6:
-            bb = comp.get('bounding_box_mm', {})
-            c = bb.get('center', {})
-            if c:
-                asm_center = np.array([c.get('x', 0), c.get('y', 0), c.get('z', 0)])
-                local_center = self._get_part_local_center(comp['file_name'])
-                pos_arr = asm_center - (rot @ local_center)
-        
-        return rot, pos_arr
-    
-    def place_components(self):
-        """Place components with correct transforms (from placement_json or derived)"""
-        print(f"\n🔧 Placing components...")
-        
-        asm_def = self.asm_doc.ComponentDefinition
-        tg = self.app.TransientGeometry
-        placed = 0
-        failed = 0
-        
-        # Use placement_data for transforms if available (_ml_ready has correct translation)
-        comps = self.placement_data['components'] if self.placement_data else self.data['components']
-        comp_by_name = {c['occurrence_name']: c for c in comps}
-        
-        for idx, comp in enumerate(self.data['components']):
-            name = comp['occurrence_name']
-            file = comp['file_name']
-            ipt = self.parts_folder / file
-            
-            print(f"  [{idx+1}/{len(self.data['components'])}] {name}...", end='')
-            
-            if not ipt.exists():
-                print(f" ✗ Not found: {ipt}")
-                failed += 1
-                continue
-            
-            try:
-                # Prefer placement_data (ml_ready) for transform; fallback to comp
-                src = comp_by_name.get(name, comp)
-                rot, pos_arr = self._get_transform_for_component(src)
-                
-                matrix = tg.CreateMatrix()
-                for i in range(3):
-                    for j in range(3):
-                        matrix.SetCell(i+1, j+1, float(rot[i, j]))
-                matrix.SetCell(1, 4, pos_arr[0] / 10.0)
-                matrix.SetCell(2, 4, pos_arr[1] / 10.0)
-                matrix.SetCell(3, 4, pos_arr[2] / 10.0)
-                
-                part_path = str(ipt.resolve()) if hasattr(ipt, 'resolve') else str(ipt)
-                occ = asm_def.Occurrences.Add(part_path, matrix)
-                grounded = src.get('grounded', comp.get('grounded', False))
-                if grounded:
-                    occ.Grounded = True
-                self.occ_map[name] = occ
-                placed += 1
-                print(" ✓")
-                
-            except Exception as e:
-                print(f" ✗ {str(e)[:50]}")
-                failed += 1
-        
-        print(f"\n✓ Placed: {placed}/{len(self.data['components'])}")
-        return placed, failed
-    
-    def add_constraints(self):
-        """Add constraints using extracted face geometry"""
-        print(f"\n🔗 Adding constraints with face matching...")
-        
-        asm_def = self.asm_doc.ComponentDefinition
-        added = 0
-        failed = 0
-        skipped = 0
-        
-        for idx, con in enumerate(self.data['constraints']):
-            cid = con['constraint_id']
-            ctype = con['constraint_type']
-            
-            print(f"  [{idx+1}/{len(self.data['constraints'])}] {cid}...", end='')
-            
-            try:
-                occ1_name = con['component_pair']['occurrence_one_name']
-                occ2_name = con['component_pair']['occurrence_two_name']
-                
-                if occ1_name not in self.occ_map or occ2_name not in self.occ_map:
-                    print(" ✗ Missing")
-                    failed += 1
-                    continue
-                
-                occ1 = self.occ_map[occ1_name]
-                occ2 = self.occ_map[occ2_name]
-                
-                # Get extracted face geometry (entity_one/entity_two can be null for some constraints)
-                face_geom = con.get('face_geometry') or {}
-                entity1_geom = face_geom.get('entity_one')
-                entity2_geom = face_geom.get('entity_two')
-                if entity1_geom is None or entity2_geom is None:
-                    print(" ⊘ No face data")
-                    skipped += 1
-                    continue
-                
-                # Find matching faces using geometry (center, normal, area in assembly coords)
-                face1 = self._find_matching_face(occ1, entity1_geom)
-                face2 = self._find_matching_face(occ2, entity2_geom)
-                
-                if face1 is None or face2 is None:
-                    print(" ⊘ No match")
-                    skipped += 1
-                    continue
-                
-                # Create constraint
-                if self._create_constraint(asm_def, face1, face2, ctype, con['parameters']):
-                    added += 1
-                    print(" ✓")
-                else:
-                    failed += 1
-                    print(" ✗")
-                    
-            except Exception as e:
-                print(f" ✗ {str(e)[:50]}")
-                failed += 1
-        
-        print(f"\n✓ Added: {added}/{len(self.data['constraints'])}")
-        print(f"⊘ Skipped: {skipped}")
-        print(f"✗ Failed: {failed}")
-        return added, failed, skipped
-    
-    def _find_matching_face(self, occ, target_geom: Dict):
-        """Find face in occurrence that matches target geometry (center_mm, normal, area_mm2 in assembly coords)"""
-        try:
-            comp_def = occ.Definition
-            if not hasattr(comp_def, 'SurfaceBodies') or comp_def.SurfaceBodies.Count == 0:
-                return None
-            
-            target_center = np.array([
-                target_geom['center_mm']['x'],
-                target_geom['center_mm']['y'],
-                target_geom['center_mm']['z']
-            ])
-            target_normal = np.array([
-                target_geom['normal']['x'],
-                target_geom['normal']['y'],
-                target_geom['normal']['z']
-            ])
-            nlen = np.linalg.norm(target_normal)
-            if nlen > 0.001:
-                target_normal = target_normal / nlen
-            target_area = float(target_geom.get('area_mm2', 0))
-            target_type = target_geom.get('face_type', 'Planar')
-            
-            transform = occ.Transformation
-            tg = self.app.TransientGeometry
-            best_face = None
-            best_score = -1
-            
-            # Use proper COM iteration (1-based Item)
-            for bi in range(1, comp_def.SurfaceBodies.Count + 1):
-                body = comp_def.SurfaceBodies.Item(bi)
-                for fi in range(1, body.Faces.Count + 1):
-                    try:
-                        face = body.Faces.Item(fi)
-                        if self._get_face_type(face) != target_type:
-                            continue
-                        
-                        # Face center: use PointOnFace, transform to assembly
-                        pt = face.PointOnFace
-                        pt_asm = tg.CreatePoint(pt.X, pt.Y, pt.Z)
-                        pt_asm.TransformBy(transform)
-                        face_center = np.array([pt_asm.X * 10, pt_asm.Y * 10, pt_asm.Z * 10])
-                        
-                        # Face normal: planar = Geometry.Normal; else Evaluator.GetNormalAtPoint
-                        if face.SurfaceType == 1:
-                            plane = face.Geometry
-                            nx, ny, nz = plane.Normal.X, plane.Normal.Y, plane.Normal.Z
-                        else:
-                            try:
-                                p = [pt.X, pt.Y, pt.Z]
-                                n = [0.0, 0.0, 0.0]
-                                face.Evaluator.GetNormalAtPoint(p, n)
-                                nx, ny, nz = n[0], n[1], n[2]
-                            except Exception:
-                                continue
-                        
-                        norm_vec = tg.CreateVector(nx, ny, nz)
-                        norm_vec.TransformBy(transform)
-                        face_normal = np.array([norm_vec.X, norm_vec.Y, norm_vec.Z])
-                        flen = np.linalg.norm(face_normal)
-                        if flen > 0.001:
-                            face_normal = face_normal / flen
-                        else:
-                            continue
-                        
-                        face_area = face.Evaluator.Area * 100  # cm² → mm²
-                        
-                        score = self._calculate_match_score(
-                            face_center, face_normal, face_area,
-                            target_center, target_normal, target_area
-                        )
-                        if score > best_score:
-                            best_score = score
-                            best_face = face
-                    except Exception:
-                        continue
-            
-            if best_face and best_score > 0.45:
-                return occ.CreateGeometryProxy(best_face)
-            return None
-        except Exception:
-            return None
-    
-    def _get_face_type(self, face) -> str:
-        """Get face type as string"""
-        try:
-            if face.SurfaceType == 1:  # kPlaneSurface
-                return "Planar"
-            elif face.SurfaceType == 2:  # kCylinderSurface
-                return "Cylindrical"
-            elif face.SurfaceType == 3:  # kConeSurface
-                return "Conical"
-            elif face.SurfaceType == 4:  # kSphereSurface
-                return "Spherical"
-            else:
-                return "Unknown"
-        except:
-            return "Unknown"
-    
-    def _calculate_match_score(self, face_center, face_normal, face_area,
-                                target_center, target_normal, target_area) -> float:
-        """How well a face matches target (center_mm, normal, area in assembly coords)"""
-        try:
-            center_dist = np.linalg.norm(face_center - target_center)
-            center_score = max(0, 1.0 - center_dist / 30.0)  # 30mm tolerance
-            
-            normal_alignment = abs(np.dot(face_normal, target_normal))
-            normal_score = normal_alignment
-            
-            if target_area > 0.01:
-                ratio = min(face_area, target_area) / max(face_area, target_area)
-                area_score = ratio
-            else:
-                area_score = 0.5
-            
-            # Weighted: center and normal matter most; area distinguishes similar faces
-            return 0.4 * center_score + 0.4 * normal_score + 0.2 * area_score
-        except Exception:
-            return 0.0
-    
-    def _create_constraint(self, asm_def, face1, face2, ctype: str, params: Dict) -> bool:
-        """Create constraint between two faces"""
-        try:
-            offset = 0.0
-            if params and params.get('offset_mm') not in (None, 'null'):
-                offset = float(params['offset_mm']) / 10.0  # mm → cm
-            if ctype == "kMateConstraintObject":
-                asm_def.Constraints.AddMateConstraint(face1, face2, offset)
-                return True
-            elif ctype == "kFlushConstraintObject":
-                asm_def.Constraints.AddFlushConstraint(face1, face2, offset)
-                return True
-            elif ctype == "kAngleConstraintObject":
-                angle = 0.0
-                if params and params.get('angle_deg') not in (None, 'null'):
-                    angle = float(params['angle_deg']) * np.pi / 180.0
-                asm_def.Constraints.AddAngleConstraint(face1, face2, angle)
-                return True
-            elif ctype == "kInsertConstraintObject":
-                asm_def.Constraints.AddInsertConstraint(face1, face2, offset)
-                return True
-            return False
-        except Exception:
-            return False
-    
-    def verify(self):
-        """Verify reconstruction"""
-        print("\n🔍 Verifying...")
-        
-        asm_def = self.asm_doc.ComponentDefinition
-        
-        try:
-            constraints = asm_def.Constraints.Count
-        except:
-            constraints = 0
-        
-        try:
-            mass = asm_def.MassProperties.Mass
-            expected = self.data['assembly_metadata']['mass_kg']
-        except:
-            mass = 0
-            expected = 0
-        
-        print(f"  Components: {len(self.occ_map)}/{self.data['assembly_metadata']['total_occurrences']}")
-        print(f"  Constraints: {constraints}/{self.data['assembly_metadata']['total_constraints']}")
-        print(f"  Mass: {mass:.4f} kg (expected {expected:.4f} kg)")
-    
-    def reconstruct(self, add_constraints=True):
-        """Complete reconstruction"""
-        print("="*70)
-        print("🔧 ASSEMBLY RECONSTRUCTION WITH FACE MATCHING")
-        print("="*70)
-        
-        start = time.time()
-        
-        self.connect()
-        output = self.create_assembly()
-        placed, failed = self.place_components()
-        
-        if add_constraints and placed > 0:
-            self.add_constraints()
-        
-        self.verify()
-        
-        if placed > 0:
-            print(f"\n💾 Saving...")
-            try:
-                self.asm_doc.SaveAs(output, False)
-                print(f"✓ Saved: {Path(output).name}")
-            except Exception as e:
-                print(f"✗ Save error: {e}")
-                print("  Assembly is open in Inventor - save manually")
-        
-        print(f"\n✅ DONE ({time.time()-start:.1f}s)")
-        print(f"Output: {output}")
-        print("="*70)
-        
-        return output
+' ==========================================================
+' 1️⃣ Assembly Metadata
+' ==========================================================
 
+Dim meta As New Dictionary(Of String, Object)
+meta("assembly_name") = asmDoc.DisplayName
+meta("internal_name") = asmDoc.InternalName
+meta("units") = asmDoc.UnitsOfMeasure.LengthUnits
+meta("total_occurrences") = asmDef.Occurrences.Count
+meta("total_constraints") = asmDef.Constraints.Count
+exportData("assembly_metadata") = meta
 
-def main():
-    parts_folder = Path(r"E:\Phase 1\Recreate")
-    # _with_faces: constraints with face_geometry | _ml_ready: correct placement (translation_mm)
-    assembly_json = parts_folder / "1625891052._with_faces.json"
-    placement_json = parts_folder / "1625891052._ml_ready.json"  # use for correct positions
+' ==========================================================
+' 2️⃣ Extract Component Transforms (TRUE MATRIX)
+' ==========================================================
+
+Dim components As New List(Of Object)
+
+For Each occ As ComponentOccurrence In asmDef.Occurrences
     
-    reconstructor = InventorAssemblyReconstructor(
-        str(assembly_json), str(parts_folder), placement_json=str(placement_json)
-    )
-    output = reconstructor.reconstruct(add_constraints=True)
+    Dim comp As New Dictionary(Of String, Object)
     
-    print(f"\n🎉 Assembly ready in Inventor")
-    print(f"   Components placed from _ml_ready, constraints from _with_faces")
+    comp("occurrence_name") = occ.Name
+    comp("file_name") = occ.Definition.Document.DisplayName
+    comp("internal_name") = occ.Definition.Document.InternalName
+    comp("grounded") = occ.Grounded
+    
+    ' TRUE transform matrix
+    Dim m As Matrix = occ.Transformation
+    
+    Dim rot(2)() As Double
+    For i = 0 To 2
+        rot(i) = New Double(2) {}
+        For j = 0 To 2
+            rot(i)(j) = m.Cell(i+1, j+1)
+        Next
+    Next
+    
+    Dim trans As New Dictionary(Of String, Object)
+    trans("rotation_matrix") = rot
+    trans("translation_cm") = New Double() {m.Cell(1,4), m.Cell(2,4), m.Cell(3,4)}
+    
+    comp("transform") = trans
+    
+    components.Add(comp)
+    
+Next
 
+exportData("components") = components
 
-if __name__ == "__main__":
-    main()
+' ==========================================================
+' 3️⃣ Extract Constraints WITH Reference Keys
+' ==========================================================
+
+Dim constraints As New List(Of Object)
+
+For Each c As AssemblyConstraint In asmDef.Constraints
+    
+    Dim con As New Dictionary(Of String, Object)
+    
+    con("constraint_type") = c.Type.ToString()
+    con("constraint_id") = c.Name
+    
+    con("occurrence_one") = c.OccurrenceOne.Name
+    con("occurrence_two") = c.OccurrenceTwo.Name
+    
+    ' ===== Reference Keys =====
+    Dim key1() As Byte = Nothing
+    Dim key2() As Byte = Nothing
+    
+    c.EntityOne.GetReferenceKey(key1)
+    c.EntityTwo.GetReferenceKey(key2)
+    
+    Dim context() As Byte = Nothing
+    refKeyMgr.GetKeyContext(context)
+    
+    con("entity_one_key") = Convert.ToBase64String(key1)
+    con("entity_two_key") = Convert.ToBase64String(key2)
+    con("reference_context") = Convert.ToBase64String(context)
+    
+    ' ===== Parameters =====
+    Dim params As New Dictionary(Of String, Object)
+    
+    If TypeOf c Is MateConstraint Then
+        params("offset_cm") = CType(c, MateConstraint).Offset.Value
+    ElseIf TypeOf c Is FlushConstraint Then
+        params("offset_cm") = CType(c, FlushConstraint).Offset.Value
+    ElseIf TypeOf c Is AngleConstraint Then
+        params("angle_rad") = CType(c, AngleConstraint).Angle.Value
+    End If
+    
+    con("parameters") = params
+    
+    constraints.Add(con)
+    
+Next
+
+exportData("constraints") = constraints
+
+' ==========================================================
+' 4️⃣ Write JSON File
+' ==========================================================
+
+Dim serializer As New JavaScriptSerializer()
+serializer.MaxJsonLength = Integer.MaxValue
+
+Dim json As String = serializer.Serialize(exportData)
+
+Dim path As String = System.IO.Path.Combine( _
+    System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop), _
+    asmDoc.DisplayName & "_FULL_EXPORT.json")
+
+System.IO.File.WriteAllText(path, json)
+
+MessageBox.Show("Export complete:" & vbCrLf & path)
