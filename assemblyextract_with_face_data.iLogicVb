@@ -1,0 +1,336 @@
+Imports Inventor
+Imports System.Text
+Imports System.Globalization
+
+Sub Main()
+
+    Dim asmDoc As AssemblyDocument = ThisApplication.ActiveDocument
+    If asmDoc.DocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
+        MessageBox.Show("This rule must run inside an Assembly (.iam)")
+        Exit Sub
+    End If
+
+    Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
+    Dim sb As New StringBuilder()
+    Dim Q As String = Chr(34)
+
+    sb.AppendLine("{")
+
+    '=================================================
+    ' ASSEMBLY METADATA
+    '=================================================
+    sb.AppendLine("  " & Q & "assembly_metadata" & Q & ": {")
+    sb.AppendLine("    " & Q & "assembly_name" & Q & ": " & Q & EscapeJson(asmDoc.DisplayName) & Q & ",")
+    sb.AppendLine("    " & Q & "full_file_path" & Q & ": " & Q & EscapeJson(asmDoc.FullFileName.Replace("\", "/")) & Q & ",")
+    sb.AppendLine("    " & Q & "internal_name" & Q & ": " & Q & EscapeJson(asmDoc.InternalName) & Q & ",")
+    sb.AppendLine("    " & Q & "units" & Q & ": " & Q & "mm" & Q & ",")
+    sb.AppendLine("    " & Q & "mass_kg" & Q & ": " & FormatNumber(asmDef.MassProperties.Mass) & ",")
+    
+    Dim cog As Point = asmDef.MassProperties.CenterOfMass
+    sb.AppendLine("    " & Q & "volume_cm3" & Q & ": " & FormatNumber(asmDef.MassProperties.Volume / 1000) & ",")
+    sb.AppendLine("    " & Q & "center_of_gravity_mm" & Q & ": {")
+    sb.AppendLine("      " & Q & "x" & Q & ": " & FormatNumber(cog.X * 10) & ",")
+    sb.AppendLine("      " & Q & "y" & Q & ": " & FormatNumber(cog.Y * 10) & ",")
+    sb.AppendLine("      " & Q & "z" & Q & ": " & FormatNumber(cog.Z * 10))
+    sb.AppendLine("    },")
+    
+    sb.AppendLine("    " & Q & "author" & Q & ": " & Q & EscapeJson(GetProp(asmDoc, "Summary Information", "Author")) & Q & ",")
+    sb.AppendLine("    " & Q & "total_occurrences" & Q & ": " & asmDef.Occurrences.AllLeafOccurrences.Count & ",")
+    sb.AppendLine("    " & Q & "total_constraints" & Q & ": " & asmDef.Constraints.Count & ",")
+    sb.AppendLine("    " & Q & "extraction_timestamp" & Q & ": " & Q & DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss") & Q)
+    sb.AppendLine("  },")
+
+    '=================================================
+    ' COMPONENTS
+    '=================================================
+    sb.AppendLine("  " & Q & "components" & Q & ": [")
+
+    Dim occs = asmDef.Occurrences.AllLeafOccurrences
+    Dim occList As New List(Of ComponentOccurrence)
+
+    For Each occ As ComponentOccurrence In occs
+        occList.Add(occ)
+        
+        Dim m As Matrix = occ.Transformation
+        Dim partNum As String = ""
+        Dim partMass As Double = 0
+
+        Try
+            partNum = occ.Definition.Document.PropertySets _
+                .Item("Design Tracking Properties").Item("Part Number").Value.ToString()
+        Catch
+            partNum = occ.Name
+        End Try
+
+        Try
+            partMass = occ.MassProperties.Mass
+        Catch
+        End Try
+
+        Dim bbox As Box = occ.RangeBox
+        
+        sb.AppendLine("    {")
+        sb.AppendLine("      " & Q & "occurrence_name" & Q & ": " & Q & EscapeJson(occ.Name) & Q & ",")
+        sb.AppendLine("      " & Q & "file_name" & Q & ": " & Q & EscapeJson(occ.Definition.Document.DisplayName) & Q & ",")
+        sb.AppendLine("      " & Q & "full_file_path" & Q & ": " & Q & EscapeJson(occ.Definition.Document.FullFileName.Replace("\", "/")) & Q & ",")
+        sb.AppendLine("      " & Q & "internal_name" & Q & ": " & Q & EscapeJson(occ.Definition.Document.InternalName) & Q & ",")
+        sb.AppendLine("      " & Q & "part_number" & Q & ": " & Q & EscapeJson(partNum) & Q & ",")
+        sb.AppendLine("      " & Q & "mass_kg" & Q & ": " & FormatNumber(partMass) & ",")
+
+        sb.AppendLine("      " & Q & "bounding_box_mm" & Q & ": {")
+        sb.AppendLine("        " & Q & "min" & Q & ": { " & Q & "x" & Q & ": " & FormatNumber(bbox.MinPoint.X * 10) & ", " & Q & "y" & Q & ": " & FormatNumber(bbox.MinPoint.Y * 10) & ", " & Q & "z" & Q & ": " & FormatNumber(bbox.MinPoint.Z * 10) & " },")
+        sb.AppendLine("        " & Q & "max" & Q & ": { " & Q & "x" & Q & ": " & FormatNumber(bbox.MaxPoint.X * 10) & ", " & Q & "y" & Q & ": " & FormatNumber(bbox.MaxPoint.Y * 10) & ", " & Q & "z" & Q & ": " & FormatNumber(bbox.MaxPoint.Z * 10) & " },")
+        
+        Dim centerX As Double = (bbox.MinPoint.X + bbox.MaxPoint.X) / 2
+        Dim centerY As Double = (bbox.MinPoint.Y + bbox.MaxPoint.Y) / 2
+        Dim centerZ As Double = (bbox.MinPoint.Z + bbox.MaxPoint.Z) / 2
+        
+        sb.AppendLine("        " & Q & "center" & Q & ": { " & Q & "x" & Q & ": " & FormatNumber(centerX * 10) & ", " & Q & "y" & Q & ": " & FormatNumber(centerY * 10) & ", " & Q & "z" & Q & ": " & FormatNumber(centerZ * 10) & " },")
+        
+        Dim sizeX As Double = Math.Abs(bbox.MaxPoint.X - bbox.MinPoint.X)
+        Dim sizeY As Double = Math.Abs(bbox.MaxPoint.Y - bbox.MinPoint.Y)
+        Dim sizeZ As Double = Math.Abs(bbox.MaxPoint.Z - bbox.MaxPoint.Z)
+        
+        sb.AppendLine("        " & Q & "dimensions" & Q & ": { " & Q & "x" & Q & ": " & FormatNumber(sizeX * 10) & ", " & Q & "y" & Q & ": " & FormatNumber(sizeY * 10) & ", " & Q & "z" & Q & ": " & FormatNumber(sizeZ * 10) & " }")
+        sb.AppendLine("      },")
+
+        ' Transformation matrix
+        sb.AppendLine("      " & Q & "transform" & Q & ": {")
+        sb.AppendLine("        " & Q & "rotation_matrix" & Q & ": [")
+        sb.AppendLine("          [" & FormatNumber(m.Cell(1,1)) & ", " & FormatNumber(m.Cell(1,2)) & ", " & FormatNumber(m.Cell(1,3)) & "],")
+        sb.AppendLine("          [" & FormatNumber(m.Cell(2,1)) & ", " & FormatNumber(m.Cell(2,2)) & ", " & FormatNumber(m.Cell(2,3)) & "],")
+        sb.AppendLine("          [" & FormatNumber(m.Cell(3,1)) & ", " & FormatNumber(m.Cell(3,2)) & ", " & FormatNumber(m.Cell(3,3)) & "]")
+        sb.AppendLine("        ],")
+        sb.AppendLine("        " & Q & "translation_mm" & Q & ": [" & FormatNumber(m.Cell(4,1) * 10) & ", " & FormatNumber(m.Cell(4,2) * 10) & ", " & FormatNumber(m.Cell(4,3) * 10) & "]")
+        sb.AppendLine("      }")
+
+        sb.Append("    }")
+        If occList.Count < occs.Count Then sb.AppendLine(",") Else sb.AppendLine()
+    Next
+
+    sb.AppendLine("  ],")
+
+    '=================================================
+    ' CONSTRAINTS WITH FACE GEOMETRY
+    '=================================================
+    sb.AppendLine("  " & Q & "constraints" & Q & ": [")
+
+    Dim constraintList As New List(Of AssemblyConstraint)
+    For Each c As AssemblyConstraint In asmDef.Constraints
+        If Not c.Suppressed Then constraintList.Add(c)
+    Next
+
+    Dim cIdx As Integer = 0
+
+    For Each c As AssemblyConstraint In constraintList
+
+        Dim offsetVal As String = "null"
+        Dim angleVal As String = "null"
+        Dim solutionType As String = ""
+
+        Try
+            If TypeOf c Is MateConstraint Then
+                Dim mate As MateConstraint = CType(c, MateConstraint)
+                offsetVal = FormatNumber(mate.Offset.Value * 10)
+                solutionType = mate.SolutionType.ToString()
+            ElseIf TypeOf c Is FlushConstraint Then
+                Dim flush As FlushConstraint = CType(c, FlushConstraint)
+                offsetVal = FormatNumber(flush.Offset.Value * 10)
+                solutionType = flush.SolutionType.ToString()
+            ElseIf TypeOf c Is AngleConstraint Then
+                Dim angle As AngleConstraint = CType(c, AngleConstraint)
+                angleVal = FormatNumber(angle.Angle.Value * 180 / Math.PI)
+                solutionType = angle.SolutionType.ToString()
+            End If
+        Catch
+        End Try
+
+        Dim occ1Idx As Integer = GetOccurrenceIndex(occList, c.OccurrenceOne.Name)
+        Dim occ2Idx As Integer = GetOccurrenceIndex(occList, c.OccurrenceTwo.Name)
+        
+        Dim occ1 As ComponentOccurrence = c.OccurrenceOne
+        Dim occ2 As ComponentOccurrence = c.OccurrenceTwo
+        
+        Dim bbox1 As Box = occ1.RangeBox
+        Dim bbox2 As Box = occ2.RangeBox
+        
+        Dim center1X As Double = (bbox1.MinPoint.X + bbox1.MaxPoint.X) / 2
+        Dim center1Y As Double = (bbox1.MinPoint.Y + bbox1.MaxPoint.Y) / 2
+        Dim center1Z As Double = (bbox1.MinPoint.Z + bbox1.MaxPoint.Z) / 2
+        
+        Dim center2X As Double = (bbox2.MinPoint.X + bbox2.MaxPoint.X) / 2
+        Dim center2Y As Double = (bbox2.MinPoint.Y + bbox2.MaxPoint.Y) / 2
+        Dim center2Z As Double = (bbox2.MinPoint.Z + bbox2.MaxPoint.Z) / 2
+        
+        Dim dx As Double = center2X - center1X
+        Dim dy As Double = center2Y - center1Y
+        Dim dz As Double = center2Z - center1Z
+        Dim distance As Double = Math.Sqrt(dx*dx + dy*dy + dz*dz)
+
+        sb.AppendLine("    {")
+        sb.AppendLine("      " & Q & "constraint_id" & Q & ": " & Q & EscapeJson(c.Name) & Q & ",")
+        sb.AppendLine("      " & Q & "constraint_type" & Q & ": " & Q & c.Type.ToString() & Q & ",")
+        sb.AppendLine("      " & Q & "solution_type" & Q & ": " & Q & solutionType & Q & ",")
+        
+        sb.AppendLine("      " & Q & "component_pair" & Q & ": {")
+        sb.AppendLine("        " & Q & "occurrence_one_name" & Q & ": " & Q & EscapeJson(c.OccurrenceOne.Name) & Q & ",")
+        sb.AppendLine("        " & Q & "occurrence_two_name" & Q & ": " & Q & EscapeJson(c.OccurrenceTwo.Name) & Q & ",")
+        sb.AppendLine("        " & Q & "occurrence_one_index" & Q & ": " & occ1Idx & ",")
+        sb.AppendLine("        " & Q & "occurrence_two_index" & Q & ": " & occ2Idx & ",")
+        sb.AppendLine("        " & Q & "distance_between_centers_mm" & Q & ": " & FormatNumber(distance * 10))
+        sb.AppendLine("      },")
+        
+        sb.AppendLine("      " & Q & "entity_types" & Q & ": {")
+        sb.AppendLine("        " & Q & "entity_one_type" & Q & ": " & Q & c.EntityOne.Type.ToString() & Q & ",")
+        sb.AppendLine("        " & Q & "entity_two_type" & Q & ": " & Q & c.EntityTwo.Type.ToString() & Q)
+        sb.AppendLine("      },")
+
+        '=================================================
+        ' EXTRACT FACE GEOMETRY FOR CONSTRAINT ENTITIES
+        '=================================================
+        sb.AppendLine("      " & Q & "face_geometry" & Q & ": {")
+        
+        ' Entity One Face Data
+        sb.AppendLine("        " & Q & "entity_one" & Q & ": " & ExtractFaceGeometry(c.EntityOne, occ1) & ",")
+        
+        ' Entity Two Face Data
+        sb.AppendLine("        " & Q & "entity_two" & Q & ": " & ExtractFaceGeometry(c.EntityTwo, occ2))
+        
+        sb.AppendLine("      },")
+
+        sb.AppendLine("      " & Q & "parameters" & Q & ": {")
+        sb.AppendLine("        " & Q & "offset_mm" & Q & ": " & offsetVal & ",")
+        sb.AppendLine("        " & Q & "angle_deg" & Q & ": " & angleVal)
+        sb.AppendLine("      }")
+
+        sb.Append("    }")
+
+        cIdx += 1
+        If cIdx < constraintList.Count Then sb.AppendLine(",") Else sb.AppendLine()
+
+    Next
+
+    sb.AppendLine("  ]")
+    sb.AppendLine("}")
+    
+    Dim outPath As String = System.IO.Path.ChangeExtension(asmDoc.FullFileName, "_with_faces.json")
+    System.IO.File.WriteAllText(outPath, sb.ToString())
+
+    MessageBox.Show("✅ Assembly Extraction with Face Data Complete!" & vbCrLf & vbCrLf & _
+                    "File: " & outPath & vbCrLf & _
+                    "Components: " & occList.Count & vbCrLf & _
+                    "Constraints: " & constraintList.Count & vbCrLf & vbCrLf & _
+                    "Features Extracted:" & vbCrLf & _
+                    "✓ Component transforms & bounding boxes" & vbCrLf & _
+                    "✓ Constraint topology" & vbCrLf & _
+                    "✓ FACE GEOMETRY (center, normal, area)" & vbCrLf & _
+                    "✓ Constraint types & parameters", _
+                    "Extraction Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+End Sub
+
+'================ HELPER FUNCTIONS ===================
+
+Function ExtractFaceGeometry(entity As Object, occ As ComponentOccurrence) As String
+    ' Extract face geometry in assembly coordinates
+    Try
+        If TypeOf entity Is Face Then
+            Dim face As Face = CType(entity, Face)
+            Dim Q As String = Chr(34)
+            Dim result As New StringBuilder()
+            
+            result.Append("{")
+            
+            ' Face type
+            Dim faceType As String = "Unknown"
+            If face.SurfaceType = SurfaceTypeEnum.kPlaneSurface Then faceType = "Planar"
+            If face.SurfaceType = SurfaceTypeEnum.kCylinderSurface Then faceType = "Cylindrical"
+            If face.SurfaceType = SurfaceTypeEnum.kConeSurface Then faceType = "Conical"
+            If face.SurfaceType = SurfaceTypeEnum.kSphereSurface Then faceType = "Spherical"
+            
+            result.Append(" " & Q & "face_type" & Q & ": " & Q & faceType & Q & ",")
+            
+            ' Face area
+            Dim area As Double = face.Evaluator.Area * 100.0 ' cm² to mm²
+            result.Append(" " & Q & "area_mm2" & Q & ": " & FormatNumber(area) & ",")
+            
+            ' Get a point on the face (in part coordinates)
+            Dim pt As Point = face.PointOnFace
+            
+            ' Get face normal at that point (in part coordinates)
+            Dim n(2) As Double
+            Dim p(2) As Double
+            p(0) = pt.X : p(1) = pt.Y : p(2) = pt.Z
+            face.Evaluator.GetNormalAtPoint(p, n)
+            
+            ' Transform to assembly coordinates
+            Dim trans As Matrix = occ.Transformation
+            
+            ' Transform point
+            Dim ptAsm As Point = ThisApplication.TransientGeometry.CreatePoint(pt.X, pt.Y, pt.Z)
+            ptAsm.TransformBy(trans)
+            
+            ' Transform normal (direction vector)
+            Dim normalVec As Vector = ThisApplication.TransientGeometry.CreateVector(n(0), n(1), n(2))
+            normalVec.TransformBy(trans)
+            
+            ' Normalize
+            Dim normLen As Double = Math.Sqrt(normalVec.X * normalVec.X + normalVec.Y * normalVec.Y + normalVec.Z * normalVec.Z)
+            If normLen > 0.0001 Then
+                normalVec.X = normalVec.X / normLen
+                normalVec.Y = normalVec.Y / normLen
+                normalVec.Z = normalVec.Z / normLen
+            End If
+            
+            result.Append(" " & Q & "center_mm" & Q & ": { ")
+            result.Append(Q & "x" & Q & ": " & FormatNumber(ptAsm.X * 10) & ", ")
+            result.Append(Q & "y" & Q & ": " & FormatNumber(ptAsm.Y * 10) & ", ")
+            result.Append(Q & "z" & Q & ": " & FormatNumber(ptAsm.Z * 10))
+            result.Append(" },")
+            
+            result.Append(" " & Q & "normal" & Q & ": { ")
+            result.Append(Q & "x" & Q & ": " & FormatNumber(normalVec.X) & ", ")
+            result.Append(Q & "y" & Q & ": " & FormatNumber(normalVec.Y) & ", ")
+            result.Append(Q & "z" & Q & ": " & FormatNumber(normalVec.Z))
+            result.Append(" }")
+            
+            result.Append(" }")
+            
+            Return result.ToString()
+        Else
+            Return "null"
+        End If
+    Catch ex As Exception
+        Return "null"
+    End Try
+End Function
+
+Function GetOccurrenceIndex(occList As List(Of ComponentOccurrence), occName As String) As Integer
+    For i As Integer = 0 To occList.Count - 1
+        If occList(i).Name = occName Then Return i
+    Next
+    Return -1
+End Function
+
+Function FormatNumber(value As Double) As String
+    Return value.ToString("0.################", CultureInfo.InvariantCulture)
+End Function
+
+Function GetProp(doc As Document, setName As String, propName As String) As String
+    Try
+        Dim val As Object = doc.PropertySets.Item(setName).Item(propName).Value
+        If val IsNot Nothing Then Return val.ToString()
+    Catch
+    End Try
+    Return ""
+End Function
+
+Function EscapeJson(str As String) As String
+    If String.IsNullOrEmpty(str) Then Return ""
+    str = str.Replace("\", "\\")
+    str = str.Replace(Chr(34), "\" & Chr(34))
+    str = str.Replace(vbCr, "")
+    str = str.Replace(vbLf, "\n")
+    str = str.Replace(vbTab, "\t")
+    Return str
+End Function
