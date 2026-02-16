@@ -1,19 +1,30 @@
 Imports Inventor
-Imports System.Text
-Imports System.IO
-Imports System.Globalization
 
 Sub Main()
 
-    Dim asmDoc As AssemblyDocument = ThisApplication.ActiveDocument
-    If asmDoc.DocumentType <> DocumentTypeEnum.kAssemblyDocumentObject Then
+    '================ SAFETY: ACTIVE DOC =================
+    Dim asmDoc As AssemblyDocument = TryCast(ThisApplication.ActiveDocument, AssemblyDocument)
+    If asmDoc Is Nothing Then
         MessageBox.Show("Run inside an Assembly (.iam)")
         Exit Sub
     End If
 
+    '================ SAFETY: SAVED FILE =================
+    If String.IsNullOrEmpty(asmDoc.FullFileName) Then
+        MessageBox.Show("Please save the assembly before exporting JSON.")
+        Exit Sub
+    End If
+
     Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
-    Dim sb As New StringBuilder()
+    Dim sb As New System.Text.StringBuilder()
     Dim Q As String = Chr(34)
+
+    '================ MASS (SAFE) =================
+    Dim massKg As Double = 0
+    Try
+        massKg = asmDef.MassProperties.Mass
+    Catch
+    End Try
 
     sb.AppendLine("{")
 
@@ -24,9 +35,12 @@ Sub Main()
     sb.AppendLine("    " & Q & "assembly_name" & Q & ": " & Q & asmDoc.DisplayName & Q & ",")
     sb.AppendLine("    " & Q & "full_path" & Q & ": " & Q & asmDoc.FullFileName.Replace("\", "/") & Q & ",")
     sb.AppendLine("    " & Q & "units" & Q & ": " & Q & "mm" & Q & ",")
-    sb.AppendLine("    " & Q & "mass_kg" & Q & ": " & asmDef.MassProperties.Mass.ToString(CultureInfo.InvariantCulture) & ",")
-    sb.AppendLine("    " & Q & "created_on" & Q & ": " & Q & GetProp(asmDoc, "Design Tracking Properties", "Creation Time") & Q & ",")
-    sb.AppendLine("    " & Q & "author" & Q & ": " & Q & GetProp(asmDoc, "Summary Information", "Author") & Q)
+    sb.AppendLine("    " & Q & "mass_kg" & Q & ": " & _
+        massKg.ToString(System.Globalization.CultureInfo.InvariantCulture) & ",")
+    sb.AppendLine("    " & Q & "created_on" & Q & ": " & _
+        Q & GetProp(asmDoc, "Design Tracking Properties", "Creation Time") & Q & ",")
+    sb.AppendLine("    " & Q & "author" & Q & ": " & _
+        Q & GetProp(asmDoc, "Summary Information", "Author") & Q)
     sb.AppendLine("  },")
 
     '=================================================
@@ -40,35 +54,40 @@ Sub Main()
     sb.AppendLine("  },")
 
     '=================================================
-    ' COMPONENTS (FULL TRANSFORM)
+    ' COMPONENTS
     '=================================================
     sb.AppendLine("  " & Q & "components" & Q & ": [")
 
-    Dim idx As Integer = 0
     Dim occs = asmDef.Occurrences.AllLeafOccurrences
+    Dim idx As Integer = 0
 
     For Each occ As ComponentOccurrence In occs
 
-        Dim m As Matrix = occ.Transformation
+        If occ Is Nothing Then Continue For
 
-        Dim partNum As String = ""
+        Dim m As Matrix = occ.Transformation
+        Dim partNum As String = occ.Name
+
         Try
             partNum = occ.Definition.Document.PropertySets _
                 .Item("Design Tracking Properties").Item("Part Number").Value
         Catch
-            partNum = occ.Name
         End Try
 
         sb.AppendLine("    {")
         sb.AppendLine("      " & Q & "occurrence_name" & Q & ": " & Q & occ.Name & Q & ",")
-        sb.AppendLine("      " & Q & "file_name" & Q & ": " & Q & occ.Definition.Document.DisplayName & Q & ",")
+        sb.AppendLine("      " & Q & "file_name" & Q & ": " & _
+            Q & occ.Definition.Document.DisplayName & Q & ",")
         sb.AppendLine("      " & Q & "part_number" & Q & ": " & Q & partNum & Q & ",")
 
         sb.AppendLine("      " & Q & "transform" & Q & ": {")
         sb.AppendLine("        " & Q & "translation_mm" & Q & ": { " & _
-            Q & "x" & Q & ": " & (m.Cell(1,4)*10).ToString(CultureInfo.InvariantCulture) & ", " & _
-            Q & "y" & Q & ": " & (m.Cell(2,4)*10).ToString(CultureInfo.InvariantCulture) & ", " & _
-            Q & "z" & Q & ": " & (m.Cell(3,4)*10).ToString(CultureInfo.InvariantCulture) & " },")
+            Q & "x" & Q & ": " & _
+            (m.Cell(1,4) * 10).ToString(System.Globalization.CultureInfo.InvariantCulture) & ", " & _
+            Q & "y" & Q & ": " & _
+            (m.Cell(2,4) * 10).ToString(System.Globalization.CultureInfo.InvariantCulture) & ", " & _
+            Q & "z" & Q & ": " & _
+            (m.Cell(3,4) * 10).ToString(System.Globalization.CultureInfo.InvariantCulture) & " },")
 
         sb.AppendLine("        " & Q & "rotation_matrix" & Q & ": [")
         sb.AppendLine("          [" & m.Cell(1,1) & "," & m.Cell(1,2) & "," & m.Cell(1,3) & "],")
@@ -80,7 +99,8 @@ Sub Main()
         sb.AppendLine("      " & Q & "grounded" & Q & ": " & LCase(CStr(occ.Grounded)) & ",")
         sb.AppendLine("      " & Q & "suppressed" & Q & ": " & LCase(CStr(occ.Suppressed)) & ",")
         sb.AppendLine("      " & Q & "instance_index" & Q & ": " & idx & ",")
-        sb.AppendLine("      " & Q & "component_type" & Q & ": " & Q & GetComponentType(occ) & Q & ",")
+        sb.AppendLine("      " & Q & "component_type" & Q & ": " & _
+            Q & GetComponentType(occ) & Q & ",")
         sb.AppendLine("      " & Q & "confidence" & Q & ": 1.0")
         sb.Append("    }")
 
@@ -92,41 +112,39 @@ Sub Main()
     sb.AppendLine("  ],")
 
     '=================================================
-    ' CONSTRAINTS (INTENT SIGNALS)
+    ' CONSTRAINTS
     '=================================================
     sb.AppendLine("  " & Q & "constraints" & Q & ": [")
 
     Dim cIdx As Integer = 0
-    For Each c As AssemblyConstraint In asmDef.Constraints
+    Dim cList = asmDef.Constraints
 
+    For Each c As AssemblyConstraint In cList
+
+        If c Is Nothing Then Continue For
         If c.Suppressed Then Continue For
+        If c.OccurrenceOne Is Nothing Or c.OccurrenceTwo Is Nothing Then Continue For
 
         sb.AppendLine("    {")
         sb.AppendLine("      " & Q & "constraint_id" & Q & ": " & Q & c.Name & Q & ",")
-        sb.AppendLine("      " & Q & "constraint_type" & Q & ": " & Q & c.Type.ToString() & Q & ",")
+        sb.AppendLine("      " & Q & "constraint_type" & Q & ": " & _
+            Q & c.Type.ToString() & Q & ",")
 
         sb.AppendLine("      " & Q & "component_1" & Q & ": { " & _
             Q & "occurrence" & Q & ": " & Q & c.OccurrenceOne.Name & Q & ", " & _
-            Q & "entity_type" & Q & ": " & Q & GetEntityType(c.EntityOne) & Q & ", " & _
-            Q & "connection_point_id" & Q & ": null },")
+            Q & "entity_type" & Q & ": " & _
+            Q & GetEntityType(c.EntityOne) & Q & " },")
 
         sb.AppendLine("      " & Q & "component_2" & Q & ": { " & _
             Q & "occurrence" & Q & ": " & Q & c.OccurrenceTwo.Name & Q & ", " & _
-            Q & "entity_type" & Q & ": " & Q & GetEntityType(c.EntityTwo) & Q & ", " & _
-            Q & "connection_point_id" & Q & ": null },")
+            Q & "entity_type" & Q & ": " & _
+            Q & GetEntityType(c.EntityTwo) & Q & " },")
 
-        sb.AppendLine("      " & Q & "parameters" & Q & ": {")
-        sb.AppendLine("        " & Q & "offset_mm" & Q & ": null,")
-        sb.AppendLine("        " & Q & "angle_deg" & Q & ": null,")
-        sb.AppendLine("        " & Q & "flip" & Q & ": false")
-        sb.AppendLine("      },")
-
-        sb.AppendLine("      " & Q & "derived" & Q & ": false,")
         sb.AppendLine("      " & Q & "confidence" & Q & ": 1.0")
         sb.Append("    }")
 
         cIdx += 1
-        If cIdx < asmDef.Constraints.Count Then sb.AppendLine(",") Else sb.AppendLine()
+        If cIdx < cList.Count Then sb.AppendLine(",") Else sb.AppendLine()
 
     Next
 
@@ -136,10 +154,12 @@ Sub Main()
     '=================================================
     ' WRITE FILE
     '=================================================
-    Dim outPath As String = Path.ChangeExtension(asmDoc.FullFileName, ".json")
-    File.WriteAllText(outPath, sb.ToString())
+    Dim outPath As String = _
+        System.IO.Path.ChangeExtension(asmDoc.FullFileName, ".json")
 
-    MessageBox.Show("FULL Assembly + Constraint + Intent extraction complete." & vbCrLf & outPath)
+    System.IO.File.WriteAllText(outPath, sb.ToString())
+
+    MessageBox.Show("JSON export complete:" & vbCrLf & outPath)
 
 End Sub
 
@@ -155,7 +175,7 @@ End Function
 
 Function GetEntityType(ent As Object) As String
     If TypeOf ent Is Face Then Return "Face"
-    If TypeOf ent Is Edge Then Return "Axis"
+    If TypeOf ent Is Edge Then Return "Edge"
     If TypeOf ent Is WorkAxis Then Return "Axis"
     If TypeOf ent Is WorkPlane Then Return "Plane"
     Return "Unknown"
@@ -163,7 +183,8 @@ End Function
 
 Function GetComponentType(o As ComponentOccurrence) As String
     Try
-        If o.DefinitionDocumentType = DocumentTypeEnum.kAssemblyDocumentObject Then Return "Subassembly"
+        If o.DefinitionDocumentType = _
+            DocumentTypeEnum.kAssemblyDocumentObject Then Return "Subassembly"
         If o.Definition.IsContentMember Then Return "Fastener"
     Catch
     End Try
