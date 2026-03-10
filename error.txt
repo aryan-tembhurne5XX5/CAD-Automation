@@ -1,130 +1,47 @@
-' ==========================================================
-' COMPLETE ASSEMBLY EXTRACTION WITH TRANSFORMS + CONSTRAINTS
-' ==========================================================
-
-Imports System
-Imports System.IO
-Imports System.Text
-Imports System.Web.Script.Serialization
-
-Dim asmDoc As AssemblyDocument = ThisApplication.ActiveDocument
-Dim asmDef As AssemblyComponentDefinition = asmDoc.ComponentDefinition
-Dim refKeyMgr As ReferenceKeyManager = asmDoc.ReferenceKeyManager
-
-Dim exportData As New Dictionary(Of String, Object)
-
-' ==========================================================
-' 1️⃣ Assembly Metadata
-' ==========================================================
-
-Dim meta As New Dictionary(Of String, Object)
-meta("assembly_name") = asmDoc.DisplayName
-meta("internal_name") = asmDoc.InternalName
-meta("units") = asmDoc.UnitsOfMeasure.LengthUnits
-meta("total_occurrences") = asmDef.Occurrences.Count
-meta("total_constraints") = asmDef.Constraints.Count
-exportData("assembly_metadata") = meta
-
-' ==========================================================
-' 2️⃣ Extract Component Transforms (TRUE MATRIX)
-' ==========================================================
-
-Dim components As New List(Of Object)
-
-For Each occ As ComponentOccurrence In asmDef.Occurrences
-    
-    Dim comp As New Dictionary(Of String, Object)
-    
-    comp("occurrence_name") = occ.Name
-    comp("file_name") = occ.Definition.Document.DisplayName
-    comp("internal_name") = occ.Definition.Document.InternalName
-    comp("grounded") = occ.Grounded
-    
-    ' TRUE transform matrix
-    Dim m As Matrix = occ.Transformation
-    
-    Dim rot(2)() As Double
-    For i = 0 To 2
-        rot(i) = New Double(2) {}
-        For j = 0 To 2
-            rot(i)(j) = m.Cell(i+1, j+1)
-        Next
-    Next
-    
-    Dim trans As New Dictionary(Of String, Object)
-    trans("rotation_matrix") = rot
-    trans("translation_cm") = New Double() {m.Cell(1,4), m.Cell(2,4), m.Cell(3,4)}
-    
-    comp("transform") = trans
-    
-    components.Add(comp)
-    
-Next
-
-exportData("components") = components
-
-' ==========================================================
-' 3️⃣ Extract Constraints WITH Reference Keys
-' ==========================================================
-
-Dim constraints As New List(Of Object)
-
-For Each c As AssemblyConstraint In asmDef.Constraints
-    
-    Dim con As New Dictionary(Of String, Object)
-    
-    con("constraint_type") = c.Type.ToString()
-    con("constraint_id") = c.Name
-    
-    con("occurrence_one") = c.OccurrenceOne.Name
-    con("occurrence_two") = c.OccurrenceTwo.Name
-    
-    ' ===== Reference Keys =====
-    Dim key1() As Byte = Nothing
-    Dim key2() As Byte = Nothing
-    
-    c.EntityOne.GetReferenceKey(key1)
-    c.EntityTwo.GetReferenceKey(key2)
-    
-    Dim context() As Byte = Nothing
-    refKeyMgr.GetKeyContext(context)
-    
-    con("entity_one_key") = Convert.ToBase64String(key1)
-    con("entity_two_key") = Convert.ToBase64String(key2)
-    con("reference_context") = Convert.ToBase64String(context)
-    
-    ' ===== Parameters =====
-    Dim params As New Dictionary(Of String, Object)
-    
-    If TypeOf c Is MateConstraint Then
-        params("offset_cm") = CType(c, MateConstraint).Offset.Value
-    ElseIf TypeOf c Is FlushConstraint Then
-        params("offset_cm") = CType(c, FlushConstraint).Offset.Value
-    ElseIf TypeOf c Is AngleConstraint Then
-        params("angle_rad") = CType(c, AngleConstraint).Angle.Value
-    End If
-    
-    con("parameters") = params
-    
-    constraints.Add(con)
-    
-Next
-
-exportData("constraints") = constraints
-
-' ==========================================================
-' 4️⃣ Write JSON File
-' ==========================================================
-
-Dim serializer As New JavaScriptSerializer()
-serializer.MaxJsonLength = Integer.MaxValue
-
-Dim json As String = serializer.Serialize(exportData)
-
-Dim path As String = System.IO.Path.Combine( _
-    System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop), _
-    asmDoc.DisplayName & "_FULL_EXPORT.json")
-
-System.IO.File.WriteAllText(path, json)
-
-MessageBox.Show("Export complete:" & vbCrLf & path)
+PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python311\python.exe "e:/Phase 1/hashed.py"
+--- Processing Part Files ---
+Updated Part: 0129327023-M3.json
+Updated Part: 0129327040-M100_T=3.json
+Updated Part: 0129327042-M2.json
+Updated Part: 0129327055-M2.json
+Updated Part: 0228100017-M1.json
+Updated Part: 0298100025-M1-00.json
+Updated Part: 0298100025.json
+Updated Part: 0298100030.json
+Updated Part: 0298100031-M1-00.json
+Updated Part: 0298100051-M1.json
+Updated Part: 0298100086-M1.json
+Updated Part: 0298100091-M2.json
+Updated Part: 0298100114-M1.json
+Updated Part: 0298100115-M1.json
+Updated Part: 1028925335-B.json
+Updated Part: 1028925335-C.json
+Updated Part: 1028925335-D.json
+Updated Part: 1028925335-E.json
+Updated Part: 1028925335-F.json
+Updated Part: 1079992372-M1.json
+Updated Part: 1093144795-A.json
+Updated Part: 1093144795-G.json
+Updated Part: 1615223001-M2.json
+Updated Part: 1625891052-P1.json
+Updated Part: 1625891066.json
+Updated Part: 1631079903-M1.json
+Updated Part: 1631079904-M1.json
+Updated Part: 1631079905-M1.json
+Updated Part: 1631079906-M1.json
+Updated Part: 1635882401-M1.json
+Updated Part: 1635882402-M1.json
+Updated Part: 1635882403-M1.json
+Traceback (most recent call last):
+  File "e:\Phase 1\hashed.py", line 139, in <module>
+    process_part_json(os.path.join(root, f))
+  File "e:\Phase 1\hashed.py", line 55, in process_part_json
+    data = json.load(f)
+           ^^^^^^^^^^^^
+  File "C:\Users\hrish\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 293, in load
+    return loads(fp.read(),
+                 ^^^^^^^^^
+  File "C:\Users\hrish\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 86996: character maps to <undefined>
