@@ -1,47 +1,148 @@
-PS E:\Phase 1> & C:\Users\hrish\AppData\Local\Programs\Python\Python311\python.exe "e:/Phase 1/hashed.py"
---- Processing Part Files ---
-Updated Part: 0129327023-M3.json
-Updated Part: 0129327040-M100_T=3.json
-Updated Part: 0129327042-M2.json
-Updated Part: 0129327055-M2.json
-Updated Part: 0228100017-M1.json
-Updated Part: 0298100025-M1-00.json
-Updated Part: 0298100025.json
-Updated Part: 0298100030.json
-Updated Part: 0298100031-M1-00.json
-Updated Part: 0298100051-M1.json
-Updated Part: 0298100086-M1.json
-Updated Part: 0298100091-M2.json
-Updated Part: 0298100114-M1.json
-Updated Part: 0298100115-M1.json
-Updated Part: 1028925335-B.json
-Updated Part: 1028925335-C.json
-Updated Part: 1028925335-D.json
-Updated Part: 1028925335-E.json
-Updated Part: 1028925335-F.json
-Updated Part: 1079992372-M1.json
-Updated Part: 1093144795-A.json
-Updated Part: 1093144795-G.json
-Updated Part: 1615223001-M2.json
-Updated Part: 1625891052-P1.json
-Updated Part: 1625891066.json
-Updated Part: 1631079903-M1.json
-Updated Part: 1631079904-M1.json
-Updated Part: 1631079905-M1.json
-Updated Part: 1631079906-M1.json
-Updated Part: 1635882401-M1.json
-Updated Part: 1635882402-M1.json
-Updated Part: 1635882403-M1.json
-Traceback (most recent call last):
-  File "e:\Phase 1\hashed.py", line 139, in <module>
-    process_part_json(os.path.join(root, f))
-  File "e:\Phase 1\hashed.py", line 55, in process_part_json
-    data = json.load(f)
-           ^^^^^^^^^^^^
-  File "C:\Users\hrish\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 293, in load
-    return loads(fp.read(),
-                 ^^^^^^^^^
-  File "C:\Users\hrish\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 23, in decode
-    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d in position 86996: character maps to <undefined>
+import os
+import json
+import hashlib
+
+# ==========================================
+# 1. HASHING HELPERS
+# ==========================================
+def r(x):
+    if x is None: return 0
+    return round(float(x), 6)
+
+def vec(v):
+    if v is None: return [0, 0, 0]
+    return [r(x) for x in v]
+
+def hash_string(s):
+    return hashlib.sha256(s.encode()).hexdigest()[:16]
+
+def face_hash(face):
+    surface = face.get("surface_type")
+    area = r(face.get("area_cm2"))
+    center = vec(face.get("center") or face.get("face_point_at_center"))
+    normal = vec(face.get("normal") or face.get("face_normal_at_center"))
+    radius = r(face.get("radius_cm"))
+    
+    sig = f"{surface}|{area}|{center}|{normal}|{radius}"
+    return "face_" + hash_string(sig)
+
+def edge_hash(edge):
+    curve = edge.get("curve_type")
+    length = r(edge.get("length_cm"))
+    mid = vec(edge.get("midpoint") or edge.get("edge_midpoint"))
+    tan = vec(edge.get("tangent") or edge.get("edge_tangent_at_mid"))
+    
+    sig = f"{curve}|{length}|{mid}|{tan}"
+    return "edge_" + hash_string(sig)
+
+# ==========================================
+# 2. PART PROCESSING
+# ==========================================
+def process_part_json(path):
+    with open(path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    changed = False
+    ref_to_hash_map = {} 
+    
+    # Trackers to see if Inventor keys are failing
+    matched_count = 0
+    unmatched_count = 0
+
+    # A. Process Faces
+    if "faces" in data:
+        for f in data["faces"]:
+            new_hash = face_hash(f)
+            f["geometry_hash"] = new_hash
+            
+            # Save translation
+            ref_key = f.get("reference_key_string")
+            if ref_key:
+                ref_to_hash_map[ref_key] = new_hash
+        changed = True
+
+    # B. Process Edges & B-Rep
+    if "edges" in data:
+        for e in data["edges"]:
+            e["geometry_hash"] = edge_hash(e)
+            
+            if "adjacent_faces" in e:
+                new_adj = []
+                for inv_key in e["adjacent_faces"]:
+                    # Attempt to swap Inventor key for your Custom Hash
+                    if inv_key in ref_to_hash_map:
+                        new_adj.append(ref_to_hash_map[inv_key])
+                        matched_count += 1
+                    else:
+                        # Fallback: Keep the old key, do not delete it!
+                        new_adj.append(inv_key)
+                        unmatched_count += 1
+                        
+                e["adjacent_faces"] = new_adj
+        changed = True
+
+    # C. Save File
+    if changed:
+        with open(path, "w", encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+            
+        # Print diagnostic results
+        if unmatched_count > 0:
+            print(f"⚠️  {os.path.basename(path)}: {matched_count} links swapped | {unmatched_count} links FAILED (Kept old keys).")
+        else:
+            print(f"✅ {os.path.basename(path)}: All {matched_count} B-Rep links swapped perfectly.")
+
+
+# ==========================================
+# 3. ASSEMBLY PROCESSING
+# ==========================================
+def process_assembly_json(path):
+    with open(path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    changed = False
+
+    if "constraints" in data:
+        for c in data["constraints"]:
+            for key in ["entity_one", "entity_two"]:
+                if key not in c or c[key] is None: continue
+
+                ent = c[key]
+                if ent.get("entity_type") == "FaceProxy":
+                    ent["geometry_hash"] = face_hash(ent)
+                    changed = True
+                elif ent.get("entity_type") == "EdgeProxy":
+                    ent["geometry_hash"] = edge_hash(ent)
+                    changed = True
+
+    if changed:
+        with open(path, "w", encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+        print(f"✅ Updated Assembly: {os.path.basename(path)}")
+
+# ==========================================
+# 4. EXECUTION
+# ==========================================
+if __name__ == "__main__":
+    PARTS_DIR = "E:/Phase 1/parts"
+    ASSEMBLIES_DIR = "E:/Phase 1/assemblies" 
+
+    print("--- Processing Part Files ---")
+    if os.path.exists(PARTS_DIR):
+        for root, dirs, files in os.walk(PARTS_DIR):
+            for f in files:
+                if f.endswith(".json"):
+                    process_part_json(os.path.join(root, f))
+    else:
+        print(f"Directory not found: {PARTS_DIR}")
+
+    print("\n--- Processing Assembly Files ---")
+    if os.path.exists(ASSEMBLIES_DIR):
+        for root, dirs, files in os.walk(ASSEMBLIES_DIR):
+            for f in files:
+                if f.endswith(".json"):
+                    process_assembly_json(os.path.join(root, f))
+    else:
+        print(f"Directory not found: {ASSEMBLIES_DIR}")
+
+    print("\nDone! All files successfully hashed.")
