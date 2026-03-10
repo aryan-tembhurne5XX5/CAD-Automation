@@ -41,7 +41,7 @@ namespace InventorPartExporterCombined
         static void Main(string[] args)
         {
             string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\parts";
+            string baseOutputRoot = @"E:\Phase 1\partsnewbrep";
 
             // ── Connect to Inventor ──────────────────────────────────────────────
             try
