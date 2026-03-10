@@ -1,148 +1,189 @@
 import os
 import json
-import hashlib
+import random
+import numpy as np
+import torch
+from torch_geometric.data import Data, InMemoryDataset
 
-# ==========================================
-# 1. HASHING HELPERS
-# ==========================================
-def r(x):
-    if x is None: return 0
-    return round(float(x), 6)
+SURFACE_TYPES = [
+    "kPlaneSurface", "kCylinderSurface", "kConeSurface",
+    "kSphereSurface", "kTorusSurface", "None"
+]
 
-def vec(v):
-    if v is None: return [0, 0, 0]
-    return [r(x) for x in v]
+CURVE_TYPES = [
+    "kLineCurve", "kCircleCurve", "kEllipseCurve",
+    "kBSplineCurve", "None"
+]
 
-def hash_string(s):
-    return hashlib.sha256(s.encode()).hexdigest()[:16]
+CONSTRAINT_TYPES = {
+    "kMateConstraintObject": 0, "kMateConstraint": 0,
+    "kFlushConstraintObject": 1, "kFlushConstraint": 1,
+    "kInsertConstraintObject": 2, "kInsertConstraint": 2,
+    "kAngleConstraintObject": 3, "kAngleConstraint": 3,
+    "kTangentConstraintObject": 4, "kTangentConstraint": 4
+}
 
-def face_hash(face):
-    surface = face.get("surface_type")
-    area = r(face.get("area_cm2"))
-    center = vec(face.get("center") or face.get("face_point_at_center"))
-    normal = vec(face.get("normal") or face.get("face_normal_at_center"))
-    radius = r(face.get("radius_cm"))
-    
-    sig = f"{surface}|{area}|{center}|{normal}|{radius}"
-    return "face_" + hash_string(sig)
+NEGATIVE_RATIO = 5
 
-def edge_hash(edge):
-    curve = edge.get("curve_type")
-    length = r(edge.get("length_cm"))
-    mid = vec(edge.get("midpoint") or edge.get("edge_midpoint"))
-    tan = vec(edge.get("tangent") or edge.get("edge_tangent_at_mid"))
-    
-    sig = f"{curve}|{length}|{mid}|{tan}"
-    return "edge_" + hash_string(sig)
+def safe_log(x):
+    if x is None or x <= 0: return 0
+    return np.log(x + 1e-6)
 
-# ==========================================
-# 2. PART PROCESSING
-# ==========================================
-def process_part_json(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+def safe_vec(v):
+    if v is None: return [0.0, 0.0, 0.0]
+    return [float(x) for x in v]
 
-    changed = False
-    ref_to_hash_map = {} 
-    
-    # Trackers to see if Inventor keys are failing
-    matched_count = 0
-    unmatched_count = 0
+def extract_features(item, is_face):
+    feat = [1.0 if is_face else 0.0]
 
-    # A. Process Faces
-    if "faces" in data:
-        for f in data["faces"]:
-            new_hash = face_hash(f)
-            f["geometry_hash"] = new_hash
-            
-            # Save translation
-            ref_key = f.get("reference_key_string")
-            if ref_key:
-                ref_to_hash_map[ref_key] = new_hash
-        changed = True
+    if is_face:
+        s = item.get("surface_type", "None")
+        feat.extend([1.0 if s == t else 0.0 for t in SURFACE_TYPES])
+        feat.extend([0] * len(CURVE_TYPES))
+    else:
+        c = item.get("curve_type", "None")
+        feat.extend([0] * len(SURFACE_TYPES))
+        feat.extend([1.0 if c == t else 0.0 for t in CURVE_TYPES])
 
-    # B. Process Edges & B-Rep
-    if "edges" in data:
-        for e in data["edges"]:
-            e["geometry_hash"] = edge_hash(e)
-            
-            if "adjacent_faces" in e:
-                new_adj = []
-                for inv_key in e["adjacent_faces"]:
-                    # Attempt to swap Inventor key for your Custom Hash
-                    if inv_key in ref_to_hash_map:
-                        new_adj.append(ref_to_hash_map[inv_key])
-                        matched_count += 1
-                    else:
-                        # Fallback: Keep the old key, do not delete it!
-                        new_adj.append(inv_key)
-                        unmatched_count += 1
-                        
-                e["adjacent_faces"] = new_adj
-        changed = True
+    size = item.get("area_cm2") if is_face else item.get("length_cm")
+    feat.append(safe_log(size))
+    feat.append(float(item.get("radius_cm") or 0))
 
-    # C. Save File
-    if changed:
-        with open(path, "w", encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-            
-        # Print diagnostic results
-        if unmatched_count > 0:
-            print(f"⚠️  {os.path.basename(path)}: {matched_count} links swapped | {unmatched_count} links FAILED (Kept old keys).")
-        else:
-            print(f"✅ {os.path.basename(path)}: All {matched_count} B-Rep links swapped perfectly.")
+    if is_face:
+        pt = item.get("center") or item.get("face_point_at_center")
+        vec = item.get("normal") or item.get("face_normal_at_center")
+    else:
+        pt = item.get("midpoint") or item.get("edge_midpoint")
+        vec = item.get("tangent") or item.get("edge_tangent_at_mid")
 
+    feat.extend(safe_vec(pt))
+    feat.extend(safe_vec(vec))
 
-# ==========================================
-# 3. ASSEMBLY PROCESSING
-# ==========================================
-def process_assembly_json(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    return feat
 
-    changed = False
+class CADAssemblyDataset(InMemoryDataset):
+    def __init__(self, root_dir):
+        self.root_dir = root_dir
+        super().__init__(root_dir)
+        self.data, self.slices = torch.load(self.processed_paths[0], weights_only=False)
 
-    if "constraints" in data:
-        for c in data["constraints"]:
-            for key in ["entity_one", "entity_two"]:
-                if key not in c or c[key] is None: continue
+    @property
+    def processed_file_names(self):
+        return ["cad_dataset.pt"]
 
-                ent = c[key]
-                if ent.get("entity_type") == "FaceProxy":
-                    ent["geometry_hash"] = face_hash(ent)
-                    changed = True
-                elif ent.get("entity_type") == "EdgeProxy":
-                    ent["geometry_hash"] = edge_hash(ent)
-                    changed = True
+    def process(self):
+        parts_dir = os.path.join(self.root_dir, "Parts combined")
+        asm_dir = os.path.join(self.root_dir, "Assemblies combined")
+        part_index = {}
 
-    if changed:
-        with open(path, "w", encoding='utf-8') as f:
-            json.dump(data, f, indent=2)
-        print(f"✅ Updated Assembly: {os.path.basename(path)}")
-
-# ==========================================
-# 4. EXECUTION
-# ==========================================
-if __name__ == "__main__":
-    PARTS_DIR = "E:/Phase 1/parts"
-    ASSEMBLIES_DIR = "E:/Phase 1/assemblies" 
-
-    print("--- Processing Part Files ---")
-    if os.path.exists(PARTS_DIR):
-        for root, dirs, files in os.walk(PARTS_DIR):
+        # 1. Index all part files
+        for root, _, files in os.walk(parts_dir):
             for f in files:
                 if f.endswith(".json"):
-                    process_part_json(os.path.join(root, f))
-    else:
-        print(f"Directory not found: {PARTS_DIR}")
+                    part_index[f.replace(".json", "")] = os.path.join(root, f)
 
-    print("\n--- Processing Assembly Files ---")
-    if os.path.exists(ASSEMBLIES_DIR):
-        for root, dirs, files in os.walk(ASSEMBLIES_DIR):
+        graphs = []
+
+        # 2. Process all assemblies
+        for root, _, files in os.walk(asm_dir):
             for f in files:
                 if f.endswith(".json"):
-                    process_assembly_json(os.path.join(root, f))
-    else:
-        print(f"Directory not found: {ASSEMBLIES_DIR}")
+                    try:
+                        g = self.process_assembly(os.path.join(root, f), part_index)
+                        if g: graphs.append(g)
+                    except Exception as e:
+                        print(f"Assembly error on {f}: {e}")
 
-    print("\nDone! All files successfully hashed.")
+        data, slices = self.collate(graphs)
+        torch.save((data, slices), self.processed_paths[0])
+        print(f"Dataset successfully built: {len(graphs)} assemblies")
+
+    def process_assembly(self, asm_path, part_index):
+        with open(asm_path, encoding='utf-8') as f: asm = json.load(f)
+        if "components" not in asm: return None
+
+        node_lookup = {}       # For Assembly constraints (Occurrence, Hash) -> Global Node ID
+        node_features = []
+        internal_edges = []
+        idx = 0
+
+        for comp in asm["components"]:
+            occ = comp["occurrence_name"]
+            raw = comp["file_name"].replace("\\", "/").split("/")[-1]
+            part_name = raw.replace(".ipt", "").replace(".json", "").replace("_full_export", "").strip()
+
+            if part_name not in part_index: continue
+            with open(part_index[part_name], encoding='utf-8') as pf: part = json.load(pf)
+
+            # Dictionary to map Custom Geometry Hashes to Node IDs for THIS specific part
+            local_hash_to_idx = {}
+
+            # EXTRACT FACES
+            for face in part.get("faces", []):
+                h = face.get("geometry_hash")
+                if h:
+                    node_lookup[(occ, h)] = idx
+                    local_hash_to_idx[h] = idx
+                    node_features.append(extract_features(face, True))
+                    idx += 1
+
+            # EXTRACT EDGES & BUILD B-REP TOPOLOGY
+            for edge in part.get("edges", []):
+                h = edge.get("geometry_hash")
+                if h:
+                    edge_idx = idx
+                    node_lookup[(occ, h)] = edge_idx
+                    local_hash_to_idx[h] = edge_idx
+                    node_features.append(extract_features(edge, False))
+                    idx += 1
+
+                    # ===================================================
+                    # B-REP ADJACENCY LOGIC (The Memory Crash Fix)
+                    # ===================================================
+                    for adj_hash in edge.get("adjacent_faces", []):
+                        face_idx = local_hash_to_idx.get(adj_hash)
+                        if face_idx is not None:
+                            # Draw undirected graph connection exactly where physics dictate
+                            internal_edges.append([edge_idx, face_idx])
+                            internal_edges.append([face_idx, edge_idx])
+                    # ===================================================
+
+        if idx == 0: return None
+
+        target_edges = []
+        labels = []
+
+        # SUPERVISION: Positive Constraints
+        for c in asm.get("constraints", []):
+            e1, e2 = c.get("entity_one"), c.get("entity_two")
+            occ1, occ2 = c.get("occurrence_one"), c.get("occurrence_two")
+            if not e1 or not e2: continue
+
+            n1 = node_lookup.get((occ1, e1.get("geometry_hash")))
+            n2 = node_lookup.get((occ2, e2.get("geometry_hash")))
+            if n1 is None or n2 is None: continue
+
+            label = CONSTRAINT_TYPES.get(c.get("constraint_type"), 0)
+            target_edges.append([n1, n2])
+            labels.append(label)
+
+        # SUPERVISION: Negative Samples
+        all_nodes = list(range(idx))
+        pos_pairs = set(tuple(sorted(e)) for e in target_edges)
+        neg_needed = len(target_edges) * NEGATIVE_RATIO
+
+        while neg_needed > 0:
+            a, b = random.choice(all_nodes), random.choice(all_nodes)
+            if a == b or tuple(sorted([a, b])) in pos_pairs: continue
+
+            target_edges.append([a, b])
+            labels.append(5)  # 5 = No Constraint
+            neg_needed -= 1
+
+        # Convert to PyTorch Tensors
+        x = torch.tensor(node_features, dtype=torch.float)
+        internal_edge_index = torch.tensor(internal_edges, dtype=torch.long).t().contiguous() if internal_edges else torch.empty((2, 0), dtype=torch.long)
+        target_edge_index = torch.tensor(target_edges, dtype=torch.long).t().contiguous()
+        y = torch.tensor(labels, dtype=torch.long)
+
+        return Data(x=x, internal_edge_index=internal_edge_index, target_edge_index=target_edge_index, y=y)
