@@ -1,189 +1,612 @@
-import os
-import json
-import random
-import numpy as np
-import torch
-from torch_geometric.data import Data, InMemoryDataset
+using Inventor;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
-SURFACE_TYPES = [
-    "kPlaneSurface", "kCylinderSurface", "kConeSurface",
-    "kSphereSurface", "kTorusSurface", "None"
-]
+// NOTE: Do NOT add "using System.IO" — Inventor.File / Inventor.Path conflict.
+//       Use System.IO.File, System.IO.Path, System.IO.Directory explicitly.
 
-CURVE_TYPES = [
-    "kLineCurve", "kCircleCurve", "kEllipseCurve",
-    "kBSplineCurve", "None"
-]
+namespace InventorPartExporter
+{
+    class Program
+    {
+        static Inventor.Application invApp;
 
-CONSTRAINT_TYPES = {
-    "kMateConstraintObject": 0, "kMateConstraint": 0,
-    "kFlushConstraintObject": 1, "kFlushConstraint": 1,
-    "kInsertConstraintObject": 2, "kInsertConstraint": 2,
-    "kAngleConstraintObject": 3, "kAngleConstraint": 3,
-    "kTangentConstraintObject": 4, "kTangentConstraint": 4
+        static void Main(string[] args)
+        {
+            // ==========================================
+            // CONFIGURATION
+            // ==========================================
+            string baseInputRoot = @"E:\Phase 1";
+            string baseOutputRoot = @"E:\Phase 1\parts_raw_export"; // Raw data before Python hashing
+
+            try
+            {
+                invApp = (Inventor.Application)Marshal.GetActiveObject("Inventor.Application");
+                Console.WriteLine("Connected to running Inventor instance.");
+            }
+            catch
+            {
+                Type t = Type.GetTypeFromProgID("Inventor.Application");
+                invApp = (Inventor.Application)Activator.CreateInstance(t);
+                invApp.Visible = true;
+                Console.WriteLine("Started new Inventor instance.");
+            }
+
+            // Loop through your Assembly folders
+            for (int i = 1; i <= 8; i++)
+            {
+                string assemblyInput = System.IO.Path.Combine(baseInputRoot, $"Assembly {i}");
+                string assemblyOutput = System.IO.Path.Combine(baseOutputRoot, $"assembly{i}");
+
+                if (!System.IO.Directory.Exists(assemblyInput)) continue;
+
+                ProcessAllIPTs(assemblyInput, assemblyOutput);
+            }
+
+            Console.WriteLine("\n✅ All parts successfully extracted.");
+        }
+
+        static void ProcessAllIPTs(string inputRoot, string outputRoot)
+        {
+            foreach (string iptPath in System.IO.Directory.GetFiles(
+                inputRoot,
+                "*.ipt",
+                System.IO.SearchOption.AllDirectories))
+            {
+                try
+                {
+                    Console.WriteLine($"\nOpening: {iptPath}");
+
+                    Document openedDoc = invApp.Documents.Open(iptPath, true);
+                    PartDocument partDoc = (PartDocument)openedDoc;
+                    PartComponentDefinition def = partDoc.ComponentDefinition;
+
+                    PartExport export = new PartExport();
+
+                    // --- GENERATE CONTEXT KEY ---
+                    ReferenceKeyManager mgr = partDoc.ReferenceKeyManager;
+                    int keyContext = mgr.CreateKeyContext();
+                    byte[] ctxArray = new byte[1];
+                    mgr.SaveContextToArray(keyContext, ref ctxArray);
+                    export.context_key_string = mgr.KeyToString(ctxArray);
+
+                    // --- METADATA ---
+                    export.part_metadata = new PartMetadata
+                    {
+                        file_name = partDoc.DisplayName,
+                        full_path = partDoc.FullFileName,
+                        internal_name = partDoc.InternalName,
+                        units = partDoc.UnitsOfMeasure.LengthUnits.ToString(),
+                        part_number = GetProp((Document)partDoc, "Design Tracking Properties", "Part Number"),
+                        description = GetProp((Document)partDoc, "Design Tracking Properties", "Description"),
+                        material = GetProp((Document)partDoc, "Design Tracking Properties", "Material"),
+                        mass_kg = SafeMass(def)
+                    };
+
+                    try
+                    {
+                        Box rb = def.RangeBox;
+                        export.bounding_box = new BoundingBox
+                        {
+                            min = ToPoint(rb.MinPoint),
+                            max = ToPoint(rb.MaxPoint)
+                        };
+                    }
+                    catch { }
+
+                    // --- 1. PHYSICAL B-REP (Faces & Edges) ---
+                    Console.WriteLine("Extracting faces and edges...");
+                    foreach (SurfaceBody body in def.SurfaceBodies)
+                    {
+                        foreach (Face face in body.Faces)
+                            export.faces.Add(ExtractFace(face, mgr, keyContext));
+                        
+                        foreach (Edge edge in body.Edges)
+                            export.edges.Add(ExtractEdge(edge, mgr, keyContext));
+                    }
+
+                    // --- 2. VIRTUAL TOPOLOGY (Origin WorkPlanes) ---
+                    Console.WriteLine("Extracting origin planes...");
+                    ExtractWorkPlanes(def, export, mgr, keyContext);
+
+                    // --- 3. CONNECTION POINTS (Holes) ---
+                    Console.WriteLine("Extracting holes...");
+                    foreach (HoleFeature hole in def.Features.HoleFeatures)
+                    {
+                        if (hole.Suppressed) continue;
+                        export.connection_points.AddRange(ExtractHole(hole, mgr, keyContext));
+                    }
+
+                    // --- 4. FEATURE GRAPH & PATTERNS ---
+                    Console.WriteLine("Extracting features & patterns...");
+                    foreach (PartFeature feat in def.Features)
+                        export.feature_graph.Add(ExtractFeatureNode(feat));
+                    
+                    ExtractPatterns(def, export);
+
+                    // --- 5. LEGACY FEATURES ---
+                    ExtractWorkFeatures(def, export);
+                    foreach (ThreadFeature tf in def.Features.ThreadFeatures)
+                    {
+                        if (tf.Suppressed) continue;
+                        export.threads.Add(ExtractThread(tf));
+                    }
+                    foreach (ChamferFeature cf in def.Features.ChamferFeatures)
+                    {
+                        if (cf.Suppressed) continue;
+                        export.chamfers.Add(new ChamferData { name = cf.Name });
+                    }
+                    foreach (FilletFeature ff in def.Features.FilletFeatures)
+                    {
+                        if (ff.Suppressed) continue;
+                        export.fillets.Add(ExtractFillet(ff));
+                    }
+
+                    // --- SAVE TO JSON ---
+                    if (!System.IO.Directory.Exists(outputRoot))
+                        System.IO.Directory.CreateDirectory(outputRoot);
+
+                    string fileName = System.IO.Path.GetFileNameWithoutExtension(iptPath);
+                    string outputPath = System.IO.Path.Combine(outputRoot, fileName + ".json");
+
+                    string json = JsonConvert.SerializeObject(export, Newtonsoft.Json.Formatting.Indented);
+                    System.IO.File.WriteAllText(outputPath, json);
+
+                    partDoc.Close(true);
+                    Console.WriteLine($"Exported → {outputPath}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[Error] Failed processing {iptPath}: {ex.Message}");
+                }
+            }
+        }
+
+        // ==========================================
+        // GEOMETRY EXTRACTION METHODS
+        // ==========================================
+
+        static void ExtractWorkPlanes(PartComponentDefinition def, PartExport export, ReferenceKeyManager mgr, int keyContext)
+        {
+            foreach (WorkPlane wp in def.WorkPlanes)
+            {
+                try
+                {
+                    Plane mathPlane = wp.Plane;
+                    var wpData = new WorkPlaneData
+                    {
+                        work_feature_name = wp.Name,
+                        center = ToDoubleArr(mathPlane.RootPoint),
+                        normal = ToDoubleArr(mathPlane.Normal)
+                    };
+
+                    byte[] key = new byte[1];
+                    wp.GetReferenceKey(ref key, keyContext);
+                    wpData.reference_key_string = mgr.KeyToString(key);
+                    
+                    export.work_planes.Add(wpData);
+                }
+                catch { } 
+            }
+        }
+
+        static FaceData ExtractFace(Face face, ReferenceKeyManager mgr, int keyContext)
+        {
+            var data = new FaceData
+            {
+                transient_key = face.TransientKey,
+                surface_type = face.SurfaceType.ToString(),
+                area_cm2 = face.Evaluator.Area
+            };
+
+            try
+            {
+                byte[] key = new byte[1];
+                face.GetReferenceKey(ref key, keyContext);
+                data.reference_key_string = mgr.KeyToString(key);
+            }
+            catch { }
+
+            try
+            {
+                Box box = face.Evaluator.RangeBox;
+                data.bbox_min = ToPoint(box.MinPoint);
+                data.bbox_max = ToPoint(box.MaxPoint);
+            }
+            catch { }
+
+            try
+            {
+                SurfaceEvaluator eval = face.Evaluator;
+                Box2d uv = eval.ParamRangeRect;
+                double[] pars = {
+                    (uv.MinPoint.X + uv.MaxPoint.X) / 2.0,
+                    (uv.MinPoint.Y + uv.MaxPoint.Y) / 2.0
+                };
+                double[] normal = new double[3];
+                double[] pt = new double[3];
+                eval.GetNormal(ref pars, ref normal);
+                eval.GetPointAtParam(ref pars, ref pt);
+                data.normal = normal;
+                data.center = pt;
+            }
+            catch { }
+
+            try
+            {
+                if (face.SurfaceType == SurfaceTypeEnum.kCylinderSurface)
+                {
+                    Cylinder cyl = (Cylinder)face.Geometry;
+                    data.radius_cm = cyl.Radius;
+                }
+                else if (face.SurfaceType == SurfaceTypeEnum.kConeSurface)
+                {
+                    dynamic cone = face.Geometry;
+                    double apX = (double)cone.AxisPoint.X;
+                    double apY = (double)cone.AxisPoint.Y;
+                    double apZ = (double)cone.AxisPoint.Z;
+                    double avX = (double)cone.AxisVector.X;
+                    double avY = (double)cone.AxisVector.Y;
+                    double avZ = (double)cone.AxisVector.Z;
+
+                    Point pof = face.PointOnFace;
+                    double px = pof.X - apX;
+                    double py = pof.Y - apY;
+                    double pz = pof.Z - apZ;
+                    double dot = px * avX + py * avY + pz * avZ;
+                    double rx = px - dot * avX;
+                    double ry = py - dot * avY;
+                    double rz = pz - dot * avZ;
+                    data.radius_cm = Math.Sqrt(rx * rx + ry * ry + rz * rz);
+                }
+            }
+            catch { }
+
+            return data;
+        }
+
+        static EdgeData ExtractEdge(Edge edge, ReferenceKeyManager mgr, int keyContext)
+        {
+            var data = new EdgeData
+            {
+                transient_key = edge.TransientKey,
+                curve_type = edge.CurveType.ToString(),
+                length_cm = GetEdgeLength(edge)
+            };
+
+            try
+            {
+                byte[] key = new byte[1];
+                edge.GetReferenceKey(ref key, keyContext);
+                data.reference_key_string = mgr.KeyToString(key);
+            }
+            catch { }
+
+            try
+            {
+                CurveEvaluator eval = edge.Evaluator;
+                double s, e;
+                eval.GetParamExtents(out s, out e);
+                double mid = (s + e) / 2.0;
+                double[] arr = { mid };
+                double[] pt = new double[3];
+                double[] tan = new double[3];
+                eval.GetPointAtParam(ref arr, ref pt);
+                eval.GetTangent(ref arr, ref tan);
+                data.midpoint = pt;
+                data.tangent = tan;
+            }
+            catch { }
+
+            try
+            {
+                data.start_vertex = new double[] { edge.StartVertex.Point.X, edge.StartVertex.Point.Y, edge.StartVertex.Point.Z };
+                data.end_vertex = new double[] { edge.StopVertex.Point.X, edge.StopVertex.Point.Y, edge.StopVertex.Point.Z };
+            }
+            catch { }
+
+            // Extract Reference Keys of Adjacent Faces
+            data.adjacent_faces = new List<string>();
+            foreach (Face adjacentFace in edge.Faces)
+            {
+                try
+                {
+                    byte[] refKey = new byte[1];
+                    adjacentFace.GetReferenceKey(ref refKey, keyContext);
+                    data.adjacent_faces.Add(mgr.KeyToString(refKey));
+                }
+                catch { }
+            }
+
+            return data;
+        }
+
+        // ==========================================
+        // LEGACY EXTRACTION METHODS (Holes, Features, Patterns)
+        // ==========================================
+
+        static List<ConnectionPoint> ExtractHole(HoleFeature hole, ReferenceKeyManager mgr, int keyContext)
+        {
+            var list = new List<ConnectionPoint>();
+
+            string holeType = "Simple";
+            if (hole.HoleType == HoleTypeEnum.kCounterBoreHole) holeType = "Counterbore";
+            if (hole.HoleType == HoleTypeEnum.kCounterSinkHole) holeType = "Countersink";
+            bool isThreaded = hole.Tapped;
+            if (isThreaded) holeType = "Tapped";
+
+            bool isThrough = false;
+            double depth_cm = 0;
+            double cboreDiam = 0, cboreDepth = 0, csinkDiam = 0, csinkAngle = 0;
+
+            try { isThrough = (hole.Extent.Type == ObjectTypeEnum.kThroughAllExtentObject); } catch { }
+            if (!isThrough) { try { if (hole.Extent.Type == ObjectTypeEnum.kDistanceExtentObject) depth_cm = ((DistanceExtent)hole.Extent).Distance.Value; } catch { } }
+
+            double diam_cm = 0;
+            try { diam_cm = hole.HoleDiameter.Value; } catch { }
+            string threadDesig = null;
+            if (isThreaded) { try { threadDesig = hole.TapInfo.ThreadDesignation; } catch { } }
+
+            if (hole.HoleType == HoleTypeEnum.kCounterBoreHole)
+            {
+                try { cboreDiam = hole.CBoreDiameter.Value; cboreDepth = hole.CBoreDepth.Value; } catch { }
+            }
+            if (hole.HoleType == HoleTypeEnum.kCounterSinkHole)
+            {
+                try { csinkDiam = hole.CSinkDiameter.Value; csinkAngle = hole.CSinkAngle.Value; } catch { }
+            }
+
+            bool isPatterned = false;
+            string patternType = "None";
+            string patternParent = hole.Name;
+
+            if (hole.PlacementDefinition.Type == ObjectTypeEnum.kSketchHolePlacementDefinitionObject)
+            {
+                SketchHolePlacementDefinition placement = (SketchHolePlacementDefinition)hole.PlacementDefinition;
+                if (placement.HoleCenterPoints.Count > 1) { isPatterned = true; patternType = "SketchPattern"; }
+
+                int idx = 0;
+                foreach (SketchPoint sp in placement.HoleCenterPoints)
+                {
+                    idx++;
+                    ConnectionPoint cp = BuildCP(hole, holeType, isThreaded, threadDesig, isThrough, depth_cm, cboreDiam, cboreDepth, csinkDiam, csinkAngle, diam_cm, isPatterned, patternType, patternParent, idx);
+                    try
+                    {
+                        Point g3d = sp.Geometry3d;
+                        cp.center_cm = new double[] { g3d.X, g3d.Y, g3d.Z };
+
+                        PlanarSketch sk = (PlanarSketch)sp.Parent;
+                        UnitVector n = sk.PlanarEntityGeometry.Normal;
+                        cp.axis_direction = new double[] { n.X, n.Y, n.Z };
+
+                        byte[] key = new byte[1];
+                        sp.GetReferenceKey(ref key, keyContext);
+                        cp.reference_key_string = mgr.KeyToString(key);
+                    }
+                    catch { }
+                    list.Add(cp);
+                }
+            }
+            else
+            {
+                list.Add(BuildCP(hole, holeType, isThreaded, threadDesig, isThrough, depth_cm, cboreDiam, cboreDepth, csinkDiam, csinkAngle, diam_cm, isPatterned, patternType, patternParent, 1));
+            }
+
+            return list;
+        }
+
+        static ConnectionPoint BuildCP(HoleFeature hole, string holeType, bool isThreaded, string threadDesig, bool isThrough, double depth_cm, double cboreDiam, double cboreDepth, double csinkDiam, double csinkAngle, double diam_cm, bool isPatterned, string patternType, string patternParent, int idx)
+        {
+            return new ConnectionPoint
+            {
+                id = Guid.NewGuid().ToString(), feature_name = hole.Name, feature_type = "Hole", suppressed = hole.Suppressed,
+                hole_properties = new HoleProperties {
+                    hole_type = holeType, diameter_cm = diam_cm, is_threaded = isThreaded, thread_designation = threadDesig, is_through = isThrough,
+                    depth_cm = isThrough ? (double?)null : depth_cm, cbore_diameter_cm = cboreDiam > 0 ? (double?)cboreDiam : null, cbore_depth_cm = cboreDepth > 0 ? (double?)cboreDepth : null, csink_diameter_cm = csinkDiam > 0 ? (double?)csinkDiam : null, csink_angle_deg = csinkAngle > 0 ? (double?)(csinkAngle * 180.0 / Math.PI) : null
+                },
+                pattern_info = new PatternInfo { is_patterned = isPatterned, pattern_type = patternType, pattern_parent = patternParent, pattern_index = idx }
+            };
+        }
+
+        static FeatureNode ExtractFeatureNode(PartFeature feat)
+        {
+            var node = new FeatureNode { feature_name = feat.Name, feature_type = ClassifyFeature(feat), suppressed = feat.Suppressed };
+            dynamic dynFeat = feat;
+            try { foreach (object dep in dynFeat.DependentFeatures) { dynamic d = dep; node.child_features.Add((string)d.Name); } } catch { }
+            try { foreach (object dep in dynFeat.DependedOnFeatures) { dynamic d = dep; node.parent_features.Add((string)d.Name); } } catch { }
+            return node;
+        }
+
+        static string ClassifyFeature(PartFeature feat)
+        {
+            if (feat is HoleFeature) return "Hole";
+            if (feat is ExtrudeFeature) return "Extrude";
+            if (feat is RevolveFeature) return "Revolve";
+            if (feat is SweepFeature) return "Sweep";
+            if (feat is LoftFeature) return "Loft";
+            if (feat is ChamferFeature) return "Chamfer";
+            if (feat is FilletFeature) return "Fillet";
+            if (feat is ShellFeature) return "Shell";
+            if (feat is RectangularPatternFeature) return "RectangularPattern";
+            if (feat is CircularPatternFeature) return "CircularPattern";
+            if (feat is MirrorFeature) return "Mirror";
+            if (feat is ThreadFeature) return "Thread";
+            return "Other";
+        }
+
+        static void ExtractPatterns(PartComponentDefinition def, PartExport export)
+        {
+            foreach (RectangularPatternFeature rp in def.Features.RectangularPatternFeatures)
+            {
+                var pd = new PatternData { name = rp.Name, type = "Rectangular", suppressed = rp.Suppressed };
+                try { pd.count_dir1 = (int)rp.XCount.Value; pd.count_dir2 = (int)rp.YCount.Value; pd.spacing_dir1_cm = rp.XSpacing.Value; pd.spacing_dir2_cm = rp.YSpacing.Value; } catch { }
+                pd.suppressed_occurrences = GetSuppressedViaDynamic(rp);
+                export.patterns.Add(pd);
+            }
+
+            foreach (CircularPatternFeature cp in def.Features.CircularPatternFeatures)
+            {
+                var pd = new PatternData { name = cp.Name, type = "Circular", suppressed = cp.Suppressed };
+                try { pd.count_dir1 = (int)cp.Count.Value; pd.angle_total_rad = cp.Angle.Value; } catch { }
+                pd.suppressed_occurrences = GetSuppressedViaDynamic(cp);
+                export.patterns.Add(pd);
+            }
+
+            foreach (MirrorFeature mf in def.Features.MirrorFeatures)
+            {
+                export.patterns.Add(new PatternData { name = mf.Name, type = "Mirror", suppressed = mf.Suppressed });
+            }
+        }
+
+        static List<int> GetSuppressedViaDynamic(object patternFeature)
+        {
+            var list = new List<int>();
+            try { dynamic dyn = patternFeature; int total = (int)dyn.OccurrenceCount; for (int i = 1; i <= total; i++) { if ((bool)dyn.OccurrenceIsSuppressed(i)) list.Add(i); } } catch { }
+            return list;
+        }
+
+        static void ExtractWorkFeatures(PartComponentDefinition def, PartExport export)
+        {
+            foreach (PartFeature feat in def.Features)
+            {
+                if (feat.Suppressed) continue;
+                if (feat is WorkPlane)
+                {
+                    var wp = (WorkPlane)feat; var wf = new WorkFeatureData { name = wp.Name, type = "WorkPlane" };
+                    try { Plane pl = (Plane)wp.Plane; wf.normal = ToDoubleArr(pl.Normal); wf.origin = ToDoubleArr(pl.RootPoint); } catch { }
+                    export.work_features.Add(wf);
+                }
+                else if (feat is WorkAxis)
+                {
+                    var wa = (WorkAxis)feat; var wf = new WorkFeatureData { name = wa.Name, type = "WorkAxis" };
+                    try { wf.direction = ToDoubleArr(wa.Line.Direction); wf.origin = ToDoubleArr(wa.Line.RootPoint); } catch { }
+                    export.work_features.Add(wf);
+                }
+                else if (feat is WorkPoint)
+                {
+                    var wp = (WorkPoint)feat; var wf = new WorkFeatureData { name = wp.Name, type = "WorkPoint" };
+                    try { wf.origin = ToDoubleArr(wp.Point); } catch { }
+                    export.work_features.Add(wf);
+                }
+            }
+        }
+
+        static ThreadData ExtractThread(ThreadFeature tf)
+        {
+            var td = new ThreadData { name = tf.Name };
+            try { td.thread_designation = tf.ThreadInfo.ThreadDesignation; td.right_handed = tf.ThreadInfo.RightHanded; td.full_depth = tf.FullDepth; } catch { }
+            return td;
+        }
+
+        static FilletData ExtractFillet(FilletFeature ff)
+        {
+            var fd = new FilletData { name = ff.Name };
+            try { dynamic dynFillet = ff; dynamic defs = dynFillet.FilletDefinitions; if (defs != null && (int)defs.Count > 0) { dynamic def1 = defs[1]; fd.radius_cm = (double)def1.Radius.Value; } } catch { }
+            return fd;
+        }
+
+        static double GetEdgeLength(Edge edge)
+        {
+            try
+            {
+                if (edge.CurveType == CurveTypeEnum.kLineCurve)
+                {
+                    Point p1 = edge.StartVertex.Point, p2 = edge.StopVertex.Point;
+                    double dx = p2.X - p1.X, dy = p2.Y - p1.Y, dz = p2.Z - p1.Z;
+                    return Math.Sqrt(dx * dx + dy * dy + dz * dz);
+                }
+                if (edge.CurveType == CurveTypeEnum.kCircleCurve)
+                {
+                    Circle c = (Circle)edge.Geometry;
+                    double s, e; edge.Evaluator.GetParamExtents(out s, out e);
+                    return c.Radius * Math.Abs(e - s);
+                }
+                double st, en; edge.Evaluator.GetParamExtents(out st, out en); return Math.Abs(en - st);
+            }
+            catch { return 0; }
+        }
+
+        static PointData ToPoint(Point p) => new PointData { x = p.X, y = p.Y, z = p.Z };
+        static double[] ToDoubleArr(UnitVector v) => new double[] { v.X, v.Y, v.Z };
+        static double[] ToDoubleArr(Vector v) => new double[] { v.X, v.Y, v.Z };
+        static double[] ToDoubleArr(Point p) => new double[] { p.X, p.Y, p.Z };
+
+        static double SafeMass(PartComponentDefinition def) { try { return def.MassProperties.Mass; } catch { return 0; } }
+
+        static string GetProp(Document doc, string setName, string propName) { try { return doc.PropertySets[setName][propName].Value?.ToString() ?? ""; } catch { return ""; } }
+    }
+
+    // ==========================================
+    // DATA STRUCTURES
+    // ==========================================
+    public class PartExport
+    {
+        public PartMetadata part_metadata { get; set; }
+        public string context_key_string { get; set; }
+        public BoundingBox bounding_box { get; set; }
+        public List<FaceData> faces { get; set; } = new List<FaceData>();
+        public List<EdgeData> edges { get; set; } = new List<EdgeData>();
+        public List<WorkPlaneData> work_planes { get; set; } = new List<WorkPlaneData>();
+        public List<ConnectionPoint> connection_points { get; set; } = new List<ConnectionPoint>();
+        public List<FeatureNode> feature_graph { get; set; } = new List<FeatureNode>();
+        public List<PatternData> patterns { get; set; } = new List<PatternData>();
+        public List<WorkFeatureData> work_features { get; set; } = new List<WorkFeatureData>();
+        public List<ThreadData> threads { get; set; } = new List<ThreadData>();
+        public List<ChamferData> chamfers { get; set; } = new List<ChamferData>();
+        public List<FilletData> fillets { get; set; } = new List<FilletData>();
+    }
+
+    public class PartMetadata { public string file_name { get; set; } public string full_path { get; set; } public string internal_name { get; set; } public string units { get; set; } public string part_number { get; set; } public string description { get; set; } public string material { get; set; } public double mass_kg { get; set; } }
+    public class BoundingBox { public PointData min { get; set; } public PointData max { get; set; } }
+    public class PointData { public double x { get; set; } public double y { get; set; } public double z { get; set; } }
+
+    public class WorkPlaneData
+    {
+        public string entity_type { get; set; } = "WorkPlane";
+        public string work_feature_name { get; set; }
+        public string surface_type { get; set; } = "kPlaneSurface";
+        public double area_cm2 { get; set; } = 0.0001; 
+        public double[] center { get; set; }
+        public double[] normal { get; set; }
+        public string reference_key_string { get; set; }
+    }
+
+    public class FaceData
+    {
+        public int transient_key { get; set; }
+        public string reference_key_string { get; set; }
+        public string surface_type { get; set; }
+        public double area_cm2 { get; set; }
+        public double[] normal { get; set; }
+        public double[] center { get; set; }
+        public double? radius_cm { get; set; }
+        public PointData bbox_min { get; set; }
+        public PointData bbox_max { get; set; }
+        public string created_by_feature { get; set; }
+    }
+
+    public class EdgeData
+    {
+        public int transient_key { get; set; }
+        public string reference_key_string { get; set; }
+        public string curve_type { get; set; }
+        public double length_cm { get; set; }
+        public double[] midpoint { get; set; }
+        public double[] tangent { get; set; }
+        public double[] start_vertex { get; set; }
+        public double[] end_vertex { get; set; }
+        public List<string> adjacent_faces { get; set; }
+    }
+
+    public class ConnectionPoint { public string id { get; set; } public string feature_name { get; set; } public string feature_type { get; set; } public bool suppressed { get; set; } public string reference_key_string { get; set; } public double[] center_cm { get; set; } public double[] axis_direction { get; set; } public HoleProperties hole_properties { get; set; } public PatternInfo pattern_info { get; set; } }
+    public class HoleProperties { public string hole_type { get; set; } public double diameter_cm { get; set; } public bool is_threaded { get; set; } public string thread_designation { get; set; } public bool is_through { get; set; } public double? depth_cm { get; set; } public double? cbore_diameter_cm { get; set; } public double? cbore_depth_cm { get; set; } public double? csink_diameter_cm { get; set; } public double? csink_angle_deg { get; set; } }
+    public class PatternInfo { public bool is_patterned { get; set; } public string pattern_type { get; set; } public string pattern_parent { get; set; } public int pattern_index { get; set; } }
+    public class FeatureNode { public string feature_name { get; set; } public string feature_type { get; set; } public bool suppressed { get; set; } public List<string> parent_features { get; set; } = new List<string>(); public List<string> child_features { get; set; } = new List<string>(); }
+    public class PatternData { public string name { get; set; } public string type { get; set; } public bool suppressed { get; set; } public int? count_dir1 { get; set; } public int? count_dir2 { get; set; } public double? spacing_dir1_cm { get; set; } public double? spacing_dir2_cm { get; set; } public double? angle_total_rad { get; set; } public string axis_entity { get; set; } public double[] direction1 { get; set; } public double[] direction2 { get; set; } public List<string> parent_feature_names { get; set; } = new List<string>(); public List<int> suppressed_occurrences { get; set; } = new List<int>(); }
+    public class WorkFeatureData { public string name { get; set; } public string type { get; set; } public double[] origin { get; set; } public double[] normal { get; set; } public double[] direction { get; set; } }
+    public class ThreadData { public string name { get; set; } public string thread_designation { get; set; } public double nominal_size_mm { get; set; } public double pitch_mm { get; set; } public bool full_depth { get; set; } public bool right_handed { get; set; } }
+    public class ChamferData { public string name { get; set; } }
+    public class FilletData { public string name { get; set; } public double? radius_cm { get; set; } }
 }
-
-NEGATIVE_RATIO = 5
-
-def safe_log(x):
-    if x is None or x <= 0: return 0
-    return np.log(x + 1e-6)
-
-def safe_vec(v):
-    if v is None: return [0.0, 0.0, 0.0]
-    return [float(x) for x in v]
-
-def extract_features(item, is_face):
-    feat = [1.0 if is_face else 0.0]
-
-    if is_face:
-        s = item.get("surface_type", "None")
-        feat.extend([1.0 if s == t else 0.0 for t in SURFACE_TYPES])
-        feat.extend([0] * len(CURVE_TYPES))
-    else:
-        c = item.get("curve_type", "None")
-        feat.extend([0] * len(SURFACE_TYPES))
-        feat.extend([1.0 if c == t else 0.0 for t in CURVE_TYPES])
-
-    size = item.get("area_cm2") if is_face else item.get("length_cm")
-    feat.append(safe_log(size))
-    feat.append(float(item.get("radius_cm") or 0))
-
-    if is_face:
-        pt = item.get("center") or item.get("face_point_at_center")
-        vec = item.get("normal") or item.get("face_normal_at_center")
-    else:
-        pt = item.get("midpoint") or item.get("edge_midpoint")
-        vec = item.get("tangent") or item.get("edge_tangent_at_mid")
-
-    feat.extend(safe_vec(pt))
-    feat.extend(safe_vec(vec))
-
-    return feat
-
-class CADAssemblyDataset(InMemoryDataset):
-    def __init__(self, root_dir):
-        self.root_dir = root_dir
-        super().__init__(root_dir)
-        self.data, self.slices = torch.load(self.processed_paths[0], weights_only=False)
-
-    @property
-    def processed_file_names(self):
-        return ["cad_dataset.pt"]
-
-    def process(self):
-        parts_dir = os.path.join(self.root_dir, "Parts combined")
-        asm_dir = os.path.join(self.root_dir, "Assemblies combined")
-        part_index = {}
-
-        # 1. Index all part files
-        for root, _, files in os.walk(parts_dir):
-            for f in files:
-                if f.endswith(".json"):
-                    part_index[f.replace(".json", "")] = os.path.join(root, f)
-
-        graphs = []
-
-        # 2. Process all assemblies
-        for root, _, files in os.walk(asm_dir):
-            for f in files:
-                if f.endswith(".json"):
-                    try:
-                        g = self.process_assembly(os.path.join(root, f), part_index)
-                        if g: graphs.append(g)
-                    except Exception as e:
-                        print(f"Assembly error on {f}: {e}")
-
-        data, slices = self.collate(graphs)
-        torch.save((data, slices), self.processed_paths[0])
-        print(f"Dataset successfully built: {len(graphs)} assemblies")
-
-    def process_assembly(self, asm_path, part_index):
-        with open(asm_path, encoding='utf-8') as f: asm = json.load(f)
-        if "components" not in asm: return None
-
-        node_lookup = {}       # For Assembly constraints (Occurrence, Hash) -> Global Node ID
-        node_features = []
-        internal_edges = []
-        idx = 0
-
-        for comp in asm["components"]:
-            occ = comp["occurrence_name"]
-            raw = comp["file_name"].replace("\\", "/").split("/")[-1]
-            part_name = raw.replace(".ipt", "").replace(".json", "").replace("_full_export", "").strip()
-
-            if part_name not in part_index: continue
-            with open(part_index[part_name], encoding='utf-8') as pf: part = json.load(pf)
-
-            # Dictionary to map Custom Geometry Hashes to Node IDs for THIS specific part
-            local_hash_to_idx = {}
-
-            # EXTRACT FACES
-            for face in part.get("faces", []):
-                h = face.get("geometry_hash")
-                if h:
-                    node_lookup[(occ, h)] = idx
-                    local_hash_to_idx[h] = idx
-                    node_features.append(extract_features(face, True))
-                    idx += 1
-
-            # EXTRACT EDGES & BUILD B-REP TOPOLOGY
-            for edge in part.get("edges", []):
-                h = edge.get("geometry_hash")
-                if h:
-                    edge_idx = idx
-                    node_lookup[(occ, h)] = edge_idx
-                    local_hash_to_idx[h] = edge_idx
-                    node_features.append(extract_features(edge, False))
-                    idx += 1
-
-                    # ===================================================
-                    # B-REP ADJACENCY LOGIC (The Memory Crash Fix)
-                    # ===================================================
-                    for adj_hash in edge.get("adjacent_faces", []):
-                        face_idx = local_hash_to_idx.get(adj_hash)
-                        if face_idx is not None:
-                            # Draw undirected graph connection exactly where physics dictate
-                            internal_edges.append([edge_idx, face_idx])
-                            internal_edges.append([face_idx, edge_idx])
-                    # ===================================================
-
-        if idx == 0: return None
-
-        target_edges = []
-        labels = []
-
-        # SUPERVISION: Positive Constraints
-        for c in asm.get("constraints", []):
-            e1, e2 = c.get("entity_one"), c.get("entity_two")
-            occ1, occ2 = c.get("occurrence_one"), c.get("occurrence_two")
-            if not e1 or not e2: continue
-
-            n1 = node_lookup.get((occ1, e1.get("geometry_hash")))
-            n2 = node_lookup.get((occ2, e2.get("geometry_hash")))
-            if n1 is None or n2 is None: continue
-
-            label = CONSTRAINT_TYPES.get(c.get("constraint_type"), 0)
-            target_edges.append([n1, n2])
-            labels.append(label)
-
-        # SUPERVISION: Negative Samples
-        all_nodes = list(range(idx))
-        pos_pairs = set(tuple(sorted(e)) for e in target_edges)
-        neg_needed = len(target_edges) * NEGATIVE_RATIO
-
-        while neg_needed > 0:
-            a, b = random.choice(all_nodes), random.choice(all_nodes)
-            if a == b or tuple(sorted([a, b])) in pos_pairs: continue
-
-            target_edges.append([a, b])
-            labels.append(5)  # 5 = No Constraint
-            neg_needed -= 1
-
-        # Convert to PyTorch Tensors
-        x = torch.tensor(node_features, dtype=torch.float)
-        internal_edge_index = torch.tensor(internal_edges, dtype=torch.long).t().contiguous() if internal_edges else torch.empty((2, 0), dtype=torch.long)
-        target_edge_index = torch.tensor(target_edges, dtype=torch.long).t().contiguous()
-        y = torch.tensor(labels, dtype=torch.long)
-
-        return Data(x=x, internal_edge_index=internal_edge_index, target_edge_index=target_edge_index, y=y)
