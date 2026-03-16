@@ -1,0 +1,1848 @@
+{
+  "assembly_metadata": {
+    "assembly_name": "1830139686.iam",
+    "full_file_name": "E:\\Phase 1\\Assembly 6\\1830139686.iam",
+    "internal_name": "{299F2191-4C72-F739-72FB-5FB8A9A0BFE9}",
+    "total_occurrences": 20,
+    "total_constraints": 47
+  },
+  "components": [
+    {
+      "occurrence_name": "1830139686-M1.ipt:1",
+      "occurrence_path": "1830139686-M1.ipt:1",
+      "file_name": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": true,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.99999999999998934,
+            5.3175809551320227E-15,
+            -2.5142567993672169E-15
+          ],
+          [
+            -3.1660901640516075E-15,
+            0.99999999999999023,
+            4.87907459762922E-16
+          ],
+          [
+            1.4332407331257553E-15,
+            1.9178094536128741E-15,
+            0.99999999999998579
+          ]
+        ],
+        "translation_cm": [
+          36.240842145655414,
+          -314.40618449871113,
+          -158.47314251916484
+        ]
+      }
+    },
+    {
+      "occurrence_name": "1830139686-M2.ipt:2",
+      "occurrence_path": "1830139686-M2.ipt:2",
+      "file_name": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -0.99999999999999267,
+            7.2645362626765729E-15,
+            2.1263280443513086E-15
+          ],
+          [
+            3.1567110715636822E-15,
+            0.99999999999999423,
+            2.7617810188288341E-15
+          ],
+          [
+            -1.4285447824705647E-15,
+            1.9178094536128204E-15,
+            -0.99999999999999889
+          ]
+        ],
+        "translation_cm": [
+          87.440842145655765,
+          -186.10618449871274,
+          -158.47314251916453
+        ]
+      }
+    },
+    {
+      "occurrence_name": "1830139686-M3.ipt:3",
+      "occurrence_path": "1830139686-M3.ipt:3",
+      "file_name": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            -1.4559533362407919E-15,
+            2.844951272631141E-15
+          ],
+          [
+            2.8449512726311414E-15,
+            7.5150187896087863E-18,
+            1.0
+          ],
+          [
+            -1.4559533362407915E-15,
+            1.0,
+            -7.5150187896040532E-18
+          ]
+        ],
+        "translation_cm": [
+          64.440842145642719,
+          -311.38118449871121,
+          -163.47314251916478
+        ]
+      }
+    },
+    {
+      "occurrence_name": "1830139686-M4.ipt:4",
+      "occurrence_path": "1830139686-M4.ipt:4",
+      "file_name": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.1352603100715846E-15,
+            -1.0,
+            -5.0076512441933588E-15
+          ],
+          [
+            -2.2232789945833232E-15,
+            5.00765124419336E-15,
+            -1.0
+          ],
+          [
+            1.0,
+            -1.1352603100715735E-15,
+            -2.2232789945833283E-15
+          ]
+        ],
+        "translation_cm": [
+          38.865842145655968,
+          -191.30618449870917,
+          -158.47314251916461
+        ]
+      }
+    },
+    {
+      "occurrence_name": "1830139686-M5.ipt:5",
+      "occurrence_path": "1830139686-M5.ipt:5",
+      "file_name": "E:\\Phase 1\\Assembly 6\\1830139686-M5.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -2.5754891393244323E-15,
+            -0.99999999999999623,
+            8.55493606547287E-14
+          ],
+          [
+            -2.2233791596701942E-15,
+            -8.5549360654728046E-14,
+            -0.999999999999996
+          ],
+          [
+            0.99999999999999978,
+            -2.5754891393245825E-15,
+            -2.2233791596693359E-15
+          ]
+        ],
+        "translation_cm": [
+          90.1408421456443,
+          -191.30618449870184,
+          -158.4731425191645
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100114-M1.ipt:7",
+      "occurrence_path": "0298100114-M1.ipt:7",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.6128249862325877E-14,
+            4.9991212759408638E-15,
+            1.0
+          ],
+          [
+            5.629427906108781E-14,
+            1.0,
+            -4.999121275944024E-15
+          ],
+          [
+            -1.0,
+            5.6294279061088094E-14,
+            5.61282498623256E-14
+          ]
+        ],
+        "translation_cm": [
+          92.243842145655918,
+          -129.90618449871306,
+          -173.62314251916317
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100114-M1.ipt:8",
+      "occurrence_path": "0298100114-M1.ipt:8",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            1.0,
+            -5.3616096356799085E-14,
+            1.5660141152848992E-31
+          ],
+          [
+            5.3616096356799073E-14,
+            1.0,
+            -1.459521735366858E-15
+          ],
+          [
+            7.8097256586749276E-29,
+            1.459521735366858E-15,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          34.465842145654577,
+          -129.90618449871286,
+          -160.22014251916454
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0129327040-M100_T=3.ipt:9",
+      "occurrence_path": "0129327040-M100_T=3.ipt:9",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            -6.2215901881269036E-15,
+            3.7629680126820277E-15
+          ],
+          [
+            7.1818727893106866E-15,
+            -0.76436851924741578,
+            0.64477962652639165
+          ],
+          [
+            -1.1352603100715763E-15,
+            0.64477962652639165,
+            0.76436851924741578
+          ]
+        ],
+        "translation_cm": [
+          38.74084214565535,
+          -312.83118449870932,
+          -163.37314251916482
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0129327040-M100_T=3.ipt:10",
+      "occurrence_path": "0129327040-M100_T=3.ipt:10",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            -6.2215901881269036E-15,
+            3.7629680126820277E-15
+          ],
+          [
+            7.1818727893106866E-15,
+            -0.76436851924741578,
+            0.64477962652639165
+          ],
+          [
+            -1.1352603100715763E-15,
+            0.64477962652639165,
+            0.76436851924741578
+          ]
+        ],
+        "translation_cm": [
+          38.740842145655357,
+          -312.83118449870938,
+          -167.37314251916487
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0129327040-M100_T=3.ipt:11",
+      "occurrence_path": "0129327040-M100_T=3.ipt:11",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            -6.2215901881269036E-15,
+            3.7629680126820277E-15
+          ],
+          [
+            7.1818727893106866E-15,
+            -0.76436851924741578,
+            0.64477962652639165
+          ],
+          [
+            -1.1352603100715763E-15,
+            0.64477962652639165,
+            0.76436851924741578
+          ]
+        ],
+        "translation_cm": [
+          38.740842145655357,
+          -312.83118449870938,
+          -171.37314251916484
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0129327040-M100_T=3.ipt:12",
+      "occurrence_path": "0129327040-M100_T=3.ipt:12",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            1.0,
+            -1.4529214989006079E-14,
+            1.5037935271573455E-14
+          ],
+          [
+            -2.0801828835107115E-14,
+            -0.76436851924741578,
+            0.64477962652639165
+          ],
+          [
+            2.1263825017380968E-15,
+            -0.64477962652639165,
+            -0.76436851924741578
+          ]
+        ],
+        "translation_cm": [
+          90.190842145642677,
+          -312.831184498711,
+          -167.37314251916476
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0129327040-M100_T=3.ipt:13",
+      "occurrence_path": "0129327040-M100_T=3.ipt:13",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            1.0,
+            -1.4529214989006079E-14,
+            1.5037935271573455E-14
+          ],
+          [
+            -2.0801828835107115E-14,
+            -0.76436851924741578,
+            0.64477962652639165
+          ],
+          [
+            2.1263825017380968E-15,
+            -0.64477962652639165,
+            -0.76436851924741578
+          ]
+        ],
+        "translation_cm": [
+          90.190842145642662,
+          -312.83118449871097,
+          -163.37314251916473
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100114-M1.ipt:20",
+      "occurrence_path": "0298100114-M1.ipt:20",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            1.0,
+            -5.0377865300175864E-14,
+            3.1616762908151568E-15
+          ],
+          [
+            -3.1616762908150992E-15,
+            1.1473331705261038E-15,
+            1.0
+          ],
+          [
+            -5.0377865300175864E-14,
+            -1.0,
+            1.1473331705259445E-15
+          ]
+        ],
+        "translation_cm": [
+          84.890842145655867,
+          -166.00318449871284,
+          -163.57314251916443
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100114-M1.ipt:21",
+      "occurrence_path": "0298100114-M1.ipt:21",
+      "file_name": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            1.0,
+            -4.9434874495263989E-14,
+            -2.9499016752056781E-32
+          ],
+          [
+            4.9434874495263989E-14,
+            1.0,
+            -1.459521735366858E-15
+          ],
+          [
+            7.2180772827728129E-29,
+            1.459521735366858E-15,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          34.465842145653987,
+          -148.40618449871269,
+          -160.22014251916457
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100030:1",
+      "occurrence_path": "0298100030:1",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.2530283887956472E-15,
+            -7.8866639233166847E-15,
+            1.0
+          ],
+          [
+            1.0,
+            1.1759850593176964E-13,
+            -5.25302838879472E-15
+          ],
+          [
+            -1.1759850593176957E-13,
+            1.0,
+            7.8866639233173016E-15
+          ]
+        ],
+        "translation_cm": [
+          94.060842145655769,
+          -143.40618449871266,
+          -170.5981425191799
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100030:2",
+      "occurrence_path": "0298100030:2",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.2530283887956472E-15,
+            -7.8866639233166847E-15,
+            1.0
+          ],
+          [
+            1.0,
+            1.1759850593176964E-13,
+            -5.25302838879472E-15
+          ],
+          [
+            -1.1759850593176957E-13,
+            1.0,
+            7.8866639233173016E-15
+          ]
+        ],
+        "translation_cm": [
+          94.060842145655755,
+          -146.40618449871263,
+          -170.59814251917967
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100030:3",
+      "occurrence_path": "0298100030:3",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.2530283887956472E-15,
+            -7.8866639233166847E-15,
+            1.0
+          ],
+          [
+            1.0,
+            1.1759850593176964E-13,
+            -5.25302838879472E-15
+          ],
+          [
+            -1.1759850593176957E-13,
+            1.0,
+            7.8866639233173016E-15
+          ]
+        ],
+        "translation_cm": [
+          94.060842145655371,
+          -219.40618449871198,
+          -170.59814251917285
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100030:4",
+      "occurrence_path": "0298100030:4",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.2530283887956472E-15,
+            -7.8866639233166847E-15,
+            1.0
+          ],
+          [
+            1.0,
+            1.1759850593176964E-13,
+            -5.25302838879472E-15
+          ],
+          [
+            -1.1759850593176957E-13,
+            1.0,
+            7.8866639233173016E-15
+          ]
+        ],
+        "translation_cm": [
+          94.060842145655357,
+          -222.40618449871198,
+          -170.59814251917248
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100030:5",
+      "occurrence_path": "0298100030:5",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.2530283887956472E-15,
+            -7.8866639233166847E-15,
+            1.0
+          ],
+          [
+            1.0,
+            1.1759850593176964E-13,
+            -5.25302838879472E-15
+          ],
+          [
+            -1.1759850593176957E-13,
+            1.0,
+            7.8866639233173016E-15
+          ]
+        ],
+        "translation_cm": [
+          94.060842145654973,
+          -295.40618449871158,
+          -170.59814251916558
+        ]
+      }
+    },
+    {
+      "occurrence_name": "0298100030:6",
+      "occurrence_path": "0298100030:6",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.2530283887956472E-15,
+            -7.8866639233166847E-15,
+            1.0
+          ],
+          [
+            1.0,
+            1.1759850593176964E-13,
+            -5.25302838879472E-15
+          ],
+          [
+            -1.1759850593176957E-13,
+            1.0,
+            7.8866639233173016E-15
+          ]
+        ],
+        "translation_cm": [
+          94.060842145654959,
+          -298.40618449871141,
+          -170.59814251916524
+        ]
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_name": "Mate:19",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M2.ipt:2",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M2.ipt:2",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAACgAAAAYAAAAOAAAABgAAABEAAAAGAAAAEwAAAAYAAAAUAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAJqXA4UdN6LVwgKOmRNFFzwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADAAAAAGAAAAMQAAAAYAAAA3AAAABgAAADoAAAAGAAAAPAAAAAYAAAA9AAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAxURQQtBKQY9BnByOdcxOeAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:59",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M2.ipt:2",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 37.5,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M2.ipt:2",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+        "reference_key_string": "AQQMAGgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEQAAAAYAAAASAAAABgAAABgAAAAGAAAAGwAAAAYAAAAeAAAABgAAACEAAAAGAAAAIwAAAAYAAAAkAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAffeXKvpBEd53fDCyFloJCwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACAAAAAYAAAALAAAABgAAAA4AAAAGAAAADwAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAkQ+lQS1LJECPjD+1GyQ/iQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:60",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M2.ipt:2",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 6.7000000000000011,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M2.ipt:2",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAAMAAAABgAAAA4AAAAGAAAADwAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAbzLAyPRH0Mc4OuOSU1w34AD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAjopnKNpGjDz1Rbyt9Z1/8AD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:39",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M3.ipt:3",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAAMAAAABgAAAA4AAAAGAAAADwAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAZ3QNKyVLTY4jyD2AK9uI9wD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADAAAAAGAAAAMQAAAAYAAAA3AAAABgAAADoAAAAGAAAAPAAAAAYAAAA9AAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA0/hivbhC7/Ba2TyRWRHQ2QD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:62",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M3.ipt:3",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQPAIAAAAAAAAAAAgAAAAEAAAADAAAACwAAAAYAAAAQAAAABgAAABQAAAAGAAAAFwAAAAYAAAAaAAAABgAAAB0AAAAGAAAAIAAAAAYAAAAjAAAABgAAACYAAAAGAAAAKgAAAAYAAAAuAAAABgAAAC8AAAAGAAAAMgAAAAYAAAA1AAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAqumdAhFF8NV1a1iOpgNfyAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAoBf4J+pEN+UFsgKj5PXVLQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:64",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:7",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABUAAAAGAAAAGAAAAAYAAAAbAAAABgAAAB4AAAAGAAAAIQAAAAYAAAAjAAAABgAAACYAAAAGAAAAKQAAAAYAAAAsAAAABgAAAC8AAAAGAAAAMgAAAAYAAAA0AAAABgAAADcAAAAGAAAAOgAAAAYAAAA9AAAABgAAAEEAAAAGAAAARQAAAAYAAABIAAAABgAAAEoAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAJZ3jZGtO0qhIeXiBsKzufAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:7",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAArGweThGbGnWeHmseIq9iAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:43",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:7",
+      "offset_cm": 0.55,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA63vyThFCZWsMoHS4InZzkgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100114-M1.ipt:7",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "EAIAABAAAAAKAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAfDGn+NJEtMl/Rbu+d6vXQAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "XZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:44",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:7",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQArDDKzK1PaZK9rx6rHOBW8gD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:7",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAMc1R5CZN2D43Z2CwbRcHlAD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:69",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:8",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQYAMgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB4AAAAGAAAAHwAAAAYAAAAlAAAABgAAACgAAAAGAAAAKwAAAAYAAAAuAAAABgAAADAAAAAGAAAAMQAAAAYAAAA3AAAABgAAADoAAAAGAAAAPQAAAAYAAABBAAAABgAAAEUAAAAGAAAARwAAAAYAAABIAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAH4UHxHBLq2OMTAm96B2iYAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:8",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAIFaOzzRC9OKKXfmin4bELAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:53",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:8",
+      "offset_cm": 0.55,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA3cXrKFFJFFQv7l2z/N86DAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100114-M1.ipt:8",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "EAIAABAAAAAKAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA9I0ISYVElL4ktaaQSV96XwD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": "XZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:54",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:8",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAje1FgWZOqUnS7TCTujCnPgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:8",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAw0FyvMdEbSqUVj+AzmU7EgD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:76",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M5.ipt:5",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M5.ipt:5",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M5.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAnSMtgjhBamyUbKqEdMIXlQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAnnWEVvtPo0nX9oifkzu3XQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:62",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M5.ipt:5",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M5.ipt:5",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M5.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAAMAAAABgAAAA4AAAAGAAAADwAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA6E/fMzJH7AL1LB+4LG77WAD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADAAAAAGAAAAMQAAAAYAAAA3AAAABgAAADoAAAAGAAAAPAAAAAYAAAA9AAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAFUJBzYBOwF7HtdSR7qtyIgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:81",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M3.ipt:3",
+      "occurrence_two": "1830139686-M5.ipt:5",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAAMAAAABgAAABAAAAAGAAAAEwAAAAYAAAAUAAAABgAAABcAAAAGAAAAGgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAQPGULlVGgCFxIieDPWk4pQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M5.ipt:5",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M5.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAJAAAABgAAAA0AAAAGAAAAEAAAAAYAAAATAAAABgAAABcAAAAGAAAAGwAAAAYAAAAeAAAABgAAACEAAAAGAAAAIwAAAAYAAAAkAAAABgAAACcAAAAGAAAAKgAAAAYAAAAtAAAABgAAADAAAAAGAAAAMwAAAAYAAAA2AAAABgAAADkAAAAGAAAAPAAAAAYAAAA/AAAABgAAAEIAAAAGAAAARQAAAAYAAABIAAAABgAAAEsAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAVm2/o3pJrHEkgUaFnHKiIgD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:83",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M4.ipt:4",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M4.ipt:4",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAAMAAAABgAAAA4AAAAGAAAADwAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA74rwI5dF9BxDRE2fybv7SwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADAAAAAGAAAAMQAAAAYAAAA3AAAABgAAADoAAAAGAAAAPAAAAAYAAAA9AAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAfO7WeiRMSx2ihoCXQvfTSQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:77",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M4.ipt:4",
+      "occurrence_two": "1830139686-M1.ipt:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M4.ipt:4",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA/KckBatDCPhngIWCZzpqQQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAbmyyLPFA73l3JgWLH/4YkwD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:1",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M3.ipt:3",
+      "occurrence_two": "1830139686-M4.ipt:4",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAVVkRFxdI7qMgh7uDfwns2wD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M4.ipt:4",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAhbBc729EgL9lfruRGhUbrwD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:2",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M5.ipt:5",
+      "occurrence_two": "1830139686-M3.ipt:3",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M5.ipt:5",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M5.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAUEDLT5JFC6MweF60ea18zAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAVNCUQKhNQp9Ruuu3JbLpVQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:3",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "0129327040-M100_T=3.ipt:9",
+      "occurrence_two": "1830139686-M4.ipt:4",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "0129327040-M100_T=3.ipt:9",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAPwX/EedCFONqqhKE0lsosgD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M4.ipt:4",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAaLWIiYpCXDrushyrduQ79QD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:4",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M4.ipt:4",
+      "occurrence_two": "0129327040-M100_T=3.ipt:10",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M4.ipt:4",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAoXOVFadFaOCbhA2DQIikwwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "0129327040-M100_T=3.ipt:10",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAztoPFXBDty5fHyG50hqRTAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:5",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "0129327040-M100_T=3.ipt:11",
+      "occurrence_two": "1830139686-M4.ipt:4",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "0129327040-M100_T=3.ipt:11",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAZqpsMM5HwLbRi2O4JR8poAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M4.ipt:4",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M4.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA6/Tyql9H65NXVD2mUnWxlQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:6",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "0129327040-M100_T=3.ipt:12",
+      "occurrence_two": "1830139686-M3.ipt:3",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "0129327040-M100_T=3.ipt:12",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAa6CWVtNLTn6y7hue4WabsAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAbcSYg7pBBqvbNiKXs/A2ZwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Insert:7",
+      "constraint_type": "kInsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "0129327040-M100_T=3.ipt:13",
+      "occurrence_two": "1830139686-M3.ipt:3",
+      "offset_cm": null,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "0129327040-M100_T=3.ipt:13",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0129327040-M100_T=3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA3psC5T1H9qjXKYCM4Tqb9gD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M3.ipt:3",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA9C9z0gRFr4HKnemnBFXbdgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:84",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M2.ipt:2",
+      "occurrence_two": "0298100114-M1.ipt:20",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M2.ipt:2",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+        "reference_key_string": "AQQMAGgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEQAAAAYAAAASAAAABgAAABgAAAAGAAAAGwAAAAYAAAAeAAAABgAAACEAAAAGAAAAIwAAAAYAAAAkAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAbBftfyFIO5aYw4iWITnnvAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:20",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAZ2HbhtpKqh5UgGOyAEEjggD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:96",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M2.ipt:2",
+      "occurrence_two": "0298100114-M1.ipt:20",
+      "offset_cm": -0.55,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M2.ipt:2",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAT/0m8z5NFAewnBmDk9yOsgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100114-M1.ipt:20",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "EAIAABAAAAAKAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAgsJBYn9LAl3MhUCisuo24gD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "XZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:97",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M2.ipt:2",
+      "occurrence_two": "0298100114-M1.ipt:20",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M2.ipt:2",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M2.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQALzxdyspNx2PFonGUooH5UQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:20",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAL5Fj6WNHFV7s/ACSnirrZQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:86",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:21",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQYAMgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB4AAAAGAAAAHwAAAAYAAAAlAAAABgAAACgAAAAGAAAAKwAAAAYAAAAuAAAABgAAADAAAAAGAAAAMQAAAAYAAAA3AAAABgAAADoAAAAGAAAAPQAAAAYAAABBAAAABgAAAEUAAAAGAAAARwAAAAYAAABIAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAQEL+yiFHWfRtwpyCYh2DAgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:21",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAc+L05wRKQ6/2a4yQOGF5hwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:100",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:21",
+      "offset_cm": 0.55,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAry/tPtFBAQU7N0uWqXks/AD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100114-M1.ipt:21",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "EAIAABAAAAAKAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAbFtCpH5H4d0lAkWCmwoSDwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "XZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:101",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100114-M1.ipt:21",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAafMd3AJHNbeXtzu96BD99AD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100114-M1.ipt:21",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\0298100114-M1.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA9W41f1JJsYDdZVmDYlHHigD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:87",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAyHInkeNMXn5Gm+uxXg2nKAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:1",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAJvf0iExP/1YSUbKCNrBoNAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:102",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:1",
+      "offset_cm": 0.455,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAdHg0RBpHZMSvQi2J4q/PSAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100030:1",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "EAIAABAAAAAJAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA5rUm5K9PJkmGlSmhL1MligD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": "YZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:103",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:1",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAG/UVBpFOEdacC5OnEtOb2gD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:1",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA/uUNU5xEgc7ZliaOwk3axAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:88",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:2",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA+CFNWWBGksGYTGumynMD+QD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:2",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAMQeCFgdLVgrtlxW6KKJzhwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:104",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:2",
+      "offset_cm": 0.455,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA0jQbSTlKcIPcO0yAetoGowD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100030:2",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "EAIAABAAAAAJAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA7t7yN2lKZ9zG/+e29b1X0QD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": "YZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:105",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:2",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAc3pQx3xPePUVJ6mNlAvAoAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:2",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAMKfTCMpFPmwj7HW4RyG/mAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:89",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:3",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAP+7KgctNfKfV2O+xfO3fEAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:3",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAE4MHSjdM+Ymc3S6mjaTEVwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:106",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:3",
+      "offset_cm": 0.455,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAhm3kSFZI3hPhPNGDxY6jAQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100030:3",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "EAIAABAAAAAJAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAu0FyIvdCtNLpVQGIYNKSdgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "YZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:107",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:3",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQANEn9MLRJTpKI9LS96kOokQD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:3",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQARTA3f/RJEwuCiPe9NvWbQAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:90",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:4",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA6Nvf3kBGYJrB4gmbjN9KjgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:4",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQARmo3RXBB2QsBVIa/gyZTGwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:108",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:4",
+      "offset_cm": 0.455,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA0YKZTY5D21y4LnmIYMeCzgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100030:4",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "EAIAABAAAAAJAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAHR9X7OdD1ez2nweE9z3HrQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "YZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:109",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:4",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAva2eo9tBJuVh9K2iaig7rAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:4",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAFN+gLahE+77n9vu8RwQgpgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:91",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:5",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAeBijBtROgYyhyBO/juIChQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:5",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA4n5EzytBohB6G/O56hUoEgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:110",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:5",
+      "offset_cm": 0.455,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAjKlZ3atBMO+zCL2bP/JbHgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100030:5",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "EAIAABAAAAAJAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA4TE3aJZEpDp/WjeBpyMoFAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "YZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:111",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:5",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAwnHmY+dIskTVa9CuAlfGtQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:5",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQADyGlP3dCMR5x0Lyio99RAAD/////AAAAAAAABgBIiLJQMSCwYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Flush:92",
+      "constraint_type": "kFlushConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:6",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKwAAAAYAAAAuAAAABgAAADEAAAAGAAAANAAAAAYAAAA2AAAABgAAADcAAAAGAAAAPQAAAAYAAABAAAAABgAAAEMAAAAGAAAARgAAAAYAAABIAAAABgAAAEkAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAMp4AQGdKpu1C80WBbPJrDAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:6",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAh/fz+4xIIBjCrFy+CC3f5gD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      }
+    },
+    {
+      "constraint_name": "Mate:112",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:6",
+      "offset_cm": 0.455,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAjlCy46VJC20Bap6d64CxgAD/////AAAAAAAABgBICBIuHAQATP3nC8OcGA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "83887776",
+        "proxy_context_occurrence": "0298100030:6",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "EAIAABAAAAAJAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA64Vpw9RItnnM8gaQ3Ty8cQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": "YZ Plane"
+      }
+    },
+    {
+      "constraint_name": "Mate:113",
+      "constraint_type": "kMateConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830139686-M1.ipt:1",
+      "occurrence_two": "0298100030:6",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "entity_one": {
+        "entity_type": "67120288",
+        "proxy_context_occurrence": "1830139686-M1.ipt:1",
+        "owner_document": "E:\\Phase 1\\Assembly 6\\1830139686-M1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAcAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAI7z4/5hAslwYu6+u5JW3fQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "work_feature_name": null
+      },
+      "entity_two": {
+        "entity_type": "67119520",
+        "proxy_context_occurrence": "0298100030:6",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFVAwCkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAp4grbsFCg2jEihOQzPOAIgD/////AQABAAAAAAAAAAUADBUOAgCm/vOFYU4M",
+        "work_feature_name": null
+      }
+    }
+  ]
+}
