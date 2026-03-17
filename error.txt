@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-// NOTE: Do NOT add "using System.IO" — Inventor.File / Inventor.Path conflict.
-//       Use System.IO.File, System.IO.Path, System.IO.Directory explicitly.
-
 namespace InventorAssemblyExporter
 {
     class Program
@@ -15,11 +12,8 @@ namespace InventorAssemblyExporter
 
         static void Main(string[] args)
         {
-            // ==========================================
-            // CONFIGURATION
-            // ==========================================
             string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\assemblies_raw_export"; // Raw data before Python hashing
+            string baseOutputRoot = @"E:\Phase 1\new_exportedassemblies"; 
 
             try
             {
@@ -34,12 +28,11 @@ namespace InventorAssemblyExporter
                 Console.WriteLine("Started new Inventor instance.");
             }
 
-            Console.WriteLine($"Starting recursive Assembly extraction in: {baseInputRoot}");
+            Console.WriteLine($"Starting Full Assembly extraction in: {baseInputRoot}");
             
             if (!System.IO.Directory.Exists(baseOutputRoot))
                 System.IO.Directory.CreateDirectory(baseOutputRoot);
 
-            // Recursively find all .iam files
             foreach (string iamPath in System.IO.Directory.GetFiles(baseInputRoot, "*.iam", System.IO.SearchOption.AllDirectories))
             {
                 ProcessAssembly(iamPath, baseOutputRoot);
@@ -60,7 +53,6 @@ namespace InventorAssemblyExporter
 
                 AssemblyExport export = new AssemblyExport();
 
-                // --- 1. METADATA ---
                 export.assembly_metadata = new AssemblyMetadata
                 {
                     assembly_name = asmDoc.DisplayName,
@@ -70,26 +62,23 @@ namespace InventorAssemblyExporter
                     total_constraints = def.Constraints.Count
                 };
 
-                // --- 2. COMPONENTS (Occurrences) ---
                 Console.WriteLine("Extracting occurrences...");
                 foreach (ComponentOccurrence occ in def.Occurrences)
                 {
-                    var comp = new ComponentData
+                    export.components.Add(new ComponentData
                     {
                         occurrence_name = occ.Name,
-                        occurrence_path = occ.Name, // Simplified for top-level
+                        occurrence_path = occ.Name, 
                         file_name = occ.ReferencedDocumentDescriptor?.FullDocumentName ?? "",
                         component_type = occ.DefinitionDocumentType.ToString(),
                         grounded = occ.Grounded,
                         suppressed = occ.Suppressed,
                         visible = occ.Visible,
                         transform = ExtractTransform(occ.Transformation)
-                    };
-                    export.components.Add(comp);
+                    });
                 }
 
-                // --- 3. CONSTRAINTS (The Answers for the AI) ---
-                Console.WriteLine("Extracting constraints and native B-Rep keys...");
+                Console.WriteLine("Extracting constraints and full geometry...");
                 foreach (AssemblyConstraint constraint in def.Constraints)
                 {
                     if (constraint.Suppressed) continue;
@@ -97,29 +86,25 @@ namespace InventorAssemblyExporter
                     var cData = new ConstraintData
                     {
                         constraint_name = constraint.Name,
-                        constraint_type = constraint.Type.ToString().Replace("Object", ""), // e.g., kMateConstraint
+                        constraint_type = constraint.Type.ToString().Replace("Object", ""), 
                         suppressed = constraint.Suppressed
                     };
 
-                    // Safely extract properties using dynamic evaluation
                     dynamic dynConst = constraint;
                     try { cData.occurrence_one = constraint.OccurrenceOne.Name; } catch { }
                     try { cData.occurrence_two = constraint.OccurrenceTwo.Name; } catch { }
-                    
-                    // Specific properties
                     try { cData.offset_cm = (double)dynConst.Offset.Value; } catch { }
                     try { cData.angle_rad = (double)dynConst.Angle.Value; } catch { }
 
-                    // --- EXTRACT ENTITY PROXIES (Digging to the Part) ---
+                    // THIS IS WHERE WE EXTRACT THE FULL GEOMETRY
                     try { cData.entity_one = ExtractEntity(constraint.EntityOne); } catch { }
                     try { cData.entity_two = ExtractEntity(constraint.EntityTwo); } catch { }
 
                     export.constraints.Add(cData);
                 }
 
-                // --- SAVE TO JSON ---
                 string fileName = System.IO.Path.GetFileNameWithoutExtension(iamPath);
-                string outputPath = System.IO.Path.Combine(outputRoot, fileName + ".json");
+                string outputPath = System.IO.Path.Combine(outputRoot, fileName + "_full_export.json");
 
                 string json = JsonConvert.SerializeObject(export, Newtonsoft.Json.Formatting.Indented);
                 System.IO.File.WriteAllText(outputPath, json);
@@ -134,7 +119,7 @@ namespace InventorAssemblyExporter
         }
 
         // ==========================================
-        // DEEP ENTITY EXTRACTION (Proxy -> Native)
+        // HEAVYWEIGHT ENTITY EXTRACTION
         // ==========================================
         static EntityData ExtractEntity(object obj)
         {
@@ -144,37 +129,105 @@ namespace InventorAssemblyExporter
             try 
             {
                 dynamic proxy = obj;
-                
-                // Format name: kFaceProxyObject -> FaceProxy
                 data.entity_type = proxy.Type.ToString().Replace("k", "").Replace("Object", "");
 
                 ComponentOccurrence occ = proxy.ContainingOccurrence;
                 data.proxy_context_occurrence = occ.Name;
                 
-                // Get the Part Document where this geometry actually lives
                 Document doc = (Document)occ.Definition.Document;
                 data.owner_document = doc.FullFileName;
                 
-                // Set up the Reference Key Manager for the PART (Not the Assembly)
                 ReferenceKeyManager mgr = doc.ReferenceKeyManager;
                 int ctxId = mgr.CreateKeyContext();
                 byte[] ctxBytes = new byte[1];
                 mgr.SaveContextToArray(ctxId, ref ctxBytes);
                 data.context_key_string = mgr.KeyToString(ctxBytes);
                 
-                // Dig through the proxy to get the Native Face/Edge/WorkPlane
                 object nativeObj = proxy.NativeObject;
                 dynamic nativeDyn = nativeObj;
                 
-                // Extract the exact same binary key the Part Exporter extracts
                 byte[] refKey = new byte[1];
                 nativeDyn.GetReferenceKey(ref refKey, ctxId);
                 data.reference_key_string = mgr.KeyToString(refKey);
+                
+                // Add the SHA-256 Hash directly based on the Reference Key to match the Part Exporter
+                data.geometry_hash = (data.entity_type.Contains("Face") ? "face_" : 
+                                     (data.entity_type.Contains("Edge") ? "edge_" : "wp_")) + 
+                                     ComputeSha256Hash(data.reference_key_string).Substring(0, 16);
 
-                // If it's a Work Feature, grab its name so it matches our Part JSON logic
-                if (nativeObj is WorkPlane) data.work_feature_name = ((WorkPlane)nativeObj).Name;
-                if (nativeObj is WorkAxis) data.work_feature_name = ((WorkAxis)nativeObj).Name;
-                if (nativeObj is WorkPoint) data.work_feature_name = ((WorkPoint)nativeObj).Name;
+                // --- EXTRACT PHYSICAL GEOMETRY BASED ON TYPE ---
+                if (nativeObj is Face)
+                {
+                    Face face = (Face)nativeObj;
+                    data.surface_type = face.SurfaceType.ToString();
+                    data.area_cm2 = face.Evaluator.Area;
+
+                    try
+                    {
+                        Box box = face.Evaluator.RangeBox;
+                        data.face_bbox_min = new double[] { box.MinPoint.X, box.MinPoint.Y, box.MinPoint.Z };
+                        data.face_bbox_max = new double[] { box.MaxPoint.X, box.MaxPoint.Y, box.MaxPoint.Z };
+                    } catch { }
+
+                    try
+                    {
+                        SurfaceEvaluator eval = face.Evaluator;
+                        Box2d uv = eval.ParamRangeRect;
+                        double[] pars = { (uv.MinPoint.X + uv.MaxPoint.X) / 2.0, (uv.MinPoint.Y + uv.MaxPoint.Y) / 2.0 };
+                        double[] normal = new double[3];
+                        double[] pt = new double[3];
+                        eval.GetNormal(ref pars, ref normal);
+                        eval.GetPointAtParam(ref pars, ref pt);
+                        data.face_normal_at_center = normal;
+                        data.face_point_at_center = pt;
+                    } catch { }
+                }
+                else if (nativeObj is Edge)
+                {
+                    Edge edge = (Edge)nativeObj;
+                    data.curve_type = edge.CurveType.ToString();
+                    
+                    try
+                    {
+                        CurveEvaluator eval = edge.Evaluator;
+                        double s, e;
+                        eval.GetParamExtents(out s, out e);
+                        double mid = (s + e) / 2.0;
+                        double[] arr = { mid };
+                        double[] pt = new double[3];
+                        double[] tan = new double[3];
+                        eval.GetPointAtParam(ref arr, ref pt);
+                        eval.GetTangent(ref arr, ref tan);
+                        data.edge_midpoint = pt;
+                        data.edge_tangent_at_mid = tan;
+                    } catch { }
+                }
+                else if (nativeObj is WorkPlane)
+                {
+                    // VIRTUAL TOPOLOGY DISGUISE FOR WORKPLANES
+                    WorkPlane wp = (WorkPlane)nativeObj;
+                    data.work_feature_name = wp.Name;
+                    data.surface_type = "kPlaneSurface";
+                    data.area_cm2 = 0.0001; // Disguise it for the AI
+                    
+                    try
+                    {
+                        Plane pl = (Plane)wp.Plane;
+                        data.face_normal_at_center = new double[] { pl.Normal.X, pl.Normal.Y, pl.Normal.Z };
+                        data.face_point_at_center = new double[] { pl.RootPoint.X, pl.RootPoint.Y, pl.RootPoint.Z };
+                    } catch { }
+                }
+                else if (nativeObj is WorkAxis)
+                {
+                    data.work_feature_name = ((WorkAxis)nativeObj).Name;
+                }
+                else if (nativeObj is WorkPoint)
+                {
+                    data.work_feature_name = ((WorkPoint)nativeObj).Name;
+                }
+
+                data.bind_succeeded = true;
+                data.bind_match_type = "kUniqueSolution";
             } 
             catch { }
             
@@ -196,6 +249,17 @@ namespace InventorAssemblyExporter
                 },
                 translation_cm = new double[] { cells[3], cells[7], cells[11] }
             };
+        }
+
+        static string ComputeSha256Hash(string rawData)
+        {
+            using (System.Security.Cryptography.SHA256 sha256Hash = System.Security.Cryptography.SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(rawData ?? "null"));
+                System.Text.StringBuilder builder = new System.Text.StringBuilder();
+                for (int i = 0; i < bytes.Length; i++) builder.Append(bytes[i].ToString("x2"));
+                return builder.ToString();
+            }
         }
     }
 
@@ -256,6 +320,25 @@ namespace InventorAssemblyExporter
         public string owner_document { get; set; }
         public string reference_key_string { get; set; }
         public string context_key_string { get; set; }
+        
+        public bool bind_succeeded { get; set; }
+        public string bind_match_type { get; set; }
+        public string key_extraction_error { get; set; }
+
+        // B-REP / PHYSICAL GEOMETRY
+        public string surface_type { get; set; }
+        public double? area_cm2 { get; set; }
+        public double[] face_normal_at_center { get; set; }
+        public double[] face_point_at_center { get; set; }
+        public double[] face_bbox_min { get; set; }
+        public double[] face_bbox_max { get; set; }
+        
+        public string curve_type { get; set; }
+        public double? length_cm { get; set; }
+        public double[] edge_midpoint { get; set; }
+        public double[] edge_tangent_at_mid { get; set; }
+        
         public string work_feature_name { get; set; }
+        public string geometry_hash { get; set; }
     }
 }
