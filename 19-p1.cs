@@ -12,7 +12,6 @@ namespace InventorPartExporter
 
         static void Main(string[] args)
         {
-            // UPDATE THESE PATHS TO YOUR FOLDERS
             string baseInputRoot = @"E:\Phase 1";
             string baseOutputRoot = @"E:\Phase 1\parts_raw_export";
 
@@ -34,7 +33,6 @@ namespace InventorPartExporter
             if (!System.IO.Directory.Exists(baseOutputRoot))
                 System.IO.Directory.CreateDirectory(baseOutputRoot);
 
-            // Recursively find ALL .ipt files
             foreach (string iptPath in System.IO.Directory.GetFiles(baseInputRoot, "*.ipt", System.IO.SearchOption.AllDirectories))
             {
                 ProcessPart(iptPath, baseOutputRoot);
@@ -76,15 +74,24 @@ namespace InventorPartExporter
                 try
                 {
                     Box rb = def.RangeBox;
-                    export.bounding_box = new BoundingBox
-                    {
-                        min = ToPoint(rb.MinPoint),
-                        max = ToPoint(rb.MaxPoint)
-                    };
-                }
-                catch { }
+                    export.bounding_box = new BoundingBox { min = ToPoint(rb.MinPoint), max = ToPoint(rb.MaxPoint) };
+                } catch { }
 
-                Console.WriteLine("  Extracting faces and edges...");
+                // --- 1. NEW: MODEL PARAMETERS ---
+                Console.WriteLine("  Extracting Parameters...");
+                foreach (ModelParameter param in def.Parameters.ModelParameters)
+                {
+                    try {
+                        export.parameters.Add(new ParameterData {
+                            name = param.Name,
+                            expression = param.Expression,
+                            value_cm = param.Value
+                        });
+                    } catch { }
+                }
+
+                // --- 2. TRUE B-REP & FACE LOOPS ---
+                Console.WriteLine("  Extracting Faces, Edges, and Face Loops...");
                 foreach (SurfaceBody body in def.SurfaceBodies)
                 {
                     foreach (Face face in body.Faces)
@@ -94,10 +101,29 @@ namespace InventorPartExporter
                         export.edges.Add(ExtractEdge(edge, mgr, keyContext));
                 }
 
+                // --- 3. NEW: SKETCH GEOMETRY ---
+                Console.WriteLine("  Extracting 2D Sketch Geometry...");
+                foreach (PlanarSketch sketch in def.Sketches)
+                {
+                    export.sketches.Add(ExtractSketch(sketch, mgr, keyContext));
+                }
+
                 Console.WriteLine("  Extracting WorkPlanes (Virtual Topology)...");
                 ExtractWorkPlanes(def, export, mgr, keyContext);
 
-                // --- SAVE TO JSON ---
+                Console.WriteLine("  Extracting Holes...");
+                foreach (HoleFeature hole in def.Features.HoleFeatures)
+                {
+                    if (!hole.Suppressed) export.connection_points.AddRange(ExtractHole(hole, mgr, keyContext));
+                }
+
+                Console.WriteLine("  Extracting Feature Graph...");
+                foreach (PartFeature feat in def.Features)
+                    export.feature_graph.Add(ExtractFeatureNode(feat));
+
+                Console.WriteLine("  Extracting Patterns...");
+                ExtractPatterns(def, export);
+
                 string fileName = System.IO.Path.GetFileNameWithoutExtension(iptPath);
                 string outputPath = System.IO.Path.Combine(outputRoot, fileName + ".json");
 
@@ -113,30 +139,9 @@ namespace InventorPartExporter
             }
         }
 
-        static void ExtractWorkPlanes(PartComponentDefinition def, PartExport export, ReferenceKeyManager mgr, int keyContext)
-        {
-            foreach (WorkPlane wp in def.WorkPlanes)
-            {
-                try
-                {
-                    Plane mathPlane = wp.Plane;
-                    var wpData = new WorkPlaneData
-                    {
-                        work_feature_name = wp.Name,
-                        center = new double[] { mathPlane.RootPoint.X, mathPlane.RootPoint.Y, mathPlane.RootPoint.Z },
-                        normal = new double[] { mathPlane.Normal.X, mathPlane.Normal.Y, mathPlane.Normal.Z }
-                    };
-
-                    byte[] key = new byte[1];
-                    wp.GetReferenceKey(ref key, keyContext);
-                    wpData.reference_key_string = mgr.KeyToString(key);
-                    
-                    export.work_planes.Add(wpData);
-                }
-                catch { } 
-            }
-        }
-
+        // ==========================================
+        // TRUE B-REP MATHEMATICS WITH FACE LOOPS
+        // ==========================================
         static FaceData ExtractFace(Face face, ReferenceKeyManager mgr, int keyContext)
         {
             var data = new FaceData
@@ -151,16 +156,14 @@ namespace InventorPartExporter
                 byte[] key = new byte[1];
                 face.GetReferenceKey(ref key, keyContext);
                 data.reference_key_string = mgr.KeyToString(key);
-            }
-            catch { }
+            } catch { }
 
             try
             {
                 Box box = face.Evaluator.RangeBox;
                 data.bbox_min = ToPoint(box.MinPoint);
                 data.bbox_max = ToPoint(box.MaxPoint);
-            }
-            catch { }
+            } catch { }
 
             try
             {
@@ -173,23 +176,35 @@ namespace InventorPartExporter
                 eval.GetPointAtParam(ref pars, ref pt);
                 data.normal = normal;
                 data.center = pt;
-            }
-            catch { }
+            } catch { }
 
             try
             {
                 if (face.SurfaceType == SurfaceTypeEnum.kCylinderSurface)
-                {
                     data.radius_cm = ((Cylinder)face.Geometry).Radius;
-                }
-            }
-            catch { }
+            } catch { }
 
             try
             {
                 if (face.CreatedByFeature != null) data.created_by_feature = face.CreatedByFeature.Name;
+            } catch { }
+
+            // --- NEW: FACE LOOPS ---
+            data.loops = new List<LoopData>();
+            foreach (EdgeLoop loop in face.EdgeLoops)
+            {
+                var loopData = new LoopData { is_outer = loop.IsOuterEdgeLoop };
+                foreach (Edge loopEdge in loop.Edges)
+                {
+                    try
+                    {
+                        byte[] eKey = new byte[1];
+                        loopEdge.GetReferenceKey(ref eKey, keyContext);
+                        loopData.edge_reference_keys.Add(mgr.KeyToString(eKey));
+                    } catch { }
+                }
+                data.loops.Add(loopData);
             }
-            catch { }
 
             return data;
         }
@@ -200,7 +215,7 @@ namespace InventorPartExporter
             {
                 transient_key = edge.TransientKey,
                 curve_type = edge.CurveType.ToString(),
-                length_cm = GetEdgeLength(edge) // Uses new accurate physical length function
+                length_cm = GetEdgeLength(edge) 
             };
 
             try
@@ -208,8 +223,7 @@ namespace InventorPartExporter
                 byte[] key = new byte[1];
                 edge.GetReferenceKey(ref key, keyContext);
                 data.reference_key_string = mgr.KeyToString(key);
-            }
-            catch { }
+            } catch { }
 
             try
             {
@@ -217,7 +231,6 @@ namespace InventorPartExporter
                 double s, e;
                 eval.GetParamExtents(out s, out e);
                 
-                // Get the true physical midpoint, NOT the parameter midpoint
                 double length;
                 eval.GetLengthAtParam(s, e, out length);
                 
@@ -236,10 +249,8 @@ namespace InventorPartExporter
                 
                 data.start_vertex = new double[] { edge.StartVertex.Point.X, edge.StartVertex.Point.Y, edge.StartVertex.Point.Z };
                 data.end_vertex = new double[] { edge.StopVertex.Point.X, edge.StopVertex.Point.Y, edge.StopVertex.Point.Z };
-            }
-            catch { }
+            } catch { }
 
-            // Extract Reference Keys of Adjacent Faces (No Hashing!)
             data.adjacent_faces = new List<string>();
             foreach (Face adjacentFace in edge.Faces)
             {
@@ -248,8 +259,7 @@ namespace InventorPartExporter
                     byte[] refKey = new byte[1];
                     adjacentFace.GetReferenceKey(ref refKey, keyContext);
                     data.adjacent_faces.Add(mgr.KeyToString(refKey));
-                }
-                catch { }
+                } catch { }
             }
 
             return data;
@@ -262,15 +272,12 @@ namespace InventorPartExporter
                 CurveEvaluator eval = edge.Evaluator;
                 double s, e;
                 eval.GetParamExtents(out s, out e);
-                
-                // Forces Inventor to integrate the true physical curve distance
                 double length;
                 eval.GetLengthAtParam(s, e, out length);
                 return length;
             }
             catch 
             { 
-                // Ultimate fallback for corrupted geometry
                 try
                 {
                     Point p1 = edge.StartVertex.Point, p2 = edge.StopVertex.Point;
@@ -278,6 +285,99 @@ namespace InventorPartExporter
                     return Math.Sqrt(dx * dx + dy * dy + dz * dz);
                 }
                 catch { return 0; }
+            }
+        }
+
+        // ==========================================
+        // SKETCHES
+        // ==========================================
+        static SketchData ExtractSketch(PlanarSketch sketch, ReferenceKeyManager mgr, int keyContext)
+        {
+            var data = new SketchData { name = sketch.Name, visible = sketch.Visible };
+            
+            try {
+                foreach (SketchLine line in sketch.SketchLines)
+                    data.lines.Add(new double[] { line.StartSketchPoint.Geometry.X, line.StartSketchPoint.Geometry.Y, line.EndSketchPoint.Geometry.X, line.EndSketchPoint.Geometry.Y });
+            } catch { }
+
+            try {
+                foreach (SketchCircle circ in sketch.SketchCircles)
+                    data.circles.Add(new double[] { circ.CenterSketchPoint.Geometry.X, circ.CenterSketchPoint.Geometry.Y, circ.Radius });
+            } catch { }
+
+            return data;
+        }
+
+        // ==========================================
+        // WORKPLANES & FEATURES
+        // ==========================================
+        static void ExtractWorkPlanes(PartComponentDefinition def, PartExport export, ReferenceKeyManager mgr, int keyContext)
+        {
+            foreach (WorkPlane wp in def.WorkPlanes)
+            {
+                try
+                {
+                    Plane mathPlane = wp.Plane;
+                    var wpData = new WorkPlaneData
+                    {
+                        work_feature_name = wp.Name,
+                        center = new double[] { mathPlane.RootPoint.X, mathPlane.RootPoint.Y, mathPlane.RootPoint.Z },
+                        normal = new double[] { mathPlane.Normal.X, mathPlane.Normal.Y, mathPlane.Normal.Z }
+                    };
+
+                    byte[] key = new byte[1];
+                    wp.GetReferenceKey(ref key, keyContext);
+                    wpData.reference_key_string = mgr.KeyToString(key);
+                    export.work_planes.Add(wpData);
+                } catch { } 
+            }
+        }
+
+        static FeatureNode ExtractFeatureNode(PartFeature feat)
+        {
+            var node = new FeatureNode { feature_name = feat.Name, feature_type = ClassifyFeature(feat), suppressed = feat.Suppressed };
+            dynamic dynFeat = feat;
+            try { foreach (object dep in dynFeat.DependentFeatures) { dynamic d = dep; node.child_features.Add((string)d.Name); } } catch { }
+            try { foreach (object dep in dynFeat.DependedOnFeatures) { dynamic d = dep; node.parent_features.Add((string)d.Name); } } catch { }
+            return node;
+        }
+
+        static string ClassifyFeature(PartFeature feat)
+        {
+            if (feat is ExtrudeFeature) return "Extrude";
+            if (feat is RevolveFeature) return "Revolve";
+            if (feat is SweepFeature) return "Sweep";
+            if (feat is LoftFeature) return "Loft";
+            if (feat is HoleFeature) return "Hole";
+            if (feat is FilletFeature) return "Fillet";
+            if (feat is ChamferFeature) return "Chamfer";
+            if (feat is RectangularPatternFeature) return "RectangularPattern";
+            if (feat is CircularPatternFeature) return "CircularPattern";
+            if (feat is CombineFeature) return "BooleanCombine";
+            return "Other";
+        }
+
+        static List<ConnectionPoint> ExtractHole(HoleFeature hole, ReferenceKeyManager mgr, int keyContext)
+        {
+            var list = new List<ConnectionPoint>();
+            string holeType = hole.Tapped ? "Tapped" : "Simple";
+            double diam_cm = 0;
+            try { diam_cm = hole.HoleDiameter.Value; } catch { }
+
+            list.Add(new ConnectionPoint {
+                id = Guid.NewGuid().ToString(), feature_name = hole.Name, feature_type = "Hole", suppressed = hole.Suppressed,
+                hole_properties = new HoleProperties { hole_type = holeType, diameter_cm = diam_cm, is_threaded = hole.Tapped }
+            });
+            return list;
+        }
+
+        static void ExtractPatterns(PartComponentDefinition def, PartExport export)
+        {
+            foreach (RectangularPatternFeature rp in def.Features.RectangularPatternFeatures)
+            {
+                var pd = new PatternData { name = rp.Name, type = "Rectangular", suppressed = rp.Suppressed };
+                try { pd.count_dir1 = (int)rp.XCount.Value; pd.count_dir2 = (int)rp.YCount.Value; } catch { }
+                export.patterns.Add(pd);
             }
         }
 
@@ -294,14 +394,26 @@ namespace InventorPartExporter
         public PartMetadata part_metadata { get; set; }
         public string context_key_string { get; set; }
         public BoundingBox bounding_box { get; set; }
+        public List<ParameterData> parameters { get; set; } = new List<ParameterData>();
         public List<FaceData> faces { get; set; } = new List<FaceData>();
         public List<EdgeData> edges { get; set; } = new List<EdgeData>();
+        public List<SketchData> sketches { get; set; } = new List<SketchData>();
         public List<WorkPlaneData> work_planes { get; set; } = new List<WorkPlaneData>();
+        public List<ConnectionPoint> connection_points { get; set; } = new List<ConnectionPoint>();
+        public List<FeatureNode> feature_graph { get; set; } = new List<FeatureNode>();
+        public List<PatternData> patterns { get; set; } = new List<PatternData>();
     }
 
     public class PartMetadata { public string file_name { get; set; } public string full_path { get; set; } public string internal_name { get; set; } public string units { get; set; } public string part_number { get; set; } public string description { get; set; } public string material { get; set; } public double mass_kg { get; set; } }
     public class BoundingBox { public PointData min { get; set; } public PointData max { get; set; } }
     public class PointData { public double x { get; set; } public double y { get; set; } public double z { get; set; } }
+
+    public class ParameterData
+    {
+        public string name { get; set; }
+        public string expression { get; set; }
+        public double value_cm { get; set; }
+    }
 
     public class WorkPlaneData
     {
@@ -326,6 +438,13 @@ namespace InventorPartExporter
         public PointData bbox_min { get; set; }
         public PointData bbox_max { get; set; }
         public string created_by_feature { get; set; }
+        public List<LoopData> loops { get; set; } = new List<LoopData>();
+    }
+
+    public class LoopData
+    {
+        public bool is_outer { get; set; }
+        public List<string> edge_reference_keys { get; set; } = new List<string>();
     }
 
     public class EdgeData
@@ -340,4 +459,17 @@ namespace InventorPartExporter
         public double[] end_vertex { get; set; }
         public List<string> adjacent_faces { get; set; }
     }
+
+    public class SketchData
+    {
+        public string name { get; set; }
+        public bool visible { get; set; }
+        public List<double[]> lines { get; set; } = new List<double[]>();
+        public List<double[]> circles { get; set; } = new List<double[]>();
+    }
+
+    public class ConnectionPoint { public string id { get; set; } public string feature_name { get; set; } public string feature_type { get; set; } public bool suppressed { get; set; } public HoleProperties hole_properties { get; set; } }
+    public class HoleProperties { public string hole_type { get; set; } public double diameter_cm { get; set; } public bool is_threaded { get; set; } }
+    public class FeatureNode { public string feature_name { get; set; } public string feature_type { get; set; } public bool suppressed { get; set; } public List<string> parent_features { get; set; } = new List<string>(); public List<string> child_features { get; set; } = new List<string>(); }
+    public class PatternData { public string name { get; set; } public string type { get; set; } public bool suppressed { get; set; } public int? count_dir1 { get; set; } public int? count_dir2 { get; set; } }
 }
