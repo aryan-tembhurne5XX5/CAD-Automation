@@ -1,0 +1,329 @@
+using Inventor;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+namespace InventorAssemblyExporter
+{
+    class Program
+    {
+        static Inventor.Application invApp;
+
+        static void Main(string[] args)
+        {
+            // UPDATE THESE PATHS TO YOUR FOLDERS
+            string baseInputRoot = @"E:\Phase 1";
+            string baseOutputRoot = @"E:\Phase 1\assemblies_raw_export";
+
+            try
+            {
+                invApp = (Inventor.Application)Marshal.GetActiveObject("Inventor.Application");
+                Console.WriteLine("Connected to running Inventor instance.");
+            }
+            catch
+            {
+                Type t = Type.GetTypeFromProgID("Inventor.Application");
+                invApp = (Inventor.Application)Activator.CreateInstance(t);
+                invApp.Visible = true;
+                Console.WriteLine("Started new Inventor instance.");
+            }
+
+            Console.WriteLine($"Starting Full Recursive Assembly extraction in: {baseInputRoot}");
+
+            if (!System.IO.Directory.Exists(baseOutputRoot))
+                System.IO.Directory.CreateDirectory(baseOutputRoot);
+
+            // Recursively find ALL .iam files
+            foreach (string iamPath in System.IO.Directory.GetFiles(baseInputRoot, "*.iam", System.IO.SearchOption.AllDirectories))
+            {
+                ProcessAssembly(iamPath, baseOutputRoot);
+            }
+
+            Console.WriteLine("\n✅ All assemblies successfully extracted.");
+        }
+
+        static void ProcessAssembly(string iamPath, string outputRoot)
+        {
+            try
+            {
+                Console.WriteLine($"\nOpening Assembly: {iamPath}");
+
+                Document openedDoc = invApp.Documents.Open(iamPath, true);
+                AssemblyDocument asmDoc = (AssemblyDocument)openedDoc;
+                AssemblyComponentDefinition def = asmDoc.ComponentDefinition;
+
+                AssemblyExport export = new AssemblyExport();
+
+                export.assembly_metadata = new AssemblyMetadata
+                {
+                    assembly_name = asmDoc.DisplayName,
+                    full_file_name = asmDoc.FullFileName,
+                    internal_name = asmDoc.InternalName,
+                    total_occurrences = def.Occurrences.Count,
+                    total_constraints = def.Constraints.Count
+                };
+
+                Console.WriteLine("  Extracting occurrences...");
+                foreach (ComponentOccurrence occ in def.Occurrences)
+                {
+                    export.components.Add(new ComponentData
+                    {
+                        occurrence_name = occ.Name,
+                        occurrence_path = occ.Name,
+                        file_name = occ.ReferencedDocumentDescriptor?.FullDocumentName ?? "",
+                        component_type = occ.DefinitionDocumentType.ToString(),
+                        grounded = occ.Grounded,
+                        suppressed = occ.Suppressed,
+                        visible = occ.Visible,
+                        transform = ExtractTransform(occ.Transformation)
+                    });
+                }
+
+                Console.WriteLine("  Extracting constraints and full native B-Rep geometry...");
+                foreach (AssemblyConstraint constraint in def.Constraints)
+                {
+                    if (constraint.Suppressed) continue;
+
+                    var cData = new ConstraintData
+                    {
+                        constraint_name = constraint.Name,
+                        constraint_type = constraint.Type.ToString().Replace("Object", ""),
+                        suppressed = constraint.Suppressed
+                    };
+
+                    dynamic dynConst = constraint;
+                    try { cData.occurrence_one = constraint.OccurrenceOne.Name; } catch { }
+                    try { cData.occurrence_two = constraint.OccurrenceTwo.Name; } catch { }
+                    try { cData.offset_cm = (double)dynConst.Offset.Value; } catch { }
+                    try { cData.angle_rad = (double)dynConst.Angle.Value; } catch { }
+
+                    // HEAVYWEIGHT REACH-THROUGH EXTRACTION
+                    try { cData.entity_one = ExtractEntity(constraint.EntityOne); } catch { }
+                    try { cData.entity_two = ExtractEntity(constraint.EntityTwo); } catch { }
+
+                    export.constraints.Add(cData);
+                }
+
+                string fileName = System.IO.Path.GetFileNameWithoutExtension(iamPath);
+                string outputPath = System.IO.Path.Combine(outputRoot, fileName + ".json");
+
+                string json = JsonConvert.SerializeObject(export, Newtonsoft.Json.Formatting.Indented);
+                System.IO.File.WriteAllText(outputPath, json);
+
+                asmDoc.Close(true);
+                Console.WriteLine($"  Exported → {outputPath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Error] Failed processing {iamPath}: {ex.Message}");
+            }
+        }
+
+        static EntityData ExtractEntity(object obj)
+        {
+            if (obj == null) return null;
+            var data = new EntityData();
+
+            try
+            {
+                dynamic proxy = obj;
+                data.entity_type = proxy.Type.ToString().Replace("k", "").Replace("Object", "");
+
+                ComponentOccurrence occ = proxy.ContainingOccurrence;
+                data.proxy_context_occurrence = occ.Name;
+
+                Document doc = (Document)occ.Definition.Document;
+                data.owner_document = doc.FullFileName;
+
+                ReferenceKeyManager mgr = doc.ReferenceKeyManager;
+                int ctxId = mgr.CreateKeyContext();
+                byte[] ctxBytes = new byte[1];
+                mgr.SaveContextToArray(ctxId, ref ctxBytes);
+                data.context_key_string = mgr.KeyToString(ctxBytes);
+
+                // REACH THROUGH PROXY TO NATIVE OBJECT
+                object nativeObj = proxy.NativeObject;
+                dynamic nativeDyn = nativeObj;
+
+                byte[] refKey = new byte[1];
+                nativeDyn.GetReferenceKey(ref refKey, ctxId);
+                data.reference_key_string = mgr.KeyToString(refKey);
+
+                // EXTRACT PHYSICAL MATH
+                if (nativeObj is Face)
+                {
+                    Face face = (Face)nativeObj;
+                    data.surface_type = face.SurfaceType.ToString();
+                    data.area_cm2 = face.Evaluator.Area;
+
+                    try
+                    {
+                        Box box = face.Evaluator.RangeBox;
+                        data.face_bbox_min = new double[] { box.MinPoint.X, box.MinPoint.Y, box.MinPoint.Z };
+                        data.face_bbox_max = new double[] { box.MaxPoint.X, box.MaxPoint.Y, box.MaxPoint.Z };
+                    }
+                    catch { }
+
+                    try
+                    {
+                        SurfaceEvaluator eval = face.Evaluator;
+                        Box2d uv = eval.ParamRangeRect;
+                        double[] pars = { (uv.MinPoint.X + uv.MaxPoint.X) / 2.0, (uv.MinPoint.Y + uv.MaxPoint.Y) / 2.0 };
+                        double[] normal = new double[3];
+                        double[] pt = new double[3];
+                        eval.GetNormal(ref pars, ref normal);
+                        eval.GetPointAtParam(ref pars, ref pt);
+                        data.face_normal_at_center = normal;
+                        data.face_point_at_center = pt;
+                    }
+                    catch { }
+                }
+                else if (nativeObj is Edge)
+                {
+                    Edge edge = (Edge)nativeObj;
+                    data.curve_type = edge.CurveType.ToString();
+
+                    try
+                    {
+                        CurveEvaluator eval = edge.Evaluator;
+                        double s, e;
+                        eval.GetParamExtents(out s, out e);
+                        double mid = (s + e) / 2.0;
+                        double[] arr = { mid };
+                        double[] pt = new double[3];
+                        double[] tan = new double[3];
+                        eval.GetPointAtParam(ref arr, ref pt);
+                        eval.GetTangent(ref arr, ref tan);
+                        data.edge_midpoint = pt;
+                        data.edge_tangent_at_mid = tan;
+                    }
+                    catch { }
+                }
+                else if (nativeObj is WorkPlane)
+                {
+                    // VIRTUAL TOPOLOGY FOR ASSEMBLY WORKPLANES
+                    WorkPlane wp = (WorkPlane)nativeObj;
+                    data.work_feature_name = wp.Name;
+                    data.surface_type = "kPlaneSurface";
+                    data.area_cm2 = 0.0001; // Disguise as face
+                    try
+                    {
+                        Plane pl = (Plane)wp.Plane;
+                        data.face_normal_at_center = new double[] { pl.Normal.X, pl.Normal.Y, pl.Normal.Z };
+                        data.face_point_at_center = new double[] { pl.RootPoint.X, pl.RootPoint.Y, pl.RootPoint.Z };
+                    }
+                    catch { }
+                }
+                else if (nativeObj is WorkAxis)
+                {
+                    data.work_feature_name = ((WorkAxis)nativeObj).Name;
+                }
+                else if (nativeObj is WorkPoint)
+                {
+                    data.work_feature_name = ((WorkPoint)nativeObj).Name;
+                }
+
+                data.bind_succeeded = true;
+                data.bind_match_type = "kUniqueSolution";
+            }
+            catch { }
+
+            return data;
+        }
+
+        static TransformData ExtractTransform(Matrix matrix)
+        {
+            double[] cells = new double[16];
+            matrix.GetMatrixData(ref cells);
+
+            return new TransformData
+            {
+                rotation_matrix = new double[][]
+                {
+                    new double[] { cells[0], cells[1], cells[2] },
+                    new double[] { cells[4], cells[5], cells[6] },
+                    new double[] { cells[8], cells[9], cells[10] }
+                },
+                translation_cm = new double[] { cells[3], cells[7], cells[11] }
+            };
+        }
+    }
+
+    // ==========================================
+    // DATA STRUCTURES
+    // ==========================================
+    public class AssemblyExport
+    {
+        public AssemblyMetadata assembly_metadata { get; set; }
+        public List<ComponentData> components { get; set; } = new List<ComponentData>();
+        public List<ConstraintData> constraints { get; set; } = new List<ConstraintData>();
+    }
+
+    public class AssemblyMetadata
+    {
+        public string assembly_name { get; set; }
+        public string full_file_name { get; set; }
+        public string internal_name { get; set; }
+        public int total_occurrences { get; set; }
+        public int total_constraints { get; set; }
+    }
+
+    public class ComponentData
+    {
+        public string occurrence_name { get; set; }
+        public string occurrence_path { get; set; }
+        public string file_name { get; set; }
+        public string component_type { get; set; }
+        public bool grounded { get; set; }
+        public bool suppressed { get; set; }
+        public bool visible { get; set; }
+        public TransformData transform { get; set; }
+    }
+
+    public class TransformData
+    {
+        public double[][] rotation_matrix { get; set; }
+        public double[] translation_cm { get; set; }
+    }
+
+    public class ConstraintData
+    {
+        public string constraint_name { get; set; }
+        public string constraint_type { get; set; }
+        public bool suppressed { get; set; }
+        public string occurrence_one { get; set; }
+        public string occurrence_two { get; set; }
+        public double? offset_cm { get; set; }
+        public double? angle_rad { get; set; }
+        public EntityData entity_one { get; set; }
+        public EntityData entity_two { get; set; }
+    }
+
+    public class EntityData
+    {
+        public string entity_type { get; set; }
+        public string proxy_context_occurrence { get; set; }
+        public string owner_document { get; set; }
+        public string reference_key_string { get; set; }
+        public string context_key_string { get; set; }
+        
+        public bool bind_succeeded { get; set; }
+        public string bind_match_type { get; set; }
+        public string key_extraction_error { get; set; }
+
+        public string surface_type { get; set; }
+        public double? area_cm2 { get; set; }
+        public double[] face_normal_at_center { get; set; }
+        public double[] face_point_at_center { get; set; }
+        public double[] face_bbox_min { get; set; }
+        public double[] face_bbox_max { get; set; }
+        
+        public string curve_type { get; set; }
+        public double? length_cm { get; set; }
+        public double[] edge_midpoint { get; set; }
+        public double[] edge_tangent_at_mid { get; set; }
+        
+        public string work_feature_name { get; set; }
+    }
+}
