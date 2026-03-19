@@ -200,7 +200,7 @@ namespace InventorPartExporter
             {
                 transient_key = edge.TransientKey,
                 curve_type = edge.CurveType.ToString(),
-                length_cm = GetEdgeLength(edge)
+                length_cm = GetEdgeLength(edge) // Uses new accurate physical length function
             };
 
             try
@@ -216,12 +216,21 @@ namespace InventorPartExporter
                 CurveEvaluator eval = edge.Evaluator;
                 double s, e;
                 eval.GetParamExtents(out s, out e);
-                double mid = (s + e) / 2.0;
-                double[] arr = { mid };
+                
+                // Get the true physical midpoint, NOT the parameter midpoint
+                double length;
+                eval.GetLengthAtParam(s, e, out length);
+                
+                double midParam;
+                eval.GetParamAtLength(s, length / 2.0, out midParam);
+
+                double[] arr = { midParam };
                 double[] pt = new double[3];
                 double[] tan = new double[3];
+                
                 eval.GetPointAtParam(ref arr, ref pt);
                 eval.GetTangent(ref arr, ref tan);
+                
                 data.midpoint = pt;
                 data.tangent = tan;
                 
@@ -250,17 +259,26 @@ namespace InventorPartExporter
         {
             try
             {
-                if (edge.CurveType == CurveTypeEnum.kLineCurve)
+                CurveEvaluator eval = edge.Evaluator;
+                double s, e;
+                eval.GetParamExtents(out s, out e);
+                
+                // Forces Inventor to integrate the true physical curve distance
+                double length;
+                eval.GetLengthAtParam(s, e, out length);
+                return length;
+            }
+            catch 
+            { 
+                // Ultimate fallback for corrupted geometry
+                try
                 {
                     Point p1 = edge.StartVertex.Point, p2 = edge.StopVertex.Point;
                     double dx = p2.X - p1.X, dy = p2.Y - p1.Y, dz = p2.Z - p1.Z;
                     return Math.Sqrt(dx * dx + dy * dy + dz * dz);
                 }
-                double st, en;
-                edge.Evaluator.GetParamExtents(out st, out en);
-                return Math.Abs(en - st);
+                catch { return 0; }
             }
-            catch { return 0; }
         }
 
         static PointData ToPoint(Point p) => new PointData { x = p.X, y = p.Y, z = p.Z };
