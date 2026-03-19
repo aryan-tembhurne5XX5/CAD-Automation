@@ -91,13 +91,24 @@ namespace InventorPartExporter
                 }
 
                 // --- 2. MULTI-BODY DATA ---
-                Console.WriteLine("  Extracting Solid Bodies...");
-                foreach (SurfaceBody body in def.SurfaceBodies)
-                {
-                    double vol = 0;
-                    try { body.Volume[out vol]; } catch { }
-                    export.bodies.Add(new BodyData { body_name = body.Name, volume_cm3 = vol });
-                }
+Console.WriteLine("  Extracting Solid Bodies...");
+foreach (SurfaceBody body in def.SurfaceBodies)
+{
+    double vol = 0;
+    try 
+    { 
+        // Correct C# Interop way to call a parameterized COM property
+        double[] tolerances = new double[0];
+        vol = body.get_Volume(ref tolerances); 
+    } 
+    catch 
+    { 
+        // Ultimate fallback using dynamic dispatch
+        try { dynamic b = body; vol = (double)b.Volume; } catch { }
+    }
+    
+    export.bodies.Add(new BodyData { body_name = body.Name, volume_cm3 = vol });
+}
 
                 // --- 3. TRUE B-REP & FACE LOOPS ---
                 Console.WriteLine("  Extracting Faces, Edges, and Face Loops...");
