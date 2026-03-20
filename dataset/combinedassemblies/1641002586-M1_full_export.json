@@ -1,0 +1,751 @@
+{
+  "assembly_metadata": {
+    "assembly_name": "1641002586-M1.iam",
+    "full_file_name": "E:\\Phase 1\\Assembly 4\\1641002586-M1.iam",
+    "internal_name": "{00BB338C-44A8-6FAF-BD2D-D3AFF59086FE}",
+    "total_occurrences": 6,
+    "total_constraints": 6
+  },
+  "components": [
+    {
+      "occurrence_name": "1641002586-M1:1",
+      "occurrence_path": "1641002586-M1:1",
+      "file_name": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": true,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100030:1",
+      "occurrence_path": "0298100030:1",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.9999999999999998,
+            -4.273250414185696e-16,
+            1.602394264542971e-30
+          ],
+          [
+            4.273250414187029e-16,
+            0.9999999999999998,
+            4.314872653542391e-18
+          ],
+          [
+            3.128927313647599e-30,
+            -4.3148726535419965e-18,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          -61.74999999999999,
+          6.000000000000038,
+          2.419999999999759
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100030:2",
+      "occurrence_path": "0298100030:2",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.9999999999999998,
+            -4.273250414185696e-16,
+            1.602394264542971e-30
+          ],
+          [
+            4.273250414187029e-16,
+            0.9999999999999998,
+            4.314872653542391e-18
+          ],
+          [
+            3.128927313647599e-30,
+            -4.3148726535419965e-18,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          61.75000000000001,
+          6.000000000000055,
+          2.4199999999997677
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100030:3",
+      "occurrence_path": "0298100030:3",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.9999999999999998,
+            -4.273250414185696e-16,
+            1.602394264542971e-30
+          ],
+          [
+            4.273250414187029e-16,
+            0.9999999999999998,
+            4.314872653542391e-18
+          ],
+          [
+            3.128927313647599e-30,
+            -4.3148726535419965e-18,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          -61.749999999999986,
+          -5.999999999999961,
+          2.419999999999759
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100030:4",
+      "occurrence_path": "0298100030:4",
+      "file_name": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.9999999999999998,
+            -4.273250414185696e-16,
+            1.602394264542971e-30
+          ],
+          [
+            4.273250414187029e-16,
+            0.9999999999999998,
+            4.314872653542391e-18
+          ],
+          [
+            3.128927313647599e-30,
+            -4.3148726535419965e-18,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          61.75000000000001,
+          -5.999999999999943,
+          2.4199999999997677
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "1641002586-M2:1",
+      "occurrence_path": "1641002586-M2:1",
+      "file_name": "E:\\Phase 1\\Assembly 4\\1641002586-M2.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.9999999999999984,
+            -1.0436132246322285e-19,
+            0.0
+          ],
+          [
+            1.0436132246322285e-19,
+            0.9999999999999984,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_cm": [
+          -60.249999999999986,
+          -7.849999999999997,
+          0.15000000000000002
+        ]
+      },
+      "sub_components": []
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_name": "Flush:1",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100030:1",
+      "occurrence_two": "1641002586-M1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100030:1",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YBMN9RcABmJtR+BWSRoDhIGBTAphMCrrj4NAagYlw7hcrjkc9GP3vuQtQijh2RQ7kLhTueIOd6YXwTwlCqgtYtdAaqi13UgjpBFCGiGEbJkCYgA6AGQAY3/cv34FED+xLaElp1AFFxGv2HrkhnZWQDzbMkFyCilRPXi99uO24iLHC1CrRA2OFy5FI5bs0BzimTls4cd8XiMXowGDnqFtogKSCNcjwY1X/Z6anJWO11AaIIv8YC0oej1/alH2Uz9qH+U/7aN+uX/6TfvyB/dNf2kf/L/90u/tfz9p3/u7fdLP7Xf/ts/9o/3t1/ZHf7av7WcfmF6xpTUCbZHTxyoJjFdS1FWNK+RkotNCyGuHYnsCBTmzIAF+Xjn1YsIwDH8eKrN8jJgKOYd4gCB53TQbOWmGTKLX0R0OsFLIgHiC4wOBwNeEhcartl412y825ISRkUH1qrKfEv8fhmHIpVInLXJgh0KBJ+0wksnkgRop876P8zJP+7ou47BvpNeFRS3zPMi5A8jBjFcZI8hpIMVmw6vpJ2pXj5wKSMTovILXp53ibF+YkRNm5ubmtXSkRhCGHBaqFSNOWJL1wYSA1y+Ap6iBZRKIBCISKEgKko0DwIKREbGqAxLgsxSPc4gxRmAMETgjIEycxFEwNCKlHWMI4Gewept73Sc8Ojc0XsdHI6qaHX2ckIfQmXHVcaMFDdkQlwZUNTv6OCEPoXOGZlT05iTlbLqAlX0rFsVQ45N0EYpCIdGclzsc/vDMgL9BVqTmnOF5bgKUeoMpXXmM1jROzVVZpclPWMfIM2f5hzwnrm7ej9s5Bn+rjnH6YE+BPfm0nkG4HZ58tujZN+UJQJBFOBvoyPP9pQ8Ke6XFdWi5JWttBYsWBUq6nCEeCjZnXAU8MUIydbKVOYJSGCIORk2sRwckiLIueY6Y0s1cnp4UzNQN210iuDNrLB94uezowysPCMkcQ//g/OlCDd9+nRt+clP3z9eeFPpFy/ejUxE05nZiGj1JX6njRanJcdFQ2L/IdEv6Bw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.32907597322020776,
+        "face_normal_at_center": [
+          2.1038073348719705e-32,
+          6.1481127594432e-33,
+          1.0
+        ],
+        "face_point_at_center": [
+          2.220446049250313e-16,
+          -7.355227538141662e-16,
+          0.08000000000000004
+        ],
+        "face_bbox_min": [
+          -0.4899999999999999,
+          -0.565803263805834,
+          0.08000000000000002
+        ],
+        "face_bbox_max": [
+          0.4900000000000003,
+          0.5658032638058325,
+          0.08000000000000004
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_2e6a4c789226335b"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+        "reference_key_string": "AQQRAJAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAASAAAABgAAABMAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAALQAAAAYAAAAwAAAABgAAADIAAAAGAAAAMwAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YJoY3R4AtnKQQNBYTXNgAM6EAHby4JQIV0IQfEGS5pLDrstYhL5CKWh2UC6HuJsRpkfYSufeWIZzkanVCQ2N1Gb2ftpysYkIkSl/AFEAfgAw75iz3jB/ebO+er9ce6/u8tauers89Va9U0fd9D7dGTA9oY2AYZspsSCBxA7VNa2ezEgKYkML4sg2UzJFxmB3epu2Ejl0zDwOHZS2yEg42hKDwsERRdTwwlE+dqbVjQUKeDzRUuHZmqyGFOixc/NA8SIJyBlasc1JkQYJquwGH/D+uYD3gPu8BTzA2+c97wCXvXvO85Z9583z2HvnAN6x67wBHPbWec4bdpx3zl9vnN+8X7d539z1tnnN23Wad823N81n3ttl3jNvvWUe8249QaoHRmjsVqhRLvfS0tLSNEo4JhNqxTZ7YsMIlJ3WqVBoJ7DYZiaWzKjsXG7waaAChIcsSj4c7MRgOdKxU3UnGBoNFRdMdlDQEmQCkg8qdA7sELwPPOkhvZN+9Ea60fvoRW+jF3gXnehd4ATeRB96E7jQe+hBb6EDvYP+8wYK/w+SUBGSUdHPkBHRUJE7mQIRCQERGHKu5pSCgNwPyrSGKWVz4yOT+fTYyGxisZ4dWUzGA4Pt6MRgsZ3XSwcH9oLFXC6cm5fr5QC4bFyynhNqa20yMKfW6YUlA9NitWg0DWbF0lhbKrVSaU6bQalQJggYXIyDsM2IJEWpsYNJmVJOxplMzm2xza7EgJFkxzql0FKosM1SSHJ+7F5qVl1WVAiWhJDJqIIjJkUIhIDuqCHBEogEkYKCgoIk0xoQAxERGVIHEmByCJ5kCBiGkEGEGCcgwidEKAVMMFWUB6uTwGjhu9PcFSqHywAFztWfc6+p9wTPeUUuYeItGAusID8kkp1TBmRAFHNagWtImwql0sb2yKKQjO/5aIDvApzt0dCA4aRzoFbGMsOTup1p12dp7Jh5TNCqeNlboUgmVLsnUlnWgZY7t3jkblegb+dZwx7Wy/l5j9Vnt3rOzzvjvvh9K6qKpAbGjapxtfiv71/nZxp/YgyqiEuQOXvWmnm9rFcwrJwNktrA+zTBkJPPpMKEuD86YaqVVtFCWepXsNCKFspSvzL+ArgBVvMr68J5iaro2ak3qXZUMShE/WyjJHhGX8Yl8i7AJodfanOKSJq+hJUhsXLQdrB/zu+K+/55b/J7mji2/92YOddUGf2ZF8iHfbAc1KtECsgRhiPYdtG6+ysmeNZGeWGdz049DBIxEFWa3hFusK7oPdWW/IdMrBhSwtF7P/ISN6ls8VERNPiNYUiAIGFl8byvb7L5limKvkf5Q0Iq",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 33.07457602787985,
+        "face_normal_at_center": [
+          4.382581349639371e-15,
+          4.3148726535419965e-18,
+          1.0
+        ],
+        "face_point_at_center": [
+          -61.349999999999966,
+          1.2329516395054197e-14,
+          2.5000000000000275
+        ],
+        "face_bbox_min": [
+          -62.44999999999996,
+          -7.8429289321881335,
+          2.500000000000007
+        ],
+        "face_bbox_max": [
+          -60.24999999999997,
+          7.842928932188158,
+          2.500000000000036
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_6ba8a2f9e6b3393c"
+      }
+    },
+    {
+      "constraint_name": "Mate:1",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100030:1",
+      "occurrence_two": "1641002586-M1:1",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100030:1",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKTRgAhh9nR+C0Jo0B5F0ixJ8g3A6JmKs5/WScv680V01to6TNsBPqO4KL4QDJARgigWDHH0oTd+0wCo1nBIrq8KU51lpCpBHajRCyt0wBXAA6AF0A/5rAS8glvMzKQk348Hu9Q6314rRjI5fxmZVVxJTyG+nDrLJsxLRgyRFiCIgHKQQsVPzs4Q5ruOW/cH6hFqMBg1VLDkRgAtF6Dtz87q9mVpx0PoMnYP7sUFkQ9HsXZGAw/ZboA/gnJdGf/4g+6ffoj/6Ovvdz9LtfRJ/7N/qiX6O//ZK+9ofoyz+jH/ox+hl97L9+SD8GOk5CYPyKdnDDpWUhFjsYIdyFNLMmUaV8/G4m5BUszIr1CJDzq5nWB7v0fd/3o05GeQgvFLO2bHgE+ZVZillH/KhAv6E3FFA5IcNhSQ1OhAGdEhQav9kbZ+QUaswa//9937cXKW63EEXyvKBuOxixTUSEJUVC1bPvciu5S9ttN65G7hIzK44dCDN+RymzHlHQnfx6Rm5cIKEZ6UgpF7ui5MmB4cniatYEImBUvx3cC668bOCX25VZA4C3qHFtIiJBpLAgKRQ2DrCCERkp4wYSIIQY1GOEMUMMMmSIAomRUAJJItLmCwpUtEM9EVxZtguCNitKBfEs/N8hseYr3w5CznvUbatx06Ep4SGJm6SIFK7QBBW+A1+FJIopwtBfKcKIBeRwUSjQvz6fv/aoouMMZa2zcGa+ls+13kVLy/6+ge3L8FIhyZvNcQT25TNV9nT60u0LRUVjtvLxl7FU7Doe4jO5AUXonVI1aMtBtoSaSqBL8+34sGVSXZLrclmTOEBpemD1jmMprPL/XqM4p1xsR+wAgQ4NB2J38p4GpuvhHaNgdI8BBt/0DILA3VUHX2dWJJV2vaw2SHdaNSeU90txpbko8fRTCbACi5kMgX2d3O0QbnSvPauYODebQWjn10DYIGX6uSbkuNQ8iWSCk6EEZaY8+30JLPZ/AAdth3Ly929+TGfcPApSN2gVocpvoPfQKhF8JvoFZTLZJLCiv4uax/wB",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.7194479722840363,
+        "face_normal_at_center": [
+          -1.0,
+          4.2732504141856956e-16,
+          0.0
+        ],
+        "face_point_at_center": [
+          -0.44999999999999984,
+          5.551115123125783e-17,
+          -0.7600000000000005
+        ],
+        "face_bbox_min": [
+          -0.45,
+          -0.2598076211353316,
+          -1.520000000000001
+        ],
+        "face_bbox_max": [
+          -0.44999999999999973,
+          0.25980762113533185,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_7b8396d9dea6ca58"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKUHdRQAlhxiRtAYJ40BYADFpwR5ET5YTBTpwlRSwR/Yq1RPeCgeQ/vjuLIwfRo4yyCDwUuF+/6otQqAs6AwpDMZwj1zD7s1abQb2YRImQJWAD4AVwA20hviMHPiNVvfrWUDxeqJ4xSR3tCTFwuv2PyFK6Pz6V4opHxIoYJy40BCzSYuMYhr/gzodbcVhQk/rbjrgEyyCWHA41X/JwcG6sd7MLlIJURkIrxeD6u2ZhCOkHip8crh4iRICkbDEHTjlWW+6SdNbj7pH83n/m3+6I/zt180P/7afNEP52vz4Z/9Ox/7tbSviGcILOIqDdKDQgN8vI6yqKduMZ54cr1AskNlhUUjdKND4MHrJmHLf/q+7/uWKAB+Acf8brYjvVZPEJPXuGo5cZoW0lNxxHO9ig6BQEYHZ0SVDuiCgRKVGJ8D//9931eCupwJKqcwnna37eIdREgPCKuCjleWVYMlV2Js2FGwWjCzM3rAFHg16WrcLdNN2ZzgtaQp6Q1BNcHxSoIKRwGwVXUhvSk0eIy8clh3qIFlEsgEIgqSgqTZDMCCEZGp8xJgBBXMYwKmBEQRIiSCMRPSxFVAYaoDewDe0UTzA9mBx6iUUtsJORNvi122nEC1QmJZvJGp+rtta53sq179EpeDCCuruB5l/1VHJFHR4VjDFGU8t9SpnYyiPg55QrKRnhCOqBBEJSpccsira8skVz/3WJDckgehnjbsb5B7Lu1O3KNPuuOxBP12/cq+iHV+Tu1Ok3fkpE88ZVuMdWlmKE2QKFVwXH+S3/XPTH1+VBmww/m0wVbZnnN/P6/gxAAdfai/yoHDrj/gVp5gYvIpMe8Ffk4wZ22wIlTRBucOBYmYsuOF1OQe8Ir3Lz8dl6oB",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.07880831174438332,
+        "face_normal_at_center": [
+          1.0,
+          1.8910280417482095e-32,
+          0.0
+        ],
+        "face_point_at_center": [
+          -62.205,
+          5.9999999999999885,
+          2.4250000000000314
+        ],
+        "face_bbox_min": [
+          -62.205,
+          5.737305627518708,
+          2.350000000000031
+        ],
+        "face_bbox_max": [
+          -62.205,
+          6.262694372481269,
+          2.5000000000000315
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_4b510637cdad7643"
+      }
+    },
+    {
+      "constraint_name": "Mate:2",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100030:1",
+      "occurrence_two": "1641002586-M1:1",
+      "offset_cm": 0.005000000000000001,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100030:1",
+        "owner_document": "E:\\Atlas Copco\\Assembly 1\\0298100030.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKPRgANmBqR+AWJ40BxCXgd7zIOQ9t+V5zZjcGktnR4GUl5GOECebnJGgYEeRkeh0yxaxvaHzpB+S2ivXtGFJt3pXWbbOEEGm0GyGEbJkCXwA9AF8Aj/0LIL5CTkE160+qgonf7D1yLxknHpa8xmfWnyaml1+MftxcEFLEuEHwgMONFgyoETsaILnEJP6wzJ/t/EauRgQHrZdciGUCcT0JdPzut2xgnHi8B5DANAIEhsHQ7wFyCzlm3WCjg+lXhX6Af9IS/fmT6Jd+kD7p/+iDv0f/+zv63j+i3/0c/dEv6XO/iL78N/qiX6O/0df+7I803sbM+uMUROO3e5QTHUyLWuaNYhI37sYXs0ZZ5RD5Hd3IL2SYVRsiwPXLjUzro60ShmH4p1Z2+RizFrO+WEGS/MrNxawoilShX9EgDMCwqBExBWdnQoFPiguO3+3FbAL/H4ZhmG1MZSVQK31KngxgUQEJQc1YEsRqyY4sqSNhu3Vxuc/Dkc+EmLUHjwSdX9LLrFAWfCu/oIYcFaue7VZ2XpdF7nPR+Niw1qwKTtCsfr/Ibd3QjMzKxcDdGKP6wG+AsqihXSIiIlJYkBQKGwfggpERIfMSIJQY0mSEMUMMIkIkInGSRwJN27fkvMdukOR4HZXIECKvDUI6s849jU3SsToZgt7yAX7F7mItPxqaPZbspnCHwuExmY8C+pTriiWaZ0VH7LumV3U3WRAt3o5Eac8T8o3rj0mjTR+CcQG5OP2mWde9hB+64fdsE8YBt3cuLt9CyaacgQkCZTcdHPrF3TGXD1nTbK6EgyuLsEHhjoSFfcG93LFQmaULuxInbOv4W+VQq+biZ0QpCJJlzcUBcBHOYYDNC9Cf/848xsrSJtIgnPunDaqUuGcprKqOsmEG/olDkfFYAv6T5w9jydIxHAEwiOcAhsJ+Le5wqHC/Zzb1bCnRJtQosdWQs4cILbtLx4mlMx4DSpgcpmeVlx//9Qa3bdsopzUb+Bs61+BjIHUDVhG0/Fb6DqIS8MHiIZTJoXNgMP8Rah7xBw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.7194479722840357,
+        "face_normal_at_center": [
+          -0.49999999999999967,
+          0.8660254037844388,
+          0.0
+        ],
+        "face_point_at_center": [
+          -0.22499999999999976,
+          0.3897114317029975,
+          -0.7600000000000005
+        ],
+        "face_bbox_min": [
+          -0.44999999999999973,
+          0.2598076211353318,
+          -1.520000000000001
+        ],
+        "face_bbox_max": [
+          2.220446049250313e-16,
+          0.5196152422706631,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_cedd0eb3d586d999"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKUHfRQAlpxiR9AYJ40BYAAOk4LwUYWweB/dAjJLxbwQu0o94aF4JNdH98DCD2gvCbjwCavi4cMReQDQWVAYDAP4AJwxW4TUGiG0G9mEbJkCVwA+AFcAN7MOZaBR8Zu9w811A9XqkeMYmXUoCsyEX4w+jB0epHhhLYhxos1IMfEwggPQKD4xiDX82c8v3FgRIPi45K8CM8k2JIGP332fnBioIP/Bc5lKiqQcFP0er/ZmDYhMwNgo0uECRYhKRqsQhOOXhb73k2hHn/Rz9Lt/o8/9kv72j+jLX6M/+iN9jX78sx/Sx/4twVnILQQt5DYXZo1CAoD8cplc0wpiPNL0goGkh42VVo1QCZ0BDH43Uzz9AL7v+/4kpeUP8MxDmO3M6uoJavIrXy1HXuNi1hVE9fU7OoSBlA4OiSqrHwovJSozPA7//33f58WFnRe32yhNEG5wJd8gYlagloQdvywsBUuuyMCwc4CFgAbS+CFD4NdbuBJu2ULVzTG/pVXNSgT1JMcvKW7kThjcfTHrlBo8R347LHaogWUSyAQiCpKCpNkMwIIRkanzEiAEFQ1kAqYERBEiJIIxE9LEVUBhqgN7AN5VRPMD0YHHupQyGwg5AG+LXbaccq+OYjmkkKn6vz1rndCrXj0lMYJ1ANwCJX79UaGnWMcYZ/r/l1vi1E5GUR+HPD3ZWkEIR1QIohIVLjnk1bVhkqufeyxI3pIHqZ4quO8Qei61TtwjTrrjsQT9dv3KvoCFHk5tp6l34KQZPGVbi3VpZjhNkGRVsFd/kt/1z0xdflQK6MP5tMFW2Z5Dfy+v4aQArXyov8aBwlN/5lWebGJyKDHvBXxOmGdtqCKU0QbmHk0SnbrjpdTk/vOK9y84XY+qAQ==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.0788083117443841,
+        "face_normal_at_center": [
+          0.5000000000000006,
+          -0.8660254037844384,
+          0.0
+        ],
+        "face_point_at_center": [
+          -61.97749999999999,
+          6.39404155872191,
+          2.425000000000031
+        ],
+        "face_bbox_min": [
+          -62.205,
+          6.262694372481267,
+          2.3500000000000294
+        ],
+        "face_bbox_max": [
+          -61.74999999999999,
+          6.52538874496255,
+          2.5000000000000315
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_4c2820e246f60fdd"
+      }
+    },
+    {
+      "constraint_name": "Mate:3",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1641002586-M2:1",
+      "occurrence_two": "1641002586-M1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M2:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M2.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABQAAAAYAAAAIAAAABgAAAAsAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YBUHFREA5tlWQwB1k8bYuDkCXaCB6tEJYe1m8sxgkZzzpo8fu8YN6B7/ZVE35yYjzjLdMf6s0MWepnGk+rhQBBw+qiXSyN6EkE22TAFNADIATgDvLm4yRC0q8JMfksYQ+Yx+qfmucrBtLmiANlTwsVFwIUHwAmYRm+bwhf+x/LpYowGDlQ0+Q0ACiTxAOX73V1BYiHS8Bo5HBulBWkDze78A5nP+bG7mZz82f/PH+dgP58f/mg9/a/71V/Ot+dX/fjef+ldzm4BLMJE0xgLJiN8XJ+ATSiQ91ZTAfuOrtda/Q4C/c+ideykk3VRehPzC10KBl6iQlIQMnfm99lCAhOIExJETC4QBmpEQjl/rfQlkQnxi0NjwDHEpHbAivMwI/19rrVeWReqCGGZF+KrrqtZN6q1zJZMN/HLcB0l3tDy48auNJK1RoHV+MwGVi/sKSYvAaAHzu3n3BMdgkjSDKSXlF9tZqCHBkUggoiAtLKTNwIIRGap6EqAzEdVxAoOEIaERGGOERrgRkICKggl7WSQmtHKNtTB65pYMNMuyem3BBmwMbnChBf7nsDQQI218DWGFH3S1K5gQQ9+IFWiK+TjoQuDjoSatRN2JcY4cRDpD0Tjksh/DhGcOM03fpd9GwjF33OPKcR1xvp5s1gilyBn3j+q1BwcwE6H7UxxM6vzL6z1ZKZNeFSMXp34enLW1ihDG7XpiWhLZMPGaMrlaEBPNL5KamqoB",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 1807.4999999999998,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "face_point_at_center": [
+          60.25,
+          7.5,
+          0.0
+        ],
+        "face_bbox_min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "face_bbox_max": [
+          120.5,
+          15.0,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_ce13ad4467b553e1"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACwAAAAYAAAAQAAAABgAAABQAAAAGAAAAFQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YNEJbRMANt5eQgCVksaSAx/M9MluuT4J2KQu8IkuP0rVgSghaKnEpyj1v0LR2xTp0hkBPfxptlR9ViqgpAHC37hta4SQRjYhhDQpU1sAMwBWALqIN4UWGHlYWAnxSZ0rZqIZ4dS8XXTAyKOISMJnZ18rITRBXm5SkGa8WLCyjIMVSQbxhzd84adKn4q1iADBxvQ+IYA/MBsMbj7zbWBQjGq8ho8BCARHygMjnwf73G+yD3/Qvsn/2Qf92/7n1/a3P9vXfs9+9mP7nv/tY/+1/35r//qrfWu/+qlf9zt/AggnEz5isCzBIeV4iCnQ4BPTuq7rHpYGjPKqFAkYTTU5hnw+SwbGlx7x9HnNIUFKjEsHJSdKEw5sSFBgfFpnB+ZNkgEjBhcZRJ8C9gP8JxvaP/m5/dAPA//fdV1nhUKaxsEq9QJdn03L3stUlZYVfG6pAuONEREWn5pi7/JsWaavqpupJWA8omJmx2c24s1SAcYqhwCNTw+1rq+lYtRKvSkn0pnHBXWoUW0iMoGIwoKUJhsH8IIREaHqEqDUFJspITMCQoxwIxJxJcaCkRk7agR5CV0YBxYJ048iDqJNs7AFBYBLhQgLoEluvQFin7cOjTCwM7D9rR0GL7Q2XnSve9bQB/mpOdRsX0bumaxB2ybMYQhjHkSYFxzIioKkzjV9qUxkD1ZoKvyFexp0ingL9cJfdvx8RUcQ79hHmuNEjq3kCSGuHOqnI8UsN0I7jFue9YfY+7KSLY/hMXuotz8Iw34soDc4mf/5kXYf/LQm236J2XrOXPmFLp62z3rDFUEbbWVOyUuyjHZ/Sk2eACYA88/6S4g/",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 1923.4600000000007,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "face_point_at_center": [
+          2.930988785010413e-14,
+          3.7411627138830366e-15,
+          0.15000000000000002
+        ],
+        "face_bbox_min": [
+          -62.44999999999998,
+          -7.700000000000003,
+          0.15000000000000002
+        ],
+        "face_bbox_max": [
+          62.45000000000004,
+          7.70000000000001,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_e3701d6d3b575f5a"
+      }
+    },
+    {
+      "constraint_name": "Mate:4",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1641002586-M2:1",
+      "occurrence_two": "1641002586-M1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M2:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M2.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABQAAAAYAAAAIAAAABgAAAAsAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YNEHBRQAhtxhR9BWTRoDJJBcSyta+IqQ/WL1ynyH6E4VYWzV4CgI1ED1jA8DNWwNZTeXq1JxAnfpB1SA5P/W4VDZctTifs1aIo3stoQQsmUKVAA+AFIAswZdUJH4zd6hfM1w+WnFa4TMGqRkBeYXow81GCgBR3AsuQEhV0Vhw0npPOLVHMbwZz6/ULoaMOh5xYcKTCLyByrH736PzQoXHr+hpDKLAIlZQPR725u9CIlYkUFUQyWJDxmWLQIQjV8T/dLfURL97ufok35Jn/sjffmP6Md/oz/6Nfobfe3Pfkgf+9eDo4hLoAkpZmXygsWQX9K7rHiG1awaVjs7v9zexCfMzMoqOsH9SgDf931/h9OfcstDmOXM+moBIfmN72YTn9GZ1YRQHfod7cFADE5NCCcsHwgEvCYtN34D//9937cdXAkjp1HZrQkFLsxcKSNPWljIQeBKoIIudLAM+D1tEmIVdsQowROgFUTFiwNUKuOJvyYsWwhlaD7wW4IfZu3x88DGrwcza5ECL+W30zC5B3GokWWRSCAiQVpY0GwGkAISGaLzEoBlDYwyIRFmBERQDBEwFEgMiQQXFDwGbgmIhc7HMMlHv3JAMumdoWxWVHi+XXO+3/FiLMlKdqqRo091trQVHECqtlUhMba5cGk+aVVniyLghFKoWu6Lz0aZ8Lmb4uRvxyhXihude5TTQoMkRbRhioPTDc13Ez7qqITR8IKhpfFoSKwscVa8sjyDnJzh8THwzHA2TZ/vkQ+OzLHOBhxp9qpBJ1t1lQbq5bjI4l/B7WcDaMrG/esObsCiB6bqSUxMXiVGX5LnPMDXBisCM1uqbZ4Sjd/xNDV5Zrbg9k9WuolRAw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 241.0,
+        "face_normal_at_center": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "face_point_at_center": [
+          60.25,
+          0.0,
+          1.0
+        ],
+        "face_bbox_min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "face_bbox_max": [
+          120.5,
+          0.0,
+          2.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_9c7840831f8f94f5"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+        "reference_key_string": "AQQNAHAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEgAAAAYAAAAUAAAABgAAABcAAAAGAAAAGgAAAAYAAAAdAAAABgAAACEAAAAGAAAAJQAAAAYAAAAnAAAABgAAACgAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKMRfRoA5up9SODQKI0BaFIGeoqM3UBaU0PpCVNWlfeu+LyH9kyuGRDcG5RhFVIQxQGGiyTS/gnR6VDPjHHCjW/3Lv7sR1szYZ+1n2sbt90yBXEATQBsAM997y/tz5+0X/q7fdJ+98s/7o9+BRC/MHeZAcOhBC8SXuV69Ig+rAD1zGtcgOHQDZqB19F+/GgsTLDRU0EBjVmOGBEpJolimyPcYJlf/rxGL0QBAj5E86IZGMNLkVLiVd/npsPKiadJkYAyWLAMwPF6z36Sfdkf2yf5Yfuxf2Qf9r/2R37X/usX2Xf9Ifsif2s/5AfZb/2sfZB/tc/6wf3V/7EP/qr9jz+1r/q//dSP2v/+0z7qN+2ffm/f9AHy5Rc/l8vlfjVdq3yMMgMYEvW0mPE6V9LNHEYDGFJ4ERa9lnZgY8GpecCDw88B2bdDZcQraR3tzFXRBhgkYnoAwQRBwIEJeA2wj/KfLG7/5DfZx/23fZPftn/7a/u2v2S/9tP2S/7ZPu2X7QEqcSjF3Woj2Y0ms9WiwmixmUwqisZeCtOWvlqu2LFCupZ6KpClUvD0odIoZ7zND3WSKJXHaZ2nU871prFlRj9tAcMVKzV4XlGxU9PHTmNUPQcMdXjYEXo9jTDMYxCAYRf0MvFqit4jfRZPjDoyIHRyXnRUMBByWVACsnm9egGAtKgxdSQiQaSgoKAgybQGAAMREaHTARJAkwzbMQiiCDHEEEOIgChhBQkzgiJ0eTDJa38sjXE8xO+SApgrQhFhgkRkijZSf0wMmSnD6v4XuNdkO+6oTd+jmLus/L6812mXTGal+7ZcKB1i62516BLISk5HaRuHH18Dj9mi15kF1TKlVJ2K7EtgiDPP1H9J50QsuYRE8kwFyCy+zScGzhyYosuMU5vdowP1S2Qyk02KMv+LEYeHmMV0gAEO7GOpJpWA8cLdmhC0Os5rhDiW5jhuc4r04HtFNMZAnvFiythr6eFhojF8phaLMuS7CwSPhpZmOpjzdF3D01ziiIVh+hM5O6bfr6sVde1oxj4V6LKul6i09b/ZoGbCXDB8TWw4j42NTCJZl6hvHTfPZ7Z9mp74A5TEdITYPxGlhhlaEVj8Vu2spJXcgmZ/8E2eeQyn6B/NnyFTAQ==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 257.4163786219721,
+        "face_normal_at_center": [
+          -1.0436132246323734e-19,
+          1.0,
+          5.134285713946336e-15
+        ],
+        "face_point_at_center": [
+          2.2870594307278225e-14,
+          -7.850000000000006,
+          1.4000000000000008
+        ],
+        "face_bbox_min": [
+          -62.59292893218812,
+          -7.850000000000012,
+          0.29999999999999716
+        ],
+        "face_bbox_max": [
+          62.592928932188165,
+          -7.85,
+          2.5000000000000036
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_edfd973e1be566e7"
+      }
+    },
+    {
+      "constraint_name": "Mate:5",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1641002586-M2:1",
+      "occurrence_two": "1641002586-M1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M2:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M2.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABQAAAAYAAAAIAAAABgAAAAsAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YNEHFRQAxtxiR9BWTRoDJBgxwDss4ery84vVK/MdoiskGyqbHiSHoYbOid4EC11D3MzlqtiRKM8tDQHZH32MEQT1LlEzkFWzRizZbQnttmUKVwA+AFEAObMSTViF+IXvT8ZmzAi94jpCZiVS0mLzW6L/sgsdchwhwWKRxMdlxbLEqIbAIG6dYQo/DPp9ErZAAVAsfjRgEpE/YHD87gPttJjh8RhSK7MIkJsESL8Hr/ZCmqIPLTKQaqwY+cB50RwM0fhV0U/9HD3R5/6N/umX9Lc/0pe/iX78NfqmP6Ov0c9++D/6pX9RbxPxBwGzMoHhM+T39K4rXqE1q4VWT8/vtifiEFizupJKbL8SwB+7rut+DSi/yjL/HuSZNfYaQvIbX20nzkox64iievRreoPLDQodD05cQQ1YUE1kbhz/33VdB7m38pm2jEoOqlLePgiLMfLEhQQeA7ADq/dCx4uAX5RMvlKEHTFE/AR4BVlBUwMTA3/ir6oE9z2cnAv8ph6HWXsIMbDxi7KZNQkBSuWXy1buKgJvqIFlkUwgIkFaWNBsBoACEhmq6xJgdRFMOiERZoQRYghBSOJIJLig4DFuCRIr3e/L5I2WPTPLBHsGstmiC/OGmumVjmNj2aJkJd85flCFeZYJDJAqtigkeRsTuOgBOTiqL45EcMRZUJ3qUvkUlNHIvRe/d9GMdlP8KHPwSEBo4KSUPcwlULtpQDbqRaZwOA6LPogGPJhSKyc4KmBUmt3O9W/h4+GZniNN4gV/noXjOT6JwJG1b83pJOiGZiGgvP4sbXY+gPou8W880HBBX8HUc5uYmEqsvsjnBMHXJivCMRu4Ux4SfC76JjXZBjx1+++eDhjU",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 29.999999999999993,
+        "face_normal_at_center": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "face_point_at_center": [
+          0.0,
+          7.499999999999998,
+          1.0
+        ],
+        "face_bbox_min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "face_bbox_max": [
+          0.0,
+          14.999999999999996,
+          2.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_f797e029767f82bf"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1641002586-M1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 4\\1641002586-M1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YCgGPRAA1phRQBBTlMY8HgDKARt8jk8NRhXToSDnlwu8RUwrP8qrjRsB4YNhFARqIIH7q/mYaVB5Q8aC0bhrA/qftN2NkE22TAFLADAASACxhdqIpOCjGZKW8EDw4Pea7zALB5VjZMHGIkHxOVGCYsjM4Q1bmML/Vr8urnDQQNWCbwfkjTiScfG7ryKZ2MD4CpcCEkeMDqfH7wF/ZWrzKz9lvvbH+ZQfzo//ZD78s/mTH5ufzcf+97v5178W9wd4BJGkJRM+HX7fuwsBdtda62NMAH4Ba965F0LSVkqGjl/4ZiQ4SISkHmrQ7XfyhQSd0igDENMKggHLDw2L3+y9ThCzkbDRIhREBMTSUCLA4Ddk/iX/X2ut+zQNRs0txCLc/X3OI1rBb2U9kpJsdqj41fbCort2d4SkPlKcaPxSLhDwkARJMdaAF7/RPXyx9y9WqDFhMjKBiAQjExamNQPAgpERKjsSYOQQVymBQUIjQAJjhMYJJm5iKrhQ4Qa+gjDqlSAVHyGGk801UXAOG8mQxeKhDeYBSyUQME3eFhrCjKRyKBp8cGvpwD+JMvHsilPKTFdclptlM0wi1MY0W7niLsDIDsByfCPz9oiJGc3Y3WAPMuvQg0uC5D/Ayx0MAJUP+5c8gKE3X3n0+e9M7L9Y2HKSs9qu7amEXbbyOyiQ+IzGi2lytxuD3s81N+5U",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 2.3528786796561936,
+        "face_normal_at_center": [
+          1.0,
+          4.314872653541803e-18,
+          -6.452076071176828e-15
+        ],
+        "face_point_at_center": [
+          -60.24999999999997,
+          -3.552713678800501e-15,
+          2.425000000000008
+        ],
+        "face_bbox_min": [
+          -60.24999999999997,
+          -7.8429289321881335,
+          2.3500000000000085
+        ],
+        "face_bbox_max": [
+          -60.24999999999997,
+          7.842928932188126,
+          2.500000000000007
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_d42681b57901acf6"
+      }
+    }
+  ]
+}
