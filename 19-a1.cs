@@ -10,7 +10,7 @@ namespace InventorAssemblyExporter
     {
         static Inventor.Application invApp;
 
-        // --- PERFORMANCE CACHE ---
+        // --- PERFORMANCE CACHE --
         // Maps Document.FullFileName to its ReferenceKey Context Data
         static Dictionary<string, KeyContextData> contextCache = new Dictionary<string, KeyContextData>();
 
