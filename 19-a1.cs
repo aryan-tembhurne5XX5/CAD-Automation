@@ -10,14 +10,12 @@ namespace InventorAssemblyExporter
     {
         static Inventor.Application invApp;
 
-        // --- PERFORMANCE CACHE ---
-        // Maps Document.FullFileName to its ReferenceKey Context Data
         static Dictionary<string, KeyContextData> contextCache = new Dictionary<string, KeyContextData>();
 
         static void Main(string[] args)
         {
             string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\assemblies_raw_export";
+            string baseOutputRoot = @"E:\Phase 1\assembliesexport";
 
             try
             {

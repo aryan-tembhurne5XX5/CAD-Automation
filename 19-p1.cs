@@ -13,7 +13,7 @@ namespace InventorPartExporter
         static void Main(string[] args)
         {
             string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\parts_raw_export";
+            string baseOutputRoot = @"E:\Phase 1\partsexport";
 
             try
             {
