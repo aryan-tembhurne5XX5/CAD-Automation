@@ -10,12 +10,14 @@ namespace InventorAssemblyExporter
     {
         static Inventor.Application invApp;
 
+        // --- PERFORMANCE CACHE ---
+        // Maps Document.FullFileName to its ReferenceKey Context Data
         static Dictionary<string, KeyContextData> contextCache = new Dictionary<string, KeyContextData>();
 
         static void Main(string[] args)
         {
-            string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\assembliesexport";
+            string baseInputRoot = @"E:\Phase 1\New-Assemblies";
+            string baseOutputRoot = @"E:\Phase 1\assembliesexport-new";
 
             try
             {
@@ -77,7 +79,8 @@ namespace InventorAssemblyExporter
                     double Ixx, Iyy, Izz, Ixy, Iyz, Ixz;
                     massProps.XYZMomentsOfInertia(out Ixx, out Iyy, out Izz, out Ixy, out Iyz, out Ixz);
                     export.physics.inertia_tensor = new double[] { Ixx, Iyy, Izz, Ixy, Iyz, Ixz };
-                } catch { }
+                }
+                catch { }
 
                 // --- 2. GRAPH NODES (Occurrences + DOF) ---
                 Console.WriteLine("  Extracting Graph Nodes & DOFs...");
@@ -120,23 +123,20 @@ namespace InventorAssemblyExporter
                             health_status = joint.HealthStatus.ToString(),
                             suppressed = joint.Suppressed,
                             node_one_id = joint.OccurrenceOne?.Name,
-                            node_two_id = joint.OccurrenceTwo?.Name,
-                            has_linear_limit = joint.Definition.HasLinearPositionLimits,
-                            has_angular_limit = joint.Definition.HasAngularPositionLimits
+                            node_two_id = joint.OccurrenceTwo?.Name
                         };
-                        
-                        if (jEdge.has_linear_limit) {
-                            jEdge.linear_start_cm = joint.Definition.LinearPositionStartLimit.Value;
-                            jEdge.linear_end_cm = joint.Definition.LinearPositionEndLimit.Value;
-                        }
-                        if (jEdge.has_angular_limit) {
-                            jEdge.angular_start_rad = joint.Definition.AngularPositionStartLimit.Value;
-                            jEdge.angular_end_rad = joint.Definition.AngularPositionEndLimit.Value;
-                        }
-                        
+
+                        // FIXED: Dynamic retrieval of joint limits to avoid missing definitions
+                        dynamic dynJointDef = joint.Definition;
+                        try { jEdge.linear_start_cm = (double)dynJointDef.LinearPositionStartLimit.Value; jEdge.has_linear_limit = true; } catch { }
+                        try { jEdge.linear_end_cm = (double)dynJointDef.LinearPositionEndLimit.Value; jEdge.has_linear_limit = true; } catch { }
+                        try { jEdge.angular_start_rad = (double)dynJointDef.AngularPositionStartLimit.Value; jEdge.has_angular_limit = true; } catch { }
+                        try { jEdge.angular_end_rad = (double)dynJointDef.AngularPositionEndLimit.Value; jEdge.has_angular_limit = true; } catch { }
+
                         export.assembly_graph.joint_edges.Add(jEdge);
                     }
-                } catch { }
+                }
+                catch { }
 
                 string fileName = System.IO.Path.GetFileNameWithoutExtension(iamPath);
                 string outputPath = System.IO.Path.Combine(outputRoot, fileName + ".json");
@@ -154,7 +154,9 @@ namespace InventorAssemblyExporter
         // ==========================================
         // GRAPH NODES (Occurrences + DOF Extraction)
         // ==========================================
-        static void ExtractOccurrences(ComponentOccurrences occurrences, List<ComponentNode> nodes, string parentPath)
+
+        // FIXED: Using IEnumerable to handle both ComponentOccurrences and ComponentOccurrencesEnumerator
+        static void ExtractOccurrences(System.Collections.IEnumerable occurrences, List<ComponentNode> nodes, string parentPath)
         {
             foreach (ComponentOccurrence occ in occurrences)
             {
@@ -181,7 +183,7 @@ namespace InventorAssemblyExporter
                     ObjectsEnumerator transDOFs, rotDOFs;
                     Point dofCenter;
                     occ.GetDegreesOfFreedom(out transCount, out transDOFs, out rotCount, out rotDOFs, out dofCenter);
-                    
+
                     node.dof_translation = transCount;
                     node.dof_rotation = rotCount;
                     node.fully_constrained = (transCount == 0 && rotCount == 0 && !occ.Grounded);
@@ -225,7 +227,7 @@ namespace InventorAssemblyExporter
                     int ctxId = mgr.CreateKeyContext();
                     byte[] ctxBytes = new byte[0]; // CORRECT DYNAMIC ALLOCATION
                     mgr.SaveContextToArray(ctxId, ref ctxBytes);
-                    
+
                     ctxData = new KeyContextData { ContextId = ctxId, ContextString = mgr.KeyToString(ctxBytes), Manager = mgr };
                     contextCache[docPath] = ctxData;
                 }
@@ -251,7 +253,8 @@ namespace InventorAssemblyExporter
                         Box box = face.Evaluator.RangeBox;
                         data.face_bbox_min = new double[] { box.MinPoint.X, box.MinPoint.Y, box.MinPoint.Z };
                         data.face_bbox_max = new double[] { box.MaxPoint.X, box.MaxPoint.Y, box.MaxPoint.Z };
-                    } catch { }
+                    }
+                    catch { }
 
                     try
                     {
@@ -263,7 +266,8 @@ namespace InventorAssemblyExporter
                         eval.GetPointAtParam(ref pars, ref pt);
                         data.face_normal_at_center = normal;
                         data.face_point_at_center = pt;
-                    } catch { }
+                    }
+                    catch { }
 
                     data.loops = new List<LoopData>();
                     foreach (EdgeLoop loop in face.EdgeLoops)
@@ -276,7 +280,8 @@ namespace InventorAssemblyExporter
                                 byte[] eKey = new byte[0];
                                 loopEdge.GetReferenceKey(ref eKey, ctxData.ContextId);
                                 loopData.edge_reference_keys.Add(ctxData.Manager.KeyToString(eKey));
-                            } catch { }
+                            }
+                            catch { }
                         }
                         data.loops.Add(loopData);
                     }
@@ -291,7 +296,7 @@ namespace InventorAssemblyExporter
                         CurveEvaluator eval = edge.Evaluator;
                         double s, e;
                         eval.GetParamExtents(out s, out e);
-                        
+
                         double length;
                         eval.GetLengthAtParam(s, e, out length);
                         data.length_cm = length;
@@ -302,23 +307,25 @@ namespace InventorAssemblyExporter
                         double[] arr = { midParam }, pt = new double[3], tan = new double[3];
                         eval.GetPointAtParam(ref arr, ref pt);
                         eval.GetTangent(ref arr, ref tan);
-                        
+
                         data.edge_midpoint = pt;
                         data.edge_tangent_at_mid = tan;
-                    } catch { }
+                    }
+                    catch { }
                 }
                 else if (nativeObj is WorkPlane)
                 {
                     WorkPlane wp = (WorkPlane)nativeObj;
                     data.work_feature_name = wp.Name;
                     data.surface_type = "kPlaneSurface";
-                    data.area_cm2 = 0.0001; 
+                    data.area_cm2 = 0.0001;
                     try
                     {
                         Plane pl = (Plane)wp.Plane;
                         data.face_normal_at_center = new double[] { pl.Normal.X, pl.Normal.Y, pl.Normal.Z };
                         data.face_point_at_center = new double[] { pl.RootPoint.X, pl.RootPoint.Y, pl.RootPoint.Z };
-                    } catch { }
+                    }
+                    catch { }
                 }
             }
             catch { }
@@ -360,7 +367,7 @@ namespace InventorAssemblyExporter
 
     public class AssemblyMetadata { public string assembly_name { get; set; } public string full_file_name { get; set; } public string internal_name { get; set; } public int total_occurrences { get; set; } public int total_constraints { get; set; } }
     public class AssemblyPhysics { public double mass_kg { get; set; } public double[] center_of_mass { get; set; } public double[] inertia_tensor { get; set; } }
-    
+
     // EXPLICIT GRAPH STRUCTURE FOR ML
     public class AssemblyGraph
     {
@@ -392,7 +399,7 @@ namespace InventorAssemblyExporter
         public string constraint_name { get; set; }
         public string constraint_type { get; set; }
         public bool suppressed { get; set; }
-        public string health_status { get; set; } 
+        public string health_status { get; set; }
         public string node_one_id { get; set; }
         public string node_two_id { get; set; }
         public double? offset_cm { get; set; }
@@ -424,7 +431,7 @@ namespace InventorAssemblyExporter
         public string owner_document { get; set; }
         public string reference_key_string { get; set; }
         public string context_key_string { get; set; }
-        
+
         public string surface_type { get; set; }
         public double? area_cm2 { get; set; }
         public double[] face_normal_at_center { get; set; }
@@ -432,12 +439,12 @@ namespace InventorAssemblyExporter
         public double[] face_bbox_min { get; set; }
         public double[] face_bbox_max { get; set; }
         public List<LoopData> loops { get; set; } = new List<LoopData>();
-        
+
         public string curve_type { get; set; }
         public double? length_cm { get; set; }
         public double[] edge_midpoint { get; set; }
         public double[] edge_tangent_at_mid { get; set; }
-        
+
         public string work_feature_name { get; set; }
     }
 
