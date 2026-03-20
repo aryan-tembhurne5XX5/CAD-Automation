@@ -1,0 +1,3342 @@
+{
+  "assembly_metadata": {
+    "assembly_name": "1830053465-M1.iam",
+    "full_file_name": "E:\\Phase 1\\Assembly 8\\1830053465-M1.iam",
+    "internal_name": "{33FD38DC-4EA7-9EFB-D346-F49AD5F5C8E4}",
+    "total_occurrences": 16,
+    "total_constraints": 35
+  },
+  "components": [
+    {
+      "occurrence_name": "1830053465-P1:1",
+      "occurrence_path": "1830053465-P1:1",
+      "file_name": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": true,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            0.999999999999999,
+            -5.2997441943480515e-14,
+            2.9660392616882924e-13
+          ],
+          [
+            -5.356645517440045e-14,
+            -1.0000000000000007,
+            -3.341278360413002e-15
+          ],
+          [
+            2.946854531172057e-13,
+            4.576401475292585e-15,
+            -1.000000000000018
+          ]
+        ],
+        "translation_cm": [
+          155.99999999993847,
+          232.7500000000012,
+          215.1499999999998
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "1830053465-P2:1",
+      "occurrence_path": "1830053465-P2:1",
+      "file_name": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.425964489457495e-14,
+            2.944079689011382e-13,
+            -0.9999999999999998
+          ],
+          [
+            1.0000000000000002,
+            -4.704599648910022e-15,
+            5.448168949948621e-14
+          ],
+          [
+            -4.453940839909968e-15,
+            -0.9999999999999998,
+            -2.94709043929464e-13
+          ]
+        ],
+        "translation_cm": [
+          111.24999999993244,
+          117.45000000000341,
+          214.9999999999872
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "1830053465-P2:2",
+      "occurrence_path": "1830053465-P2:2",
+      "file_name": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -5.305789408799881e-14,
+            2.9440796890113837e-13,
+            1.0000000000000002
+          ],
+          [
+            -0.9999999999999998,
+            -3.540305500898726e-15,
+            -5.352973887351544e-14
+          ],
+          [
+            4.085353067197558e-15,
+            -1.0000000000000002,
+            2.943931713706071e-13
+          ]
+        ],
+        "translation_cm": [
+          111.24999999993757,
+          216.0500000000036,
+          214.99999999998673
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:4",
+      "occurrence_path": "0129327023-M3:4",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          76.24999999993237,
+          115.95000000001889,
+          215.1499999999769
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:5",
+      "occurrence_path": "0129327023-M3:5",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          93.74999999993237,
+          115.95000000001792,
+          215.14999999998204
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:6",
+      "occurrence_path": "0129327023-M3:6",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          111.24999999993238,
+          115.95000000001697,
+          215.14999999998722
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:7",
+      "occurrence_path": "0129327023-M3:7",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          128.7499999999323,
+          115.95000000001603,
+          215.14999999999236
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:8",
+      "occurrence_path": "0129327023-M3:8",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          146.2499999999323,
+          115.95000000001508,
+          215.14999999999753
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:9",
+      "occurrence_path": "0129327023-M3:9",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          76.24999999993763,
+          217.55000000001908,
+          215.14999999997644
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:10",
+      "occurrence_path": "0129327023-M3:10",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          93.74999999993764,
+          217.55000000001814,
+          215.1499999999816
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:11",
+      "occurrence_path": "0129327023-M3:11",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          111.24999999993766,
+          217.5500000000172,
+          215.14999999998673
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:12",
+      "occurrence_path": "0129327023-M3:12",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          128.7499999999376,
+          217.55000000001627,
+          215.1499999999919
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0129327023-M3:13",
+      "occurrence_path": "0129327023-M3:13",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -1.0,
+            2.944330508514476e-13,
+            -2.944330508514728e-13
+          ],
+          [
+            2.9443305085144474e-13,
+            -6.744092427388859e-14,
+            -1.0
+          ],
+          [
+            -2.9443305085146746e-13,
+            -1.0,
+            6.744092427380187e-14
+          ]
+        ],
+        "translation_cm": [
+          146.2499999999376,
+          217.55000000001536,
+          215.14999999999708
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100025-M1-00:10",
+      "occurrence_path": "0298100025-M1-00:10",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.122291479860107e-14,
+            -0.999999999999997,
+            -2.951113662788413e-13
+          ],
+          [
+            0.999999999999997,
+            5.080658116449019e-14,
+            4.216453512543852e-15
+          ],
+          [
+            -4.576401475293121e-15,
+            -2.9468545311719377e-13,
+            0.9999999999999991
+          ]
+        ],
+        "translation_cm": [
+          134.85866023741497,
+          201.75500001012415,
+          215.06999999999377
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100025-M1-00:11",
+      "occurrence_path": "0298100025-M1-00:11",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            -0.8660254037844104,
+            -0.5000000000000423,
+            -2.9458668561822885e-13
+          ],
+          [
+            0.5000000000000427,
+            -0.8660254037844106,
+            4.027575876133236e-15
+          ],
+          [
+            -2.5749328926286933e-13,
+            -1.4337944662307905e-13,
+            0.9999999999999991
+          ]
+        ],
+        "translation_cm": [
+          134.85866023741303,
+          166.75500001012406,
+          215.0699999999939
+        ]
+      },
+      "sub_components": []
+    },
+    {
+      "occurrence_name": "0298100025-M1-00:12",
+      "occurrence_path": "0298100025-M1-00:12",
+      "file_name": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+      "component_type": "kPartDocumentObject",
+      "grounded": false,
+      "suppressed": false,
+      "visible": true,
+      "transform": {
+        "rotation_matrix": [
+          [
+            5.122291479860107e-14,
+            -0.999999999999997,
+            -2.951113662788413e-13
+          ],
+          [
+            0.999999999999997,
+            5.080658116449019e-14,
+            4.216453512543852e-15
+          ],
+          [
+            -4.576401475293121e-15,
+            -2.9468545311719377e-13,
+            0.9999999999999991
+          ]
+        ],
+        "translation_cm": [
+          134.84999998337338,
+          131.74000001012402,
+          215.06999999999408
+        ]
+      },
+      "sub_components": []
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_name": "Mate:1",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P2:1",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQMAGgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAHAAAABgAAAAoAAAAGAAAADQAAAAYAAAAQAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIQAAAAYAAAAiAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YLQPZRsANul9SNBWTRoDZDSmFXNirhgswpXJB8QTakS1nh5dyrYM0YWzKKKoKZchgcfyQIObDR55/csAgeB7eExtlb1NzaxXzRrZRqQRQsiWKW4ASQBzAH/aB/9v//R7+9++93e/3Od+BSD/AL7DM8ekBgk0vHbrMlRqUWM0BP5zNMekJrabV25fih5yRCcrWChBunXYiTAAiek7wxiesIO/K3qVYQwEB25K4Esws0i4g4CNV/1b0ImaHO+zos0jPXAMML0e+7TfZf/ln+27/C37s1+23/LH9mU/y37sh+2z/K992O/af/2tfdc/91v/yv78Wfsr/2qf9av2V7+4r/pT++KP2k/94T7qB/fDAyiGvKZAgC9gMEcPSMuNV9Snz4S8PbHQwgG0T8/PNEJjNcPhNWxqamr6q8imeSk7EXNUGvKB5BX8RswRiMi49HqaggxOiJ8LVISKcmoqKTREr9/KBYErqDFHCDIk2F4D7Mv8MWvbj/lh9m1/bR/mp+3X/pf/rzAbravZlPaadZyssWY0XbJS6SKLzbRDcZ6UuVRC4A8qzFGHkc2M15WbOUIpoJK9smZMiArQlsJc4qulrcmhmKBcbPB0hKYcEb0IYvOjRI9NiteVx2KtvpQopjowDEHpfZ/HhcpJHZ5nXlWqM0ceNUlgvIr7UlWSmGMUFQGAuahxaRKIBCISJkiSZGMMwIIRkSGbBxLggxQXQwYRQogxAoIEhBBBESTRCCgYqusB0BO4OPLbxo7j+jJf4LdsWb5zfUDH8mACkqSMWhWlESS7zlQ2EZlFCBAt0VTlk2e7GS0BbTiC0ACl0/8xvh8mLQK0HdLg0UB0XmIn9kD9IcnMPqGoy9odjJ0hnFAlznSC4AZQcj6/ro1lgioaMi2MdS0h/a3CIDmdCQUwxJbcMkRRzt9r0VhqCWkipRfyxa0oXIUYZrnHlx5cLFKsg6hBKDeSK4pcgqhED9/IgiHkBPhELrmuiDYplNSuirpMKOkXQaEWnFBXlCXFvCRUkgafwiPV85A9/wYZ+o9GRUCV/NRPyWoAaEaUJSRYZDS8iL790prIg/yKW+/3yzKdERYKOzErfsuhVPAU2StPCDUAD+2ztFcAbNiLp+VOnJybY+dHZ86Shx/fHVBUBN7czqbRkwQAWOil1OS4SBTsX0A6PP0D",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 265.2624779015822,
+        "face_normal_at_center": [
+          1.2246063538223773e-16,
+          -1.0,
+          0.0
+        ],
+        "face_point_at_center": [
+          -1.6125,
+          -1.9746777455385835e-16,
+          0.0
+        ],
+        "face_bbox_min": [
+          -3.225,
+          -4.3021142204224816e-16,
+          -41.25
+        ],
+        "face_bbox_max": [
+          0.0,
+          3.061515884555943e-17,
+          41.25
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_ca04121c96c60a3c"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKAAAAAYAAAArAAAABgAAAC4AAAAGAAAAMQAAAAYAAAA0AAAABgAAADcAAAAGAAAAOgAAAAYAAAA9AAAABgAAAEAAAAAGAAAAQwAAAAYAAABJAAAABgAAAEwAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YJMlLSYACkOoC0HAWk1zIIACgrS8tq1L6XFUzG/4IgchxAbBOD2gu1AZGT+jAFJUr8ysPsrz8Eg8pJX6ab0oIFlMi8X7vLWDxUh2CpoAcACeAGXvn/u8Ze95+7x795zn3X3nzfPYe+c679hz3jrHeef85o1z2PvmrzfsNu/XXW+bt96ud+s1Z71pzmlghfFaFaK7XfFg1WKuJpcF2+KjtiTIa4oo3e0KGNrUHM2bJRRDZrs5wgLJFytSNnTJ4dNhKosrkvjhNUjmWDAhUVBGtryGEdBlgTVROjLHbSQGjpqSR8RmnZYnFh6ImRsfvOntdAfvpjd4O3jt3eAM3rUzvRl86c30Be+lK70XPOmtdAXvpCd4KzjSO8ERvJF+4I3gR+8DN/A+eoG3gRu9C5zA2+gD3gROew+4gDftRW8Bn72LHuA9O9E7wIfeRBd6Dz3oLXSgd9ABvIH+8wZwW1xNWFTQeIgZMvPChAqB6wKUH3OwnDNnzpz5gVMQi1VDo7ttCQKFy9zLVaO7ucByCzNns4SRhRkpUJi5gcRWpFOGicicK0cT4xVDke4GYogI2hyH94ZneFfvDMfwvrrVG8Or3lanelf9wpvqtveFW3jbPvW2cKn31Cu8pU7hXeFRbwqf8I66hPeEQ70lPMIb6hDeEf70hvAH76c7vQFcVQarq6orzsdmY1lRVdmqOJntgo2G58fEO2SwpKampKSkfqKiKFCIiorqoKAkSICCgtJ5eoIA4enpCdbU5OTU1NTUqtUaNKjVajRLS0xMS0tLNklJSkpJSUk4SEgJEiAhIbF2jg4caIJDBNMJKlNeHB2xfHqMISIKYESjGQ0gohHNZgOKaDOa0NBQUYDZ0CxoiGgIANDODg+QTAb0syPb6bqfHlkn42CxWA9PF+u4V4zbiblsaGpwXjiwHJoXd9OCuV6tV9dy1bCoQnA6HFV3c1LrAmQup8VqcTwcx2JxHMtGdyOjI0eVORwZr1caultLilCSuZsYrOxHgTio4cQSSRApKEgKko05wQYiIzNk2hKAYQihYxAGQRCGQQgIihCBEn5WoAQGIVo+ygZlngm6VYn7rv7j8xO1WCxQo7ROeC1D8Q7EJAQALeHkaIllXmQjzWVDWH/yzT9tbTs+0B0zKjfG3Qz9yF/Z0CdzAItIoS/M823mB7/KnG5z/vBU5vma8YdfMce3OT/0KvM8zfnDV5jn28wPfpU53eb84anM8zXjD7/i5s76GrbaOOgWJF4/QHgdmcDnKpuDn92KQOX8mKWgChMwFAxoDFgPr8Zg7Qh876m12XHPrHfr4zf+qvnbjnGLtHbZzrxyENunLjbTO5cbP5T6ynbePypiECYksL1a/pn9Amumjbn3k4pYic5ZmJ/BvhaZGyjfL8K7XX1HIHk2xQAmbVqIFdHli5kbnCesdlteypHxUWeMkpEVDRnKvNOcnyzoh+K+S57MX3QD7rJ+Cs5jWkLhDJE41tjipCalNzI8zggNka8eRVt1W+H1kaP646M+mffE2YytY2RBrCN9LQ03OPfms3KLFoXueygw2acQH4ppueWEdmvMP2078TWz4F2155FMjx95DslJvuBHajEFQUUw4Lc95xgZSZDoPv4pNZkVA7iM/jNOB8v/",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 14460.905537224085,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "face_point_at_center": [
+          -45.90000000000002,
+          82.35000000000005,
+          0.15000000000000002
+        ],
+        "face_bbox_min": [
+          -91.80000000000003,
+          -4.996003610813204e-16,
+          0.15000000000000002
+        ],
+        "face_bbox_max": [
+          0.0,
+          164.7000000000001,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_7ca6f8e0a47671b0"
+      }
+    },
+    {
+      "constraint_name": "Flush:1",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "1830053465-P2:1",
+      "offset_cm": -45.900000000000006,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHXRIAdttYQhCTksY8fgDcggAVMByw6FZR5AHuY7i4FMrIQWyz8Tm/5hUZgaJ4EVEH8BgfJNirJEAcsrel/xu11gghZBNCCJEyBVMAMQBPACscPqlzxUgnRDk27pcaD45+mKB8TvtamcCxYtEEofBARYIIJjIjGTpvWMMWnvBTOJ+KpWCw4IbkLhF4OzAYB1p85t/EkBC9+AofAY/HjBQFQD4Pf/ZBv2f/82/7nl/b3/5sX/ux/ex3+9h/7bvf2r/+at/ar37q1/3pz6d/cDtweXAkIdQWIz/GGB+mAvDJq1IgHiTZ0Ojx6U4rxs0S4sEOOWDp8/pCgZSZFwxERuA0GOAZcrLi0zqnGkdSotHBoqVIDstOhpkACD5L9kn+kQXtj3z/H2OMFShBWvahUl1em5blpS40TChVxWUDn1uqPKgj8oHiU7tSLdVUzRTxoJASNTc+s0nG3QLhwWon5OIT+9PpHhQPNirqA2+oUXEjMkFSUFBQkGwc4AKRkSHbEgDFEBgxImDEEGMERiRE4iaYmAtmhh6UybjpBtqBRUKSSYHT4uDS1nXwdogMDyXaKPeYcBTem0+MZBXvNhV+hSXkqDPQCMfLdHMggDcaeapPSWxHnE+hGA0nXN+AjoNZn1zivl2alf3AWWTtA4CG3ZrnTm1Wx2F89ol1XBf5szW2qGe5hgf8UBjHzG8AmoMwSx4dAKGIIFF5H9Yt6jzIz2o2X81JlQvyeSZ8s/iMcL+oZvXiYf6+2mtFGM6t6kvMSLTQz0OpyXJnfI4+JOm46w8=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YM8G/REAdtlUQfB2k+GU4SNY8gzQs//lNTr4RQtikICXu+hvYOf8hb1sJiRsLLiPrDUQnk3vhU7jLt1wMdTmL/9GiDTajRBCtkwBTgAxAEoAO+wEQyTz8l4JAuXMks/oS8V3FguJBEdsaKARkAGFKQYEuVCyiEPcYQt/FfN12AwHDWBO7xoD0AjWQ0GObx+mhYVox3PoEIA0P0gMmHwP8Tu/FrP42s+Jn/1YfM7/4mP/Jv77r/ib34p/xbf+6nfxqb+bu8Q7ggqUMxUkjPhWNybeJgpQWkIG6PhiQ4ogwJxz/lEA/J5D71yVAsrTCxAk33epgJKliKz5bu4eDpBOrICA4hIDocD2JHTje12q5T0BB5QYaGz4fFMC/z/nnKUsV2Vbm2WlKsphmsv7wgcoecg8qPHtjKBssmDzfDfrubaupDLoq7UEpQ9REhnfzFmt6lq3AkonL1oQ+XICcKiRaRKIBJHCJCkMmwHAAhkRqtsSYKUcjmOEESMgxogkkgkpklACC0LzkSV7jeLsQ36QJVR0QfIfHg/FKPpldqUDAyt+wLn7m9NPILhvXs0k4ZMiCCgAk+2v8BVtKAYhRmpwXqYcO1KDfppXjGS/L8HK+yhwj4WP0VBdRW0ngJByInlwBUgM1mGeItvgGhJJTIMHwpCBL32cD1GjexENtlLqzIxin6sKBccG6vRyKOf4r2GKJwdAGJr2J/iAxwBe9sbZSb6Z0ZFcdguQnB+pNlARCr8deB+NEm3jjJffZDpt3aMv4L9EVwM=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 367.125,
+        "face_normal_at_center": [
+          -1.0,
+          -2.664535259100376e-16,
+          0.0
+        ],
+        "face_point_at_center": [
+          -3.500000000000001,
+          2.4999999999999996,
+          0.0
+        ],
+        "face_bbox_min": [
+          -3.5000000000000013,
+          0.27499999999999947,
+          -41.25
+        ],
+        "face_bbox_max": [
+          -3.5,
+          4.725,
+          41.25
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_39eaed52ae39d4dd"
+      }
+    },
+    {
+      "constraint_name": "Mate:2",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P2:2",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:2",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQMAGgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAHAAAABgAAAAoAAAAGAAAADQAAAAYAAAAQAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIQAAAAYAAAAiAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YLQPXRsANql9SNBWTRoDZDRGMiHRSC8J8cE9wLXADtC2VPgUPN9zMwMK9avBFEBUwsUjkqMbBxC0oq8y/7EIKqa2yt6mZtarZo1sI9IIIWTLFG4ASQBzAG/aB/9v3/R7+9++93e/3Od+BSAHAa5AZ45JERb8vHbrMlRqYTsaAvdBmmPSUs3mlduX4gMHSlzb84EDAVuODYulHwhvWMMWlvB3Rq8yjIHgQJESeBOYWSTcMcDGq35REApbjudRzeaRHjcGnLwe+7PfZf/ll+27/C37sj+23/LD9mM/yz7sf+2z/K7919/ad/2s/dY/91n/yv78V/srv2p/9af2Vb+4n/pR++J/2kf94f7pB/fDAymGvKJCgDfImaMHpOXG62nTd0IWPcHAwgE0z47PNEJDNePhNbzdbre/Smyal7IbMUelIR9IXsGPxByBiIxNXk1fkLkR4ZOBipBRAlpKCg3R67dyQeAMasyRgowKtdcA+zJ/zNb2Y36Y/dpP24f5Z/u0/yX/r6/arKPVdOaSdZykrWQzXaJS6RKDybQ7cZ6MtVJC4BN65qjjqGbG64rNHKEUSMVeVxMmRAUoS18t0cVS1uROTE4uOng4QlOQiF4EqflhYqdGxavKW61UH0oUUR0YhqD0vs/jQuUkjs4zrynFmSMPWxIYr+K+VJUl5hhlRYC5qHFpEogEIhImSJJkYwzAghGRIZsHEuCDFBdDBhFCiDECggSEEEERJNEIKBiq6wHQE7g48tvGjuP6Ml/gt2xZvnN9QMfyYAKSpIxaFaURJLvOVDYRmUUIEC3RVOWTZ7sZLQFtOILQAKXT/zG+HyYtArQd0uDRQHReYif2QP0hycw+oajL2h2MnSGcUCXOdILgBlByPr+ujWWCKhoyLYx1LSH9rcIgOZ0JBTDEltwyRFHO32vRWGoJaSKlF/LFrShchRhmuceXHlwsUqyDqEEoN5IrilyCqEQP38iCIeQE+EQuua6INimU1K6Kukwo6RdBoRacUFeUJcW8JFSSBp/CI9XzkD3/Bhn6j0ZFQJX81E/JagBoRpQlJFhkNLyIvv3SmsiD/Ipb7/fLMp0RFgo7MSt+y6FU8BTZK08INQAP7bO0VwBs2Iun5U6cnJtj50dnzpKHH98dUFQE3tzOptGTBABY6KXU5LhIFOxfQDo8/QM=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 265.2624779015822,
+        "face_normal_at_center": [
+          1.2246063538223773e-16,
+          -1.0,
+          0.0
+        ],
+        "face_point_at_center": [
+          -1.6125,
+          -1.9746777455385835e-16,
+          0.0
+        ],
+        "face_bbox_min": [
+          -3.225,
+          -4.3021142204224816e-16,
+          -41.25
+        ],
+        "face_bbox_max": [
+          0.0,
+          3.061515884555943e-17,
+          41.25
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_ca04121c96c60a3c"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKAAAAAYAAAArAAAABgAAAC4AAAAGAAAAMQAAAAYAAAA0AAAABgAAADcAAAAGAAAAOgAAAAYAAAA9AAAABgAAAEAAAAAGAAAAQwAAAAYAAABJAAAABgAAAEwAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YJMlNSYACkOsC0DQWqU5AHOJHFUDWL2QognsAtKC0mEUZsKBoJ5WMUKF6AdwpGDEde/bOj0sHQetjuYwMxauHenMnsdvJIhEiOwUmwBwAJ4AZ2+gB3jPDuAd4N0bwH/e3X3eP5e9fd7zlp3n3fOdN8913juPvXUOe8ee84b99c656/16u47z1vvmHIdWGrBXIroblw9YMOZwcluxMENsUYzAsrjS3biYqVHN3bxbQyeqeCGjxAmPjCZAPAhR4UbwfNFFE0Ecp8lcK3ZEKmpJGNgzBLovsSlLTOa4l9TgYYNyCRmtA1MFQwQ0cwMj3On9dAhvpz94Q7jt/eAO3rY3vR2c6d30Bm+mL70bXOm9dAZvpS94M3jSe8EVvJOe4K3gSO8ER/BG+oE3gh+9D9zA++gF3gZeexc4gXftRm8Cp72NPuBNe9F7wIneRR96E13oPfSgt9AFvIMO9BZwYV5OXVrUgqBBQisjxUrBK4MVInMxnjZt2rQ5wpNQq4WDo7uFMWJFzBzslaO7xehyOzOXE8URhhssVrDZ0aTKqGdNU5K5V+6mBqwGJd0tBBIStTkP7w7f8LLeG67hnXWst4ZfvbFu9b56hrfVq94ZjuFddao3hk+9qX7hPXUL7wuXelt4hbfUKbwrPOpN4RPeUZfwnnCot4RHeEP96Q3c1QasrKssLkBVVQvL6qrqiptVZai6+QFK8Q8brSkqqqmpKSApKQsWpKSkuqgoChSioqJ6oKAkSICCgoo5OT09OTk5uWy2Bw9sNtsNE1NTExMTU46S0tKSkpLSTlLSggVJSUktH6QECabwINGkQkuWGUhIrQBC0hQVDTiq1Y4KFNWKaLQCRjVabYiIyGgAjYgmRFREJCDIx+cnaDYLAvKZ+XQdEIBZN+NiMhmAn07WcTAZ5yN75dzg7MB2Yjw3ME7HFXvBXLDO9cJpWYngejir7kbFNqbIHI+r5eJ+OK7V4riWju6mxkePLXM7NmCzOHQ3F5ahJ3M6stgZkYE4qOHEEkkQKShICpKNOcEGIiMzZNoSgGEIoWMQBkEQhkEICIoQgRJ+VqAEBiFaPsoGZZ4JulWJ+67+4/MTtVgsUKO0TngtQ/EOxCQEAC3h5GiJZV5kI81lQ1h/8s0/bW07PtAdMyo3xt0M/chf2dAncwCLSKEvzPNt5ge/ypxuc/7wVOb5mvGHXzHHtzk/9CrzPM35w1eY59vMD36VOd3m/OGpzPM14w+/4ubO+hq22jjoFiReP0B4HZnA5yqbg5/dikDl/JiloAoTMBQMaAxYD6/GYO0IfO+ptdlxz6x36+M3/qr5245xi7R22c68chDbpy420zuXGz+U+sp23j8qYhAmJLC9Wv6Z/QJrpo2595OKWInOWZifwb4WmRso3y/Cu119RyB5NsUAJm1aiBXR5YuZG5wnrHZbXsqR8VFnjJKRFQ0ZyrzTnJ8s6IfivkuezF90A+6yfgrOY1pC4QyRONbY4qQmpTcyPM4IDZGvHkVbdVvh9ZGj+uOjPpn3xNmMrWNkQawjfS0NNzj35rNyixaF7nsoMNmnEB+KabnlhHZrzD9tO/E1s+BdteeRTI8feQ7JSb7gR2oxBUFFMOC3PecYGUmQ6D7+KTWZFQO4jP4zTgfL/w==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 14460.905537224085,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "face_point_at_center": [
+          -45.90000000000002,
+          82.35000000000005,
+          0.15000000000000002
+        ],
+        "face_bbox_min": [
+          -91.80000000000003,
+          -4.996003610813204e-16,
+          0.15000000000000002
+        ],
+        "face_bbox_max": [
+          0.0,
+          164.7000000000001,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_7ca6f8e0a47671b0"
+      }
+    },
+    {
+      "constraint_name": "Flush:2",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "1830053465-P2:2",
+      "offset_cm": -13.200000000000001,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHVRIApttYQhCTksY8HgDuigAVMBwQjEqpA3IesQhO7UM6rjXY/HUhEF1ns2IgaKVBK5iuhwzRKkNYaDNx/bs10gghZBNCSJMyBVMAMABQABQkcPiczvUizYhuaNwtNR7M8XGA5LOzr1RoJsPKiwUs20gMSYxLD9dglzd84Qr/ZPOpVwoID2pI7pKBl+OCoYDFZ37NiwmRi7ewEXg6ZJQ4+PF5/7b/+T3726/te/5sX/ux/ey/9rHf7V+/te/+at/6qf1qn/qnX/c7fz79g/tE5cGc00/ajPwYY/zRSoBDrzqFeJBEQ2PHpzurFzeKiAc73IClT2sMCEpgWliElLCJUMATJKTiszo7Mk6kRALHipQhNyg4GmAGjHwC2Bf5QfvZBwX/H2OM1Cc/GbZNqS4tLcPSUjd6NEo1UTnBp5YmD8YQ8UDxmVmplWqqZo54EMgJGRufWAeEO2XCgxSOgBaf15/uU/eceGBABW6oQXUjMkFSUFBQkGwc4AKRkSHbEoDEFFgxImDECJQRGCEhJG6CiblgZsoDlMm41QCCgRXC28cfp5/gctT783KIQA5Vx9L2aGAHjDbfiGQvASOKDI1SkjBmoLHMkunugJk3gTyJpyS3U85b8YkIAq6H4I1RqU8by98urcp+8CxZo4mjsVvjuaU2xHE0Xrpvj8vlfrbMFGOWBUhJ5+P1s4WPIMyWRxtBKCPIVe6HZYt7FshXMEZf2ZPNmPt0DL4ZfUbwX1Sx+uFhfl/tRUWY51b9FSwl5mjngdRk8WO9RR/GdOP1Bw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 399.4899999999999,
+        "face_normal_at_center": [
+          1.2453100253590556e-16,
+          -1.0,
+          -6.742638542413716e-17
+        ],
+        "face_point_at_center": [
+          -47.89999999999999,
+          -5.977550827990941e-15,
+          2.5750000000000006
+        ],
+        "face_bbox_min": [
+          -91.79999999999998,
+          -1.2484346733082658e-14,
+          0.29999999999999993
+        ],
+        "face_bbox_max": [
+          -4.0,
+          -3.5991973467111027e-16,
+          4.8500000000000005
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_3f9ff53afa53fc7a"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:2",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YM8G7REAVllUQfB2k+GU4SNYGvA2MDp5jQ5+YcpiEPhrePlTqA6cRXFOqk6bpQ/XqKgxr7N1HzpZsxWtyvunr/xGiDTajRBCtkwBTQAxAEsAO+wUAxTT8k75AaVMEo/oS8V3VogFjInlARIVFRAVWDQPBxiPWMQdvvBXL1+HzWjAwOX0nikAiWA7EuD49l1MLUAwv4EzABbpMVqg5HvxOb8Ws/jav4mf/Vj8zf/iY78m/vuv+Jrfin/Ft/7qd/Gpv5vbxBtCCUoZCxFIfKsb3Zx4T6AApQVEQI4vFqQHAsw55/8EwN/5885VKaA8tfgw8n2XCihLDJEzX80eDIxQpIRwsvLigMDW5GPje13K9JZwA8oMNDR4vigB/z/nnKUsV2Vbm2WlKsph2sobwwcodcSEanw5IiiXKNg63816rq0jlUbw1UqCkgfoiIxv5qxWda1bASWTFy6EfHCokWUSiAQiCiRJYdgM0AIZEaLbEmClGM5jhBEjIMaIJJIJKZJQAgtC85Gle4381EdskN6drhhyazgizFCgzgIoHSCYygHO3Ie5forAZzO1jkCelDCgMLA5mhKvc0NYQDjV/7RMaexIJsprRggkY3wJKm83gRUWfoxeKuq3mRDgiIj86ALgIljC/4vo4x5IZJgmD3NDzl8sSwxdRPfkGySF/LMZxXZuwWeErfSnxXfL8P+EBR4MQPA2lL/hQcdBf6kM3UiJiXpVLkrLKWets7ZfETja/JweipKWc8en3+Q9bcHNn/G/BFUD",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 367.125,
+        "face_normal_at_center": [
+          -1.0,
+          -2.664535259100376e-16,
+          0.0
+        ],
+        "face_point_at_center": [
+          -3.500000000000001,
+          2.4999999999999996,
+          0.0
+        ],
+        "face_bbox_min": [
+          -3.5000000000000013,
+          0.27499999999999947,
+          -41.25
+        ],
+        "face_bbox_max": [
+          -3.5,
+          4.725,
+          41.25
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_39eaed52ae39d4dd"
+      }
+    },
+    {
+      "constraint_name": "Flush:3",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P2:2",
+      "occurrence_two": "1830053465-P2:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:2",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQNAHAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAATAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKERDRwApql9SNBWTRoDZDRMOMULM0YJ8EKhgGiCChho6bETPN+E8fWK/EqhVkGgmDCIvErSUQ3Pd0GAdUJ0LMVS1MKmNu1Va2TNErVGCNkyBXAASQBxAN9v2vf+0r7p7/ZL+93P/XJ/+3VGHsJ7Ac8cjSDoeHjl1uV35KKGCMi7p2iORkzEm9dtX4IChjy50ELnAYfkyI4DBCjk6g5zGMMRfm7oVX4yEhwQOvJGgplFPh0EbLzqC/mkqMHxFlThNMIDx4CT1wP/y374y/Zf/ti+7HfZj/2wfZf/tQ/7W/Zfv2u/5W/tu36W/dbP2mf55z7rX9mf/2p/5Vftr35wX/Wn9sEftZ/6T/uo/9s//d5+p+4mpZN88aHL+ZlSFAQDiI2PExRsVrx+qaSkpKS/Cmyal5IjMccjoB5JXr1SiTmCIDIivZrOUMMZ0bOBys+QghkohSbotbRuPt4MasxxwowK4muAfQC/zNb2Zf6Y/dpP24/5xX3aD7Mv/rN9mD/cnwX/39VKIq0mdqYwnNFCkYvJZrHwBZO9YjpAWy7Yq7XNyXK15mzpacnHWk3V1qFQK5X0UimUet1p27gP/PGWoGGOOYhsaLyubuYIpQAIe1VtXhCdkcrJHB4FNWeOO2qUxHhNdZ3UTzeVqtLEHKOwUCHkFSXCu8HOHLsfLjdeA4DMqIFpE0kgorAgKUg2xuACEREZ4xwS4IIQ2lIMMoQgZYRESJAREkERIgGhqSk7b5UYgOR0k3Mn6W1LF27ya2lS+WmQlcJiS1CFTjGIR6/EM8VJT5ZqgbzCIsfKRr03uYG7lJzCqrTn1dpc5z+ipMBh9Coy0C4i0NOQ+muTxRYi1xp2Z4emRmg+QMAnvAap6iCjC41uLxOeyXvwf1HctEyR7PKJ47ESiIxlYSBB/MBC3FZ2cvnNEmRC9xRy1fHza0IIODVMcKJX1IADQMJLfdadqOsITPXYJLDdDsMJJmwAxr6o4rt0XWuScFzG6xbRk4uYDVUjgL2iWexPBBjkmqDx/o1dVI1vf5ncIFwZ9TWBOblVCbpuT77aaUuuaRqfqtLvhbd4i4Ho6VUGWd85JEuJH4kar9YXYe6J/pdn3AIo9L5pWYFix9x5zgA1yO8AFjwgMMrXTP/mjlMu7mcBuI2XmIPnnCtwYZcnwWd9A1UR6tF25JUslIQCx/hManIbGzDMn9t0jfUH",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 1.195948554860979,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "face_point_at_center": [
+          -2.000000000000001,
+          2.5000000000000004,
+          41.25
+        ],
+        "face_bbox_min": [
+          -3.5000000000000018,
+          -4.3021142204224816e-16,
+          41.25
+        ],
+        "face_bbox_max": [
+          -0.5,
+          5.000000000000001,
+          41.25
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_346fcf4283f178c7"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQNAHAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAATAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKERNRsAhql8SNBWTRoDZDQiunwGrtALt7vn2Qw/vsSH2ZkZcIxAxeEs5FcKtQoCxYRB5JWhoxreNN0g7D8sbGpTm9q0SXejJerWiDRCpG2ZAm4ASQBvAH9p3/u7/dLP7Xf73L/9cp/0a4zcg3eCnDkSNVCw4XVbl19txUxQj7eO0ByJlMhqXkn7EiSyo1WUoqimRyjgoBiSUfSyhjNcYQf/BvQqvxcHDPzUvI1cppAPxwAar/o/OyVmbPyEEDaH6LApsOT1t+zD/td+y+/af/0s+66/tc/ys/Zb/8o+61/tr/zi/upX2Rd/1b7KP/dVf8r+/FP7KX+4n/rB/fBH7YP/aR/1m/ZP/7dv+r39L51JsuDA3fA8EfJp8YOmB4kINCdeP247Ojo6+qO0lnkptxBzrPXwKPLqdSLm2CHIaPRa2gLNBoQOBig8QAhioBMZn9duJe1448yYIwQYEmSvAfYB/DBL24f5X/Zp/2z/5Zftz36Xfdkf23f5YfuxD//PdTSlzWRcCTaLwWQujb1cMGW9WspyqQBx1RJZIusrzZUqFKeoE8kXplThLHGnVLih1DtxG+kDebwfXJjjjSCaGK+pmjkyIQC2XkNPAtEY2W3yJkdBvZljjhkjLl5RHEk5E6dSqsoRc2yiwsTQ6+mD9wIGc+R8sNR4NZ0kgMGoYXETSSCisCApSDbG8AIRERmjDhKgkhCdpRiECCEECYgREIIERVghSkBjZgdvlRiA1P2F0WVWK16lucFovFNl/CTthkD2u0jVht75gdqFSyJKYme+D1uyscGsuccjssMEaEgR3tBFxwJgGrrhEOi/om6GPgw67CC1G9/IFgP0FQ+T2yupQUa5pi+GZJLsmNk7DZvKJBCTzl4ue17iyAU/Jc8Rqk8hxUz5irecD94RIgPYL8wg0PDG0hcimegfcgEb7aTHdoWkRzIFE29BJiAafNd4lJAYuk4Pk15RROuYDdOk6N0si+Vj1er4df4QLCrawt/SDqHARAkdHBw2WINRKJHv4LMKdSVLUZWdbk5kmAUWPazs377zeM9rub/wQr0+CYzMRUxqgLOq7+w1bipwXz7Unn5jO+P5gf+AQfonczzcBx7dvfYvMT8uliv9QhZPkJ/1jaEisEWb30IhRiLOvz18arI7L8rND810FPEH",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 1.195948554860978,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "face_point_at_center": [
+          -2.000000000000001,
+          2.5000000000000004,
+          -41.24999999999999
+        ],
+        "face_bbox_min": [
+          -3.5000000000000018,
+          -4.3021142204224816e-16,
+          -41.25
+        ],
+        "face_bbox_max": [
+          -0.5,
+          5.000000000000001,
+          -41.24999999999999
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_56253f1615f6d88d"
+      }
+    },
+    {
+      "constraint_name": "Flush:4",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P2:2",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 3.5,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P2:2",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P2.ipt",
+        "reference_key_string": "AQQNAHAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA0AAAAGAAAAEAAAAAYAAAATAAAABgAAABYAAAAGAAAAGQAAAAYAAAAcAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKERDRwApql9SNBWTRoDoOZQB9UDWC9zKss9gIPt84mnpcKrpOqWmRlQ+JeZcglQBDOW6xALw++dnSx4/RuioxZNWgub2rRXrZE1S9QaIWTLFHAASQBxAOBv2v/+0r7p9/ZL+97f/XKf+xVGLuJbQc4ciyDceHjt1iVo5EJmqOdbh2iORUc0mlduX4ZIQAjZWhwZuRB00yDpwQQDOHeYwxiO8HdArxKUgeDAj9E3UssUAuIYYONV/2cnhcyNt6AS5xAdNQWUvB4/y774y/ZZ/ti+7F/Zj/2w/ZX/tQ/7VfZfv2tf5W/tu/6U/dbP2k/55z7rR9mf/2of5Vftr/5wX/Wn9sMftZ/6T/uoH9w//d9+J+8kpZN88cGz4XFC5APDxwwPFBRmVryCqdvtdvuTYMe8lF2JORr17CDy+pVMzDFEkBHp1XQGWw0JnQ1PeIASzMImMT6vpZXb+V5QY44SZlSgvQbYB/C/rG3/5XfZt/21fZeftl/7W/Zp/2y/5Rf3ZwH/79lKtJqN5plEcVYTaV1MNouJL5jsFVMB2nLBXi1uTparNWdLT0dA1mqqOA+FWqnkl0qh9PNOHNeBIc83joY5Cg3N0Hhd0cxxCYEQ9qrivh8KI7WTNjkaqs0cc8gUifGa8jypoHIqVeWJOTJhoQLIK2rENwMHc/R6rAS9BoDMqIFpE0kgorAgKUg2xuACEREZ4xwS4IIQ2lIMMoQgZYRESJAREkERIgGhqSk7b5UYgOR0k3Mn6W1LF27ya2lS+WmQlcJiS1CFTjGIR6/EM8VJT5ZqgbzCIsfKRr03uYG7lJzCqrTn1dpc5z+ipMBh9Coy0C4i0NOQ+muTxRYi1xp2Z4emRmg+QMAnvAap6iCjC41uLxOeyXvwf1HctEyR7PKJ47ESiIxlYSBB/MBC3FZ2cvnNEmRC9xRy1fHza0IIODVMcKJX1IADQMJLfdadqOsITPXYJLDdDsMJJmwAxr6o4rt0XWuScFzG6xbRk4uYDVUjgL2iWexPBBjkmqDx/o1dVI1vf5ncIFwZ9TWBOblVCbpuT77aaUuuaRqfqtLvhbd4i4Ho6VUGWd85JEuJH4kar9YXYe6J/pdn3AIo9L5pWYFix9x5zgA1yO8AFjwgMMrXTP/mjlMu7mcBuI2XmIPnnCtwYZcnwWd9A1UR6tF25JUslIQCx/hManIbGzDMn9t0jfUH",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 1.195948554860979,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "face_point_at_center": [
+          -2.000000000000001,
+          2.5000000000000004,
+          41.25
+        ],
+        "face_bbox_min": [
+          -3.5000000000000018,
+          -4.3021142204224816e-16,
+          41.25
+        ],
+        "face_bbox_max": [
+          -0.5,
+          5.000000000000001,
+          41.25
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_346fcf4283f178c7"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPcGHRMAlhpaQ/CUk8YYqrn+OYAfEXoe78NUOnOO0Q6k5ULRdZU8sZo/H323LOxHm8mrCuLx8Ru9/jW+R2NNfzs1iyxRa2S3JZuQLVNPADYAUgDv9e7iyoXpZgb+giOpzpGRyq81370OkWVFDRcMgUzOgxOKUwvSMGvYwiz/ZfProozTgZoVfIeAHBJ3kG787tfEyJhyfIVNgCTSYyUFye8BkkqYQWH0G5q//aD5mQ/6s/mfP87Pfjg//p758Mfme/43H5v//ut3861/NXcIuIIWSXUgLNhwD0gAHL+ZBgPig3vB4aVUTHBoYOSgfpyYgFLxG98Aaq31U1BOftGld+4iIelqxkeRX4iVkNSDELrz6/lCgZURLxmaqGwSDNCWlGh+sdeKgTOwEf9fa62X5TboFj7ruaip4BEwSKrjBkXjN6QiaRIUTfS7wXWJuy7VsoFfbVOS8jAZifELeptd63adCUmVsEgR5PcjAt7AgaQBb6hxZROIBCISSJJC2gyAghmRMfUSgMUcDIMEGSMgAiQakYwEIiKxFibcBpeJwOxD7N4sIjHXNxjppD38gMndbpj7XsmkkDIBBzgzExiBDWVlxPRm4ZKwVnKRLKJMp2p80cIuJMieBBIfjOErB1Hgfx7ZYSea5nAmpMng1tv7/eCHRcKhvWbKtjmN1hTk3U/rpeVaAbV9pEbrUl56ZeqBt9lSBnJ2BgJNtK3/xwe7PuMjE880tismsDO4rc5698Vl5g/zowcA/K0D/SsOHgHrLw84Nz+ZPOTKJXHZzymYr80VITW3nYdJSHIAI75TJk8NPHn/vdSqWA0=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 24.555000000000017,
+        "face_normal_at_center": [
+          1.0,
+          -1.0785408860960834e-17,
+          0.0
+        ],
+        "face_point_at_center": [
+          8.881784197001252e-16,
+          82.35000000000005,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          0.0,
+          0.49999999999999994,
+          0.0
+        ],
+        "face_bbox_max": [
+          1.7763568394002505e-15,
+          164.2000000000001,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_1c56aa15cce62694"
+      }
+    },
+    {
+      "constraint_name": "Insert:4",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:4",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECFQ4AltRNSPCwKI0BeLm6c4sDfXP0nPrqOSu+4vj2zvjTDjWIVhj+UBYa8MEz/R8y92WTty6JYaxZ+l6AlwXO22z8yf77QSwtkgxCCNkyBTwANQA+AC83vlwU8YW6IHOghZYEkOHgRYHTDF6wgQf8HexXhiBiYFw1cNvJdBHGWF6/+y7VSkTiTyCfCQMFaXT7PSF+v5dTgeOImJRAywT69cb/xvd+bpTjc//KI4DblCadCbhp8Nu9y7DWQVSCBZ5KMemsBmjmLjQFoA231oeGCXHlq5F5+A27Wmv90UvIP3Lo5e/JjsKkNZYsxi/4VZj0AY3afjtGpZAmpBLkwACjMfHgCAX/X2utHcdJsbTKr2fFSU+IZnz4/YitTCEELFZA2HGlhUlvaMjQ4rcjATwHwKSeCpIRvx4if4eDjS89IJCCERuyDoMDwnDwhjgceMiVAPNmUJBB9kpmaRk+2Tw6i9yF34mYyQL2wgu+aWOagIYBjiPpCBQJwEfL7SRYw3608K76qAZL9yU3RAp3hCe7GZw3ZGCzcE7AvXVBvV9yvuwtE7LYF887Nd/9sMO75CUKSrukySQdcxNeEkwu9mB5vi/PDnti",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077128,
+        "edge_midpoint": [
+          -79.54000000000006,
+          116.80000000000007,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468398e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_ed1eeea3bf337da0"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:4",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACXQ0ARpRJQwAHK40BQAzkMEcYE3ohgAgjFH+CDtWIDfDdaKhNcwIY2z6f1N8JtV5cGQIm9pxWXmrYd6biXo+fDAu23uNDojWyZQo7ADMANQAh+XMNhOj0cD0nCWQtVwODlwp3ybRF7vhBu9850qgudD9xIAQdMPJM5Pzu62owqZ0HKTlQAj4sCwS/B6J3V8RfLlpvwZTRb4h8EfmhPyQn+eG/cxXxVoxWH8eGyS/ofY6/mVQvJz4DQKvvwGn1G+8oxKEVVvNx+h3/kVeWZflTKPymUT8nqIXWX+6nwK94Tdz1QqsCmZgAvwc3cQ8arTCazfYb/78QLjmnRmyJ39KU0crrYdj8kla0BitIpt+E0TjDnwqJXGhFEVCBvwiPRLBYZiQNbruMB9IC1M0BOyCwghkisg00DCAi80kIRfUL5KvjrtgKAMwAeAqAmvBtIp5nx/AmlHuxeZwFFv776Y4ZjE7hUxgAvo63bEV3ob1XhMvX5OvnC0QIwZh/q8UOFo4nkLMull7O4pfcyyjTFNLWz4Ge+LDD55InFJR2SZFJOtYmPEgweezB0nw/nx3WxQ==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:4",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:4",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHVRIAdptYQgCTk8ZMB3TWEaIAPHoruxX6BXkwoix+AhZq/yzx5YJe5jpSLKGp/k4uVXEPQHkEQ2t0+Yd0/FgzawkhZBNCpEmZAlIAMQBPAA00fFLniplQiGpi3Cw1Hrz5UWD0ydnX6oSECj5oSNoyajkJYtKh5OIMY3jCEH5q5lMxFQsUyJjcJwJPBwYDQYvPfJmXEqIXH8Ej4O2YQUoA5PN79j9/Z9/zb/udX9vf/mxf+7H97Hf72H/tu9/av/5q39qvfurXfc6fT/fgZrDy4M2D1BYjP8YY36UCcMmrUiAeNMXQ4PHpTuvFnRLiwQ044OnzmoIBEgyLBSIkZk4GdIaUrPi0Tk7JjZxG5GChUqQmxeYCTACTT5L9kR+0n33QB/8fY4zVJz9a5qFSXV6bluWlLrRLKBVl5QOfW6I8KEPUI8WndqVaqqmaKeJBISZKNz4zzge3ioMHK5sQzSf2p9M7Iw42KuoDb6hRcSMyQVJQUFCQbBzgApGRIdsSAMUQGDEiYMQQYwRGJETiJpiYC2aGHpTJuOkG2oFFQpJJgdPi4NLWdfB2iAwPJdoo95hwFN6bT4xkFe82FX6FJeSoM9AIx8t0cyCANxp5qk9JbEecT6EYDSdc34COg1mfXOK+XZqV/cBZZO0DgIbdmudObVbHYXz2iXVcF/mzNbaoZ7mGB/xQGMfMbwCagzBLHh0AoYggUXkf1i3qPMjPajZfzUmVC/J5Jnyz+Ixwv6hm9eJh/r7aa0UYzq3qS8xItNDPQ6nJcmd8jj4k6bjrDw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:4",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAq69PYZ9Dq8gzM2KLE3EsCgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:5",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:5",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECFQ4AltRNSPDOKI0B8IpfSku8pmpS6KnfMu37fmu8+cMUty2qJZ31Umhj4Uib5Qd3WX+Ewzv4qNGD2VjY2MvRLJH5scATfGAHIYgmhJAtUzwANQA+AG83vtxacgLyQIILmqeCwpVQlG4m8IB5zvm92K8UMby4wG7hOJJpQpStbPjdh7Faow6/0wGaJ0KYSLnfAxl+wbdjhddomFTnpQr9fuOD439/N8rxu3/lCMJnUpPWcGgK/HrvUrxVGHlwha9ETFpjEYI5LDYBoQm5F2jFh1MKKDOz8Ct6tdb6pBaPP2TRy/+T3oJJb65Zit8QZDCpARvF/WbcY2JSsAoQw0EsZuQDQxT/X2utXtfJU2qU38+eJgUxUnHhl0PWUokAlCBxYMeVDSZ9EQEC7XcjQbgNatJvhAiHX42PX6TQAgw9IJCCERuyDoMDwnDwhjgceMiVAPNmUJBB9kpmaRk+2Tw6i9yF34mYyQL2wgu+aWOagIYBjiPpCBQJwEfL7SRYw3608K76qAZL9yU3RAp3hCe7GZw3ZGCzcE7AvXVBvV9yvuwtE7LYF887Nd/9sMO75CUKSrukySQdcxNeEkwu9mB5vi/PDnti",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077128,
+        "edge_midpoint": [
+          -62.04000000000004,
+          116.8000000000001,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468398e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_b5fb30bf284dbea2"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:5",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACZQ0ARtRJRAAHK40BwIl4xsQm9HR4zvlD8SeIYBb+afbH3sa1Cq24+lk+WXcBSdaF5kH3B7ZL/6U2pwjGQUVSw8DZ2d5hIdEa2TIFOwAzADUAIPlzRxcDFwAvC2IKMlYYJA49iFkej13yh3C/U+Tp4Ljxwn0TFIEowCLod/82w1EFeBRTBE0wgLXh4Pejd2fCR1q01n4xpF8R+SPyRT9ITvLBf+cy4SEwWncukZbf0PsUeTsqnS1cVoDWXQPU6jcvCQSi9dVzgvoVfzFXlmX5XzD8p1M/Z6iGVp6NQO83fBbeuqH1gU6Ogd+EWrjJSOtrpNF+A//fAC45Jwjsil/TVKE1p/Pw+S2taP1plE6/CyTxh18lGtnQCnOg+n4VTqFg0chWItRwHxIlCKmfAzsgsIIZIrINNAwgIvNJCEX1C+Sr467YCgDMAHgKgJrwbSKeZ8fwJpR7sXmcBRb+++mOGYxO4VMYAL6Ot2xFd6G9V4TL1+Tr5wtECMGYf6vFDhaOJ5CzLpZezuKX3Mso0xTS1s+Bnviww+eSJxSUdkmRSTrWJjxIMHnswdJ8P58d1sU=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:5",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:5",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHTRIAdltYQhCxJI0BPJBIXYKgFQQd9SLgqLWsEMuhNUNl24A9/54g9swHH4UoAiEl/wxHj6d7lYsimeVvBbNta40QQjYhmzQpU1IAMQBPABA2fE7napFKjGxm3CoxHtTJcWDk07OvTQTGihFxk8KyoxFWWs4EAa+s4QtX+KeaT7VOiDSgIblLBl4Nq4UCFZ/5NC4jRizeAojAswGDhIGOzwOD9kP/Zx/0Z/ufH9vP/msf+63963f71l/tu5/ar/62T+23f/p13/Pn0zu4H6A8qEMhU+YiP8YYv6UFOORVJ5gHSTM3Nz7dSbm4TT48yDIDlj6rMSAgeVHJwCOmxkGBz44QFJ/U6ZFxIKUQNFKc9LAxwUl5GbDgE8A+yP+xof2PD/8fY4wtlCHsAk2pLqsMu7JSJ7pFlFqCcoLPLEsefDHCYeITq1Ip1VTNBPHgDgkZGZ+Xx4P7RMKDDUe04tP60+mfEQ45bfpvqFFxIzJBUlBQUJBsHOACkZEh2xIAxRAYMSJgxBBjBEYkROImmJgLZoYelMm46QbagUVCkkmB0+Lg0tZ18HaIDA8l2ij3mHAU3ptPjGQV7zYVfoUl5Kgz0AjHy3RzIIA3GnmqT0lsR5xPoRgNJ1zfgI6DWZ9c4r5dmpX9wFlk7QOAht2a505tVsdhfPaJdVwX+bM1tqhnuYYH/FAYx8xvAJqDMEseHQChiCBReR/WLeo8yM9qNl/NSZUL8nkmfLP4jHC/qGb14mH+vtprRRjOrepLzEi00M9DqclyZ3yOPiTpuOsP",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:5",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAPYTXDfNNulYBknKASHiMEAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:6",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:6",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECBQ4AllRNR/CQKo0BeLm604EOLTiBfZjxdMw3c7v1CTjKfjlBXYKax5CEXBALj1ArYtdNeYGq+ZbTXkwkG55ujXR392K3wHQkQYQQsmUKOwA1AD0A7ya+3JEVY4uGZ6APqVDKiRWGDOEHK/jAz7l+JSgiBtQav2koMwb4ciHxu98yoUITnwCEM2WoCH1qvwesX+/dTN8DRkyKYEXq/Hbie+J3/yZK8bd/5RS+A4wmjRkQEOGXe5fg6CE8ofousZg0VqMjcy8yB51UbcWhgULE4gGAgfgFuVpr/Q+MyF+y5+XfSe406aiCzX4/78KkEmSU9qt5gUrIQqlBjgyumZMNDk//X2ut3LZJ0eiV382KJk0Rzgjx+/FCkTwMXriYsOJKDJPe4LABxq9HhW8CBSbtWpiU+O0g+TUdbHgBPSCQghEbsg6DA8Jw8IY4HHjIlQDzZlCQQfZKZmkZPtk8Oovchd+JmMkC9sILvmljmoCGAY4j6QgUCcBHy+0kWMN+tPCu+qgGS/clN0QKd4QnuxmcN2Rgs3BOwL11Qb1fcr7sLROy2BfPOzXf/bDDu+QlCkq7pMkkHXMTXhJMLvZgeb4vzw57Yg==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077128,
+        "edge_midpoint": [
+          -44.54000000000001,
+          116.8000000000001,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468398e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_bc5841893eb8d188"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:6",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACVQ0ARlRJQgAHK40BwIl4xsSm36gEmCMUf4KOMf8rwTjdqjhUWO1cSw7qL8Ksi91B90b/1X9Ymxsh9idNCU8An8dFo4VEa2TLFDsAMwA1ACH5c0cGWYGgV2wiwebDB4NF9oxybZJBftHud443rAzdTxwIQQeMQBQ8v/s6m8zq50dODpSAkOsCwe8BpHdbxD1gtOKCK6XfEfkk8kd/SE7yw3/nLOIcM1p9sY6UX9H7HH81q15OnAaAVt+BVOs3byncoVWGI5L6Hf+RV5Zl+Vco/KhVP6fohdZfbsjAr7hNHBZDawKamQC/BjjxkBqtstrt9hv/vxAuOefGbInf0zShldfTyPk1tWgNWphQvwil8YZ/NSLB0KoioAJ/Dy6JcLnQThbgdq8HkwKVzgE7ILCCGSKyDTQMICLzSQhF9Qvkq+Ou2AoAzAB4CoCa8G0inmfH8CaUe7F5nAUW/vvpjhmMTuFTGAC+jrdsRXehvVeEy9fk6+cLRAjBmH+rxQ4WjieQsy6WXs7il9zLKNMU0tbPgZ74sMPnkicUlHZJkUk61iY8SDB57MHSfD+fHdbF",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:6",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:6",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHXRIAdttYQgCVksZSTk547wEbvn7ywumZHk9YGCLxQsHcBvyBPon3IcLiSgxCzK8HnxCoBnooY21kG5mfj/1ba4QQsgkhhEiZAlMAMQBPABE2fFLnipFWiHBq3DE4HtQRYiDlc9rXCubBtAOCgwsKCgANOvwYTdhZwxm2sMtP3Xwq1oIBig3JXSrwemAzEsD4zLeZSSGS8RU+A54PGyoLhnwef/ZBv2f/82/7nl/b3/5sX/ux/ex3+9h/7bvf2r/+at/ar37q1/3pz6eHcEN4eVCHQtRGIz/GGF+mCvDJq1IjHiTV3ADy6U5rxs1C4kEPO2Dp8xrmgApNzAUjJ24cEPAUOXHxaZ3TyJWUTPB40XIEhyUHA40ABZ8m+yU/yYL2ST7/H2OMFShBWvahUl1em5blpS60TCh15WUEn1uuPFhDFITFp3alWqqpmlniQSIqRjo+s0mEu0XCg1VOKMYn9qfTPSkfclTUB2+oUXEjMkFSUFBQkGwc4AKRkSHbEgDFEBgxImDEEGMERiRE4iaYmAtmhh6UybjpBtqBRUKSSYHT4uDS1nXwdogMDyXaKPeYcBTem0+MZBXvNhV+hSXkqDPQCMfLdHMggDcaeapPSWxHnE+hGA0nXN+AjoNZn1zivl2alf3AWWTtA4CG3ZrnTm1Wx2F89ol1XBf5szW2qGe5hgf8UBjHzG8AmoMwSx4dAKGIIFF5H9Yt6jzIz2o2X81JlQvyeSZ8s/iMcL+oZvXiYf6+2mtFGM6t6kvMSLTQz0OpyXJnfI4+JOm46w8=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:6",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAMVJi6oZLbRXjGm+SoVWJ1gD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:7",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:7",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECLQ4AVlRNSACvKI0BZC4SJ5gtvgmFheoBjvbwHob93nd9aFFP1tMBp7A0+DIZVGXBikbdIp8LgkCBUbHmo3k/0dweZiC5dL0ODZJBCCFbpjsANAA8ANuNL7cVooL2QKeHFGGsadF2BsoFJjDPOL8X+5VihhYW2C0cVzJRiDIVDr/7sBVr5OF3PEAzhQhTKfd7L/h2q/CZDZPmvFKh3298cPzv70Y5fvevPEF4DGrS2o2MgV/vXYo3C6MPrnDViElrLkIuHyEKuReoBYhTCggzu/ArerXW+iXSxy+y6OX/SY/BpDfXbMVvCDaY9ICN4n41BmBiWqASIANC7IXkE0Ok4f9fa61e18kT6pPfz54mDTFigeG3Q8ZKiQKYKIFgx5UOJoUxQcKJXw4F4TQ2k34kRjr8boBUeAGu2AYEPyCAApEzdB2DA8I5eEUcDjzkSoB5MyjIQHtLZm0ZOpk8mkXuhddBzGQBvvCLb7AxRkCjAMeRdASKBOCj5XYSvGE/XHhXviKDbZogwL9Zm4yQZG6TC5nI4LwNA6OFkwQcsi7V+yG3y94yK4uN4nmn7t1PO7xL3lBQt0tOJunYm/CSYHKxDBbz/fXssCAG",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077128,
+        "edge_midpoint": [
+          -27.040000000000028,
+          116.80000000000011,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468398e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_0e34870eacb0652c"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:7",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACVQ0ARlRJQwAHK40BwIl4cHKNBz6iUoQRij8BYFwPyN/K7eKvkoX36u9HJ6BlYdbF7sH/HzBQ7y4mhXffJsOzDyroyjMsJFojW6Y7ADMANQAh+XNXULUFM4cNSRCgJePDoGY3yrJJ/vhBut853mBc5H7iwAhaYOyh4Pndz9FiVLsfKT1QAz8sCwW/B6J3W8Q7XLTegiyj3xD5IvJDf0hO8sN/5zPxDRitPg+OlF/Q+xx/NqoeTjwmgFYfgtPqN+8o3KH1hSNy+h3/kVeWZfmjFn7TqZ8T5ELrDwfgwK84TdwFQ2sDmpkBvwg3cRAZrS+ZzfYb/88QLjmnBuyJ39I0oZXXy8j5Ja1oDVaQTL8Ko/GGXxUSvdCqQqACfxMukWDVYicPbroWBMlBSuc7ILCCGSKyDTQMICLzSQhF9Qvkq+Ou2AoAzAB4CoCa8G0inmfH8CaUe7F5nAUW/vvpjhmMTuFTGAC+jrdsRXehvVeEy9fk6+cLRAjBmH+rxQ4WjieQsy6WXs7il9zLKNMU0tbPgZ74sMPnkicUlHZJkUk61iY8SDB57MHSfD+fHdbF",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:7",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:7",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHVRIAdptYQQCVksaSwg9m6sDupZ+8cHqmxxN2KACQvvZpohIMfeS+vTwPwqKRB13Bn2kgOlofRSOrovP0sX9rjRBCNiGEEClTUwAxAE8AKx4+qXPFSDShmxr3y40Hc4QUSPmc9rU6EVmYMGKBIIiPFQgkLQBNhTvMYQxT+CmbT8VWNGAwIrlLBB4PTEaCF5/5oxgUoRh/wSPg9aihsmDI5wF79j9/Z9/zb/udX9vf/mxf+7H97Hf72H/tu9/av/5q39qvfurX/enPp4dwP3B5MEdC1DYjP8YYH6YCMMqrUiMeJNXY+PHpTivGzULiwQ86YOnzOoMBFZkXDUZO2DgY0CmC0uLTOqcZV1IyscNFy5EbFpwNMicKPk32S36S/eyTfP8fY4zVJz9a5qFSXV6bluWlDjQMKFXk8oHPLUUP0ggBUfGpXamWaqpmlniQSIqZHJ/ZJMLdEuHBCgcE4xP70+mdFBA4KuoDb6hRcSMyQVJQUFCQbBzgApGRIdsSAMUQGDEiYMQQYwRGJETiJpiYC2aGHpTJuOkG2oFFQpJJgdPi4NLWdfB2iAwPJdoo95hwFN6bT4xkFe82FX6FJeSoM9AIx8t0cyCANxp5qk9JbEecT6EYDSdc34COg1mfXOK+XZqV/cBZZO0DgIbdmudObVbHYXz2iXVcF/mzNbaoZ7mGB/xQGMfMbwCagzBLHh0AoYggUXkf1i3qPMjPajZfzUmVC/J5Jnyz+Ixwv6hm9eJh/r7aa0UYzq3qS8xItNDPQ6nJcmd8jj4k6bjrDw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:7",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAwMzF5fxAE1Iz8NG1bQTvKQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:8",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:8",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECVQ4AdhROSeCwKo0B6As+YF0ojMJNFvt9m1moAhKh/kEvUwXfTesxyH4uDuhpxoM6YAEIGRZOkiX7muXieSGH+BCoEy5wcIYgYySDEEK2TAE8ADQAPQDbjS8XhoQRGq0WBwUtXEwiqhObbQQfWMA7vxf7leIGmRjYLRyXMleIspYPv/uwFUsU4gOAfCaLEqRR7vcv+HarcBwPkwJ4oUC/3/jg+N/fjXL87l+5KtzmNClN5ybBr/cuxRsGkQhXeMrEpDQZoJkPIAu51yfGiBILWDPL8Ct6tdb6I5iQv+TQy/+T3oNJb66Zi98QhDDpghrF/XI8QIXkIFXgxoQYDYrHRqjDAf9fa61e18nS6ZVfz5YmJSF6oeH3Q8ZChQikQMFgx5URJq1RgYKKX48G4TmmSb8TJiB+O57kwgzwpWYgQaiBVRKIRENBKSlQawaAghEbug4SYDQdz5RG8GbScss/yw2DAVK8YxxXrm7eoqDLl6wx6EJpQO5/gGjh2AOeN9vByGh0l6SPIpY+GndaJ/zhQLoy0BiZCeLHOhcXVNDtAkoy6DbiFwfGTTAJ/JB1vUYhNnp45234lHl1Xw+9ImuSvbjvfJOnwWv9l0rbhz8=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077128,
+        "edge_midpoint": [
+          -9.540000000000001,
+          116.80000000000013,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468398e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_260196b0bcd08c7a"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:8",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACTQ0ARhRJQwAHK40BoAaLIGITeiGACCMUf4IIZuGfCcfPjisR6XLqJ/lk7bN31kz/kPMLNNQbUmxOiGuETAtPgMPZ3mEh0RrZMgU6ADMANQDf+HNXqnmzSVCIpxVRlYBM6Y0ybJJB/k/td4Y4GBc0HfjugRoIAZx6fvdpMZqU7UdIDfRAgJXFgt8DoXdfwD1YtJK8FtEvaPzQ+KD/G+f4379zF3AOF625jw6V38/7DHU3KdwM/DWA1pwCk/gbr+jjobWVI2L6Df/wVpZl+U8o/KVRP+cnhlbdTACCX/AYOGuGVgY2NQR+D0jwEBitLZhM9hv/v/DtOOeG64hf0jSh9YbL0PkdibTyKkal3wRROMOfAoVkaGUpUHe/CJdArGBeJz2ypuEwaoDaOTsgsIIZIrINNAwgIvNJCEX1C+Sr467YCgDMAHgKgJrwbSKeZ8fwJpR7sXmcBRb+++mOGYxO4VMYAL6Ot2xFd6G9V4TL1+Tr5wtECMGYf6vFDhaOJ5CzLpZezuKX3Mso0xTS1s+Bnviww+eSJxSUdkmRSTrWJjxIMHnswdJ8P58d1sU=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:8",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:8",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHXRIAdttYQhCTksY8HgXc6iHPA8MBgVmFxhGeTy7gQUjJUR8XEl90Cq4mKDDXijAdyJPXuTRTWYDJrSWeP9qttUYIIZsQQpqUKVMAMQBPAA82fFLniplQjGpk3C00HsT5UYD02dnXyoeHEgAmXnJYKNhE2JFDClJawxlmecJP0XwqpoLBghmT+0Tg5cBgIGjxmT8DU2L04it8BDwdMk4UAPk8f/ZBv2f/82/7nl/b3/5sX/ux/ex3+9h/7bvf2r/+at/ar37q1/3On09/cTtYeRBHQtRmkx9jjO9SBdjkVSkQD5pkZvD4dKcF404J8SCHG/D0eW3BwEmp5QIREjQNBniGmKz4tM5OjBs5jcDBQqVITcoNhlJJgk+S/ZE/tKD90Af/H2OMFShBWvahUl1em5blpU60iygVZeUDn1uiPBhj1CPFp3alWqqpminiQSEnYmx8Zp0PbhUID1Y3Ihef2J9O95A61KioD2+oUXEjMkFSUFBQkGwc4AKRkSHbEgDFEBgxImDEEGMERiRE4iaYmAtmhh6UybjpBtqBRUKSSYHT4uDS1nXwdogMDyXaKPeYcBTem0+MZBXvNhV+hSXkqDPQCMfLdHMggDcaeapPSWxHnE+hGA0nXN+AjoNZn1zivl2alf3AWWTtA4CG3ZrnTm1Wx2F89ol1XBf5szW2qGe5hgf8UBjHzG8AmoMwSx4dAKGIIFF5H9Yt6jzIz2o2X81JlQvyeSZ8s/iMcL+oZvXiYf6+2mtFGM6t6kvMSLTQz0OpyXJnfI4+JOm46w8=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:8",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA+fTudRBMVYrLmxSa7rEFMQD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:9",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:9",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECFQ4AltRNSPCuKo0B8ArdZsHy8UBau9wawGkxxeP3F/S4bUgRevGC6e2C45S6Ta8HUxHPuKJo2neLZBysgdbNuTcsNtj4YRgbJIMQQrZMATwANQA+AG83vtwEJiwMF1AuYCaOyFUjqVIXWHWAaX5P9itFCywrsVs4bmSeEGcoG373Y6sWqMMD6OhMFCFGodzvARl+wbdbhcNomLQGdvL8fuOD439/N8rxu3/lCsJdTJPWZl4M/HrvUrxNAHl4haNETFpj4REdKbaUJ0IO1lnxoXQCttAo/IperbV+SMXjD/nz8v+kx5r09qKl+A3BBpMesFHcb8YCSEYMUARiPJCRRDYwPgH/X2utXtfJkumS382WJgUBUlHhl2PWOn0GlCCBYMeVDiZ94YJg4ndjQXiMzKTfCA6HX42PH0RCCzA9IJCCERuyDoMDwnDwhjgceMiVAPNmUJBB9kpmaRk+2Tw6i9yF34mYyQL2wgu+aWOagIYBjiPpCBQJwEfL7SRYw3608K76qAZL9yU3RAp3hCe7GZw3ZGCzcE7AvXVBvV9yvuwtE7LYF887Nd/9sMO75CUKSrukySQdcxNeEkwu9mB5vi/PDnti",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077148,
+        "edge_midpoint": [
+          -79.54000000000018,
+          15.19999999999996,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468388e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_cf5d11e6959889bc"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:9",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACTQ0ARhRJQvAmK40BQFNMERvKYU47X9ApX9EUbukh4I9ezOF0n5LcPT2WmZYN58mzqxU/Xi39dn4MZvOkr62v4w0QOBYeqJEtUzsAMwA1ACD5c8fUQlEQDopkYuXx0UKNFHjl2SeH/KPc7xR1LixwvXCfAx0gCkX8/O7jaDUsoDc5MVACQ64KBL8HpXdhwjtetNp+LqZfEvkl8kk/SE7ywX/nL+EbMVp5IBwsv6P3KfZyWLtbuAwArbwDqtZvrwn0oRW2U6L6FX9RV5Zl+Uug/tSrn3MkQ2vvRmTgN5wW/qKhNcGNTYBfA1u4yIxW2KxW+w3/nwAuOadGbIjf00yhVbfD4PkdW7T+KMbUL4JJXOFnkUoztLYIqL7fg1EeXDEylQW2XEbDqGDVczsgsIIZIrINNAwgIvNJCEX1C+Sr467YCgDMAHgKgJrwbSKeZ8fwJpR7sXmcBRb+++mOGYxO4VMYAL6Ot2xFd6G9V4TL1+Tr5wtECMGYf6vFDhaOJ5CzLpZezuKX3Mso0xTS1s+Bnviww+eSJxSUdkmRSTrWJjxIMHnswdJ8P58d1sU=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:9",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:9",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHZRIAlttYQQCVksaSEh3MdJKtXj954fRMD48ZdrCyKV0Ysn0w6CRn2cvzIAYh+4gdvBMSUsayiI1sIzsytFtrjRBCNiGbEClTVAAwAFAAFSR4+KTO9SK9EN3IvFt0wJhTxADK57SvzoWCICJojnxgMbKhMCKyYoG7wxzGsIWfqvnUK8YDBzOkd6kA/HHVSEDzmT/zokJk8xc8AyAQHCkNjHwev2f/83f2Pb+23/mzfe3H9rP/2sf+t3/91v77q33rd/vVvvupX/enP6E+4h2BBcacU5qN/G3btndxAT55VaoEjCSZHEI+31m9vFdMwAiiRyx9WucZDqTAtGhQkqIGAoFOkhMZn9U5xTyTEgofM0ZLblZwNsAIYPAJYN/kB+1nHxT/v23b5j75yTAPlfrS0jIsLX2hXUKpKiwj+NRSBcYboiEwPjMrtVJN1cwTMCJpEcPjE5tIvEcTYHQ4IRqf159P76CE2OGoA2+oUW0jMkGkoKAgSTYO4AKRkSHbEuDEGNgwImDEEGMERiRE4iaYmAtmhh6U6bjsFrSBhYQjQwGnxeDSquvgxhAZH0rCdPaYcSzcNn+NZHXeFSo8SEvkwWOg0Y2b6aaBAm/05KmekrQddZ6NonGcfH0HeA4MfXIT5+3SquyHZydrHwZ07NY819S2Oo6Mb16tx+uQebZjohqWK3joA4U+4sYD2pyGWfTooghFBPnK/bBgYc+D/Hxj99Wd1Fy+z0SOb7pvqvOLTtYyHmZJ1V5WhIHfKrzMmEQR7jyYmmw2jYPRhyrda/0B",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:9",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAOt8eNjhBdMaj9t6fZbTZdgD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:10",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:10",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECDQ4AlpRNR/CQKo0BeLm604GOMc+Qzf/zrZqfz2U023k5DpsAFOeiUtCAHs6FRygj8J4hS2KzTSfbhwJWgeE5NGVjt+l4CExHkkgIIVumPAA1AD4Abze+XFpnVhobHFiBw0Aa4AoxWc3gBRc4wO/BfqX44cXldQvHnUwWYmwlxO/+K6UCjXgCH5zZ4oQolPs9rl/w7VLhMyAmFdA6eX6/8cHxv78b5fjdv/II4STTpDUAJQe/3rsUbxxAJFjhqNmktRgemAMsNgUeDbkWB0aJkQooI+vwK3q11vqhFpCf5M/L/5MehUlvLJmL3xCsMOkDG8X9bmwARTQBlaDGBVhMZ0PjE/9fa61e18mR6ZTfzY4mNQF64eHXI6Y6fRCoSAFhx5UWJp2RYUX77ZAQTlMz6YeiRMQvx8gvskEGGD0gkIIRG7IOgwPCcPCGOBx4yJUA82ZQkEH2SmZpGT7ZPDqL3IXfiZjJAvbCC75pY5qAhgGOI+kIFAnAR8vtJFjDfrTwrvqoBkv3JTdECneEJ7sZnDdkYLNwTsC9dUG9X3K+7C0TstgXzzs13/2ww7vkJQpKu6TJJB1zE14STC72YHm+L88Oe2I=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077148,
+        "edge_midpoint": [
+          -62.04000000000014,
+          15.19999999999996,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468388e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_e617256641f81691"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:10",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACZQ0ARtRJRADpKo0B4CSP9HQGFcBo5Dh0OIABsRsihoSnaH+NRLl4aZg55svcmucN3llRPWkZuPxlaDYxWRpRO1Tr0f3JGixsI1umPAAzADUAIPlzdxDGBTIFMzYHBVIfNiM5qFWGbXLI/8H9TlEnA3XrhfskKAJRQAWA3/1bjGYM8CUkCJpgwArjwe8BoXdfwj1YtNJ+LaJfEPkh8kE/SE7ywX/nLuEcLlp5IB0rv5/3KfZwRl0t/EWAVl4Dk+o3rwjsobW1Q2L6FX8xV5Zl+Vs0/KVPP+cnhtZebcfgNzwWzpLRGuGmxsCvAi1cBEZrCzab/Qb/7wAuOeeGa4pf0kShNadL2X5HKlp/F6PSL4NI/OEfQSEZWlkOVN/vwicTK5hXygQaTiNiJOHEczsgsIIZIrINNAwgIvNJCEX1C+Sr467YCgDMAHgKgJrwbSKeZ8fwJpR7sXmcBRb+++mOGYxO4VMYAL6Ot2xFd6G9V4TL1+Tr5wtECMGYf6vFDhaOJ5CzLpZezuKX3Mso0xTS1s+Bnviww+eSJxSUdkmRSTrWJjxIMHnswdJ8P58d1sU=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:10",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:10",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHVRIAdptYQQCVksaSwg9m+p/vXZ+8cPJHGY+ynFJqRSakuV6mUmosbQP7AkIQrYfgOyNViMZ++gglGXv82L+1RgghmxBCiJQpUwAxAE8AETx8UueKkVaEbGbcLzsexCFSIOVz2tcq58SBkBgbSh9cDoh0WLAxmnCHOYzhCj9V86lYiwYMaEjuEoEHBKORAMZnPk1MitCMv+AR8ILgEC0o8nl79j9/Z9/zb/udX9vf/mxf+7H97Hf72H/tu9/av/5q39qvfurX/enPp4twQ2h5EIdC1FYjP8YYH6YCMMqrUiQeJM3kGPLpTivGvVLiQRA+YOnzOoMB0ehFAxIUNQ8GdI6guPi0zknGmZRO/HjBksRm5cZlFEDB58m+yV+yn/2SD/8fY4zVJz9a5qFSXV6bluWlDjQMKFWlZQSfW6o8eCOUw+JTu1It1VTNNPGgERUyPT6zaYSbRcKD1Q1Ixif2p9M7KSF4VNQHb6hRcSMyQVJQUFCQbBzgApGRIdsSAMUQGDEiYMQQYwRGJETiJpiYC2aGHpTJuOkG2oFFQpJJgdPi4NLWdfB2iAwPJdoo95hwFN6bT4xkFe82FX6FJeSoM9AIx8t0cyCANxp5qk9JbEecT6EYDSdc34COg1mfXOK+XZqV/cBZZO0DgIbdmudObVbHYXz2iXVcF/mzNbaoZ7mGB/xQGMfMbwCagzBLHh0AoYggUXkf1i3qPMjPajZfzUmVC/J5Jnyz+Ixwv6hm9eJh/r7aa0UYzq3qS8xItNDPQ6nJcmd8jj4k6bjrDw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:10",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA9QHL9P5NSBC6eUKf1OUi8wD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:11",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:11",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECBQ4AllRNSPCuKo0B8Irn0yBdeBEWXW4NCF09CtZYIwwQ+1BbIcvWS2zPkkkj9obdcD/SxARVTftkkYyDNca1SnuEhQIbPwxjg2QQQsiWKToANQA+AG83vtwCHymUBzmvEyuBMRkI0gMW8M01vwf7leIFlpXXLRw3Mk2IsxMNv/uvFUvE4VMcn3niQ2mU+z0YfsG3W4XHZJjUxoUC/X7jg+N/fzfK8bt/5QjCX06T1mhgCPx671K8URDJWuGqEJPWVoBIBym2ACAJOddHRQeTCehCq/ArerXW+iOVjh/k0Mv/k96CSW8tGorfEGQwqQEbxf1ijENSUqAC8MIBrEXE4yIU/19rrV7XSdPpkl/Pmib1IEph4XdjxkKFdkiMOLDjygaTtogAocSvRoJwmZlJPxEhG34zPP45gQUYPSCQghEbsg6DA8Jw8IY4HHjIlQDzZlCQQfZKZmkZPtk8Oovchd+JmMkC9sILvmljmoCGAY4j6QgUCcBHy+0kWMN+tPCu+qgGS/clN0QKd4QnuxmcN2Rgs3BOwL11Qb1fcr7sLROy2BfPOzXf/bDDu+QlCkq7pMkkHXMTXhJMLvZgeb4vzw57Yg==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077148,
+        "edge_midpoint": [
+          -44.54000000000011,
+          15.19999999999996,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468388e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_8a51e6202aa64d98"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:11",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACVQ0ARlRJQwAHK40BwIl4xsSm7UzM3hyh+BNEWCM388DfxrUKrXjttuQgXdir6miToeNWKIFqdzEpvPshUcJj8fe4aLSQaI1smQI7ADMANQAh+XMRiNROuRwFW0nrZUCFrqR88uyQO37Q7neONhcWup848IESGH0keH73dTQZVc+DlE60wA+rQsHvAaJ3X8RfLlpxwZbRb4h8EfmhPyQn+eG/cxdxjRitPo4NlF/Q+xx/NapeTlwWgFZfAtTqN+8o3KEVdvOB+h3/kVeWZflPLPymUz8nCIbWXw7AgV9xmrjLRusCmhkBvwc4cY8ZrbDZ7fYb/88QLjlnRuyI39IkoZXXw8D5Ja1oDVKQTL8Jo/GGXxUSxdDKMqACfxEegWDVZCYNcLuWA4lBSuc7ILCCGSKyDTQMICLzSQhF9Qvkq+Ou2AoAzAB4CoCa8G0inmfH8CaUe7F5nAUW/vvpjhmMTuFTGAC+jrdsRXehvVeEy9fk6+cLRAjBmH+rxQ4WjieQsy6WXs7il9zLKNMU0tbPgZ74sMPnkicUlHZJkUk61iY8SDB57MHSfD+fHdbF",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:11",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:11",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHTRIAdltYQRCTksY/fgDcggAVwDogMKvQOMJHWy7wIZOQo74NfceveUVGoAgrZXAz0354nx0qk2CiWmmZYX/SGiGEbEIIaVKmUgAxAE8AEDh8Tud6kVSAZmTcLTYetPFR4OSTs6+UCIGOUDSgAbKlhG4mpChS8oY1bGEK/zT61IuFAwYikrtU8nZcMhK8+MwXvZgAxfgKngHvhgbKgh+fB3v2t7+z7/m1/c6f7Ws/tp/91z72u/3rt/bdX+1bP7Vf7VP/9Os+58+nf3A/YHnQRkKTRpMfY4zvQgXY5FWnEA+SZGrw+HRn9eJWEfFghxyw9Gl9wQAKTAuGISVGKQQ6QkxafFYnJ8aRlEjocLFCZEalJgOMAAWfAPZJ/pHd9kc+/x9jjNSWW4Z5plSXlpZhaan77PJJDbF84FPL0IMzQD1WfGZWaqWaqpkjHgxyIgbHJ8YB4V6J8CBV84Hxef3p9M6JhxvU9AFvqFFxIzJBUlBQUJBsHOACkZEh2xIAxRAYMSJgxBBjBEYkROImmJgLZoYelMm46QbagUVCkkmB0+Lg0tZ18HaIDA8l2ij3mHAU3ptPjGQV7zYVfoUl5Kgz0AjHy3RzIIA3GnmqT0lsR5xPoRgNJ1zfgI6DWZ9c4r5dmpX9wFlk7QOAht2a505tVsdhfPaJdVwX+bM1tqhnuYYH/FAYx8xvAJqDMEseHQChiCBReR/WLeo8yM9qNl/NSZUL8nkmfLP4jHC/qGb14mH+vtprRRjOrepLzEi00M9DqclyZ3yOPiTpuOsP",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:11",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAmxV6zmlKEHmEZzCdIN0evwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:12",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:12",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECFQ4AltRNSPCwKI0BeLm6c4uDvGX1X/rqsVb8iuOtDsPM8pgH0bLxCmWhAQ+e6UfWNk1HpmVN14H83rIuc65V4u7YKEHuTdehQTIIIWTLFDwANQA+AC83vtwWJRRItFpIs5WYEwJlxOIbwQcW8M7fwX5l2BrBvGrgtpOpIoyxcPjdf6VUoocP8PGZK0aQRLffAxp+v5dLgdtsmBSA6wT69cb/xvd+bpTjc//KGYDTmCad6dQk+O3eZVi7IH5ggaNKTDqLAYo5LjQDoAo31wcGiNLKNyPD8Bt2tdb6opeQf+TQy9+T3YNJayyZi1/wgzCpAhq1/W48IIXkAFWghgSYjImHRij/X2utHcfJkmmVX8+WJhUhvsjw6xFTnUIEUJxYsOPKCJPOWE1I8dvRAPwGZ1LPBEmHXw6RH8SCjC89IJCCERuyDoMDwnDwhjgceMiVAPNmUJBB9kpmaRk+2Tw6i9yF34mYyQL2wgu+aWOagIYBjiPpCBQJwEfL7SRYw3608K76qAZL9yU3RAp3hCe7GZw3ZGCzcE7AvXVBvV9yvuwtE7LYF887Nd/9sMO75CUKSrukySQdcxNeEkwu9mB5vi/PDnti",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077148,
+        "edge_midpoint": [
+          -27.040000000000113,
+          15.19999999999996,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468388e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_a137e2904916af3f"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:12",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACXQ0ARpRJQwAHK40BwIl4xsSm36gUYYTiD8AAjGewp74bzS+Swmps+3xS/0aYdbE70v0HDNSblKHfcuGhauEJ4+Zs77CQaI1smQI7ADMANQAh+XNVIioNPQMoLn5Wr13NgUU75dklg/wg3e8cb1ir3E8cGEENjD4VPL/7udpMavckpQd6AIALQ8HvAaJ3XcQ9XrTegiyj3xD5IvJDf0hO8sN/5y3iHDFafR8dtF/Q+xx/NqkeTlwmgFZfglPrN+8o3KEVhjNy+h3/kVeWZflbKPymUT8nCIbWHy4Agl/xmvhLhtYFNTQEfg9u4iEzWmEzm+03/78QLjnnRuyJ39I8oZXXy8j5JbVoDapIpt+E0TjDnwqJYmhdKVCBvwibSLheZCgNbjoNCBIDlM4BOyCwghkisg00DCAi80kIRfUL5KvjrtgKAMwAeAqAmvBtIp5nx/AmlHuxeZwFFv776Y4ZjE7hUxgAvo63bEV3ob1XhMvX5OvnC0QIwZh/q8UOFo4nkLMull7O4pfcyyjTFNLWz4Ge+LDD55InFJR2SZFJOtYmPEgweezB0nw/nx3WxQ==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:12",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:12",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHZRIAdhtZQgCVksaSwg9mzshurZ+8cOqMGR6DM4AuoXL4QnZx0UDuG44fCzEJ2WcEnxCoCj2oo2hkGzG+/xu11gghZBNCCJEyBVQAMQBPABI8fFLnipFWjHRs3C83HuwRQiDlc9rXisWJDTApYHzk7NBAUBDkgAOTO8zhC1f4KZxPxVw0YHBDcpcGPB7YDAQxPvNvZFCMct4CKMDrYUNlwZDPA4P2Q/9nH/Rv+59f29/+bF/7sf3sd/vYf+2739q//mrf2q9+6tf96c+nh3BHcHmwh0LURiM/xhg/pjoZ5VWpEQ+SbHZ+fLrTknGzkHjwgw5Y+rzGUEBl5iWDERM4DwR8iqC8+LTOqcaVlGh2wGg5osPCo2EGQIJPk/2Sn2RD+yQf/x9jjFUoQ1oGolJdXpuW5aVOdIwodcVlA59brjxYYwSkxad2pVqqqZpZ4kEiKmpyfGaTCHfLhAcrHpGMT+xPp39SQOCoqA9vqFFxIzJBUlBQUJBsHOACkZEh2xIAxRAYMSJgxBBjBEYkROImmJgLZoYelMm46QbagUVCkkmB0+Lg0tZ18HaIDA8l2ij3mHAU3ptPjGQV7zYVfoUl5Kgz0AjHy3RzIIA3GnmqT0lsR5xPoRgNJ1zfgI6DWZ9c4r5dmpX9wFlk7QOAht2a505tVsdhfPaJdVwX+bM1tqhnuYYH/FAYx8xvAJqDMEseHQChiCBReR/WLeo8yM9qNl/NSZUL8nkmfLP4jHC/qGb14mH+vtprRRjOrepLzEi00M9DqclyZ3yOPiTpuOsP",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:12",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQAkH4BNc1PsJKni86CgmHeXwD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Insert:13",
+      "constraint_type": "kInsertConstraintObject",
+      "constraint_extra_info": "InsertConstraint",
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:13",
+      "offset_cm": null,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YKECJQ4AllROSeDQKI0B6Afe2E4HsLEEhe/rMuqBfFFt5t79oxhAFcm9GlkYhuE4nvGp+aPID2/CToAffCkJjlcvEbekrmBYfSM7CEE0IYRsmQI9ADUAPgBvN77cHJEJsQwgfGorL25oBECQU7CBC/zzzu/BfqXI4cXlZQu/mcwVokzlw+/+a8Uiifiej9BkUcJUwv0eHX7Bt1uF13iYlMeVEv1+44Pjf383yvG7f+UMwmdQk9J0aA78eu9StGEgxVrhKhOT0mKIYA4sNQIiCzhXCMaIUwooM9PwK3q11vqlFpB/5NHL/5Peg0ltrVmL3xCEMGmCGr39bgzgxORANaCGBFhMCWjGKP9fa61e18kTapRf0J4mJUFyseHXQ8ZKjQSkQLFgx5URJpVRgYKK344G4TY4k34nSEL8coT8oAs5MD0gkIIRG7IOgwPCcPCGOBx4yJUA82ZQkEH2SmZpGT7ZPDqL3IXfiZjJAvbCC75pY5qAhgGOI+kIFAnAR8vtJFjDfrTwrvqoBkv3JTdECneEJ7sZnDdkYLNwTsC9dUG9X3K+7C0TstgXzzs13/2ww7vkJQpKu6TJJB1zE14STC72YHm+L88Oe2I=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 1.3194689145077148,
+        "edge_midpoint": [
+          -9.540000000000084,
+          15.19999999999996,
+          0.0
+        ],
+        "edge_tangent_at_mid": [
+          -2.1078888762468388e-16,
+          1.0,
+          0.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_8fd0c2fbe4f8aaeb"
+      },
+      "entity_two": {
+        "entity_type": "EdgeProxy",
+        "proxy_context_occurrence": "0129327023-M3:13",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "AQQBABAAAAAAAAAAAgAAAAQAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YMACZQ0ARtRJRAAHK40BwIl4xsSm36gUYWIAM2QA5smLBWBTvluFNGNqr+wts9TfKW5d7A66t+vu/l9qc0Lsh0QJn4KHs73DQqI1smUKOwAzADUAIflzZTk3Kz8hMg+sBCA7Amy+3LJjnzzyg3S/c+TRyMD9xIES1DcSqMj97uNmttSANylB0AUFVhgOfg+id2HEP1q01oIuo98Q+SLyQ39ITvLDf+cv4h4vWnsiLJZf0Pscfzop3k0cdoDWXoOT6jfvKAxAq6un5PQ7/uOuLMvyt2D4TaN+TtAMrb+bAQa/4jPxVg2tD3BsEPwm1MRJYrS6YjTab//fEC45Z8drit/STKF1x9vw+SWpaA1ekEy/C6Nxhz8VEtHQ2qKgAn8VRplYxcBUItR0HBEkCCgABzsgsIIZIrINNAwgIvNJCEX1C+Sr467YCgDMAHgKgJrwbSKeZ8fwJpR7sXmcBRb+++mOGYxO4VMYAL6Ot2xFd6G9V4TL1+Tr5wtECMGYf6vFDhaOJ5CzLpZezuKX3Mso0xTS1s+Bnviww+eSJxSUdkmRSTrWJjxIMHnswdJ8P58d1sU=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": "kCircleCurve",
+        "length_cm": 2.9845130209103035,
+        "edge_midpoint": [
+          -0.47500000000000003,
+          -1.198910762334471e-16,
+          5.817072295949928e-17
+        ],
+        "edge_tangent_at_mid": [
+          -1.2246467991473532e-16,
+          -3.0910362685394164e-32,
+          -1.0
+        ],
+        "work_feature_name": null,
+        "geometry_hash": "edge_422071770ad44eb4"
+      }
+    },
+    {
+      "constraint_name": "Angle:13",
+      "constraint_type": "kAngleConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "1830053465-P1:1",
+      "occurrence_two": "0129327023-M3:13",
+      "offset_cm": null,
+      "angle_rad": 0.0,
+      "mate_type": null,
+      "angle_type": "kAngleConstraintObject",
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAACQAAAAYAAAANAAAABgAAABAAAAAGAAAAEQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YPQHVRIAdptYQhCTksY8HgDuhgAVMBwQmLMwHuA8YhFcTGDPVfzH5/yaV2TkLMISE5wB3w53naPegpqoVlr8t91aa4QQsgkhm0iZAlIAMQBPABA4fLpzvUgmRjc07xYaMOb4IFDyOe0rdWFBDxaZBDATBYcyckBkRugNa9jCE35n86kXCgcNakjv0gjMcblAsOIzv+aFxKjFV/AIgDpimDD48Xl79j9/Z9/za/udP9vXfmw/+6997H/712/tv7/at35qv9qnfvfr/vQn1D+8UVZgzJEQTnuRv23b9i4UgEle1cnASKKRsePzndXLOwUEjB1uxNKnNUsBk5gWDEJG2DwY0AlCkuKzOqeZFyqJwKFCZchNCk6GmAAKPkX2Qz9oP/ugD/+/bdtGffKTYR6X+tLSMiwtfaJdRKknKxv41PIERhgjHic+Myu1Uk3VzBAwAikxY+MTm2DeKhFgpHBELD6vP5/eKfFQg3Ifb6hRcSMyQVJQUFCQbBzgApGRIdsSAMUQGDEiYMQQYwRGJETiJpiYC2aGHpTJuOkG2oFFQpJJgdPi4NLWdfB2iAwPJdoo95hwFN6bT4xkFe82FX6FJeSoM9AIx8t0cyCANxp5qk9JbEecT6EYDSdc34COg1mfXOK+XZqV/cBZZO0DgIbdmudObVbHYXz2iXVcF/mzNbaoZ7mGB/xQGMfMbwCagzBLHh0AoYggUXkf1i3qPMjPajZfzUmVC/J5Jnyz+Ixwv6hm9eJh/r7aa0UYzq3qS8xItNDPQ6nJcmd8jj4k6bjrDw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 394.93999999999886,
+        "face_normal_at_center": [
+          -9.152343250874203e-16,
+          1.0,
+          -6.286452279850845e-14
+        ],
+        "face_point_at_center": [
+          -48.39999999999993,
+          164.70000000000024,
+          2.5749999999999567
+        ],
+        "face_bbox_min": [
+          -91.80000000000001,
+          164.70000000000007,
+          0.2999999999999545
+        ],
+        "face_bbox_max": [
+          -4.999999999999844,
+          164.70000000000107,
+          4.849999999999959
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0a14fdc057722ae1"
+      },
+      "entity_two": {
+        "entity_type": "WorkPlaneProxy",
+        "proxy_context_occurrence": "0129327023-M3:13",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0129327023-M3.ipt",
+        "reference_key_string": "EAIAABAAAAALAAAAAAAAAIAAAAAAAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9IIFFAwBkBQABAADtN0PA0xEdDmAAALgylIewAAABAQAAsS28CdARH+wACNywOz6oCQIBAACyBAAAAFQAZQBzAHQA4i8y0XxGaHmR/xGVgD3YxAD/////AAAAAAAABgBICM1Q4SAAYOo/XxjmxA==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": null,
+        "area_cm2": null,
+        "face_normal_at_center": null,
+        "face_point_at_center": null,
+        "face_bbox_min": null,
+        "face_bbox_max": null,
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": "XY Plane"
+      }
+    },
+    {
+      "constraint_name": "Flush:16",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:10",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:10",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YBMN5RcABuJsRvC0JI0BGOqc3Xaj6i8YHCdOnVhOwGIL6KnC0kWMCnHralQ2ZpTAj/WtwSYbWcl1Pz/ZpluY2h20hlrbjTRCCCGkEULIlilhADoAZABff9y3fgUQt9GOECNn0YuEEK/XetyMelaGfLRpiOQsMqJy8GrtR01mXy789LDgsGHhksLjSEU3iGvecIX/CnqNmwsWBkBG2kcEJJDtRoIZr/pANzsrNF5DKUUG0bFacOT1f2pN9lM/at/kP+2jfrl/+k378gf3TX9pH/y//dLv7X9/t+/93H73b/vcr+1vP2lf+7N90o/tZ/vYB5dasSXmA9oiZ46VIi1eu6irGlHIiYRnhY9XroT2BApyYj0CCL1u6s2EYRj+NlBW+RivE3Ia+ewg8qplOHKO+DGPXklzMLAyQfNhiU7QgwFfEhUYr9lq3Wi7yJAT5kUG1SvK/kn/H4ZhuKVSpyxuIIdCgSflrs5k8sCsw7zv2zzMyz6Ow7brI6llXTHDvA5y1hhq8PMqIwQ5C5zgyLyahGJmAcmpQMQMzytofcqpjraFGjlhanJyXktDYhBh2EmhQiBEyUquPJAQ8PoFgKeogWUSiAQiEihICpKNA8CCkRGxqgMS4LMUj3OIMUZgDBE4IyBMnMRRMDQipR1jCOBnsHqbe90nPDo3NF7HRyOqmh19nJCH0Jlx1XGjBQ3ZEJcGVDU7+jghD6FzhmZU9OYk5Wy6gJV9KxbFUOOTdBGKQiHRnJc7HP7wzIC/QVak5pzheW4ClHqDKV15jNY0Ts1VWaXJT1jHyDNn+Yc8J65u3o/bOQZ/q45x+mBPgT35tJ5BuB2efLbo2TflCUCQRTgb6Mjz/aUPCnulxXVouSVrbQWLFgVKupwhHgo2Z1wFPDFCMnWylTmCUhgiDkZNrEcHJIiyLnmOmNLNXJ6eFMzUDdtdIrgzaywfeLns6MMrDwjJHEP/4PzpQg3ffp0bfnJT98/XnhT6Rcv3o1MRNOZ2Yho9SV+p40WpyXHRUNi/yHRL+gc=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.42045560883200445,
+        "face_normal_at_center": [
+          8.282472448326133e-34,
+          4.240625893542984e-33,
+          1.0
+        ],
+        "face_point_at_center": [
+          2.7755575615628914e-17,
+          -1.0547118733938987e-15,
+          0.08000000000000002
+        ],
+        "face_bbox_min": [
+          -0.5900000000000001,
+          -0.6812733176437595,
+          0.08000000000000002
+        ],
+        "face_bbox_max": [
+          0.5900000000000001,
+          0.6812733176437575,
+          0.08000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_94c91cfaf4d18689"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKAAAAAYAAAArAAAABgAAAC4AAAAGAAAAMQAAAAYAAAA0AAAABgAAADcAAAAGAAAAOgAAAAYAAAA9AAAABgAAAEAAAAAGAAAAQwAAAAYAAABJAAAABgAAAEwAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YJMlPSYAKkOkC0HAmklzgIQAQrqYtq7GV9N8VknYWwkihQbFGLyAMEC1O77ZBtU0LQwQdiZBYY6NkSS3rPRJC8jIXww9ipCT38hOAZsAcACfANPePgfwpr3nDeDdu+c87+47b57P3jvXec+e89Y5zjvnN2+cy943j71lt3nHDnvbvOYNe9ec5q/3zLkLry1itTp0tyoatlTM0eS+ZFp62JQAiTUBpbtV8VK7mpt5v4JuKNXIgoOnaYlM15USESuKmJgiiiBuOM2RuZcsSBVVES2xXwR0V2RMnIzMcRdxYcOW5A+zog6LkwkMwMwNbwaPekt9wTvqCt4LbnsreIK37VDvBH96Qx3B++lObwRvejv9wLvpBt4HzvQ28KU305XeS096K73AO+kE3gWO9CbwAW+kH70HvPY+uoB37UZvAS96G53oXfShN9GF3kMPegsd6B30nzfQA7x/7vMOMGk+tMCirJyo7QAjpKjLkqwlGIUnPuZkNF1dXV0zkAJ6vWhidDctQJ5smYvBZHS3FVZuX+ZshkCaAMNEiTI0jmAZ6YyBGjIHy824iK1ApLtxEOKhNpfhjeEWHtfbwiu8ub71rnCt99az3lqn8M461pvCJ7yxfvWecKv31SW8rR7hLeFV7wiH8K76gzeEU70f3MGb6g3eDj71bnAG76lLBb+WhS0uLa4OC+u1laWFpcXxYFHAmqH5jFjHi1eN1dWVlZWVT1VVhAhVVVUdFdWDB1RUVDpTUw0aTE1NyaKipKSioqJqbDYFCmw228zTExTU09OTTVOTk1NTUxMOE5MBA0xMTK+dJCUlJjY8QJGYIoVFUhL3AsAjzNAQEVKthnQ0VBsqKjoyqtWChISMiIqEigIIDQkB/ezs8PzQaD8+O7SdrvPpoXU02WzWw9PNOg4225nFbGZocGI4spyZ2MxNjQwW42IdDYzmldWB0+GyulsTG5cfczk1rxpuxr1eHPea0d3E5LhBZQ7nRSzXhe5WEyUIydwNjyyBNqjhxBJJECkoSAqSjTmxBiIjQ2TaEqBRCB1kEIZBEApCCC0BESjhZwVKYJAyywfnXyDz9DjkqUy7ytZ0zWphaUSNpprwuoc2DcQcVZMs4eRQGPapyO7HuSSsqn/zm7Z2HQHqjht7GaOmVn/kT9nQTwYVh1QSqnWH99D68y1DMN94l5v4KVMLW+R853IPux+7cgrnjHdzEz5l9aBFzncN73HvsyMnybx4b7biUjb1zIHWsjOMwoTES3Fk1QYJ/Od2OVC/HYGKnOiOCbiguDIGzINGo0Bux/2d6oZgV3211LdjVdzEJ+WOGzo2CWs4a0b+kuFFllWTmToXTGtt+/o31rOKqDpmvixVLVIMjLo/0+9ThVFFLEXmLNTPYJ/oRkqWFw3VOjzfhkneOC/NpPULOXJ4fB1zA/P0tJJRXsrE+NtpomR40e2hZJ8m49uCMm75XUpr/mKgc5ffkZEF0wyrZ4gENaeW654XUgRgN+0ZoUHkhkdpV3VlmHjkr/44uCFzyXGOCKsZLAg50tSiQQfnTp0pV3dRed9DGed8dPhSZvMud9ot9P/c6hb/9AJv5Z7Hqkj8yOmQRPIFmVKLKQgVIQq/QdtReCZBJvL4R6nJUCaAOfoPJB3M+QM=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 14460.905537224087,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "face_point_at_center": [
+          -45.90000000000001,
+          82.35000000000005,
+          0.0
+        ],
+        "face_bbox_min": [
+          -91.80000000000003,
+          -4.996003610813204e-16,
+          0.0
+        ],
+        "face_bbox_max": [
+          0.0,
+          164.7000000000001,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_19a6369822cff507"
+      }
+    },
+    {
+      "constraint_name": "Flush:17",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:11",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:11",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YBMN7RcABiJtRuAWJ40BhIFBnIGq2RLjT4RRzCuKGHxAtADbLIwJfs48XQ+qGlzhWObKPCJX8YJJQTCvbFBh1bjhB0Pbu0kj0giRRgghW6ZiADoAZABjf9y/fgUQT7EdIUbOoAsSSrxi65ETiqH60dmeAZIziEnqweu1HzcSG2SSvGCddmSsi4WaJSzaI27tYQw/1vMaORoNGPAIbQ8RkES4HglyvOrz0OCodHwHkgBZ5MdqQZPXAz9qU/ZR/2k/5Tftn365b/pL+/IH90s/aR/8v33S7+1//2jf+7v90c/td/+2z/2i/e3X9kV/tq/tZx+YXvEl5gP6IqcPlZIZr6OoqxpbyOkkB4aQ107FNoUKcmZBWHxeOfVYYRiGP4+VWz5GjIWcQjpAkLxuWo2cJ4bMoVfRHwysVsyIiHLT4zLge9Jy41VbL5rtCTtywtTgkHpd2VcJ/x+GYcihUCYtcmB3OoEm7bBRqeSB2ijzvo/zMk/7ui7jsE+k14VFLfNAyLnjx4GNVxkhyFlApUbmteQTtYtHTgUmWDmv4PVppzfbGVpywrRsbF5JR3AAacBxkUJgBMpKrkKgCPD6BYCnqIFlEogEIhIoSAqSjQPAgpERsaoDEuCzFI9ziDFGYAwROCMgTJzEUTA0IqUdYwjgZ7B6m3vdJzw6NzRex0cjqpodfZyQh9CZcdVxowUN2RCXBlQ1O/o4IQ+hc4ZmVPTmJOVsuoCVfSsWxVDjk3QRikIh0ZyXOxz+8MyAv0FWpOac4XluApR6gyldeYzWNE7NVVmlyU9Yx8gzZ/mHPCeubt6P2zkGf6uOcfpgT4E9+bSeQbgdnny26Nk35QlAkEU4G+jI8/2lDwp7pcV1aLkla20FixYFSrqcIR4KNmdcBTwxQjJ1spU5glIYIg5GTaxHBySIsi55jpjSzVyenhTM1A3bXSK4M2ssH3i57OjDKw8IyRxD/+D86UIN336dG35yU/fP154U+kXL96NTETTmdmIaPUlfqeNFqclx0VDYv8h0S/oH",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.42045560883200445,
+        "face_normal_at_center": [
+          8.282472448326133e-34,
+          4.240625893542984e-33,
+          1.0
+        ],
+        "face_point_at_center": [
+          2.7755575615628914e-17,
+          -1.0547118733938987e-15,
+          0.08000000000000002
+        ],
+        "face_bbox_min": [
+          -0.5900000000000001,
+          -0.6812733176437595,
+          0.08000000000000002
+        ],
+        "face_bbox_max": [
+          0.5900000000000001,
+          0.6812733176437575,
+          0.08000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_94c91cfaf4d18689"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKAAAAAYAAAArAAAABgAAAC4AAAAGAAAAMQAAAAYAAAA0AAAABgAAADcAAAAGAAAAOgAAAAYAAAA9AAAABgAAAEAAAAAGAAAAQwAAAAYAAABJAAAABgAAAEwAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YJMlPSYAKkOkC0HAmklzAIACgri8tq3HV9N8N0FMWWk6AQMgp81LGKDaPTJggHq/FgYAAKmNlTJwR8rv6PRJC8jIXww9ipCT38hOAZsAcACfANPePgfwpr3nDeDdu+c87+47b57P3jvXec+e89Y5zjvnN2+cy943j71lt3nHDnvbvOYNe9ec5q/3zDkLry1itzh0tyoZuFTM0eS+ZFl42JL8iDUBpbtV6VKzmpt5v4JoxJh42QGkRwdaz9WIrDEbVEwRRRA1nMbI3EsGhGqKSJZYLwK6K7IlTUXmuIm4sGFD8odZUYfFyVWDL3MD7waHekedwRvqC94MbnsvuIK37U9vBXd6Pz3B2+lN7wRnejcdwZvpB94IvvQ+cAPvpSu9DTzprfQC76QTeBc40pvAB7yRfvQe8Nr76ALetRu9BbzobXSid9GH3kQXeg896C10oHfQf95AD/D+uc87wGk9ssCgrJyo6fgSpIiLEi0DsKwnPeZkNGXKlClzgyig14smRnfL8uOJlrkYTEZ3W2Hl5mXOZgikKxgmSpCpYQTLSEfMk5A5WG7GRSyFId1tQxAPtTkM7wuv8LreFU7h3XWuN4Vvvbmu9d561lvrWO+sX72xbvW+etXb6hPeVZfwnnCqt4RHeFMdwjvCp94Q/uA9dQfvB5d6O3iDt9SjAv9WBa6ura4OC+vFpbWFtcXxYGVhzdB8RJzjxaumysqqqqrKh4pKggQqKqpuagoChKmpKR0pKQcOpKSkZFBQUVFQUFA1NtuCBTabbcbJ6enJycnJhompqYmJiQlnaenAgaWlpddOkpLSEhsenkhMkcIiKYl7AdgBZmiICKlWQzoaqg0VFR0Z1WpBQkJGREVCRQGEhoSAfnZ2eH5otB+fHdpO1/n00DqabDbr4elmHQeb7cxiNjM0ODEcWc5MbOamRgaLcbGOBkbz0uLA6XBa3a2JbYuPuZyaVw03414vjnvN6G5hcNygMofzIrbLQneriRJ0ZO6GRxaBNqjhxBJJECkoSAqSjTmxBiIjQ2TaEqBRCB1kEIZBEApCCC0BESjhZwVKYJAyywfnXyDz9DjkqUy7ytZ0zWphaUSNpprwuoc2DcQcVZMs4eRQGPapyO7HuSSsqn/zm7Z2HQHqjht7GaOmVn/kT9nQTwYVh1QSqnWH99D68y1DMN94l5v4KVMLW+R853IPux+7cgrnjHdzEz5l9aBFzncN73HvsyMnybx4b7biUjb1zIHWsjOMwoTES3Fk1QYJ/Od2OVC/HYGKnOiOCbiguDIGzINGo0Bux/2d6oZgV3211LdjVdzEJ+WOGzo2CWs4a0b+kuFFllWTmToXTGtt+/o31rOKqDpmvixVLVIMjLo/0+9ThVFFLEXmLNTPYJ/oRkqWFw3VOjzfhkneOC/NpPULOXJ4fB1zA/P0tJJRXsrE+NtpomR40e2hZJ8m49uCMm75XUpr/mKgc5ffkZEF0wyrZ4gENaeW654XUgRgN+0ZoUHkhkdpV3VlmHjkr/44uCFzyXGOCKsZLAg50tSiQQfnTp0pV3dRed9DGed8dPhSZvMud9ot9P/c6hb/9AJv5Z7Hqkj8yOmQRPIFmVKLKQgVIQq/QdtReCZBJvL4R6nJUCaAOfoPJB3M+QM=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 14460.905537224087,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "face_point_at_center": [
+          -45.90000000000001,
+          82.35000000000005,
+          0.0
+        ],
+        "face_bbox_min": [
+          -91.80000000000003,
+          -4.996003610813204e-16,
+          0.0
+        ],
+        "face_bbox_max": [
+          0.0,
+          164.7000000000001,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_19a6369822cff507"
+      }
+    },
+    {
+      "constraint_name": "Flush:18",
+      "constraint_type": "kFlushConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:12",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": null,
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:12",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQIAEgAAAAAAAAAAgAAAAEAAAADAAAABAAAAAYAAAAIAAAABgAAAAsAAAAGAAAADgAAAAYAAAARAAAABgAAABQAAAAGAAAAFgAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YBMN9RcABmJtRuAYJY0BQA4coYR5PBPfc0pRDagwwJ3sCX6WEDBwKr/AFcf9eKXKiSlwRLgeCwLZmFlTZiA7wulrQ63tRhohjRDSCCFkyxRjADoAZABjf9y/fgUQd7E9oUZOIwwUcl6x9cgd3WARAW3fFMlpNGUF4fXaj9uKEUic0IBBYaHGk5mcExsUtNjEOIM4w48JvUYuh4MGQUfbVArIJdwQmB+v+kE6Piwg78E0QDIp0mJQ5fW/alv2VX9qv+VH7ad+uY/6T/vyB/dPv2kf/L990+/tf39p3/u7/dLP7Xf/ts/9pP3t1/ZJf7av7WcfmF5RpmYEKiMnEZYUHK+lqKsaZchp5cdGktfuxXaFC3JmRwIMvXLq2YRhGP5CXo75GLEYch4BGYnyumk7cqpQMqm8kg5xoAXjpkSWHqEIBL4rMTxetfXS2Z7xISeNjg6r15d9l/8fhmHIqVQoLXJgl0qBKO2w0unkgVop876P8zJP+7ou47CPpNeFRS3zRMgZhOjBjlcZJchpwGXnw+tpKGpXkJwLUtj8vILXp532bGvAkZMGh4fn1QSlRxEHnxmrBE2wtGSLBAsBr1+Ap6iBZRKIBCISKEgKko0DwIKREbGqAxLgsxSPc4gxRmAMETgjIEycxFEwNCKlHWMI4Gewept73Sc8Ojc0XsdHI6qaHX2ckIfQmXHVcaMFDdkQlwZUNTv6OCEPoXOGZlT05iTlbLqAlX0rFsVQ45N0EYpCIdGclzsc/vDMgL9BVqTmnOF5bgKUeoMpXXmM1jROzVVZpclPWMfIM2f5hzwnrm7ej9s5Bn+rjnH6YE+BPfm0nkG4HZ58tujZN+UJQJBFOBvoyPP9pQ8Ke6XFdWi5JWttBYsWBUq6nCEeCjZnXAU8MUIydbKVOYJSGCIORk2sRwckiLIueY6Y0s1cnp4UzNQN210iuDNrLB94uezowysPCMkcQ//g/OlCDd9+nRt+clP3z9eeFPpFy/ejUxE05nZiGj1JX6njRanJcdFQ2L/IdEv6Bw==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.42045560883200445,
+        "face_normal_at_center": [
+          8.282472448326133e-34,
+          4.240625893542984e-33,
+          1.0
+        ],
+        "face_point_at_center": [
+          2.7755575615628914e-17,
+          -1.0547118733938987e-15,
+          0.08000000000000002
+        ],
+        "face_bbox_min": [
+          -0.5900000000000001,
+          -0.6812733176437595,
+          0.08000000000000002
+        ],
+        "face_bbox_max": [
+          0.5900000000000001,
+          0.6812733176437575,
+          0.08000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_94c91cfaf4d18689"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQZANAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAATAAAABgAAABYAAAAGAAAAGAAAAAYAAAAZAAAABgAAAB8AAAAGAAAAIgAAAAYAAAAkAAAABgAAACUAAAAGAAAAKAAAAAYAAAArAAAABgAAAC4AAAAGAAAAMQAAAAYAAAA0AAAABgAAADcAAAAGAAAAOgAAAAYAAAA9AAAABgAAAEAAAAAGAAAAQwAAAAYAAABJAAAABgAAAEwAAAAGAAAA",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YJMlPSYAKkOkC0HQmElzgAAcBCWcesCoyyyCCpY3tyIJxisgSYQdryAzmk4+BnZgoBIBKImjUhq8RGZRr/BOC9DQXww9ipCT38hOAZsAcACfANPeQAfwpv3nDeDd++c+7+49b5/P3j3nec++8+a5znvnOW+dy945j71lx3nHDnvj/OYNe9/c5q93zTkMrzBitz50tysbuFjM2eS+ZFx82JYEiUUhpbtdCVPDmqt5v4aqwBSIYCJkasuMQ9eXMy2gGLmiiiN2uA2SuZdMiFWVES6xYgR0WWRNno7McRuJgcOm5BCzo07LEwoNxswN7waXek+dwVvqC94MbnsvuIK37VFvBYd6Rz3BG+pP7wR3ej8dwdvpB94I3vQ+cAPvpjO9DXzpzfQC76UTeBe40pvAB7yVnvQe8No76QLetSO9BfzojXSj99GL3kYnehd96E10offQg95CD/AOOtA7wGk/uMCksKSo8Rgz5AgMEy0DsApRfszJbNKkSZPmBlNCr5cNje7GJUiULnMxWI3u5gLLTcwcThJKFGagOIHmBpIsJB4zUUTmYLmaGLEWinQ3D0NA1OY0vDP8wut6X7iFd9e53ha+9ea61nvrFd5az3pXOIV31rHeFH71xvqE99UlvCfc6i3hEd5Wh/CO8Ko3hD94V93B+8Gp3g7e4E31qf/WBa6ura4uK+vFpbWVtcX5ZFXIqqEBlXiHjNfNFRbW1dUVkJWVBAlWVlZdVRUECFVVVTxUVA4cUFFRyaSkpqakpKRubLYFC2w2Ww0UVFQUFBQUjpPT05OTk5NOU9OBA01NTa+eJSamJjhARJmoQuXF0hL3AtCDTFGRkVKtppRUVCs6OkpCqtWGiIiQjI6IjgIQFREJBfX0+ATRaEFAPbSergP6oXU02Wz249PNOg4265nFcGpsdGI6sp2aWE3OjQwW42KdDczmpfWB4+G0upsTmxcgczs3rxtuxr1eHPey0d3K6MhhZU5HRmwXhu52M2UoyVyOjyyBNqjhxBJJECkoSAqSjTmxBiIjQ2TaEqBRCB1kEIZBEApCCC0BESjhZwVKYJAyywfnXyDz9DjkqUy7ytZ0zWphaUSNpprwuoc2DcQcVZMs4eRQGPapyO7HuSSsqn/zm7Z2HQHqjht7GaOmVn/kT9nQTwYVh1QSqnWH99D68y1DMN94l5v4KVMLW+R853IPux+7cgrnjHdzEz5l9aBFzncN73HvsyMnybx4b7biUjb1zIHWsjOMwoTES3Fk1QYJ/Od2OVC/HYGKnOiOCbiguDIGzINGo0Bux/2d6oZgV3211LdjVdzEJ+WOGzo2CWs4a0b+kuFFllWTmToXTGtt+/o31rOKqDpmvixVLVIMjLo/0+9ThVFFLEXmLNTPYJ/oRkqWFw3VOjzfhkneOC/NpPULOXJ4fB1zA/P0tJJRXsrE+NtpomR40e2hZJ8m49uCMm75XUpr/mKgc5ffkZEF0wyrZ4gENaeW654XUgRgN+0ZoUHkhkdpV3VlmHjkr/44uCFzyXGOCKsZLAg50tSiQQfnTp0pV3dRed9DGed8dPhSZvMud9ot9P/c6hb/9AJv5Z7Hqkj8yOmQRPIFmVKLKQgVIQq/QdtReCZBJvL4R6nJUCaAOfoPJB3M+QM=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 14460.905537224087,
+        "face_normal_at_center": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "face_point_at_center": [
+          -45.90000000000001,
+          82.35000000000005,
+          0.0
+        ],
+        "face_bbox_min": [
+          -91.80000000000003,
+          -4.996003610813204e-16,
+          0.0
+        ],
+        "face_bbox_max": [
+          0.0,
+          164.7000000000001,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_19a6369822cff507"
+      }
+    },
+    {
+      "constraint_name": "Mate:29",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:10",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:10",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKbRgA1t9oR+AWJ40BlEWMcTETQ7MzwybDTt2KMhbNpZpF7ahm8L6OjeHJAqhOqLOQ+cJfdDAHRLIP5hgs6aToJWJg7W2WLNlGuxFCyJYpXgA8AF8AZ/+e4CLiMjWzCqkiePjV3mEHY4EK8onnvGYVMtLy8pvRhxyEIjwrrB5PcG4IkVGBJIrpwxzeMIZnfu3nF3YuGCxoweJDAyaQzsYBGb/7LR0eFI2/8AmYQXLAKEjyexJizErzwqblN4U+gH9SE/35l+ib/o9+6Zf0v9+jL38Sfe8f0Sf9Hf3RH+l3v4h+/Dn6on+jz9Hffu2H9N7GzIoDRaTFLyn1I7Zwy7zUa0WTQbgLT8zapCcFj9/RiPgECrNuOwIA/XanfW2nxGKx2K9S2eUh1ErMCvPRMeQ3ciZmDeGjDv2KzkAAhkQODpSdnwcs0okL65d7M514/7+aKa63UGX6UjNWMx5cL9vW9ZGUHKmwElkopCej9BZ2LvmdduTtxFcaZq0R5ADGb+llViYJpMrvt+RuhQUWmw4GGmxxN02TEuhmF5e1ZkUA4qbnV8KFMTUX+A2AuqihYSOBBJHCgqRQ2DjAgpEZoeoSALQYFWQGQUOMkWBqAomRKBlpUh0LJsw9ItmhxHCVLJurGlhFe+V94J9hE5mvabMAuWnq+jaRbG+YIFhQb4LWIU0FegZWGIqoWjVRPAjjeRAubrKZe8LcipKTpKNoKWzggTsTFUnY5NCKaER4EmyOhJeDrG/2fhLevZnkpdPpPol4Ui0KiKhy68bgN0aLh/usMfTWqVNUl0pMHHD7JPmTUdR1SSaMEk1CgdAZ6tApziYpPqvavTs4tlz9RuxCEDccTxMAnBxXFrABFMN1BDRBqMdXRuSES4JADqI6kDphiWAMSaXJ4g5DOrZSL47OvsmR0xrgoUpvYBwWDjCE/9UsB4aQontZuIqHrLNlaG0DLMTmj3fvOpHhpdsJsrfPAQWRDeTzmBcSGfnOxt8nykmM/P2Gzu73WEjdgFWEGn5z3koPSfateBFlssgd8KKfTS3e/w==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.9872302807629192,
+        "face_normal_at_center": [
+          -0.4999999999999999,
+          -0.8660254037844387,
+          0.0
+        ],
+        "face_point_at_center": [
+          -0.2750000000000001,
+          -0.47631397208144133,
+          -0.8600000000000002
+        ],
+        "face_bbox_min": [
+          -0.5500000000000002,
+          -0.6350852961085884,
+          -1.7200000000000004
+        ],
+        "face_bbox_max": [
+          0.0,
+          -0.3175426480542943,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_8db96c7314d31fab"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YDsHdRIARhpXQgB1k8bYytEgs71XWm/lXypdUDHf80JXzyPjoApYAGzJ1uOXO9vzbSNIeEgOS0K+3xp97fQvQF5kCSHSdluyN9kyBU4AMwBMAO69xdMLkekF3uJD0hkjIJRfan57IxMfilRA5oKpZqWm5GJEkUH8YQ1T+F3Mb4sxGCyAOcFpDsggUYcCG7/7MCQVIhyfITMghfBIOTnyexhAv5352X9Na/71c+Zbf5zP+eH8+G/mw7+av/nf/Gr++93f5lP/Ym0S8BUWSWcmPAjxG78cF3gECZK+HwRu/MYB7ToZ7RNQa63f4Vu4mPyeQ9+aOyHp6aXHkF9YoZBUBBBK87t5A4KUEi0elpRiHHwwJSEav9VLkeAQakhqQUb/X2ut2b5WYdBFa98C+DsuXiV4BQ6S5jA1mPGboUiKZIR5fjEKUtHtW9dUWE7we62KpDtERGD8Wm9fgLbU7rYUkiZhsUImd6hxaRLIiEiBQVIYNgPAgpGRqdsSoOQQ02ICSQxBxIgkEJl4JpqggtgB00WjE8AzANk6AyjEl5GS3QqMeQ4mnOc2MHJdLDtdFR6DrpdonkrJztv7j7tOQ4f9AjzYt/csXeQIWc/SjsdeFKx4P7eU5Ds62d+71ItCmuJn8DBILuHk7GODiL300my3sjJkB/bSJ+C3N4F4qBQmelOBb6CzNoXVL9ZSvxvecysXtDYhfYzh7s4ucKOC8BcPoD0AgPIW/tdywAzhjxiUG0aZOOfkUrQ4yelbqs1WBJ3fXG/QTCJYQy/9Jvc+LO1f7n8JqgY=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.09612881982007276,
+        "face_normal_at_center": [
+          -0.8660254037844393,
+          -0.49999999999999906,
+          0.0
+        ],
+        "face_point_at_center": [
+          -20.66935591745945,
+          31.277499989878226,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          -20.829570617159575,
+          30.999999989878223,
+          0.0
+        ],
+        "face_bbox_max": [
+          -20.50914121775933,
+          31.55499998987823,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_d597511a096c5ab1"
+      }
+    },
+    {
+      "constraint_name": "Mate:30",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:11",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:11",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKPRgApl9nRvC0JI0BmAaFYMRQqkcDZizk6ZMQnNioz8QWlgC1qh2fwZ9zyZP9FESdmEUzRl6yu9/QS69csIOnD3+7WyOEEEJ2I4TsLVNeADoAXgDxXxN4CfmDmVmHUBBC/FrvMFu1OP3syGuCZh0youLyG+lDDIiQIDxwRPxAtWyI8VBBiOVoEH8YwzK/1fMLsxcMFqhW8iICkyi7cWDG777qRsWpxl/wBEwfOV4UGP0es1KAYUHlF4X+yT+pif78S/RNv0e/9Hf0vZ+j3/0bfe7X6G9/Rl/7Jf3sJ9GXP0af9F/0MfrXb/2QfjCz4jgRcfG7zUIjJbPwih2MEO7CFLMm0WGx41czIZcwYdZLCIDPb2ayQdco3/d9PyrllYfQQjHrakfHkF+J4cxKokct+iWdocDLiZoOS3J6GgzolKzw/GJvvJFHkBH//33ft5YpbrcQZfI8o1S3HYwX1bYiRA44jLBRvcut5KxstdW4HHlKw6w2flpi/JZcZj1K0KX8ekiOxASQPCuklHtZUQL50ABhUTUrAhsand8OrgVhZjbwy22AuKixXRGRIFJYkBQKGwewghEZKeMBEkCEGNRjhDFDDDIyRIHESCgZEWlzCwZE1KFXifEsmxWBjhU1C+3R+T8mURD9Gb5ttWAsTbet4EaHUlLCEpesyGruGqTwNfC1JlEMEoZ3pQgjFrgXR+FAr/o0dD/s1mEZyhrO8858TbAiPR9DE/8fwSbUeX+Rl81Ft8M7s0lY9nRI0cULkaLhtnL4eywNu4qHfLZY5dfAKaGfzXNQpRBVArN0bvqHJxvrEqNLwZakAQHjwarzqFK8yvF7eeKYctkUkQeBFg2PxJ7kewwYC4V3zIDRPcYZvsDxPAL/Ux2VzqyRVJo6bp3Q7zRr3lCOr+6wswHiaUYFYC0WKzAE9pV1H0OA0b12reIwaTYzoW0eCGGDx+xz7ZBTqX0SY9IToQRSpz97f4mXWX6DDbbrOfn7gz+mM4CPZqkb9IpQ4zfIO+iSyL9Z/JIyGYwAuKK/RS1u/g==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.9872302807629197,
+        "face_normal_at_center": [
+          -1.0,
+          5.244443690136989e-16,
+          0.0
+        ],
+        "face_point_at_center": [
+          -0.55,
+          5.551115123125783e-17,
+          -0.8600000000000007
+        ],
+        "face_bbox_min": [
+          -0.5500000000000003,
+          -0.3175426480542943,
+          -1.7200000000000013
+        ],
+        "face_bbox_max": [
+          -0.5499999999999998,
+          0.3175426480542946,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_8da3f7680cae00ba"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YDsHdRIARhpXQhB1ksaQjiKd72AK1N8t8Fgmk2UurlszhZbWCsVo+dccloEAOU5JKOZb/rIWht41XdRSFS73/e0bIYSQvRvZm2yZAk4AMwBMAO69xRILUU0M3GWHpDZFPie/0/z2jpxQqSADasFSEVkhVQ5ARn/YwxiW8Dua3xZlGCyYKcFvEMgf8YaCGb/7My8oRDX+QmZABsmBMjLyexY+v5352X9Na/71V/OtP86vfjg//pz58Kfmc/43n5r/fve3+dO/WFsE/EGLpDYRIID4Db8VCb7CIunjUYDGbyTQrpHJvgG11vobfgUJwO859K05EpKWYnQI+YVUCUlD+KA3v5wzJEAZ4dJhCQyNgwOYklCMX+qdXuAqMiSl8CL/X2ut2b5GYdBFa98G+DsuXjDwCRoktVHTAMZvdiIpEhPM84tNcIpu37qW0jLo99oUSXGIhrj4td4+AW2n3W0mJE2iIkWPd6hxaRLIiEiBQVIYNgPAgpGRqdsSoOQQ02ICSQxBxIgkEJl4JpqggtgB00WjE8AzANk6AyjEl5GS3QqMeQ4mnOc2MHJdLDtdFR6DrpdonkrJztv7j7tOQ4f9AjzYt/csXeQIWc/SjsdeFKx4P7eU5Ds62d+71ItCmuJn8DBILuHk7GODiL300my3sjJkB/bSJ+C3N4F4qBQmelOBb6CzNoXVL9ZSvxvecysXtDYhfYzh7s4ucKOC8BcPoD0AgPIW/tdywAzhjxiUG0aZOOfkUrQ4yelbqs1WBJ3fXG/QTCJYQy/9Jvc+LO1f7n8JqgY=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.09612881982007183,
+        "face_normal_at_center": [
+          -0.8660254037844393,
+          -0.49999999999999906,
+          0.0
+        ],
+        "face_point_at_center": [
+          -20.66935591745948,
+          66.27749998987821,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          -20.8295706171596,
+          65.99999998987822,
+          0.0
+        ],
+        "face_bbox_max": [
+          -20.509141217759357,
+          66.55499998987821,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_ec19bf36ead8e37c"
+      }
+    },
+    {
+      "constraint_name": "Mate:31",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:12",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:12",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKVRgA1h9oRgCTk8bYFgkrSg0FwKO38oVinpLkwQCA0sUX4tGh2/Hwoah9M8JsYDYD4QE2pjl6SlhW9FlbZSzSKp17myVLttFuhBCyZQpcADwAXwBn/47gIOIQWGbVSUXo8Ku9w+6lwoQzE39xzarjo+TkN6MPOUoqeWxgMCnYKiVj5aBIhnnDF1b5tZpf2LFgsID1iu8MmDq6GQdg/O6zYkyYYryFT8DcUQOlAMjvASkvZl1p0VLyS6IP4J9URH/+Ifqi/6Mf+iX97/foyx9E3/s/9EF/R//zR/rd76Eff46+59/oc/S3X/shPd6izErD1GPFL+iUI7Zwy7yTS7WSQbgLS8w6ZIXixu8nRFzChFm3HJKb3260rm1SLBaL/amRTR5CbcSsrxkbPH4jR2LWDzjqzq9nDARQIl40FJGpeVCSRExofrk3i4kH/7+aKK63MCX6TjYqFQ+ul23b+kBBflAIEGlOSE9G6S3sWvIb7ceTiasyzCoDx4GL39DJrLAEcuT3E3KXokKphYOBBlvcTdOkvHG5xWWsWRF4cFn9SrgQheUCvwGAuqihYSOBBJHCgqRQ2DjAgpEZoeoSALQYFWQGQUOMkWBqAomRKBlpUh0LJsw9ItmhxHCVLJurGlhFe+V94J9hE5mvabMAuWnq+jaRbG+YIFhQb4LWIU0FegZWGIqoWjVRPAjjeRAubrKZe8LcipKTpKNoKWzggTsTFUnY5NCKaER4EmyOhJeDrG/2fhLevZnkpdPpPol4Ui0KiKhy68bgN0aLh/usMfTWqVNUl0pMHHD7JPmTUdR1SSaMEk1CgdAZ6tApziYpPqvavTs4tlz9RuxCEDccTxMAnBxXFrABFMN1BDRBqMdXRuSES4JADqI6kDphiWAMSaXJ4g5DOrZSL47OvsmR0xrgoUpvYBwWDjCE/9UsB4aQontZuIqHrLNlaG0DLMTmj3fvOpHhpdsJsrfPAQWRDeTzmBcSGfnOxt8nykmM/P2Gzu73WEjdgFWEGn5z3koPSfateBFlssgd8KKfTS3e/w==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.9872302807629192,
+        "face_normal_at_center": [
+          -0.4999999999999999,
+          -0.8660254037844387,
+          0.0
+        ],
+        "face_point_at_center": [
+          -0.2750000000000001,
+          -0.47631397208144133,
+          -0.8600000000000002
+        ],
+        "face_bbox_min": [
+          -0.5500000000000002,
+          -0.6350852961085884,
+          -1.7200000000000004
+        ],
+        "face_bbox_max": [
+          0.0,
+          -0.3175426480542943,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_8db96c7314d31fab"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YDsHdRIARhpXQgB1k8bYKKrO9K5Ka1f4jBKG7jD+QGzS2RL3PNXhTf9l69Hnemz4t40g6MUH2byIEWIDlf4XIC+yhBBpuy3Zm2yZAk4AMwBMAO69xROMkOkFzsJDUpoiH5Rfan57JamBAYxpwYYgR0YkGRAvZh6xiD184Xcxvy3KcNCgdILXHJBAog4FNn73Sy0rQji+Q1ZACplJOTHyexw+v5352X9Na/71c+Zbf5zP+eH8+G/mw7+av/nf/Gr++93f5lP/Ym0T8AgqktJYkEDiN78cEpxCBUlfDwI3fuOAdp2I9gmotdZfeRckk98z6FtzKCQ9vewY8gurFJKW+EFrfjd/QJBygiXEEpcYCAYwJaAav9VLtcAnwEiaYUb/X2ut2b5WYdBFa98C+DsuXi5wDCuS5jA9oPGboUiKRIR5fjEKUtHtW9dGKif4vXYkqUyISIxf6+0L0Jba3aZC0iQtWPgId6hxaRLIiEiBQVIYNgPAgpGRqdsSoOQQ02ICSQxBxIgkEJl4JpqggtgB00WjE8AzANk6AyjEl5GS3QqMeQ4mnOc2MHJdLDtdFR6DrpdonkrJztv7j7tOQ4f9AjzYt/csXeQIWc/SjsdeFKx4P7eU5Ds62d+71ItCmuJn8DBILuHk7GODiL300my3sjJkB/bSJ+C3N4F4qBQmelOBb6CzNoXVL9ZSvxvecysXtDYhfYzh7s4ucKOC8BcPoD0AgPIW/tdywAzhjxiUG0aZOOfkUrQ4yelbqs1WBJ3fXG/QTCJYQy/9Jvc+LO1f7n8JqgY=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.09612881982007183,
+        "face_normal_at_center": [
+          -0.8660254037844393,
+          -0.49999999999999906,
+          0.0
+        ],
+        "face_point_at_center": [
+          -20.6693559174595,
+          101.27749998987822,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          -20.82957061715962,
+          100.99999998987823,
+          0.0
+        ],
+        "face_bbox_max": [
+          -20.509141217759378,
+          101.55499998987823,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_09aea4f55faae97e"
+      }
+    },
+    {
+      "constraint_name": "Mate:32",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:12",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:12",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKLRgAJiBqR+DUJI0BJHny4yU4Xg41NGeAosCWzYr8SOAsh8mgsGE+zJGlBUWFuJwgKMp0MBxsiO48v8UllqILWtQ/7kYIIaSR3QghZMsUXwA8AF8Af/1rEhchf2AzK9IKgodf7D1uLRUpoyC5ztGsSEVWXn4v+lFDIdRTA0aAHz5wlsxMcGHhcObwhi0s4ceIfuPGgsECVkuuNGAmbTQOvPjdZ/GcSMX4Cp+A2eMGjIKl3wNyGRez1gjdrPyi0D/5J0XRnz9IH/V/9MHfo//9HX3v5+h3/4k+92/0T7+kv/0m+vLX6Jv+jL5GP/uxP9LdxsxqIyVkxS/3KiNDVxYzrFtFJG7cjT2zIgH62fF7GiGPMDNrlgNA0e92MtmjbJQwDMN/lXLLx4iVmLUVhCPIr9RMzBqCR1X6NX2BBYaEjgYlPkQNVLwkLS1+tffiCf8fhmGIbVxhqC9DeUNqdPwAkfmgSkFB5aZDAQMLcuC1Ghd38zofOQ2GWWUYuQz9gi+zHkngpfx+SQ4ygNhhcSu5jsPi5hXlzNAu1qwIdnKAfr24adwSzcq9vt0YYzOB34CyqKFdIiIiUliQFAobB+CCkREh8xIApBjSZIQxQwwiQiQicZJHAk3bt+S8x26Q5HgdlcgQIq8NQjqzjr2MLdOxOhmC3vIBfsXu4iA/Ero9LsGFMFeCxgkyHwWtOdcVqzTPio7Yd02v5m6iIMq8HYnSnifkG9cfk0abPgTjAnJx8TGzrmLOv3fD79kmjANu71xcvoWSTTMDkwRKrzo49KEjYy4fsqbZXAkHV4Zhg8IdCWQnMD/XXEHPaMGu3AnbJ56rzNSauWiOKAVBYFm5SAE+wzkMsHkB+vPfmcdYW8oEG5xj/ySCmtT4LIVV1VGmzMA/cSgyHkvAf/Hs4S1YOIQjAMbxXMRQ2K/mEQ516PfMpp4tJdqEGiW2GnL2EK9ld+k6sXXG40CJosP0LPYy47me4dm2g3Ia84C/kXMFPgalbkArgpbfyt9BW8IfLB5KmZzqBgbzH6HmEX8=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.9872302807629194,
+        "face_normal_at_center": [
+          -0.4999999999999998,
+          0.8660254037844388,
+          0.0
+        ],
+        "face_point_at_center": [
+          -0.2749999999999998,
+          0.47631397208144155,
+          -0.8600000000000007
+        ],
+        "face_bbox_min": [
+          -0.5499999999999998,
+          0.3175426480542945,
+          -1.7200000000000013
+        ],
+        "face_bbox_max": [
+          3.3306690738754696e-16,
+          0.6350852961085885,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_0655da4ef1be414d"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YDsHdRIARhpXQvCUk8aYho943c4Ti/5pHB76KLweB3H0zWHaM7hzrY+FagF7WpY7ZD6i2JDoVgI+GKUd9ujv4/w1awkhZLcle5MtU08AMwBLAO69xZOKEQ0MnEWHpDVDQiW/1Pz2XlANohgFDXB4TqDcpFQAYrrDHMbwhN/N/LbIwpRA5gS3KSB9xBoIYvzuy7SUGM34C50B8scNkxKR3wMWQr+e+Z0fm9d87LfmX3+cb/1wfvw58+Ffzef8b341//3ub/Opf7M2CLgDFUlrJDzw8BuWCxwlgqRvhwAZv1G2EmkfgP9Ta62/8ilcPj9o0bfmREh6gskR5BdWIyT90IPa/HLOYMAkBMuGIy8zDAhkRkQxv9VLtcAhwJA0pUX/X2ut1r5WZdDFax8kaS5iL3AKK5LSoFng4rdTIukNKQP9ZhSkott969qJygd+sT2R1MZIyIrf67UXYKndbSQkLYLCBI/fdqhhbRLIiEiBQVIYNgPQgpGRKdsSANUQk2ICSAxRZCIJRCSeiSaoIOYa0wVzCOj5wtUKA0/QfqS2Th8buadwlvNgkRarRbA0FvUwW9r7F56zpBxlaeK1p9OhcncXvY2ep8tUmuuJgEInHbx1YOKTpkC393sIvf9AQ35YHzqOMjDNussoIr5FfGXozsmBTzpfTIPGUYlMiE0xb4+bN/WhX6wxwM5QdFs9ZAaftNiEVmOsK2QGvaiQ/KMBVM8A+E+D+ssdiFfC97LHnicmT+txGVvKcfok1eYVQeE3l1PglGQQnod+k5UOTJk/sX8JqgY=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.09612881982007157,
+        "face_normal_at_center": [
+          0.8660254037844393,
+          -0.49999999999999917,
+          0.0
+        ],
+        "face_point_at_center": [
+          -21.630644115660225,
+          101.27749998987822,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          -21.790858815360345,
+          100.99999998987823,
+          0.0
+        ],
+        "face_bbox_max": [
+          -21.470429415960105,
+          101.55499998987823,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_805e573587a54732"
+      }
+    },
+    {
+      "constraint_name": "Mate:33",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:11",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:11",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAALAAAABgAAAA8AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKZRgA1t9oR9BWTRoDIAiOMCzllRPWFpOL/HgVRafKuud2SCiK3/WOBEZoFfwHlV8t9CxoOLT2mg1gHky+1t262Hk8vc0SQqTRboSQvWUKXQA9AF8Ax39N8BPyBzSztlQQRPxi73BzvTgF9chvhGZtHVlJ/Ub6UINpseSwGNJKmMjhwpO6gEDDIP7whmV+7OcXbjEaMFi55EkIzKENB0uN3/0VTouTjc/wDZhCeLwsUPJ7EWjMakFGzcovCn0A/6Ql+vMn0S/9H33S79H//o6+93P0u39En/s3+qNf0t9+EX35a/RFf0Zfo5/92A/pAbPuOBmB8cuhiPhstpFDDZmRiRFGuLtwxaxNdlz8+B2hkEuYMGvmIwDQ72ZaoWyU1+v1+lUptzyEmIpZXT09ivxKLWdWEkBqkl/RHAq8pLjx8ETnB0bFc9Iy41d7I448/79YSbTdQlXp+4K8OrhdzJb1cSgeDCo1IQ64eNLrNkqW55lGnY58psOsN4Ic+PySUrMyUeCl/H5L3lo6kFAQsFVYKTfDss4DspmlxdWsCUbY7Px6C2NoNvDbbUyAvKixYRNJECksSAqFjQOwgpEZqeoSAJQgVWQGKUOMMYHUiMRIKBnRpjoLBisNRXQYCVaRpWg5sVDRFEiHVYDy907/8U0PsCRAQVBAkc6oyzshsAysMJSoWBGlIQxhEHkBZtQCYyRL8/ktxK+KkmOmLdEkdULo1E5MSdiCZW24EFAJW3pediRtc2ZtGVXOCWWns35yh6TuKYGil63rl70DaLoxn7mDU0J3CgHsvIADbjuB9iRlSl0pNAkAkjCgyjkSOmUBkdIplD4LDsfO1eiIPQjSw5E0n6H7/skCVsQ1uDKKmaCRJ75o6U8JQARY1NQR0EmSonJLYozAqu6N+ZG14BkCOAneupWPgOMDZmOxaUPiX/d7HEra73mOGwMPZiXTWqYMg+3cpu6lLedS88mXKU+E8h+c/mz7MvsMvrnBdohyer54P5bz8R5zUjfYFWHMb/dtYihpnCl+SZlciYBH9GWoxc0f",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.9872302807629191,
+        "face_normal_at_center": [
+          0.4999999999999998,
+          -0.8660254037844388,
+          0.0
+        ],
+        "face_point_at_center": [
+          0.27500000000000013,
+          -0.47631397208144133,
+          -0.8600000000000005
+        ],
+        "face_bbox_min": [
+          -4.943951761882879e-17,
+          -0.6350852961085884,
+          -1.7200000000000009
+        ],
+        "face_bbox_max": [
+          0.5500000000000002,
+          -0.3175426480542944,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_eb19276d41895f0a"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YDsHbRIAJppWQQCVkuHYKBoSTK73Gp3oM0oXM2h/5R+pdcLs6hxq+i9zZxPNY0kpgRFEO3L0QijqrFlsnVqILEONENL2bmQTsmUKTwAzAE0A1L3BkgsRqeYN8yPOHCQoLN9JfnNEdLiAIFkxCXRsjG40qHAE55hFzOELP3XzbRCGAwY2pffOgTgE7lhQ49u3kVEhyvEbQAWiTo+WlSTfAxpQvifyQf8lLfnX/5Fv/VD+53/y4e+R//5Kvud38iv57qf+Jn/6i7VLvCO8xJljwWXEN5+Z9wQKcTogBHB8oYC2olI34A+QZVn2H77FDIA/dMq3Rp2Is1Tjo8j3VSjiJCFk7nw9d0DQYgImRBOaGwgGMCYpM77VnWTeEmjEmSFG/59lWXbVtQp7FLTqSsGL5o3BQ5w4pAcyviCWOJWoYKEvNr0JUq0r1UYvK/heHcXJQ2TkxddydbFT25YiziUsVgT5BnaocWkSyIhIgUFSGDYDwIKRESrbEsDUEFNjAkgMQWQiCUQknokmqCB1NdNFoxPA0/N8OgOpy7uRkt0CjGmOPuRyGyBVhUVSJV3aJVR4BlkvXnjKki0LVTpWOiAdKql+aJfZs3RxA2U9UVR0Mo55LW+aZB86ud+/rbcG2oPWx0OW77HkLBRsIsJa65c1PZAve5K+vQ3Eh0oxATSFfbuoYVPw/eJArncE1NvKVGYKcmxr1oCxgmoPqqgQ/OMD6A8CgAoL/Rc78GDhb8zODaJMuGhyUVtOchaTavsVYfFb2TvKSSzT0Mvf5HzCqf0n+Tfuag==",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.0961288198200725,
+        "face_normal_at_center": [
+          -6.548780974747465e-16,
+          1.0,
+          0.0
+        ],
+        "face_point_at_center": [
+          -21.150000016559844,
+          65.44499998987821,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          -21.470429415960083,
+          65.44499998987821,
+          0.0
+        ],
+        "face_bbox_max": [
+          -20.8295706171596,
+          65.44499998987821,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_e007f3da06eced81"
+      }
+    },
+    {
+      "constraint_name": "Mate:34",
+      "constraint_type": "kMateConstraintObject",
+      "constraint_extra_info": null,
+      "suppressed": false,
+      "occurrence_one": "0298100025-M1-00:10",
+      "occurrence_two": "1830053465-P1:1",
+      "offset_cm": 0.0,
+      "angle_rad": null,
+      "mate_type": "kMateConstraintObject",
+      "angle_type": null,
+      "inside_tangency": null,
+      "entity_one": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "0298100025-M1-00:10",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\0298100025-M1-00.ipt",
+        "reference_key_string": "AQQGADgAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAA4AAAAGAAAAEQAAAAYAAAASAAAABgAAAA==",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YFYKFRgAJuBpR+C0Jo0B5GWIkxaFOeGUf7f2n0NbUQFpnzqnwVm4xijAwwdYA7qtx6XU5wQBHjx49xtpKF0OEpVVQ9//tmaNGLG7LSFkb5kCXQA9AF8AD/9VvUnEG9TM+mo5CPGbvT8JU7Ea8onfEM36EsLy8gvpv81ERw5KCxpqJNMDAYMLkgoog/jDGab5s6DfJ1coSOCCxYcImEVyRoEXv/sunJ0VjL9wAjB52IBBQOT38QcuZqXAwgLL7wl9k3/SFP35o+in/hN91N/RP/0m+t3P0Tf9JfrcL+mX/khf/iT68d/ok36N/kZf+7P/0bPWWAXp+eWeBSQGNbhQy+QsHz8Ld/ehmDUJT4ocv6UScZkIs2o4VIR+pWqJTNonsVgs9rdSbvn3spxZYT43fvzG7cSsI3bUIb+kNQyAMXHTYYlO0IIAnZIWoN/thTgB//+qXitLnbRUZ4T1onE0syIlLIpDvc26JzuTTnzChlljDLn8/KJeZj1yoEv5PRU5mlmJQDs9Wh6KGHBQ2eW4mG1cJ2QjY4OuWQ2IsOH57Z7cOKONC2Fp98XUTODXtDEBgLGooWUigQSRwoKkUNg4wIKRGaHiBhJg0xwVVALFEDHGkCEKJH4kmoAmdb+5dg9qM4kJJyFwdN+WcxxyFzFhZ9cBgLGLuHMmg4T5SujFKwiXcwzRSoUTtH1wND7zI1zuqmZBX4Msgph9Gry83SatHeBzUnjmTMjp98fI6QADOU1p95CTffFV0MV1oH0RQHBDSfMu4aC0Lo+QG+qS7E77xialWvqM8MScxStMsx1721fxYUPCEDqChi179NOu04TVANNWl8kZYYwxIgUCsfJ0QR6gT4+kAMMSIOTkXgCbfoFv6DjskoK0wCMXaIFTGCLrNLCM+8AUQh+ke5nb7d2t4RiAUXiwMhTjS+aYhwCje53yFtsE6IOb973/K7cMLZ1OEL15PihYZ6A+b15k2N4n1tY+oJx0HPQbdvagx0DqBkRFqPOb+z30STrPxIsok5WwgB/9VNQ8/Q8=",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.987230280762919,
+        "face_normal_at_center": [
+          1.0,
+          -3.4962957934246614e-16,
+          0.0
+        ],
+        "face_point_at_center": [
+          0.5500000000000003,
+          -1.6653345369377348e-16,
+          -0.86
+        ],
+        "face_bbox_min": [
+          0.5500000000000002,
+          -0.3175426480542944,
+          -1.72
+        ],
+        "face_bbox_max": [
+          0.5500000000000004,
+          0.31754264805429405,
+          0.0
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_69f55641ddc471ec"
+      },
+      "entity_two": {
+        "entity_type": "FaceProxy",
+        "proxy_context_occurrence": "1830053465-P1:1",
+        "owner_document": "E:\\Phase 1\\Assembly 8\\1830053465-P1.ipt",
+        "reference_key_string": "AQQFADAAAAAAAAAAAgAAAAEAAAADAAAABwAAAAYAAAAKAAAABgAAAAwAAAAGAAAADQAAAAYAAAA=",
+        "context_key_string": "nsIrpNQR6AFgAC2z7in7sAQAAB5AAADIMgIotS/9YDsHZRIAJlpWQQCVkuFYQmBI4Kzapz0xFzfpAG415TMuVgoJrM6hpv/B9vDbs+blJtf4duCwFGCaWZf36T2MHWsjpLW9G9mEbJkCTgA0AEwA1J290goSDo37RQeUOkNMUr5TfNbmTk5PzYecmVHJSgghOXq07OEOY3jCT9182WvBYIFNyc1zAP54NRTE+PZtYGZIM/6CyADcuaGCQuR7Fky+AOKLfiuG4ls/KH7of/FBv4v//k9891fxP3+LX8VvP/Wz+NPfiz3C7cAFSh0JD0B8A6AYd0sEKNuOAjK+bwBDOWkj8AuYc87f8CpiAvwkj54xqgSUJRocQL6uMgGlCB+S5/s5AwIVEi8cjsjcrJRcRkYvvtWdYNwQYEBZoSb/P+ecVhurLke9UFupZ8m4KWiAkgZOAxdfUQqURU4uku81uelRbSvFWFxO8LXKAqUNUhAW31Brg53ashNQ9qRAweMbdqhxaRLIiEiBQVIYNgPAgpERKtsSwNQQU2MCSAxBZCIJRCSeiSaoIHU100WjE8DT83w6A6nLu5GS3QKMaY4+5HIbIFWFRVIlXdolVHgGWS9eeMqSLQtVOlY6IB0qqX5ol9mzdHEDZT1RVHQyjnktb5pkHzq537+ttwbag9bHQ5bvseQsFGwiwlrrlzU9kC97kr69DcSHSjEBNIV9u6hhU/D94kCudwTU28pUZgpybGvWgLGCag+qqBD84wPoDwKACgv9FzvwYOFvzM4Noky4aHJRW05yFpNq+xVh8VvZO8pJLNPQy9/kfMKp/Sf5N+5q",
+        "bind_succeeded": true,
+        "bind_match_type": "kUniqueSolution",
+        "key_extraction_error": null,
+        "surface_type": "kPlaneSurface",
+        "area_cm2": 0.0961288198200725,
+        "face_normal_at_center": [
+          -6.548780974747465e-16,
+          1.0,
+          0.0
+        ],
+        "face_point_at_center": [
+          -21.150000016559815,
+          30.44499998987823,
+          0.07500000000000001
+        ],
+        "face_bbox_min": [
+          -21.470429415960055,
+          30.444999989878227,
+          0.0
+        ],
+        "face_bbox_max": [
+          -20.829570617159572,
+          30.44499998987823,
+          0.15000000000000002
+        ],
+        "curve_type": null,
+        "length_cm": null,
+        "edge_midpoint": null,
+        "edge_tangent_at_mid": null,
+        "work_feature_name": null,
+        "geometry_hash": "face_393d42b10028e944"
+      }
+    }
+  ]
+}
