@@ -10,12 +10,14 @@ namespace InventorAssemblyExporter
     {
         static Inventor.Application invApp;
 
+        // --- PERFORMANCE CACHE ---
+        // Maps Document.FullFileName to its ReferenceKey Context Data
         static Dictionary<string, KeyContextData> contextCache = new Dictionary<string, KeyContextData>();
 
         static void Main(string[] args)
         {
-            string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\assembliesexport";
+            string baseInputRoot = @"E:\Phase 1\New-Assemblies";
+            string baseOutputRoot = @"E:\Phase 1\assembliesexport-new";
 
             try
             {
@@ -120,19 +122,15 @@ namespace InventorAssemblyExporter
                             health_status = joint.HealthStatus.ToString(),
                             suppressed = joint.Suppressed,
                             node_one_id = joint.OccurrenceOne?.Name,
-                            node_two_id = joint.OccurrenceTwo?.Name,
-                            has_linear_limit = joint.Definition.HasLinearPositionLimits,
-                            has_angular_limit = joint.Definition.HasAngularPositionLimits
+                            node_two_id = joint.OccurrenceTwo?.Name
                         };
                         
-                        if (jEdge.has_linear_limit) {
-                            jEdge.linear_start_cm = joint.Definition.LinearPositionStartLimit.Value;
-                            jEdge.linear_end_cm = joint.Definition.LinearPositionEndLimit.Value;
-                        }
-                        if (jEdge.has_angular_limit) {
-                            jEdge.angular_start_rad = joint.Definition.AngularPositionStartLimit.Value;
-                            jEdge.angular_end_rad = joint.Definition.AngularPositionEndLimit.Value;
-                        }
+                        // FIXED: Dynamic retrieval of joint limits to avoid missing definitions
+                        dynamic dynJointDef = joint.Definition;
+                        try { jEdge.linear_start_cm = (double)dynJointDef.LinearPositionStartLimit.Value; jEdge.has_linear_limit = true; } catch { }
+                        try { jEdge.linear_end_cm = (double)dynJointDef.LinearPositionEndLimit.Value; jEdge.has_linear_limit = true; } catch { }
+                        try { jEdge.angular_start_rad = (double)dynJointDef.AngularPositionStartLimit.Value; jEdge.has_angular_limit = true; } catch { }
+                        try { jEdge.angular_end_rad = (double)dynJointDef.AngularPositionEndLimit.Value; jEdge.has_angular_limit = true; } catch { }
                         
                         export.assembly_graph.joint_edges.Add(jEdge);
                     }
@@ -154,7 +152,9 @@ namespace InventorAssemblyExporter
         // ==========================================
         // GRAPH NODES (Occurrences + DOF Extraction)
         // ==========================================
-        static void ExtractOccurrences(ComponentOccurrences occurrences, List<ComponentNode> nodes, string parentPath)
+        
+        // FIXED: Using IEnumerable to handle both ComponentOccurrences and ComponentOccurrencesEnumerator
+        static void ExtractOccurrences(System.Collections.IEnumerable occurrences, List<ComponentNode> nodes, string parentPath)
         {
             foreach (ComponentOccurrence occ in occurrences)
             {
