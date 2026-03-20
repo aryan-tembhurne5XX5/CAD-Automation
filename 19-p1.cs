@@ -12,8 +12,8 @@ namespace InventorPartExporter
 
         static void Main(string[] args)
         {
-            string baseInputRoot = @"E:\Phase 1";
-            string baseOutputRoot = @"E:\Phase 1\partsexport";
+            string baseInputRoot = @"E:\Phase 1\New-Assemblies";
+            string baseOutputRoot = @"E:\Phase 1\partsexport-new";
 
             try
             {
@@ -55,7 +55,7 @@ namespace InventorPartExporter
 
                 ReferenceKeyManager mgr = partDoc.ReferenceKeyManager;
                 int keyContext = mgr.CreateKeyContext();
-                
+
                 // FIXED: Dynamic Memory Allocation
                 byte[] ctxArray = new byte[0];
                 mgr.SaveContextToArray(keyContext, ref ctxArray);
@@ -77,38 +77,39 @@ namespace InventorPartExporter
                 {
                     Box rb = def.RangeBox;
                     export.bounding_box = new BoundingBox { min = ToPoint(rb.MinPoint), max = ToPoint(rb.MaxPoint) };
-                } catch { }
+                }
+                catch { }
 
                 // --- 1. PARAMETRICS (Model & User) ---
                 Console.WriteLine("  Extracting Parameters...");
                 foreach (ModelParameter param in def.Parameters.ModelParameters)
                 {
-                    try { export.parameters.Add(new ParameterData { name = param.Name, type="Model", expression = param.Expression, value_cm = param.Value }); } catch { }
+                    try { export.parameters.Add(new ParameterData { name = param.Name, type = "Model", expression = param.Expression, value_cm = param.Value }); } catch { }
                 }
                 foreach (UserParameter param in def.Parameters.UserParameters)
                 {
-                    try { export.parameters.Add(new ParameterData { name = param.Name, type="User", expression = param.Expression, value_cm = param.Value }); } catch { }
+                    try { export.parameters.Add(new ParameterData { name = param.Name, type = "User", expression = param.Expression, value_cm = param.Value }); } catch { }
                 }
 
                 // --- 2. MULTI-BODY DATA ---
-Console.WriteLine("  Extracting Solid Bodies...");
-foreach (SurfaceBody body in def.SurfaceBodies)
-{
-    double vol = 0;
-    try 
-    { 
-        // Correct C# Interop way to call a parameterized COM property
-        double[] tolerances = new double[0];
-        vol = body.get_Volume(ref tolerances); 
-    } 
-    catch 
-    { 
-        // Ultimate fallback using dynamic dispatch
-        try { dynamic b = body; vol = (double)b.Volume; } catch { }
-    }
-    
-    export.bodies.Add(new BodyData { body_name = body.Name, volume_cm3 = vol });
-}
+                Console.WriteLine("  Extracting Solid Bodies...");
+                foreach (SurfaceBody body in def.SurfaceBodies)
+                {
+                    double vol = 0;
+                    try
+                    {
+                        dynamic dynBody = body;
+
+                        vol = (double)dynBody.Volume[Type.Missing];
+                    }
+                    catch
+                    {
+                        // Ultimate fallback using dynamic dispatch
+                        try { dynamic dynBody = body; vol = (double)dynBody.Volume; } catch { }
+                    }
+
+                    export.bodies.Add(new BodyData { body_name = body.Name, volume_cm3 = vol });
+                }
 
                 // --- 3. TRUE B-REP & FACE LOOPS ---
                 Console.WriteLine("  Extracting Faces, Edges, and Face Loops...");
@@ -116,7 +117,7 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                 {
                     foreach (Face face in body.Faces)
                         export.faces.Add(ExtractFace(face, mgr, keyContext));
-                    
+
                     foreach (Edge edge in body.Edges)
                         export.edges.Add(ExtractEdge(edge, mgr, keyContext));
                 }
@@ -170,13 +171,15 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                 byte[] key = new byte[0]; // FIXED
                 face.GetReferenceKey(ref key, keyContext);
                 data.reference_key_string = mgr.KeyToString(key);
-            } catch { }
+            }
+            catch { }
 
             try
             {
                 Box box = face.Evaluator.RangeBox;
                 data.bbox_min = ToPoint(box.MinPoint); data.bbox_max = ToPoint(box.MaxPoint);
-            } catch { }
+            }
+            catch { }
 
             try
             {
@@ -187,7 +190,8 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                 eval.GetNormal(ref pars, ref normal);
                 eval.GetPointAtParam(ref pars, ref pt);
                 data.normal = normal; data.center = pt;
-            } catch { }
+            }
+            catch { }
 
             try { if (face.SurfaceType == SurfaceTypeEnum.kCylinderSurface) data.radius_cm = ((Cylinder)face.Geometry).Radius; } catch { }
             try { if (face.CreatedByFeature != null) data.created_by_feature = face.CreatedByFeature.Name; } catch { }
@@ -203,7 +207,8 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                         byte[] eKey = new byte[0]; // FIXED
                         loopEdge.GetReferenceKey(ref eKey, keyContext);
                         loopData.edge_reference_keys.Add(mgr.KeyToString(eKey));
-                    } catch { }
+                    }
+                    catch { }
                 }
                 data.loops.Add(loopData);
             }
@@ -219,7 +224,8 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                 byte[] key = new byte[0]; // FIXED
                 edge.GetReferenceKey(ref key, keyContext);
                 data.reference_key_string = mgr.KeyToString(key);
-            } catch { }
+            }
+            catch { }
 
             try
             {
@@ -232,11 +238,12 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                 double[] arr = { midParam }, pt = new double[3], tan = new double[3];
                 eval.GetPointAtParam(ref arr, ref pt);
                 eval.GetTangent(ref arr, ref tan);
-                
+
                 data.midpoint = pt; data.tangent = tan;
                 data.start_vertex = new double[] { edge.StartVertex.Point.X, edge.StartVertex.Point.Y, edge.StartVertex.Point.Z };
                 data.end_vertex = new double[] { edge.StopVertex.Point.X, edge.StopVertex.Point.Y, edge.StopVertex.Point.Z };
-            } catch { }
+            }
+            catch { }
 
             data.adjacent_faces = new List<string>();
             foreach (Face adjacentFace in edge.Faces)
@@ -246,7 +253,8 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                     byte[] refKey = new byte[0]; // FIXED
                     adjacentFace.GetReferenceKey(ref refKey, keyContext);
                     data.adjacent_faces.Add(mgr.KeyToString(refKey));
-                } catch { }
+                }
+                catch { }
             }
             return data;
         }
@@ -261,12 +269,14 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                 eval.GetLengthAtParam(s, e, out length);
                 return length;
             }
-            catch 
-            { 
-                try {
+            catch
+            {
+                try
+                {
                     Point p1 = edge.StartVertex.Point, p2 = edge.StopVertex.Point;
                     return Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2) + Math.Pow(p2.Z - p1.Z, 2));
-                } catch { return 0; }
+                }
+                catch { return 0; }
             }
         }
 
@@ -276,28 +286,36 @@ foreach (SurfaceBody body in def.SurfaceBodies)
         static SketchData ExtractSketch(PlanarSketch sketch, ReferenceKeyManager mgr, int keyContext)
         {
             var data = new SketchData { name = sketch.Name, visible = sketch.Visible };
-            
-            try {
+
+            try
+            {
                 foreach (SketchLine line in sketch.SketchLines)
                     data.lines.Add(new double[] { line.StartSketchPoint.Geometry.X, line.StartSketchPoint.Geometry.Y, line.EndSketchPoint.Geometry.X, line.EndSketchPoint.Geometry.Y });
-            } catch { }
+            }
+            catch { }
 
-            try {
+            try
+            {
                 foreach (SketchCircle circ in sketch.SketchCircles)
                     data.circles.Add(new double[] { circ.CenterSketchPoint.Geometry.X, circ.CenterSketchPoint.Geometry.Y, circ.Radius });
-            } catch { }
+            }
+            catch { }
 
             // GEOMETRIC CONSTRAINTS
-            try {
+            try
+            {
                 foreach (GeometricConstraint gc in sketch.GeometricConstraints)
                     data.geometric_constraints.Add(gc.Type.ToString().Replace("Object", ""));
-            } catch { }
+            }
+            catch { }
 
             // DIMENSION CONSTRAINTS
-            try {
+            try
+            {
                 foreach (DimensionConstraint dc in sketch.DimensionConstraints)
                     data.dimension_constraints.Add(new SketchDim { type = dc.Type.ToString().Replace("Object", ""), value = dc.Parameter.Value });
-            } catch { }
+            }
+            catch { }
 
             return data;
         }
@@ -322,7 +340,8 @@ foreach (SurfaceBody body in def.SurfaceBodies)
                     wp.GetReferenceKey(ref key, keyContext);
                     wpData.reference_key_string = mgr.KeyToString(key);
                     export.work_planes.Add(wpData);
-                } catch { } 
+                }
+                catch { }
             }
         }
 
@@ -330,13 +349,15 @@ foreach (SurfaceBody body in def.SurfaceBodies)
         {
             var node = new FeatureNode { feature_name = feat.Name, feature_type = ClassifyFeature(feat), suppressed = feat.Suppressed };
             dynamic dynFeat = feat;
-            
+
             // EXTRACT FEATURE OPERATIONS (Crucial for Generative CAD)
-            try {
+            try
+            {
                 if (feat is ExtrudeFeature) node.operation = ((ExtrudeFeature)feat).Operation.ToString();
                 else if (feat is RevolveFeature) node.operation = ((RevolveFeature)feat).Operation.ToString();
                 else if (feat is SweepFeature) node.operation = ((SweepFeature)feat).Operation.ToString();
-            } catch { }
+            }
+            catch { }
 
             try { foreach (object dep in dynFeat.DependentFeatures) { dynamic d = dep; node.child_features.Add((string)d.Name); } } catch { }
             try { foreach (object dep in dynFeat.DependedOnFeatures) { dynamic d = dep; node.parent_features.Add((string)d.Name); } } catch { }
@@ -364,8 +385,12 @@ foreach (SurfaceBody body in def.SurfaceBodies)
             string holeType = hole.Tapped ? "Tapped" : "Simple";
             double diam_cm = 0;
             try { diam_cm = hole.HoleDiameter.Value; } catch { }
-            list.Add(new ConnectionPoint {
-                id = Guid.NewGuid().ToString(), feature_name = hole.Name, feature_type = "Hole", suppressed = hole.Suppressed,
+            list.Add(new ConnectionPoint
+            {
+                id = Guid.NewGuid().ToString(),
+                feature_name = hole.Name,
+                feature_type = "Hole",
+                suppressed = hole.Suppressed,
                 hole_properties = new HoleProperties { hole_type = holeType, diameter_cm = diam_cm, is_threaded = hole.Tapped }
             });
             return list;
@@ -414,12 +439,13 @@ foreach (SurfaceBody body in def.SurfaceBodies)
     public class FaceData { public int transient_key { get; set; } public string reference_key_string { get; set; } public string surface_type { get; set; } public double area_cm2 { get; set; } public double[] normal { get; set; } public double[] center { get; set; } public double? radius_cm { get; set; } public PointData bbox_min { get; set; } public PointData bbox_max { get; set; } public string created_by_feature { get; set; } public List<LoopData> loops { get; set; } = new List<LoopData>(); }
     public class LoopData { public bool is_outer { get; set; } public List<string> edge_reference_keys { get; set; } = new List<string>(); }
     public class EdgeData { public int transient_key { get; set; } public string reference_key_string { get; set; } public string curve_type { get; set; } public double length_cm { get; set; } public double[] midpoint { get; set; } public double[] tangent { get; set; } public double[] start_vertex { get; set; } public double[] end_vertex { get; set; } public List<string> adjacent_faces { get; set; } }
-    
-    public class SketchData { 
-        public string name { get; set; } 
-        public bool visible { get; set; } 
-        public List<double[]> lines { get; set; } = new List<double[]>(); 
-        public List<double[]> circles { get; set; } = new List<double[]>(); 
+
+    public class SketchData
+    {
+        public string name { get; set; }
+        public bool visible { get; set; }
+        public List<double[]> lines { get; set; } = new List<double[]>();
+        public List<double[]> circles { get; set; } = new List<double[]>();
         public List<string> geometric_constraints { get; set; } = new List<string>();
         public List<SketchDim> dimension_constraints { get; set; } = new List<SketchDim>();
     }
